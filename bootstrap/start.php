@@ -30,7 +30,9 @@ $env = $app->detectEnvironment(array(
         'JOELGUGGER',
         'Think-bob',
         'g_giggaPlease',
-        'ChristianHeimann',
+        'christianheimann.*',
+        'ChristianHeimann.*',
+
     ),
 ));
 
