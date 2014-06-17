@@ -12,12 +12,12 @@ class CreateForeignKeys extends Migration {
 						->onDelete('no action')
 						->onUpdate('no action');
 		});
-		Schema::table('group_ressource', function(Blueprint $table) {
+		Schema::table('group_ressources', function(Blueprint $table) {
 			$table->foreign('group_id')->references('id')->on('groups')
 						->onDelete('no action')
 						->onUpdate('no action');
 		});
-		Schema::table('group_ressource', function(Blueprint $table) {
+		Schema::table('group_ressources', function(Blueprint $table) {
 			$table->foreign('ressource_id')->references('id')->on('ressources')
 						->onDelete('no action')
 						->onUpdate('no action');
@@ -128,12 +128,12 @@ class CreateForeignKeys extends Migration {
 						->onUpdate('no action');
 		});
 		Schema::table('events', function(Blueprint $table) {
-			$table->foreign('image_id')->references('id')->on('images')
+			$table->foreign('representer_id')->references('id')->on('representers')
 						->onDelete('no action')
 						->onUpdate('no action');
 		});
 		Schema::table('events', function(Blueprint $table) {
-			$table->foreign('representer_id')->references('id')->on('representers')
+			$table->foreign('image_id')->references('id')->on('images')
 						->onDelete('no action')
 						->onUpdate('no action');
 		});
@@ -189,11 +189,11 @@ class CreateForeignKeys extends Migration {
 		Schema::table('groups', function(Blueprint $table) {
 			$table->dropForeign('groups_group_id_foreign');
 		});
-		Schema::table('group_ressource', function(Blueprint $table) {
-			$table->dropForeign('group_ressource_group_id_foreign');
+		Schema::table('group_ressources', function(Blueprint $table) {
+			$table->dropForeign('group_ressources_group_id_foreign');
 		});
-		Schema::table('group_ressource', function(Blueprint $table) {
-			$table->dropForeign('group_ressource_ressource_id_foreign');
+		Schema::table('group_ressources', function(Blueprint $table) {
+			$table->dropForeign('group_ressources_ressource_id_foreign');
 		});
 		Schema::table('users', function(Blueprint $table) {
 			$table->dropForeign('users_language_id_foreign');
@@ -259,10 +259,10 @@ class CreateForeignKeys extends Migration {
 			$table->dropForeign('events_event_type_id_foreign');
 		});
 		Schema::table('events', function(Blueprint $table) {
-			$table->dropForeign('events_image_id_foreign');
+			$table->dropForeign('events_representer_id_foreign');
 		});
 		Schema::table('events', function(Blueprint $table) {
-			$table->dropForeign('events_representer_id_foreign');
+			$table->dropForeign('events_image_id_foreign');
 		});
 		Schema::table('artists_musicians', function(Blueprint $table) {
 			$table->dropForeign('artists_musicians_musician_id_foreign');

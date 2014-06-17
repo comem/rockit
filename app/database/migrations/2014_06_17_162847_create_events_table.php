@@ -11,6 +11,7 @@ class CreateEventsTable extends Migration {
 			$table->increments('id');
 			$table->timestamp('start_date_hour')->unique();
 			$table->integer('event_type_id')->unsigned();
+			$table->integer('representer_id')->unsigned();
 			$table->integer('image_id')->unsigned();
 			$table->timestamp('ending_date_hour')->nullable();
 			$table->time('opening_doors')->nullable();
@@ -24,7 +25,6 @@ class CreateEventsTable extends Migration {
 			$table->text('notes')->nullable();
 			$table->timestamps();
 			$table->timestamp('published_at')->nullable();
-			$table->integer('representer_id')->unsigned();
 		});
 	}
 
