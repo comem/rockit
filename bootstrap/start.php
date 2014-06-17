@@ -28,7 +28,7 @@ $env = $app->detectEnvironment(array(
     'local' => array(
         'MathiasOberson',
         'JOELGUGGER',
-        'Think-bob',
+        'Think-Bob',
         'g_giggaPlease',
         'christianheimann.*',
         'ChristianHeimann.*',
