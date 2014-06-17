@@ -12,4 +12,4 @@ Le groupe Rock It est composé de :
 # Version stable
 
 la version stable actuelle est accessible à l'adresse suivante :
-(http://pingouin.heig-vd.ch/rockit)
+http://pingouin.heig-vd.ch/rockit
