@@ -32,7 +32,7 @@ $env = $app->detectEnvironment(array(
         'g_giggaPlease',
         'christianheimann.*',
         'ChristianHeimann.*',
-
+        'PC-Fixe',
     ),
 ));
 
