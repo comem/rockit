@@ -1,0 +1,14 @@
+
+Ressources: 
+
+$table->unique( array('verb','url') );
+
+
+Representer:
+
+$table->unique( array('phone','email') );
+
+Lineups:
+
+$table->unique( array('musician_id','artist_id','instrument_id') );
+

@@ -13,7 +13,7 @@ class CreatePerformersTable extends Migration {
 			$table->integer('event_id')->unsigned();
 			$table->integer('order');
 			$table->boolean('is_support');
-			$table->timestamp('artist_our_of_arrival');
+			$table->timestamp('artist_hour_of_arrival');
 		});
 	}
 
