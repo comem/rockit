@@ -1,6 +1,6 @@
 <?php
 
-class PublicationController extends \BaseController {
+class SharingController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.

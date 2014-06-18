@@ -1,6 +1,6 @@
 <?php
 
-class LineUpController extends \BaseController {
+class LineupController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
