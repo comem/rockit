@@ -47,5 +47,26 @@ class SharingController extends \BaseController {
 		//
 	}
 
+	/**
+	 * Publish the specified resource on the specified platform.
+	 *
+	 * @param  int  $id, int $platform
+	 * @return Response
+	 */
+	public function publish($id, $platform)
+	{
+		//
+	}
+
+	/**
+	 * Unpublish the specified resource from the specified platform.
+	 *
+	 * @param  int  $id, int $platform
+	 * @return Response
+	 */
+	public function unpublish($id, $platform)
+	{
+		//
+	}
 
 }
