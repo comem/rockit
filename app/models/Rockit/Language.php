@@ -2,6 +2,8 @@
 
 namespace Rockit;
 
+use \Eloquent;
+
 class Language extends Eloquent {
 
     protected $table = 'languages';

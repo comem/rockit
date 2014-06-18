@@ -16,7 +16,6 @@ class CreateResourcesTable extends Migration {
             $table->string('controller', 250);
             $table->string('method', 250);
             $table->timestamps();
-            $table->softDeletes();
             $table->unique(array('controller', 'method'));
         });
     }

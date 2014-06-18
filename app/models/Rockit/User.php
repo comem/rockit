@@ -5,6 +5,7 @@ namespace Rockit;
 use Illuminate\Auth\UserTrait;
 use Illuminate\Auth\UserInterface;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
+use \Eloquent;
 
 class User extends Eloquent implements UserInterface {
 

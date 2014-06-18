@@ -1,11 +1,12 @@
 <?php
 
+namespace ResourceSeeders;
+
 use Rockit\Resource;
 
-class ResourceTableDestroyMethodSeeder {
+class DestroyMethodSeeder {
 
     public static function seed() {
-        DB::table('resources')->delete();
         Resource::create(array(
             'id' => 1,
             'controller' => 'AddressController',
@@ -58,91 +59,101 @@ class ResourceTableDestroyMethodSeeder {
         ));
         Resource::create(array(
             'id' => 11,
-            'controller' => 'IllustrationController',
+            'controller' => 'GuaranteeController',
             'method' => 'destroy',
         ));
         Resource::create(array(
             'id' => 12,
-            'controller' => 'ImageController',
+            'controller' => 'IllustrationController',
             'method' => 'destroy',
         ));
         Resource::create(array(
             'id' => 13,
-            'controller' => 'InstrumentController',
+            'controller' => 'ImageController',
             'method' => 'destroy',
         ));
         Resource::create(array(
             'id' => 14,
-            'controller' => 'LineupController',
+            'controller' => 'InstrumentController',
             'method' => 'destroy',
         ));
         Resource::create(array(
             'id' => 15,
-            'controller' => 'LinkController',
+            'controller' => 'LineupController',
             'method' => 'destroy',
         ));
         Resource::create(array(
             'id' => 16,
-            'controller' => 'MemberController',
+            'controller' => 'LinkController',
             'method' => 'destroy',
         ));
         Resource::create(array(
             'id' => 17,
-            'controller' => 'MusicianController',
+            'controller' => 'MemberController',
             'method' => 'destroy',
         ));
         Resource::create(array(
             'id' => 18,
-            'controller' => 'NeedController',
+            'controller' => 'MusicianController',
             'method' => 'destroy',
         ));
         Resource::create(array(
             'id' => 19,
-            'controller' => 'OfferController',
+            'controller' => 'NeedController',
             'method' => 'destroy',
         ));
         Resource::create(array(
             'id' => 20,
-            'controller' => 'PerformerController',
+            'controller' => 'OfferController',
             'method' => 'destroy',
         ));
         Resource::create(array(
             'id' => 21,
-            'controller' => 'PrintingController',
+            'controller' => 'PerformerController',
             'method' => 'destroy',
         ));
         Resource::create(array(
             'id' => 22,
-            'controller' => 'PrintingTypeController',
+            'controller' => 'PrintingController',
             'method' => 'destroy',
         ));
         Resource::create(array(
             'id' => 23,
-            'controller' => 'SharingController',
+            'controller' => 'PrintingTypeController',
             'method' => 'destroy',
         ));
         Resource::create(array(
             'id' => 24,
-            'controller' => 'SkillController',
+            'controller' => 'RepresenterController',
             'method' => 'destroy',
         ));
         Resource::create(array(
             'id' => 25,
-            'controller' => 'StaffController',
+            'controller' => 'SharingController',
             'method' => 'destroy',
         ));
         Resource::create(array(
             'id' => 26,
-            'controller' => 'SymbolizationController',
+            'controller' => 'SkillController',
             'method' => 'destroy',
         ));
         Resource::create(array(
             'id' => 27,
-            'controller' => 'TicketController',
+            'controller' => 'StaffController',
             'method' => 'destroy',
         ));
         Resource::create(array(
             'id' => 28,
+            'controller' => 'SymbolizationController',
+            'method' => 'destroy',
+        ));
+        Resource::create(array(
+            'id' => 29,
+            'controller' => 'TicketController',
+            'method' => 'destroy',
+        ));
+        Resource::create(array(
+            'id' => 30,
             'controller' => 'TicketCategoryController',
             'method' => 'destroy',
         ));

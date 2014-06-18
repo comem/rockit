@@ -9,9 +9,8 @@ class DatabaseSeeder extends Seeder {
      */
     public function run() {
         Eloquent::unguard();
-
-        // Resource Seeder
-        $this->call('ResourceTableDestroyMethodSeeder');
+        $this->call('ResourceTableSeeder');
+        $this->call('GroupTableSeeder');
     }
 
 }

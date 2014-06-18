@@ -3,6 +3,7 @@
 namespace Rockit;
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
+use \Eloquent;
 
 class Group extends Eloquent {
 
@@ -13,7 +14,7 @@ class Group extends Eloquent {
 
     protected $dates = ['deleted_at'];
 
-    public function parent() {
+    public function groupParent() {
         return $this->hasOne('Group');
     }
 
