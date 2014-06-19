@@ -4,9 +4,9 @@ namespace Rockit;
 
 use \Eloquent;
 
-class GroupRessource extends Eloquent {
+class GroupResource extends Eloquent {
 
-    protected $table = 'group_ressource';
+    protected $table = 'group_resource';
     public $timestamps = false;
 
 }

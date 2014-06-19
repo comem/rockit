@@ -15,15 +15,15 @@ class Group extends Eloquent {
     protected $dates = ['deleted_at'];
 
     public function groupParent() {
-        return $this->hasOne('Group');
+        return $this->hasOne('Rockit\Group');
     }
 
     public function resources() {
-        return $this->belongsToMany('Ressources');
+        return $this->belongsToMany('Rockit\Resource');
     }
 
     public function users() {
-        return $this->hasMany('User');
+        return $this->hasMany('Rockit\User');
     }
 
 }

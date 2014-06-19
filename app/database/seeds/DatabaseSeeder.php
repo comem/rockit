@@ -11,6 +11,9 @@ class DatabaseSeeder extends Seeder {
         Eloquent::unguard();
         $this->call('ResourceTableSeeder');
         $this->call('GroupTableSeeder');
+        $this->call('LanguageTableSeeder');
+        $this->call('UserTableSeeder');
+        $this->call('GroupResourceTableSeeder');
     }
 
 }

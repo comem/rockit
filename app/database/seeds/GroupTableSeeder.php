@@ -5,7 +5,8 @@ use Rockit\Group;
 class GroupTableSeeder extends Seeder {
     
     public function run() {
-        DB::table('groups')->delete();
+        DB::table('groups')->delete(2);
+        DB::table('groups')->delete(1);
         Group::create(array(
             'id' => 1,
             'name' => 'Staffs',

@@ -11,7 +11,7 @@ class Resource extends Eloquent {
     protected $dates = ['deleted_at'];
 
     public function groups() {
-        return $this->belongsToMany('Group');
+        return $this->belongsToMany('Rockit\Group');
     }
 
 }
