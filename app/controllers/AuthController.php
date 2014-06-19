@@ -9,18 +9,18 @@ class AuthController extends \BaseController {
      * @return Jsend success or Jsend fail
      */
     public function login() {
+        // test if remember is set true
+        $remember = Input::get('remember');
+        if(!empty($remember)) {
+            $remember = $remember == 'true' ? true : false;
+        }    
         $credentials = [
             'email' => Input::get('email'),
             'password' => Input::get('password')
         ];
         if (($credentials['email'] != null && $credentials['password'] != null) &&
                 User::validate(array($credentials['email'], $credentials['password'])) &&
-                Auth::attempt($credentials)) {
-            // get the remember boolean, if set true, so push remember cookie to client
-            $remember = Input::get('remember');
-            if(!empty($remember) && $remember) {
-                Auth::login(Auth::user()->id, true);
-            }
+                Auth::attempt($credentials, $remember, true)) {
             return Jsend::success("message to define");
         }
         return Jsend::fail("message to define");
