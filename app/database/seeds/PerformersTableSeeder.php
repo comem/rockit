@@ -19,7 +19,7 @@ class PerformersTableSeeder extends Seeder {
                                 'event_id'=> $event[0]->id,
                                 'order' => '0',
                                 'is_support' => '0',
-                                'artist_hour_of_arrival'=>'18:00:00'));
+                                'artist_hour_of_arrival'=>'2014-08-02 18:00:00'));
     }
 }
 
