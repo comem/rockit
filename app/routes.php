@@ -29,13 +29,13 @@ Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function()
 	Route::get('auth/logout', 'AuthController@logout');
 
 
-	Route::group(array('before' => ''), function()
+	Route::group(array('before' => 'auth'), function()
 	{
 		// before auth
 
 		Route::put('langs', 'TranslationController@setLocale');
 
-		Route::group(array('before' => ''), function()
+		Route::group(array('before' => 'acl'), function()
 		{
 			// before acl
 
