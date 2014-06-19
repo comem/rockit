@@ -21,18 +21,18 @@ Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function()
 
 	// start
 
-	Route::get('/trads/{locale?}', 'TranslationController@translate')->where('locale', '[A-Za-z_]+');
-	Route::get('/langs', 'TranslationController@index');
+	Route::get('trads/{locale?}', 'TranslationController@translate')->where('locale', '[A-Za-z_]+');
+	Route::get('langs', 'TranslationController@index');
 
-	Route::post('/auth/login', 'AuthController@login');
-	Route::get('/auth/logout', 'AuthController@logout');
+	Route::post('auth/login', 'AuthController@login');
+	Route::get('auth/logout', 'AuthController@logout');
 
 
 	Route::group(array('before' => ''), function()
 	{
 		// before auth
 
-		Route::put('/langs', 'TranslationController@setLocale');
+		Route::put('langs', 'TranslationController@setLocale');
 
 		Route::group(array('before' => ''), function()
 		{
@@ -69,8 +69,6 @@ Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function()
 
 			Route::resource('ticket-categories', 'TicketCategoryController', 
 				array('only' => array('index', 'store', 'destroy')));
-
-			//Route::resource('addresses', 'AddresseController', 
 
 			Route::resource('lineups', 'LineupController', 
 				array('only' => array('store', 'destroy')));

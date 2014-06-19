@@ -1,5 +1,7 @@
 <?php
 
+namespace Rockit\v1;
+
 class GiftController extends \BaseController {
 
 	/**

@@ -1,5 +1,7 @@
 <?php
 
+namespace Rockit\v1;
+
 class MemberController extends \BaseController {
 
 	/**
