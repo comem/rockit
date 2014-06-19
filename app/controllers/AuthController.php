@@ -9,7 +9,7 @@ class AuthController extends \BaseController {
 	 */
 	public function login()
 	{
-		//
+		// there it is
 	}
 
 	/**
