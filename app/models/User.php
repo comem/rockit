@@ -1,15 +1,19 @@
 <?php
 
-use Illuminate\Auth\UserTrait;
-use Illuminate\Auth\UserInterface;
-use Illuminate\Auth\Reminders\RemindableTrait;
-use Illuminate\Auth\Reminders\RemindableInterface;
+use Rockit\Resource,
+    Illuminate\Auth\UserTrait,
+    Illuminate\Auth\UserInterface,
+    Illuminate\Auth\Reminders\RemindableTrait,
+    Illuminate\Auth\Reminders\RemindableInterface,
+    Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class User extends Eloquent implements UserInterface, RemindableInterface {
 
     use UserTrait,
-        RemindableTrait;
+        RemindableTrait,
+        SoftDeletingTrait;
 
+    public $timestamps = true;
     protected static $rules = array(
         'email' => 'email|max:300|unique:users',
         'password' => 'min:4|max:2000'
@@ -82,8 +86,21 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     /*
      * Set the token value for the "remember me" session.
      */
+
     public function setRememberToken($value) {
         // not implemented yet
+    }
+
+    public function group() {
+        return $this->belongsTo('Rockit\Group');
+    }
+
+    public function language() {
+        return $this->belongsTo('Rockit\Language');
+    }
+
+    public function hasAccess(Resource $resource) {
+        return $this->group->hasAccess($resource);
     }
 
 }

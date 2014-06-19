@@ -3,9 +3,8 @@
 namespace Rockit;
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
-use \Eloquent;
 
-class Group extends Eloquent {
+class Group extends \Eloquent {
 
     protected $table = 'groups';
     public $timestamps = true;

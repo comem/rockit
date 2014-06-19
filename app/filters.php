@@ -95,6 +95,6 @@ Route::filter('acl', function() {
     ->where('method', '=', $method)
     ->first();
     if (empty($resource) || !Auth::user()->hasAccess($resource)) {
-        return "Erreur. Pas les droits.";
+        return Jsend::fail("Pas les droits !");
     }
 });

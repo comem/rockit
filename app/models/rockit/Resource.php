@@ -2,20 +2,14 @@
 
 namespace Rockit;
 
-use Illuminate\Database\Eloquent\SoftDeletingTrait;
-
 class Resource extends \Eloquent {
 
-	protected $table = 'resources';
-	public $timestamps = true;
+    public $timestamps = true;
+    protected $table = 'resources';
+    protected $dates = ['deleted_at'];
 
-	use SoftDeletingTrait;
-
-	protected $dates = ['deleted_at'];
-
-	public function groups()
-	{
-		return $this->belongsToMany('Rockit\Group');
-	}
+    public function groups() {
+        return $this->belongsToMany('Group');
+    }
 
 }

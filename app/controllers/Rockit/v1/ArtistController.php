@@ -11,7 +11,7 @@ class ArtistController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+            //
 	}
 
 
