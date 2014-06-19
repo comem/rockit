@@ -131,3 +131,10 @@ Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function()
 	});
 
 });
+
+// catching 404 error
+
+App::missing(function($exception)
+{
+    return 'error 404';
+});
