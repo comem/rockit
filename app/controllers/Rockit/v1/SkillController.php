@@ -1,6 +1,8 @@
 <?php
 
-class EventTypeController extends \BaseController {
+namespace Rockit\v1;
+
+class SkillController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -8,18 +10,6 @@ class EventTypeController extends \BaseController {
 	 * @return Response
 	 */
 	public function index()
-	{
-		//
-	}
-
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
 	{
 		//
 	}

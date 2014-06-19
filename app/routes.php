@@ -11,6 +11,131 @@
   |
  */
 
-Route::get('/', function() {
-    return View::make('hello');
+
+Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function()
+{
+	
+	Route::get('/', function() {
+	    return View::make('hello');
+	});
+
+	// start
+
+	Route::get('trads/{locale?}', 'TranslationController@translate')->where('locale', '[A-Za-z_]+');
+	Route::get('langs', 'TranslationController@index');
+
+	Route::post('auth/login', 'AuthController@login');
+	Route::get('auth/logout', 'AuthController@logout');
+
+
+	Route::group(array('before' => ''), function()
+	{
+		// before auth
+
+		Route::put('langs', 'TranslationController@setLocale');
+
+		Route::group(array('before' => ''), function()
+		{
+			// before acl
+
+			Route::resource('artists', 'ArtistController', 
+				array('only' => array('index', 'show', 'store', 'update', 'destroy')));
+
+			Route::put('events/{id}/publish', 'EventController@publish')->where('id', '[0-9]+');
+			Route::put('events/{id}/unpublish', 'EventController@unpublish')->where('id', '[0-9]+');
+			Route::resource('events', 'EventController', 
+				array('only' => array('index', 'show', 'store', 'update', 'destroy')));
+
+			Route::resource('equipments', 'EquipmentController', 
+				array('only' => array('index', 'store', 'destroy')));
+
+			Route::resource('event-types', 'EventTypeController', 
+				array('only' => array('index', 'store', 'destroy')));
+
+			Route::resource('skills', 'SkillController', 
+				array('only' => array('index', 'store', 'destroy')));
+
+			Route::resource('genres', 'GenreController', 
+				array('only' => array('index', 'store', 'destroy')));
+
+			Route::resource('gifts', 'GiftController', 
+				array('only' => array('index', 'store', 'destroy')));
+
+			Route::resource('instruments', 'InstrumentController', 
+				array('only' => array('index', 'store', 'destroy')));
+
+			Route::resource('printing-types', 'PrintingTypeController', 
+				array('only' => array('index', 'store', 'destroy')));
+
+			Route::resource('ticket-categories', 'TicketCategoryController', 
+				array('only' => array('index', 'store', 'destroy')));
+
+			Route::resource('lineups', 'LineupController', 
+				array('only' => array('store', 'destroy')));
+
+			Route::resource('attributions', 'AttributionController', 
+				array('only' => array('store', 'update', 'destroy')));
+
+			Route::resource('descriptions', 'DescriptionController', 
+				array('only' => array('store', 'destroy')));
+
+			Route::resource('needs', 'NeedController', 
+				array('only' => array('store', 'update', 'destroy')));
+
+			Route::resource('fulfillments', 'FulfillmentController', 
+				array('only' => array('store', 'destroy')));
+
+			Route::resource('illustrations', 'IllustrationController', 
+				array('only' => array('store', 'destroy')));
+
+			Route::resource('images', 'ImageController', 
+				array('only' => array('index', 'show', 'store', 'update', 'destroy')));
+
+			Route::resource('links', 'LinkController', 
+				array('only' => array('store', 'update', 'destroy')));
+
+			Route::resource('members', 'MemberController', 
+				array('only' => array('index', 'show', 'store', 'update', 'destroy')));
+
+			Route::resource('musicians', 'MusicianController', 
+				array('only' => array('index', 'show', 'store', 'update', 'destroy')));
+
+			Route::resource('offers', 'OfferController', 
+				array('only' => array('store', 'update', 'destroy')));
+
+			Route::resource('performers', 'PerformerController', 
+				array('only' => array('store', 'update', 'destroy')));
+
+			Route::resource('printings', 'PrintingController', 
+				array('only' => array('store', 'update', 'destroy')));
+
+			Route::resource('sharings', 'ScharingController', 
+				array('only' => array('store', 'destroy')));
+
+			Route::resource('staffs', 'StaffController', 
+				array('only' => array('store', 'update', 'destroy')));
+
+			Route::resource('symbolizations', 'SymbolizationController', 
+				array('only' => array('store', 'destroy')));
+
+			Route::resource('tickets', 'TicketController', 
+				array('only' => array('store', 'update', 'destroy')));
+
+			Route::resource('guarantees', 'GuaranteeController', 
+				array('only' => array('store', 'destroy')));
+
+			Route::resource('representers', 'RepresenterController', 
+				array('only' => array('index', 'show', 'store', 'update', 'destroy')));
+
+		});
+
+	});
+
+});
+
+// catching 404 error
+
+App::missing(function($exception)
+{
+    return 'error 404';
 });

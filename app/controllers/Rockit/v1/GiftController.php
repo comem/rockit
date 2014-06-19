@@ -1,6 +1,8 @@
 <?php
 
-class PrintingController extends \BaseController {
+namespace Rockit\v1;
+
+class GiftController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -14,35 +16,11 @@ class PrintingController extends \BaseController {
 
 
 	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
-
-
-	/**
 	 * Store a newly created resource in storage.
 	 *
 	 * @return Response
 	 */
 	public function store()
-	{
-		//
-	}
-
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
 	{
 		//
 	}

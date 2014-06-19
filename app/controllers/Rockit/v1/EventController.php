@@ -1,6 +1,8 @@
 <?php
 
-class SymbolizationController extends \BaseController {
+namespace Rockit\v1;
+
+class EventController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -37,12 +39,48 @@ class SymbolizationController extends \BaseController {
 
 
 	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function update($id)
+	{
+		//
+	}
+
+
+	/**
 	 * Remove the specified resource from storage.
 	 *
 	 * @param  int  $id
 	 * @return Response
 	 */
 	public function destroy($id)
+	{
+		//
+	}
+
+
+	/**
+	 * Publish the specified ressource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function publish($id)
+	{
+		//
+	}
+
+
+	/**
+	 * Unpublish the specified ressource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function unpublish($id)
 	{
 		//
 	}

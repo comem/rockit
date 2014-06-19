@@ -1,28 +1,8 @@
 <?php
 
-class EventController extends \BaseController {
+namespace Rockit\v1;
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		//
-	}
-
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
+class PerformerController extends \BaseController {
 
 
 	/**

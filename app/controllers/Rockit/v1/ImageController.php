@@ -1,6 +1,8 @@
 <?php
 
-class NeedController extends \BaseController {
+namespace Rockit\v1;
+
+class ImageController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.

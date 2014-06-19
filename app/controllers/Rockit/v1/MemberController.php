@@ -1,6 +1,8 @@
 <?php
 
-class ArtistController extends \BaseController {
+namespace Rockit\v1;
+
+class MemberController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.

@@ -1,6 +1,8 @@
 <?php
 
-class SharingController extends \BaseController {
+namespace Rockit\v1;
+
+class MusicianController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -37,6 +39,18 @@ class SharingController extends \BaseController {
 
 
 	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function update($id)
+	{
+		//
+	}
+
+
+	/**
 	 * Remove the specified resource from storage.
 	 *
 	 * @param  int  $id
@@ -47,26 +61,5 @@ class SharingController extends \BaseController {
 		//
 	}
 
-	/**
-	 * Publish the specified resource on the specified platform.
-	 *
-	 * @param  int  $id, int $platform
-	 * @return Response
-	 */
-	public function publish($id, $platform)
-	{
-		//
-	}
-
-	/**
-	 * Unpublish the specified resource from the specified platform.
-	 *
-	 * @param  int  $id, int $platform
-	 * @return Response
-	 */
-	public function unpublish($id, $platform)
-	{
-		//
-	}
 
 }

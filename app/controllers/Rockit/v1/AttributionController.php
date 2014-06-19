@@ -1,16 +1,8 @@
 <?php
 
-class RepresentorController extends \BaseController {
+namespace Rockit\v1;
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		//
-	}
+class AttributionController extends \BaseController {
 
 
 	/**
@@ -19,18 +11,6 @@ class RepresentorController extends \BaseController {
 	 * @return Response
 	 */
 	public function store()
-	{
-		//
-	}
-
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
 	{
 		//
 	}
