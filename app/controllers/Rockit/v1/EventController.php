@@ -85,5 +85,8 @@ class EventController extends \BaseController {
 		//
 	}
 
+        public function exportWord($from, $to) {
+            dd("in word");
+        } 
 
 }

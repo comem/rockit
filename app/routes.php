@@ -42,6 +42,7 @@ Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function()
 			Route::resource('artists', 'ArtistController', 
 				array('only' => array('index', 'show', 'store', 'update', 'destroy')));
 
+                        Route::get('events/exportword', 'EventController@exportWord');
 			Route::put('events/{id}/publish', 'EventController@publish')->where('id', '[0-9]+');
 			Route::put('events/{id}/unpublish', 'EventController@unpublish')->where('id', '[0-9]+');
 			Route::resource('events', 'EventController', 
