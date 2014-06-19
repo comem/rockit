@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration {
             $table->integer('language_id')->unsigned();
             $table->integer('group_id')->unsigned();
             $table->timestamp('last_login')->nullable();
+            $table->string('remember_token', 100)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
