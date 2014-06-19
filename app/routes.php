@@ -39,94 +39,96 @@ Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function()
 			// before acl
 
 			Route::resource('artists', 'ArtistController', 
-			array('except' => array('create', 'edit')));
+				array('only' => array('index', 'show', 'store', 'update', 'destroy')));
 
+			Route::put('events/{id}/publish', 'EventController@publish')->where('id', '[0-9]+');
+			Route::put('events/{id}/unpublish', 'EventController@unpublish')->where('id', '[0-9]+');
 			Route::resource('events', 'EventController', 
-				array('except' => array('create', 'edit')));
+				array('only' => array('index', 'show', 'store', 'update', 'destroy')));
 
 			Route::resource('equipments', 'EquipmentController', 
-				array('except' => array('create', 'edit', 'update')));
+				array('only' => array('index', 'store', 'destroy')));
 
 			Route::resource('event-types', 'EventTypeController', 
-				array('except' => array('create', 'edit', 'update')));
+				array('only' => array('index', 'store', 'destroy')));
 
 			Route::resource('skills', 'SkillController', 
-				array('except' => array('create', 'edit', 'update')));
+				array('only' => array('index', 'store', 'destroy')));
 
 			Route::resource('genres', 'GenreController', 
-				array('except' => array('create', 'edit', 'update')));
+				array('only' => array('index', 'store', 'destroy')));
 
 			Route::resource('gifts', 'GiftController', 
-				array('except' => array('create', 'edit', 'update')));
+				array('only' => array('index', 'store', 'destroy')));
 
 			Route::resource('instruments', 'InstrumentController', 
-				array('except' => array('create', 'edit', 'update')));
+				array('only' => array('index', 'store', 'destroy')));
 
 			Route::resource('printing-types', 'PrintingTypeController', 
-				array('except' => array('create', 'edit', 'update')));
+				array('only' => array('index', 'store', 'destroy')));
 
 			Route::resource('ticket-categories', 'TicketCategoryController', 
-				array('except' => array('create', 'edit', 'update')));
+				array('only' => array('index', 'store', 'destroy')));
 
-			Route::resource('addresses', 'AddresseController', 
-				array('except' => array('create', 'edit')));
+			//Route::resource('addresses', 'AddresseController', 
 
 			Route::resource('lineups', 'LineupController', 
-				array('except' => array('create', 'edit', 'update')));
+				array('only' => array('store', 'destroy')));
 
 			Route::resource('attributions', 'AttributionController', 
-				array('except' => array('create', 'edit')));
+				array('only' => array('store', 'update', 'destroy')));
 
 			Route::resource('descriptions', 'DescriptionController', 
-				array('except' => array('create', 'edit', 'update')));
+				array('only' => array('store', 'destroy')));
 
 			Route::resource('needs', 'NeedController', 
-				array('except' => array('create', 'edit', 'update')));
+				array('only' => array('store', 'update', 'destroy')));
 
 			Route::resource('fulfillments', 'FulfillmentController', 
-				array('except' => array('create', 'edit', 'update')));
+				array('only' => array('store', 'destroy')));
 
 			Route::resource('illustrations', 'IllustrationController', 
-				array('except' => array('create', 'edit', 'update')));
+				array('only' => array('store', 'destroy')));
 
 			Route::resource('images', 'ImageController', 
-				array('except' => array('create', 'edit')));
+				array('only' => array('index', 'show', 'store', 'update', 'destroy')));
 
 			Route::resource('links', 'LinkController', 
-				array('except' => array('create', 'edit')));
+				array('only' => array('store', 'update', 'destroy')));
 
 			Route::resource('members', 'MemberController', 
-				array('except' => array('create', 'edit')));
+				array('only' => array('index', 'show', 'store', 'update', 'destroy')));
 
 			Route::resource('musicians', 'MusicianController', 
-				array('except' => array('create', 'edit')));
+				array('only' => array('index', 'show', 'store', 'update', 'destroy')));
 
 			Route::resource('offers', 'OfferController', 
-				array('except' => array('create', 'edit')));
+				array('only' => array('store', 'update', 'destroy')));
 
 			Route::resource('performers', 'PerformerController', 
-				array('except' => array('create', 'edit')));
+				array('only' => array('store', 'update', 'destroy')));
 
 			Route::resource('printings', 'PrintingController', 
-				array('except' => array('create', 'edit')));
+				array('only' => array('store', 'update', 'destroy')));
 
 			Route::resource('sharings', 'ScharingController', 
-				array('except' => array('create', 'edit', 'update')));
+				array('only' => array('store', 'destroy')));
 
 			Route::resource('staffs', 'StaffController', 
-				array('except' => array('create', 'edit')));
+				array('only' => array('store', 'update', 'destroy')));
 
 			Route::resource('symbolizations', 'SymbolizationController', 
-				array('except' => array('create', 'edit', 'update')));
+				array('only' => array('store', 'destroy')));
 
 			Route::resource('tickets', 'TicketController', 
-				array('except' => array('create', 'edit')));
-
-			Route::resource('representers', 'RepresenterController', 
-				array('except' => array('create', 'edit')));
+				array('only' => array('store', 'update', 'destroy')));
 
 			Route::resource('guarantees', 'GuaranteeController', 
-				array('except' => array('create', 'edit', 'update')));
+				array('only' => array('store', 'destroy')));
+
+			Route::resource('representers', 'RepresenterController', 
+				array('only' => array('index', 'show', 'store', 'update', 'destroy')));
+
 		});
 
 	});
