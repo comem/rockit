@@ -1,5 +1,7 @@
 <?php
 
+use Rockit\Group;
+
 /*
   |--------------------------------------------------------------------------
   | Application Routes
@@ -13,4 +15,14 @@
 
 Route::get('/', function() {
     return View::make('hello');
+});
+
+Route::group(array('before' => 'acl'), function() {
+    Route::resource('artists', 'ArtistController', array('except' => 'create', 'edit'));
+});
+
+Route::get('test', function() {
+    $controller = 'ArtistController';
+    $method = 'index';
+    return Group::where('name', '=', 'Managers')->first()->hasAccess($controller, $method);
 });
