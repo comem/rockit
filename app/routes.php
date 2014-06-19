@@ -18,11 +18,24 @@ Route::get('/', function() {
 });
 
 Route::group(array('before' => 'acl'), function() {
-    Route::resource('artists', 'ArtistController', array('except' => 'create', 'edit'));
+    Route::resource('artists', 'Artistontroller', array('except' => 'create', 'edit'));
 });
 
 Route::get('test', function() {
     $controller = 'ArtistController';
     $method = 'index';
-    return Group::where('name', '=', 'Managers')->first()->hasAccess($controller, $method);
+    $resource = \Rockit\Resource::where('controller', '=', $controller)
+    ->where('method', '=', $method)
+    ->first();
+    $result = Group::where('name', '=', 'Managers')->first()->hasAccess($resource);
+    echo "<pre>";
+    var_dump($result);
+    echo "</pre>";
+});
+
+Route::get('a', function() {
+    $result = Group::find(1)->group_id ? true : false;
+    echo "<pre>";
+    var_dump($result);
+    echo "</pre>";
 });

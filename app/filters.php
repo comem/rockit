@@ -1,5 +1,7 @@
 <?php
 
+use Rockit\Resource;
+
 /*
   |--------------------------------------------------------------------------
   | Application & Route Filters
@@ -93,5 +95,7 @@ Route::filter('acl', function() {
     $routeInfo = Str::parseCallback(Route::currentRouteAction(), null);
     $controller = class_basename($routeInfo[0]);
     $method = $routeInfo[1];
-    $resource_id = 
+    $resource = Resource::where('controller', '=', $controller)
+    ->where('method', '=', $method)
+    ->first();
 });
