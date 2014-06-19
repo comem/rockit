@@ -1,38 +1,33 @@
- <?php
+<?php
 
 use rockit\Event;
 
 class DatabaseSeeder extends Seeder {
 
-	/**
-	 * Run the database seeds.
-	 *
-	 * @return void
-	 */
-	public function run()
-	{
-		Eloquent::unguard();
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run() {
+        Eloquent::unguard();
 
         $this->call('InstrumentsTableSeeder');
         $this->command->info('Instruments table seeded!');
-	$this->call('GenresTableSeeder');
+        $this->call('GenresTableSeeder');
         $this->command->info('Genres table seeded!');
-	$this->call('MusiciansTableSeeder');
+        $this->call('MusiciansTableSeeder');
         $this->command->info('Musucians table seeded !');
         $this->call('PlatformsTableSeeder');
         $this->command->info('Platforms table seeded !');
         $this->call('TicketCategoriesTableSeeder');
         $this->command->info('Ticket Categories table seeded !');
         $this->call('EquipmentsTableSeeder');
-        $this->command->info('Equipments table seeded !');  
+        $this->command->info('Equipments table seeded !');
         $this->call('GiftsTableSeeder');
         $this->command->info('Gifts table seeded !');
         $this->call('EventTypesTableSeeder');
         $this->command->info('Event Types table seeded !');
-        $this->call('LanguagesTableSeeder');
-        $this->command->info('Languages table seeded !');
-        $this->call('ResourcesTableSeeder');
-        $this->command->info('Resources table seeded !');
         $this->call('PrintingsTypesTableSeeder');
         $this->command->info('Printing Types table seeded !');
         $this->call('SkillsTableSeeder');
@@ -49,8 +44,6 @@ class DatabaseSeeder extends Seeder {
         $this->command->info('Links table seeded !');
         $this->call('MembersTableSeeder');
         $this->command->info('Members table seeded !');
-        $this->call('GroupsTableSeeder');
-        $this->command->info('Groups table seeded !');
         $this->call('DescriptionTableSeeder');
         $this->command->info('Description table seeded !');
         $this->call('SharingsTableSeeder');
@@ -69,18 +62,21 @@ class DatabaseSeeder extends Seeder {
         $this->command->info('Needs table seeded !');
         $this->call('StaffsTableSeeder');
         $this->command->info('table seeded !');
-        $this->call('GroupResourcesTableSeeder');
-        $this->command->info('Resource table seeded !');
         $this->call('PerformersTableSeeder');
         $this->command->info('Performer table seeded !');
         $this->call('LineupsTableSeeder');
         $this->command->info('Lineup table seeded !');
-        $this->call('UsersTableSeeder');
+        $this->call('ResourceTableSeeder');
+        $this->command->info('Resource table seeded !');
+        $this->call('GroupTableSeeder');
+        $this->command->info('Group table seeded !');
+        $this->call('LanguageTableSeeder');
+        $this->command->info('Language table seeded !');
+        $this->call('UserTableSeeder');
         $this->command->info('User table seeded !');
-        //$this->call('');
-        //$this->command->info('table seeded !');
+        $this->call('GroupResourceTableSeeder');
+        $this->command->info('Group_Resource table seeded !');
         
-        }
+    }
+
 }
-
-

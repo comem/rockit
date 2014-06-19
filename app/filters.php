@@ -1,83 +1,100 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application & Route Filters
-|--------------------------------------------------------------------------
-|
-| Below you will find the "before" and "after" events for the application
-| which may be used to do any work before or after a request into your
-| application. Here you may also register your custom route filters.
-|
-*/
-
-App::before(function($request)
-{
-	//
-});
-
-
-App::after(function($request, $response)
-{
-	//
-});
+use Rockit\Resource;
 
 /*
-|--------------------------------------------------------------------------
-| Authentication Filters
-|--------------------------------------------------------------------------
-|
-| The following filters are used to verify that the user of the current
-| session is logged into this application. The "basic" filter easily
-| integrates HTTP Basic authentication for quick, simple checking.
-|
-*/
+  |--------------------------------------------------------------------------
+  | Application & Route Filters
+  |--------------------------------------------------------------------------
+  |
+  | Below you will find the "before" and "after" events for the application
+  | which may be used to do any work before or after a request into your
+  | application. Here you may also register your custom route filters.
+  |
+ */
 
-Route::filter('auth', function()
-{
-	if (Auth::guest())
-	{
-            return Jsend::fail("message to be defined");
-	}
+App::before(function($request) {
+    //
 });
 
 
-Route::filter('auth.basic', function()
-{
-	return Auth::basic();
+App::after(function($request, $response) {
+    //
 });
 
 /*
-|--------------------------------------------------------------------------
-| Guest Filter
-|--------------------------------------------------------------------------
-|
-| The "guest" filter is the counterpart of the authentication filters as
-| it simply checks that the current user is not logged in. A redirect
-| response will be issued if they are, which you may freely change.
-|
-*/
+  |--------------------------------------------------------------------------
+  | Authentication Filters
+  |--------------------------------------------------------------------------
+  |
+  | The following filters are used to verify that the user of the current
+  | session is logged into this application. The "basic" filter easily
+  | integrates HTTP Basic authentication for quick, simple checking.
+  |
+ */
 
-Route::filter('guest', function()
-{
-	if (Auth::check()) return Redirect::to('/');
+Route::filter('auth', function() {
+    if (Auth::guest()) {
+        return Jsend::fail("message to be defined");
+    }
+});
+
+
+Route::filter('auth.basic', function() {
+    return Auth::basic();
 });
 
 /*
-|--------------------------------------------------------------------------
-| CSRF Protection Filter
-|--------------------------------------------------------------------------
-|
-| The CSRF filter is responsible for protecting your application against
-| cross-site request forgery attacks. If this special token in a user
-| session does not match the one given in this request, we'll bail.
-|
-*/
+  |--------------------------------------------------------------------------
+  | Guest Filter
+  |--------------------------------------------------------------------------
+  |
+  | The "guest" filter is the counterpart of the authentication filters as
+  | it simply checks that the current user is not logged in. A redirect
+  | response will be issued if they are, which you may freely change.
+  |
+ */
 
-Route::filter('csrf', function()
-{
-	if (Session::token() != Input::get('_token'))
-	{
-		throw new Illuminate\Session\TokenMismatchException;
-	}
+Route::filter('guest', function() {
+    if (Auth::check())
+        return Redirect::to('/');
+});
+
+/*
+  |--------------------------------------------------------------------------
+  | CSRF Protection Filter
+  |--------------------------------------------------------------------------
+  |
+  | The CSRF filter is responsible for protecting your application against
+  | cross-site request forgery attacks. If this special token in a user
+  | session does not match the one given in this request, we'll bail.
+  |
+ */
+
+Route::filter('csrf', function() {
+    if (Session::token() != Input::get('_token')) {
+        throw new Illuminate\Session\TokenMismatchException;
+    }
+});
+
+/*
+  |--------------------------------------------------------------------------
+  | ACL Filter
+  |--------------------------------------------------------------------------
+  |
+  | The ACL filter is responsible for checking if a user has the right accesses
+  | to the action he wants to perform.
+  |
+ */
+
+Route::filter('acl', function() {
+    $routeInfo = Str::parseCallback(Route::currentRouteAction(), null);
+    $controller = class_basename($routeInfo[0]);
+    $method = $routeInfo[1];
+    $resource = Resource::where('controller', '=', $controller)
+    ->where('method', '=', $method)
+    ->first();
+    if (empty($resource) || !Auth::user()->hasAccess($resource)) {
+        return Jsend::fail("Pas les droits !");
+    }
 });

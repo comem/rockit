@@ -1,8 +1,6 @@
 <?php
 
-namespace Rockit\v1;
-
-class ArtistController extends \BaseController {
+class PublicationController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -11,7 +9,7 @@ class ArtistController extends \BaseController {
 	 */
 	public function index()
 	{
-            //
+		//
 	}
 
 
@@ -39,18 +37,6 @@ class ArtistController extends \BaseController {
 
 
 	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
-
-
-	/**
 	 * Remove the specified resource from storage.
 	 *
 	 * @param  int  $id
@@ -60,5 +46,6 @@ class ArtistController extends \BaseController {
 	{
 		//
 	}
+
 
 }

@@ -1,5 +1,7 @@
 <?php
 
+use Rockit\Group;
+
 /*
   |--------------------------------------------------------------------------
   | Application Routes
@@ -10,7 +12,6 @@
   | and give it the Closure to execute when that URI is requested.
   |
  */
-
 
 Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function()
 {
@@ -34,7 +35,7 @@ Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function()
 
 		Route::put('langs', 'TranslationController@setLocale');
 
-		Route::group(array('before' => ''), function()
+		Route::group(array('before' => 'acl'), function()
 		{
 			// before acl
 
