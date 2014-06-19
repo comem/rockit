@@ -24,8 +24,8 @@ Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function()
 	Route::get('trads/{locale?}', 'TranslationController@translate')->where('locale', '[A-Za-z_]+');
 	Route::get('langs', 'TranslationController@index');
 
-	Route::post('auth/login', 'AuthController@login');
-	Route::get('auth/logout', 'AuthController@logout');
+	Route::post('login', 'AuthController@login');
+	Route::get('logout', 'AuthController@logout');
 
 
 	Route::group(array('before' => ''), function()
