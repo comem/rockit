@@ -9,7 +9,7 @@ class Language extends \Eloquent {
 
 	public function users()
 	{
-		return $this->hasMany('User');
+		return $this->hasMany('Rockit\User');
 	}
 
 }

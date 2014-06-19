@@ -9,7 +9,7 @@ class Instrument extends \Eloquent {
 
 	public function lineups()
 	{
-		return $this->belongsToMany('Lineup');
+		return $this->hasMany('Rockit\Lineup');
 	}
 
 }

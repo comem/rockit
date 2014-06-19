@@ -15,17 +15,17 @@ class Group extends \Eloquent {
 
 	public function groupParent()
 	{
-		return $this->hasOne('Group', 'childGroup_id');
+		return $this->hasOne('Rockit\Group', 'childGroup_id');
 	}
 
 	public function resources()
 	{
-		return $this->hasMany('Resource');
+		return $this->hasMany('Rockit\Resource');
 	}
 
 	public function users()
 	{
-		return $this->hasMany('User');
+		return $this->hasMany('Rockit\User');
 	}
 
 }

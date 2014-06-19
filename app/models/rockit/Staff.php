@@ -9,7 +9,7 @@ class Staff extends \Eloquent {
 
 	public function skill()
 	{
-		return $this->belongsTo('Skill');
+		return $this->belongsTo('Rockit\Skill');
 	}
 
 }

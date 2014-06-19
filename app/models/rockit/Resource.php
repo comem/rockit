@@ -15,7 +15,7 @@ class Resource extends \Eloquent {
 
 	public function groups()
 	{
-		return $this->belongsToMany('Group');
+		return $this->belongsToMany('Rockit\Group');
 	}
 
 }

@@ -9,7 +9,7 @@ class Genre extends \Eloquent {
 
 	public function artists()
 	{
-		return $this->belongsToMany('Artist');
+		return $this->belongsToMany('Rockit\Artist');
 	}
 
 }

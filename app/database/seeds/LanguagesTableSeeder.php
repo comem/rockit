@@ -10,7 +10,7 @@ class LanguagesTableSeeder extends Seeder {
         DB::table('languages')->delete();
 
         Language::create(array('locale' => 'ch-de',
-                                'name_de'=> 'Deutsch'));
+                                'name'=> 'Deutsch'));
     }
 }
 

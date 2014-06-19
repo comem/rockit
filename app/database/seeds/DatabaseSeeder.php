@@ -29,8 +29,6 @@ class DatabaseSeeder extends Seeder {
         $this->command->info('Gifts table seeded !');
         $this->call('EventTypesTableSeeder');
         $this->command->info('Event Types table seeded !');
-        $this->call('AddressesTableSeeder');
-        $this->command->info('Addresses table seeded !');
         $this->call('LanguagesTableSeeder');
         $this->command->info('Languages table seeded !');
         $this->call('ResourcesTableSeeder');

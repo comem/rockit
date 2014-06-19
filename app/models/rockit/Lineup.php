@@ -9,7 +9,17 @@ class Lineup extends \Eloquent {
 
 	public function instrument()
 	{
-		return $this->hasOne('Instrument');
+		return $this->belongsTo('Rockit\Instrument');
+	}
+
+	public function artist()
+	{
+		return $this->belongsTo('Rockit\Artist');
+	}
+
+	public function musician()
+	{
+		return $this->belongsTo('Rockit\Musician');
 	}
 
 }

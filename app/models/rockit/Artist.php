@@ -15,27 +15,27 @@ class Artist extends \Eloquent {
 
 	public function links()
 	{
-		return $this->hasMany('Link');
+		return $this->hasMany('Rockit\Link');
 	}
 
 	public function genres()
 	{
-		return $this->belongsToMany('Genre');
+		return $this->belongsToMany('Rockit\Genre');
 	}
 
 	public function images()
 	{
-		return $this->hasMany('Image');
+		return $this->hasMany('Rockit\Image');
 	}
 
-	public function musicians()
+	public function lineups()
 	{
-		return $this->belongsToMany('Musician');
+		return $this->hasMany('Rockit\Lineup');
 	}
 
 	public function events()
 	{
-		return $this->belongsToMany('Event')->withPivot('order','is_support','artist_hour_of_arrival');
+		return $this->belongsToMany('Rockit\Event')->withPivot('order','is_support','artist_hour_of_arrival');
 	}
 
 }

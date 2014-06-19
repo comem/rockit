@@ -9,9 +9,9 @@ class GroupsTableSeeder extends Seeder {
     {
         DB::table('groups')->delete();
 
-        Group::create(array('name_de' => 'Staff'));
+        Group::create(array('name' => 'Staff'));
 
-        Group::create(array('name_de' => 'Administration'));
+        Group::create(array('name' => 'Administration'));
     }
 }
 

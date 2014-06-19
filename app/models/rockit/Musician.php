@@ -13,9 +13,9 @@ class Musician extends \Eloquent {
 
 	protected $dates = ['deleted_at'];
 
-	public function artists()
+	public function lineups()
 	{
-		return $this->belongsToMany('Artist');
+		return $this->hasMany('Rockit\Lineup');
 	}
 
 }

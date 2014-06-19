@@ -67,11 +67,6 @@ class CreateForeignKeys extends Migration {
 						->onDelete('no action')
 						->onUpdate('no action');
 		});
-		Schema::table('members', function(Blueprint $table) {
-			$table->foreign('addresse_id')->references('id')->on('addresses')
-						->onDelete('no action')
-						->onUpdate('no action');
-		});
 		Schema::table('printings', function(Blueprint $table) {
 			$table->foreign('printing_type_id')->references('id')->on('printing_types')
 						->onDelete('no action')
@@ -141,16 +136,13 @@ class CreateForeignKeys extends Migration {
 			$table->foreign('musician_id')->references('id')->on('musicians')
 						->onDelete('no action')
 						->onUpdate('no action');
-		});
-		Schema::table('lineups', function(Blueprint $table) {
 			$table->foreign('artist_id')->references('id')->on('artists')
 						->onDelete('no action')
 						->onUpdate('no action');
-		});
-		Schema::table('lineups', function(Blueprint $table) {
 			$table->foreign('instrument_id')->references('id')->on('instruments')
 						->onDelete('no action')
 						->onUpdate('no action');
+			$table->unique(array('musician_id', 'artist_id', 'instrument_id'));
 		});
 		Schema::table('descriptions', function(Blueprint $table) {
 			$table->foreign('genre_id')->references('id')->on('genres')
@@ -221,9 +213,6 @@ class CreateForeignKeys extends Migration {
 		});
 		Schema::table('staffs', function(Blueprint $table) {
 			$table->dropForeign('staffs_skill_id_foreign');
-		});
-		Schema::table('members', function(Blueprint $table) {
-			$table->dropForeign('members_addresse_id_foreign');
 		});
 		Schema::table('printings', function(Blueprint $table) {
 			$table->dropForeign('printings_printing_type_id_foreign');

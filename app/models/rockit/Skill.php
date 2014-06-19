@@ -15,17 +15,17 @@ class Skill extends \Eloquent {
 
 	public function membersm()
 	{
-		return $this->belongsToMany('Member');
+		return $this->belongsToMany('Rockit\Member');
 	}
 
 	public function events()
 	{
-		return $this->belongsToMany('Event')->withPivot('nb_people');
+		return $this->belongsToMany('Rockit\Event')->withPivot('nb_people');
 	}
 
 	public function staffs()
 	{
-		return $this->hasMany('Staff');
+		return $this->hasMany('Rockit\Staff');
 	}
 
 }

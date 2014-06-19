@@ -9,8 +9,8 @@ use Rockit\Resource;
      {
          DB::table('resources')->delete();
 
-         Resource::create(array('verb' => 'get',
-                                    'url' => '/api/v1/welcome'));
+         Resource::create(array('method' => 'get',
+                                    'controller' => '/api/v1/welcome'));
      }
  }
 

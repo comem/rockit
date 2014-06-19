@@ -16,12 +16,12 @@ class User extends \Eloquent {
 
 	public function group()
 	{
-		return $this->belongsTo('Group');
+		return $this->belongsTo('Rockit\Group');
 	}
 
 	public function language()
 	{
-		return $this->belongsTo('Language');
+		return $this->belongsTo('Rockit\Language');
 	}
 
 }

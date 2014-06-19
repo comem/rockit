@@ -15,7 +15,7 @@ class Platform extends \Eloquent {
 
 	public function events()
 	{
-		return $this->belongsToMany('Event')->withPivot('url');
+		return $this->belongsToMany('Rockit\Event')->withPivot('url');
 	}
 
 }

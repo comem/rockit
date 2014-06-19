@@ -9,7 +9,7 @@ class Link extends \Eloquent {
 
 	public function artist()
 	{
-		return $this->belongsTo('Artist');
+		return $this->belongsTo('Rockit\Artist');
 	}
 
 }

@@ -15,7 +15,7 @@ class EventType extends \Eloquent {
 
 	public function events()
 	{
-		return $this->hasMany('Event');
+		return $this->hasMany('Rockit\Event');
 	}
 
 }

@@ -15,7 +15,7 @@ class PrintingType extends \Eloquent {
 
 	public function events()
 	{
-		return $this->belongsToMany('Event')->withPivot('source','nb_copies','nb_copies_surplus');
+		return $this->belongsToMany('Rockit\Event')->withPivot('source','nb_copies','nb_copies_surplus');
 	}
 
 }

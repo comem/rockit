@@ -15,7 +15,7 @@ class Equipment extends \Eloquent {
 
 	public function events()
 	{
-		return $this->belongsToMany('Event')->withPivot('quantity','cost');
+		return $this->belongsToMany('Rockit\Event')->withPivot('quantity','cost');
 	}
 
 }

@@ -3,23 +3,21 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateResourcesTable extends Migration {
+class CreateGroupsTable extends Migration {
 
 	public function up()
 	{
-		Schema::create('resources', function(Blueprint $table) {
+		Schema::create('groups', function(Blueprint $table) {
 			$table->increments('id');
-			$table->string('verb', 20);
-			$table->string('url', 150);
 			$table->timestamps();
 			$table->softDeletes();
-			$table->unique( array('verb','url') );
-
+			$table->integer('group_id')->unsigned()->nullable();
+			$table->string('name', 100);
 		});
 	}
 
 	public function down()
 	{
-		Schema::drop('resources');
+		Schema::drop('groups');
 	}
 }

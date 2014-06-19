@@ -15,7 +15,7 @@ class TicketCategory extends \Eloquent {
 
 	public function events()
 	{
-		return $this->belongsToMany('Event')->withPivot('ammount','comment_de','quantity_sold');
+		return $this->belongsToMany('Rockit\Event')->withPivot('ammount','comment_de','quantity_sold');
 	}
 
 }

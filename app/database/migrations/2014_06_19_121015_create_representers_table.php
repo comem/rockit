@@ -18,8 +18,6 @@ class CreateRepresentersTable extends Migration {
 			$table->string('city', 200)->nullable();
 			$table->timestamps();
 			$table->softDeletes();
-			$table->unique( array('phone','email') );
-
 		});
 	}
 
