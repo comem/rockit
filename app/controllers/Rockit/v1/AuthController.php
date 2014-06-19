@@ -2,6 +2,12 @@
 
 namespace Rockit\v1;
 
+use Illuminate\Support\Facades\Input,
+    \User,
+    \Auth,
+    \Jsend;
+
+
 class AuthController extends \BaseController {
 
     /**
