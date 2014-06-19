@@ -34,8 +34,5 @@ Route::get('test', function() {
 });
 
 Route::get('a', function() {
-    $result = Group::find(1)->group_id ? true : false;
-    echo "<pre>";
-    var_dump($result);
-    echo "</pre>";
+    return Group::where('name', '=', 'Managers')->first()->hasAccess(\Rockit\Resource::where('controller', '=', 'EventController')->where('controller', '=', 'publish'));
 });
