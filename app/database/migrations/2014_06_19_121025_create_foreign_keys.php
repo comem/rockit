@@ -7,31 +7,7 @@ class CreateForeignKeys extends Migration {
 
 	public function up()
 	{
-		Schema::table('groups', function(Blueprint $table) {
-			$table->foreign('group_id')->references('id')->on('groups')
-						->onDelete('no action')
-						->onUpdate('no action');
-		});
-		Schema::table('group_resource', function(Blueprint $table) {
-			$table->foreign('group_id')->references('id')->on('groups')
-						->onDelete('no action')
-						->onUpdate('no action');
-		});
-		Schema::table('group_resource', function(Blueprint $table) {
-			$table->foreign('resource_id')->references('id')->on('resources')
-						->onDelete('no action')
-						->onUpdate('no action');
-		});
-		Schema::table('users', function(Blueprint $table) {
-			$table->foreign('language_id')->references('id')->on('languages')
-						->onDelete('no action')
-						->onUpdate('no action');
-		});
-		Schema::table('users', function(Blueprint $table) {
-			$table->foreign('group_id')->references('id')->on('groups')
-						->onDelete('no action')
-						->onUpdate('no action');
-		});
+		
 		Schema::table('needs', function(Blueprint $table) {
 			$table->foreign('skill_id')->references('id')->on('skills')
 						->onDelete('no action')
@@ -178,21 +154,7 @@ class CreateForeignKeys extends Migration {
 
 	public function down()
 	{
-		Schema::table('groups', function(Blueprint $table) {
-			$table->dropForeign('groups_group_id_foreign');
-		});
-		Schema::table('group_resource', function(Blueprint $table) {
-			$table->dropForeign('group_resource_group_id_foreign');
-		});
-		Schema::table('group_resource', function(Blueprint $table) {
-			$table->dropForeign('group_resource_resource_id_foreign');
-		});
-		Schema::table('users', function(Blueprint $table) {
-			$table->dropForeign('users_language_id_foreign');
-		});
-		Schema::table('users', function(Blueprint $table) {
-			$table->dropForeign('users_group_id_foreign');
-		});
+		
 		Schema::table('needs', function(Blueprint $table) {
 			$table->dropForeign('needs_skill_id_foreign');
 		});
