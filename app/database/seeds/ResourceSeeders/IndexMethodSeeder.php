@@ -8,11 +8,6 @@ class IndexMethodSeeder {
 
     public static function seed() {
         Resource::create(array(
-            'id' => 31,
-            'controller' => 'AddressController',
-            'method' => 'index',
-        ));
-        Resource::create(array(
             'id' => 32,
             'controller' => 'ArtistController',
             'method' => 'index',

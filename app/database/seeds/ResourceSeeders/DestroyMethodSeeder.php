@@ -8,11 +8,6 @@ class DestroyMethodSeeder {
 
     public static function seed() {
         Resource::create(array(
-            'id' => 1,
-            'controller' => 'AddressController',
-            'method' => 'destroy',
-        ));
-        Resource::create(array(
             'id' => 2,
             'controller' => 'ArtistController',
             'method' => 'destroy',

@@ -98,4 +98,7 @@ Route::filter('acl', function() {
     $resource = Resource::where('controller', '=', $controller)
     ->where('method', '=', $method)
     ->first();
+    if (empty($resource) || !Auth::user()->hasAccess($resource)) {
+        return "Erreur. Pas les droits.";
+    }
 });

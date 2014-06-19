@@ -8,11 +8,6 @@ class StoreMethodSeeder {
 
     public static function seed() {
         Resource::create(array(
-            'id' => 53,
-            'controller' => 'AddressController',
-            'method' => 'store',
-        ));
-        Resource::create(array(
             'id' => 54,
             'controller' => 'ArtistController',
             'method' => 'store',

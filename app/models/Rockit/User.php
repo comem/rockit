@@ -25,8 +25,8 @@ class User extends Eloquent implements UserInterface {
         return $this->belongsTo('Rockit\Language');
     }
     
-    public function hasAccess($controller, $method) {
-        
+    public function hasAccess(Resource $resource) {
+        return $this->group->hasAccess($resource);
     }
 
 }

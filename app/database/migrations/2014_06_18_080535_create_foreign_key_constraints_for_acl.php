@@ -59,8 +59,6 @@ class CreateForeignKeyConstraintsForAcl extends Migration {
         // GroupResource
         Schema::table('group_resource', function(Blueprint $table) {
             $table->dropForeign('group_resource_group_id_foreign');
-        });
-        Schema::table('group_resource', function(Blueprint $table) {
             $table->dropForeign('group_resource_resource_id_foreign');
         });
     }

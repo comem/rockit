@@ -34,5 +34,16 @@ Route::get('test', function() {
 });
 
 Route::get('a', function() {
-    return Group::where('name', '=', 'Managers')->first()->hasAccess(\Rockit\Resource::where('controller', '=', 'EventController')->where('controller', '=', 'publish'));
+    $user = Rockit\User::find(7);
+    $controller = 'ArtistController';
+    $method = 'destroy';
+    $resource = \Rockit\Resource::where('controller', '=', $controller)
+    ->where('method', '=', $method)
+    ->first();
+    $access = $user->hasAccess($resource);
+    if ($access) {
+        return "true";
+    } else {
+        return "false";
+    }
 });

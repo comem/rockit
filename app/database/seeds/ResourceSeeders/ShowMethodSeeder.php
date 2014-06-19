@@ -8,11 +8,6 @@ class ShowMethodSeeder {
     
     public static function seed(){
         Resource::create(array(
-            'id' => 46,
-            'controller' => 'AddressController',
-            'method' => 'show',
-        ));
-        Resource::create(array(
             'id' => 47,
             'controller' => 'ArtistController',
             'method' => 'show',

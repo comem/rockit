@@ -8,11 +8,6 @@ class UpdateMethodSeeder {
 
     public static function seed() {
         Resource::create(array(
-            'id' => 83,
-            'controller' => 'AddressController',
-            'method' => 'update',
-        ));
-        Resource::create(array(
             'id' => 84,
             'controller' => 'ArtistController',
             'method' => 'update',

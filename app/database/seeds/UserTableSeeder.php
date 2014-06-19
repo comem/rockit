@@ -56,7 +56,7 @@ class UserTableSeeder extends Seeder {
             'last_name' => 'Staff',
             'password' => Hash::make('staff'),
             'language_id' => 1,
-            'group_id' => 2,
+            'group_id' => 1,
         ));
         User::create(array(
             'email' => 'fr@staff.ch',
@@ -64,7 +64,7 @@ class UserTableSeeder extends Seeder {
             'last_name' => 'Staff',
             'password' => Hash::make('staff'),
             'language_id' => 2,
-            'group_id' => 2,
+            'group_id' => 1,
         ));
     }
 
