@@ -17,7 +17,8 @@ class OffersTableSeeder extends Seeder {
 
         Offer::create(array('gift_id' => $gift[0]->id,
                             'event_id' => $event[0]->id,
-                            'quantity' => '4',
+                            'quantity' => 4,
+                            'cost' => 0,
                             'comment_de' => 'Frei :-)' ));
     }
 }
