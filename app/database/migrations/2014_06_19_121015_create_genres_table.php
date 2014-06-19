@@ -5,16 +5,15 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateGenresTable extends Migration {
 
-	public function up()
-	{
-		Schema::create('genres', function(Blueprint $table) {
-			$table->increments('id');
-			$table->string('name_de', 50);
-		});
-	}
+    public function up() {
+        Schema::create('genres', function(Blueprint $table) {
+            $table->increments('id');
+            $table->string('name_de', 50)->unique();
+        });
+    }
 
-	public function down()
-	{
-		Schema::drop('genres');
-	}
+    public function down() {
+        Schema::drop('genres');
+    }
+
 }

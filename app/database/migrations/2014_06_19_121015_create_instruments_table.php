@@ -5,16 +5,15 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateInstrumentsTable extends Migration {
 
-	public function up()
-	{
-		Schema::create('instruments', function(Blueprint $table) {
-			$table->increments('id');
-			$table->string('name_de', 50);
-		});
-	}
+    public function up() {
+        Schema::create('instruments', function(Blueprint $table) {
+            $table->increments('id');
+            $table->string('name_de', 50)->unique();
+        });
+    }
 
-	public function down()
-	{
-		Schema::drop('instruments');
-	}
+    public function down() {
+        Schema::drop('instruments');
+    }
+
 }
