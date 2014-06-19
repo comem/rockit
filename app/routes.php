@@ -11,13 +11,14 @@
   |
  */
 
-Route::get('/', function() {
-    return View::make('hello');
-});
-
 
 Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function()
 {
+	
+	Route::get('/', function() {
+	    return View::make('hello');
+	});
+
 	// start
 
 	Route::get('/trads/{locale?}', 'TranslationController@translate')->where('locale', '[A-Za-z_]+');
