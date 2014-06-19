@@ -60,4 +60,28 @@ class EventController extends \BaseController {
 	}
 
 
+	/**
+	 * Publish the specified ressource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function publish($id)
+	{
+		//
+	}
+
+
+	/**
+	 * Unpublish the specified ressource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function unpublish($id)
+	{
+		//
+	}
+
+
 }

@@ -1,7 +1,6 @@
 <?php
 
-class FulfillmentController extends \BaseController {
-
+class GuaranteeController extends \BaseController {
 
 	/**
 	 * Store a newly created resource in storage.
