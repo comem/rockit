@@ -14,6 +14,7 @@ class MembersTableSeeder extends Seeder {
         	'first_name'=>'Steeve',
             'last_name'=>'Kocher',
             'email' => 'foo@bar.com',
+            'is_active' => true,
             'street' => 'Gasser halle 3',
             'npa' => '1345',
             'city' => 'Zufingen'
