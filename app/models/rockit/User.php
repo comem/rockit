@@ -2,26 +2,31 @@
 
 namespace Rockit;
 
+use Illuminate\Auth\UserTrait;
+use Illuminate\Auth\UserInterface;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
+use \Eloquent;
 
-class User extends \Eloquent {
+class User extends Eloquent implements UserInterface {
 
-	protected $table = 'users';
-	public $timestamps = true;
+    use UserTrait,
+        SoftDeletingTrait;
 
-	use SoftDeletingTrait;
+    public $timestamps = true;
+    protected $table = 'users';
+    protected $dates = array('deleted_at');
+    protected $hidden = array('password');
 
-	protected $dates = ['deleted_at'];
-	protected $hidden = array('password');
+    public function group() {
+        return $this->belongsTo('Rockit\Group');
+    }
 
-	public function group()
-	{
-		return $this->belongsTo('Rockit\Group');
-	}
-
-	public function language()
-	{
-		return $this->belongsTo('Rockit\Language');
-	}
+    public function language() {
+        return $this->belongsTo('Rockit\Language');
+    }
+    
+    public function hasAccess(Resource $resource) {
+        return $this->group->hasAccess($resource);
+    }
 
 }

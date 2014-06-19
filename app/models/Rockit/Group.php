@@ -14,6 +14,10 @@ class Group extends Eloquent {
 
     protected $dates = ['deleted_at'];
 
+    /**
+     * Get the group from which this instance inherits
+     * @return type
+     */
     public function groupParent() {
         return $this->hasOne('Rockit\Group', 'id', 'group_id');
     }
