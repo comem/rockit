@@ -22,7 +22,7 @@ Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function()
 
 	// start
 
-	Route::get('trads/{locale?}', 'TranslationController@translate')->where('locale', '[A-Za-z_]+');
+	Route::get('trads/{locale?}', 'TranslationController@translate')->where('locale', '[a-z]+');
 	Route::get('langs', 'TranslationController@index');
 
 	Route::post('login', 'AuthController@login');
@@ -33,7 +33,7 @@ Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function()
 	{
 		// before auth
 
-		Route::put('langs', 'TranslationController@setLocale');
+		Route::put('langs', 'TranslationController@changeLocale');
 
 		Route::group(array('before' => 'acl'), function()
 		{
