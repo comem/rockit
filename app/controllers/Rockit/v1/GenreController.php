@@ -44,7 +44,7 @@ class GenreController extends \BaseController {
 
 	public static function save( $inputs ){
 
-		$genre = Genre::exist( $inputs['name_de'] );
+		$genre = Genre::exist( $inputs );
 		if(is_object($genre)){
 			$response = $genre;
 		} else {

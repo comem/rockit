@@ -12,7 +12,6 @@ class Genre extends \Eloquent {
 	protected $dates = array('deleted_at');
 
 	public static $create_rules = array(
-		'id' => 'integer|min:1|required',
         'name_de' => 'required|min:1',
 		);
 
@@ -24,7 +23,7 @@ class Genre extends \Eloquent {
 	public static function exist( $inputs )
 	{	
 		$response = null;
-		if( is_integer($inputs['id']) ){
+		if(isset($inputs['id']) && is_integer($inputs['id']) ){
 			$response = self::where('id', '=', $inputs['id'])->first();
 		} else {
         	$response = self::where('name_de', '=', $inputs['name_de'])->first();
