@@ -2,7 +2,7 @@
 
 namespace Rockit;
 
-use \Validator;
+use \Validator, \DB;
 
 class Event extends \Eloquent {
 
@@ -171,7 +171,17 @@ class Event extends \Eloquent {
 	*/
 	public static function checkDatesDontOverlap( $start_date_hour, $ending_date_hour )
 	{
-
+		$results = DB::select(
+			'SELECT * FROM events 
+			WHERE ( start_date_hour BETWEEN ? AND ? OR
+			ending_date_hour BETWEEN ? AND ? ) OR
+			( start_date_hour < ? AND ending_date_hour > ? )', 
+			array(
+				$start_date_hour, $ending_date_hour,
+				$start_date_hour, $ending_date_hour,
+				$start_date_hour, $ending_date_hour,
+			));
+		return $results == NULL;
 	}
 
 	public static function createOne( $inputs )
