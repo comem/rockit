@@ -2,6 +2,11 @@
 
 namespace Rockit\v1;
 
+use \Input;
+use \Validator;
+use \Genre
+use \Jsend
+
 class GenreController extends \BaseController {
 
 	/**
@@ -20,9 +25,17 @@ class GenreController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public static function store()
 	{
-		//
+		$data = Input::only('name');
+
+		if(Genre::validate($data)){
+			// check trash
+			$trashedObject = Genre::onlyTrashed()->where('name_de', $data))->get();
+			if(exist($trashedObject->id)){
+				Genre::restore($trashedObject->id);
+			} else if ()
+		}
 	}
 
 
@@ -32,7 +45,7 @@ class GenreController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public static function destroy($id)
 	{
 		//
 	}
