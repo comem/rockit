@@ -2,6 +2,10 @@
 
 namespace Rockit\v1;
 
+use \Input,
+    \Validator,
+    Rockit\Representer;
+
 class RepresenterController extends \BaseController {
 
 	/**
@@ -11,7 +15,12 @@ class RepresenterController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+            $data = Input::only('first_name', 'last_name', 'email', 'phone', 'street', 'npa', 'city');
+            $v = Validator::make($data, Representer::$create_rules);
+            if ($v->fails()) {
+                return $v->messages()->getMessages();
+            }
+            return "OK";
 	}
 
 

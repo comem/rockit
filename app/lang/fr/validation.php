@@ -54,6 +54,7 @@ return array(
 	),
 	"not_in"               => "L'attribut :attribute sélectionné n'est pas valide.",
 	"numeric"              => "L'attribut :attribute doit être un nombre.",
+	"phone"                => "L'attribut :attribute ne peut avoir que des nombres, des espaces ou le signe '+'.",
 	"regex"                => "Le format de l'attribut :attribute n'est pas valide.",
 	"required"             => "L'attribut :attribute est obligatoire.",
 	"required_if"          => "L'attribut :attribute est obligatoire lorsque :other a une valeur de :value.",
