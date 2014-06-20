@@ -1,6 +1,7 @@
 <?php
 
-require_once dirname(__FILE__) . '/../PhpOffice/PHPWord.php';
+use PhpOffice\PhpWord\PhpWord,
+ PhpOffice\PhpWord\IOFactory;
 
 class WordExport {
 
@@ -9,7 +10,7 @@ class WordExport {
         $word = new PhpWord();
 
         // Set Properties
-        $properties = $word->getProperties();
+        $properties = $word->getDocumentProperties();
         $properties->setCreator('Mahogany Hall – Konzertmanagement');
         $properties->setCompany('Mahogany Hall');
         $properties->setTitle('Events');
@@ -20,30 +21,55 @@ class WordExport {
         $properties->setModified(time());
         $properties->setSubject('Events');
         $properties->setKeywords('event, mahogany, konzert, party');
+        
+        //// Set font style definitions
+        $fsH1 = array('font' => 'Arial', 'color' => '000000', 'size' => 22, 'bold' => true);
+        $fsH2 = array('font' => 'Arial', 'color' => 'b2a68b', 'size' => 13, 'bold' => true, 'allCaps' => true);
+        $fsH3 = array('font' => 'Arial', 'color' => '000000', 'size' => 18, 'bold' => true);
+        $fsDate = array('font' => 'Arial', 'color' => '000000', 'size' => 10, 'bold' => true);
+        $fsGenre = array('font' => 'Arial', 'color' => '000000', 'size' => 10, 'bold' => true);
+        
+        //// Set paragraph style definitions (they don't contain font information)
+        $psH1 = array('spaceBefore'=> 700, 'spaceAfter' => 300, 'align' => 'left');
+        $psH2 = array('spaceBefore'=> 700, 'spaceAfter' => 300, 'align' => 'left');
+        $psH3 = array('spaceBefore'=> 700, 'spaceAfter' => 300, 'align' => 'left');
 
-        // Set style definitions: ts = title styles, fs = font styles, ps = paragraph styles
-        $tsH1 = array('color' => '000000', 'size' => 22, 'bold' => true);
-        $tsH2 = array('color' => '000000', 'size' => 18, 'bold' => true);
-        $tsH3 = array('color' => '000000', 'size' => 14, 'bold' => true);
-        $fsDate = array('color' => '000000', 'size' => 10, 'bold' => true);
-        $fsGenre = array('color' => '000000', 'size' => 10, 'bold' => true);
-        // Set paragraph definitions (they don't contain font information)
-        $psTitles = array('spaceBefore'=>700, 'spaceAfter' => 300, 'align' => 'right');
 
+        
+        
+        // 1 = Main title document
+        $word->addTitleStyle(1, $fsH1, $psH1);
+        // 2 = title dates (from to/month)
+        $word->addTitleStyle(2, $fsH2, $psH1);
+        // 3 = title «event title»
+        $word->addTitleStyle(3, $fsH3, $psH1);
+        
+        
+        
+        
+        
+        $content = $word->createSection(array('marginLeft'=>1350, 'marginRight'=>1350, 'marginTop'=>3000, 'marginBottom'=>1350));
+        
+        
+        
+        $content->addTitle("Title here", 1);
 
-        $content = $word->createSection();
-        $content->addTitle("Title here", $tsH1, $psTitles);
-        $content->addText("helloooo", $fsDate, $psTitles);
+        $content->addText("helloooo", $fsDate);
         $content->addText("secondline", $fsGenre);
+        $content->addTitle("Konzerte im November", 2);
+        $content->addTitle("Pandorra", 3);
+        $content->addText("Short description");
+        
+
         
         // prepare doc for download and display «save as» dialog
         $file = 'test.docx';
-        setWordHeader($file);
-        $io = PhpOffice\PhpWord\IOFactory::createWriter($word);
+        WordExport::setWordHeader($file);
+        $io = IOFactory::createWriter($word);
         $io->save('php://output');
     }
 
-    function setWordHeader($file) {
+    private static function setWordHeader($file) {
         header("Content-Description: File Transfer");
         header('Content-Disposition: attachment; filename="' . $file . '"');
         header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');

@@ -4,7 +4,8 @@
 	"keywords": ["framework", "laravel"],
 	"license": "MIT",
 	"require": {
-		"laravel/framework": "4.2.*"
+		"laravel/framework": "4.2.*",
+                "phpoffice/phpword": "dev-master"
 	},
 	"autoload": {
 		"classmap": [
@@ -12,6 +13,7 @@
 			"app/controllers",
 			"app/models",
 			"app/database/migrations",
+                        "app/PhpOffice",
 			"app/database/seeds",
 			"app/tests/TestCase.php"
 		]
