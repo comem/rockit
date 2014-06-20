@@ -43,6 +43,35 @@ class TranslationController extends \BaseController {
 			$response = $validate;
 		}
 		return Jsend::compile($response);
+<<<<<<< HEAD
+=======
+	}
+
+
+
+
+
+	public static function setLocale( $locale )
+	{
+		$lang = Language::exist( $locale );
+		if( is_object( $lang ) ) {
+			/*
+			Lang::where()
+			$user = Auth::user();
+			$user->language_id = 0;
+			*/
+			//$response['success'] = $lang;
+			$response = Language::deleteOne(
+				$lang
+			);
+
+			return $response;
+
+			//return $lang;
+		} else {
+			return $lang;
+		}
+>>>>>>> origin/dev/master
 	}
 
 	public static function setLocale( $locale )
