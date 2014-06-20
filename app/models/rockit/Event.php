@@ -14,13 +14,23 @@ class Event extends \Eloquent {
 		'title_de' 				=> 'alpha|required|min:2',
 		'nb_meal' 				=> 'integer|required',
 		'nb_vegans_meal' 		=> 'integer|required',
-		'meal_notes_de' 		=> 'alpha_num',
+		'meal_notes_de' 		=> '',
 		'nb_places'	 			=> 'integer|min:0',
 		'followed_by_private' 	=> 'boolean',
-		'notes_de' 				=> 'alpha_num',
+		'notes_de' 				=> '',
 	);
 
 	public static $update_rules = array(
+		'start_date_hour' 		=> 'date',
+		'ending_date_hour' 		=> 'date',
+		'opening_doors' 		=> 'date',
+		'title_de' 				=> 'alpha|min:2',
+		'nb_meal' 				=> 'integer',
+		'nb_vegans_meal' 		=> 'integer',
+		'meal_notes_de' 		=> '',
+		'nb_places'	 			=> 'integer|min:0',
+		'followed_by_private' 	=> 'boolean',
+		'notes_de' 				=> '',
 	);
 
 	public function gifts()
