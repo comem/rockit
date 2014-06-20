@@ -5,7 +5,7 @@
 	*/
 
 return array(
-<<<<<<< HEAD
+
 
 	'genre' => array(
 
@@ -25,18 +25,6 @@ return array(
 		'missing' => "Oups! Cette url n'existe pas",
 	),
 
-=======
->>>>>>> origin/dev/master
-=======
-    'language' => array(
-        'inexistant' => "La langue n'existe pas",
-        'missing' => "L'attribut 'locale' est manquant",
-    ),
-    'routes' => array(
-        'missing' => "Oups! Cette url n'existe pas",
-    ),
-<<<<<<< HEAD
->>>>>>> origin/dev/master
 
 	'event_type' => array(
 
@@ -44,9 +32,9 @@ return array(
 
 		),
 
-=======
+
     'event' => array(
         'overlap' => "Il y a déjà un événement planifié pour cette date là !",
     ),
->>>>>>> origin/dev/master
+
 );
