@@ -5,6 +5,7 @@
 	*/
 
 return array(
+<<<<<<< HEAD
 
 	'genre' => array(
 
@@ -25,5 +26,14 @@ return array(
 	),
 
 =======
+>>>>>>> origin/dev/master
+=======
+    'language' => array(
+        'inexistant' => "La langue n'existe pas",
+        'missing' => "L'attribut 'locale' est manquant",
+    ),
+    'routes' => array(
+        'missing' => "Oups! Cette url n'existe pas",
+    ),
 >>>>>>> origin/dev/master
 );
