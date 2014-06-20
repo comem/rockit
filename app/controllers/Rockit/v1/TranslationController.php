@@ -6,8 +6,9 @@ use \App,
     \Lang,
     \Input,
     \Auth,
-    \Jsend;
-use \Rockit\Language;
+    \Jsend,
+    \Rockit\Language,
+    \User;
 
 class TranslationController extends \BaseController {
 
