@@ -21,7 +21,31 @@ class LineupsTableSeeder extends Seeder {
 
         Lineup::create(array('musician_id' => $musician[0]->id,
                                         'artist_id' => $artist[0]->id,
-                                        'instrument_id'=> $musician[0]->id));
+                                        'instrument_id'=> $instrument[0]->id));
+        
+        Lineup::create(array('musician_id' => $musician[0]->id,
+                                        'artist_id' => $artist[0]->id,
+                                        'instrument_id'=> $instrument[1]->id));
+        
+        Lineup::create(array('musician_id' => $musician[0]->id,
+                                        'artist_id' => $artist[0]->id,
+                                        'instrument_id'=> $instrument[2]->id));
+        
+        Lineup::create(array('musician_id' => $musician[1]->id,
+                                        'artist_id' => $artist[1]->id,
+                                        'instrument_id'=> $instrument[1]->id));
+        
+        Lineup::create(array('musician_id' => $musician[2]->id,
+                                        'artist_id' => $artist[1]->id,
+                                        'instrument_id'=> $instrument[1]->id));
+        
+        Lineup::create(array('musician_id' => $musician[3]->id,
+                                        'artist_id' => $artist[1]->id,
+                                        'instrument_id'=> $instrument[2]->id));
+    
+        Lineup::create(array('musician_id' => $musician[4]->id,
+                                        'artist_id' => $artist[1]->id,
+                                        'instrument_id'=> $instrument[3]->id));
     }
 }
 

@@ -18,6 +18,21 @@ class FulfillmentsTableSeeder extends Seeder {
 
         Fulfillment::create(array('skill_id' => $skill[0]->id,
                                     'member_id'=> $member[0]->id));
+        
+        Fulfillment::create(array('skill_id' => $skill[0]->id,
+                                    'member_id'=> $member[2]->id));
+        
+        Fulfillment::create(array('skill_id' => $skill[0]->id,
+                                    'member_id'=> $member[3]->id));
+        
+        Fulfillment::create(array('skill_id' => $skill[1]->id,
+                                    'member_id'=> $member[0]->id));
 
+        Fulfillment::create(array('skill_id' => $skill[1]->id,
+                                    'member_id'=> $member[3]->id));
+
+        Fulfillment::create(array('skill_id' => $skill[2]->id,
+                                    'member_id'=> $member[1]->id));
+        
     }
 }

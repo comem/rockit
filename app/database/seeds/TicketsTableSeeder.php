@@ -18,6 +18,23 @@ class TicketsTableSeeder extends Seeder {
         Ticket::create(array('ticket_category_id' => $ticketCategory[0]->id,
                                 'event_id'=>$event[0]->id,
                                 'amount' => 20));
+        
+        Ticket::create(array('ticket_category_id' => $ticketCategory[2]->id,
+                                'event_id'=>$event[0]->id,
+                                'amount' => 0));
+        
+        Ticket::create(array('ticket_category_id' => $ticketCategory[4]->id,
+                                'event_id'=>$event[0]->id,
+                                'amount' => 10));
+        
+        Ticket::create(array('ticket_category_id' => $ticketCategory[0]->id,
+                                'event_id'=>$event[1]->id,
+                                'amount' => 20));
+        
+        Ticket::create(array('ticket_category_id' => $ticketCategory[3]->id,
+                                'event_id'=>$event[1]->id,
+                                'amount' => 12));
+        
     }
 }
 

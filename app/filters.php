@@ -35,7 +35,7 @@ App::after(function($request, $response) {
 
 Route::filter('auth', function() {
     if (Auth::guest()) {
-        return Jsend::fail("message to be defined");
+        return Jsend::fail("badlogin message to be defined");
     }
 });
 
