@@ -9,4 +9,7 @@ return array(
         'inexistant' => "La langue n'existe pas",
         'missing' => "L'attribut 'locale' est manquant",
     ),
+    'routes' => array(
+        'missing' => "Oups! Cette url n'existe pas",
+    ),
 );
