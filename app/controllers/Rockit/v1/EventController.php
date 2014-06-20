@@ -2,6 +2,9 @@
 
 namespace Rockit\v1;
 
+use \Input,
+    \WordExport;
+
 class EventController extends \BaseController {
 
 	/**
@@ -85,8 +88,10 @@ class EventController extends \BaseController {
 		//
 	}
 
-        public function exportWord($from, $to) {
-            dd("in word");
+        public function exportWord() {
+            $from = Input::get('from');
+            $to = Input::get('to');
+            WordExport::events($from, $to);
         } 
 
 }
