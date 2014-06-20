@@ -11,4 +11,10 @@ return array(
         'deleted' => "La langue n'a pas pu être supprimée",
         'restored' => "La langue n'a pas pu être restaurée",
     ),
+    'representer' => array(
+        'created' => "Le représentant a été créé.",
+        'updated' => "Le représentant a été modifié",
+        'deleted' => "Le représentant a été supprimé",
+        'restored' => "Le représentant a été restauré",
+    ),
 );
