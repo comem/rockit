@@ -60,15 +60,11 @@ class Artist extends \Eloquent {
         return $response;
     }
 
-    public static function createOne($inputs) {
+    public static function createOne($inputs, $genres) {
         self::unguard();
         $object = self::create($inputs);
         if ($object != null) {
-            if(array_count_values($inputs['genres']) > 0) {
-                foreach($inputs['genres'] as $genre_id => $genre) {
-                    Description::create($genre)
-                }
-            }
+            $object->genres()->sync($genres);
             $response['success'] = array(
                 'title' => trans('success.artist.created'),
                 'id' => $object->id,

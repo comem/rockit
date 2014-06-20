@@ -39,10 +39,11 @@ class ArtistController extends \BaseController {
 	 */
 	public function store()
 	{
-            $inputs = Input::only('name', 'short_description_de', 'complete_description_de', 'genres');
+            $inputs = Input::only('name', 'short_description_de', 'complete_description_de');
+            $genres = Input::only('genres');
             $validate = Artist::validate($inputs, Artist::$create_rules);
             if($validate === true) {
-                $response = self::save($inputs);
+                $response = self::save($inputs, $genres['genres']);
             } else {
                 $response = $validate;
             }
@@ -73,16 +74,17 @@ class ArtistController extends \BaseController {
 		//
 	}
         
-        public static function save($inputs) {
+        public static function save($inputs, $genres) {
             $existingMergedGenres = array();
-            foreach ($inputs['genres'] as $genre_id) {
-                if(Genre::exists($genre_id)) {
-                    if(!in_array($genre_id, $existingMergedGenres)) {
-                        $existingMergedGenres['genres'] = $genre_id;
+            foreach ($genres as $genre) {
+                if(Genre::exists($genre)) {
+                    if(!in_array($genre, $existingMergedGenres)) {
+                        $existingMergedGenres[] = $genre;
                     }
                 }
             }
-            return Artist::createOne($inputs);
+            $genres = $existingMergedGenres;
+            return Artist::createOne($inputs, $genres);
         }
 
 }
