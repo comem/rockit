@@ -1,6 +1,6 @@
 <?php
 
-name_despace Rockit;
+namespace Rockit;
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
@@ -14,7 +14,7 @@ class EventType extends \Eloquent {
 
 	public static $create_rules = array(
 		'id' => 'integer|min:1|required',
-        'name_de' => 'required|alpha_num|min:1',
+        'name_de' => 'required|min:1',
 		);
 
 	public function events()
@@ -55,8 +55,13 @@ class EventType extends \Eloquent {
 	public static function restoreOne( EventType $object )
 	{
 		if( $object->restore() ){
-			
+			$response['success'] = array(
+				'title' => trans('success.event_type.restored'),
+			);
+		} else {
+			$response['error'] = trans('error.event_type.restored');
 		}
+		return $response;
 	}
 
 	public static function validate( $inputs, $rules )

@@ -1,6 +1,6 @@
 <?php
 
-name_despace Rockit\v1;
+namespace Rockit\v1;
 
 class EventTypeController extends \BaseController {
 
@@ -22,7 +22,23 @@ class EventTypeController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		$response = null;
+		$inputs = Input::only('name_de');
+			
+		$validate = EventType::validate( $inputs, EventType::$create_rules );
+		if( $validate === true ){
+			$trashedObject = EventType::onlyTrashed()->where('name_de', '=', $inputs->name_de)->get();
+			$livingObject = EventType::where('name_de', $inputs->name_de)->get();
+			
+			if( $trashedObject ) {
+				$response = EventType::restoreOne( $trashedObject ); 
+			} else if ( $livingObject ){
+				$response = $livingObject;
+			} else {
+				$response = EventType::createOne( $inputs );
+			}
+		}
+		return $response;
 	}
 
 

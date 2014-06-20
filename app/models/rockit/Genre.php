@@ -1,6 +1,6 @@
 <?php
 
-name_despace Rockit;
+namespace Rockit;
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 use \Validator;
@@ -13,7 +13,7 @@ class Genre extends \Eloquent {
 
 	public static $create_rules = array(
 		'id' => 'integer|min:1|required',
-        'name_de' => 'required|alpha_num|min:1',
+        'name_de' => 'required|min:1',
 		);
 
 	public function artists()
@@ -26,9 +26,10 @@ class Genre extends \Eloquent {
 		$response = null;
 		if( is_integer($inputs) ){
 			$response = self::where('id', '=', $inputs)->first();
-		} else if ( is_string($inputs) ){
+		} else {
         	$response = self::where('name_de', '=', $name)->first();
-		}if( $response == null ){
+		}
+		if( $response == null ){
         	$response['fail'] = trans('fail.genre.inexistant');
         }
         return $response;
@@ -91,5 +92,6 @@ class Genre extends \Eloquent {
 		}
 		return $response;
 	}
+
 
 }

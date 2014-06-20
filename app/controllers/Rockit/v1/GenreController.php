@@ -1,6 +1,6 @@
 <?php
 
-name_despace Rockit\v1;
+namespace Rockit\v1;
 
 use \App, \Lang, \Input, \Auth, \Jsend;
 use \Rockit\Genre;
@@ -23,25 +23,42 @@ class GenreController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public static function store()
+	public function store()
 	{
 		$response = null;
 		$inputs = Input::only('name_de');
-			
+
+
 		$validate = Genre::validate( $inputs, Genre::$create_rules );
 		if( $validate === true ){
-			$trashedObject = Genre::onlyTrashed()->where('name_de', '=', $inputs->name_de)->get();
-			$livingObject = Genre::where('name_de', $inputs->name_de)->get();
-			
-			if( $trashedObject ) {
-				$response = Genre::restoreOne( $trashedObject ); 
-			} else if ( $livingObject ){
-				$response = $livingObject;
-			} else {
-				$response = Genre::createOne( $inputs );
-			}
+			$response = renew($inputs['name_de']);
+		}
+		//if not trashed...
+		$response = save( $inputs );
+
+		return $response;
+	}
+
+	public static function save( $inputs ){
+
+		$response = Genre::exist( $inputs['name_de'] );
+		if( $response === true ){
+			// do nothing.
+		} else {
+			$response = Genre::createOne( $inputs );
 		}
 		return $response;
+	}
+
+
+	public static function renew( $name )
+	{
+		$response = false;
+		$trashedObject = Genre::onlyTrashed()->where('name_de', '=', $inputs['name_de'])->get();
+		if( $trashedObject != null){
+			$response = Genre::restoreOne($trashedObject['name_de']);
+		} 
+		return false;
 	}
 
 
