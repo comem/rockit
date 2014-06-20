@@ -24,10 +24,10 @@ class Genre extends \Eloquent {
 	public static function exist( $inputs )
 	{	
 		$response = null;
-		if( is_integer($inputs) ){
-			$response = self::where('id', '=', $inputs)->first();
+		if( is_integer($inputs['id']) ){
+			$response = self::where('id', '=', $inputs['id'])->first();
 		} else {
-        	$response = self::where('name_de', '=', $name)->first();
+        	$response = self::where('name_de', '=', $inputs['name_de'])->first();
 		}
 		if( $response == null ){
         	$response['fail'] = trans('fail.genre.inexistant');

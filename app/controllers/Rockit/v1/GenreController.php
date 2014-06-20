@@ -28,22 +28,25 @@ class GenreController extends \BaseController {
 		$response = null;
 		$inputs = Input::only('name_de');
 
-
 		$validate = Genre::validate( $inputs, Genre::$create_rules );
+		
 		if( $validate === true ){
-			$response = renew($inputs['name_de']);
-		}
+		// 	$response = renew($inputs['name_de']);
+		
 		//if not trashed...
-		$response = save( $inputs );
-
+		$response = self::save( $inputs );
+		} else {
+			$response = $validate;
+		}
 		return $response;
+		// return Jsend::compile($response);
 	}
 
 	public static function save( $inputs ){
 
-		$response = Genre::exist( $inputs['name_de'] );
-		if( $response === true ){
-			// do nothing.
+		$genre = Genre::exist( $inputs['name_de'] );
+		if(is_object($genre)){
+			$response = $genre;
 		} else {
 			$response = Genre::createOne( $inputs );
 		}
