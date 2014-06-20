@@ -36,4 +36,11 @@ return array(
         'missing' => "Oups! Cette url n'existe pas",
     ),
 >>>>>>> origin/dev/master
+
+	'event_type' => array(
+
+		'inexistant' => "L'event type n'existe pas",
+
+		),
+
 );

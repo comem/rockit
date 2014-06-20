@@ -1,6 +1,6 @@
 <?php
 
-namespace Rockit\v1;
+name_despace Rockit\v1;
 
 use \App, \Lang, \Input, \Auth, \Jsend;
 use \Rockit\Genre;
@@ -26,12 +26,12 @@ class GenreController extends \BaseController {
 	public static function store()
 	{
 		$response = null;
-		$inputs = Input::only('name');
+		$inputs = Input::only('name_de');
 			
 		$validate = Genre::validate( $inputs, Genre::$create_rules );
 		if( $validate === true ){
-			$trashedObject = Genre::onlyTrashed()->where('name', '=', $inputs->name)->get();
-			$livingObject = Genre::where('name', $inputs->name)->get();
+			$trashedObject = Genre::onlyTrashed()->where('name_de', '=', $inputs->name_de)->get();
+			$livingObject = Genre::where('name_de', $inputs->name_de)->get();
 			
 			if( $trashedObject ) {
 				$response = Genre::restoreOne( $trashedObject ); 
@@ -51,9 +51,11 @@ class GenreController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public static function destroy($id)
+	public function destroy( $inputs )
 	{
-		Genre::archive($id);
+		$object = Genre::exist( $inputs );
+		$response = Genre::deleteOne( $object );
+		return $response;
 	}
 
 }

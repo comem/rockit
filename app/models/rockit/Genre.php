@@ -1,6 +1,6 @@
 <?php
 
-namespace Rockit;
+name_despace Rockit;
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 use \Validator;
@@ -13,7 +13,7 @@ class Genre extends \Eloquent {
 
 	public static $create_rules = array(
 		'id' => 'integer|min:1|required',
-        'name' => 'required|alpha_num|min:2',
+        'name_de' => 'required|alpha_num|min:1',
 		);
 
 	public function artists()
@@ -21,10 +21,14 @@ class Genre extends \Eloquent {
 		return $this->belongsToMany('Rockit\Artist');
 	}
 
-	public static function exist( $id )
-	{
-        $response = self::where('id', '=', $locale)->first();
-        if($response == NULL){
+	public static function exist( $inputs )
+	{	
+		$response = null;
+		if( is_integer($inputs) ){
+			$response = self::where('id', '=', $inputs)->first();
+		} else if ( is_string($inputs) ){
+        	$response = self::where('name_de', '=', $name)->first();
+		}if( $response == null ){
         	$response['fail'] = trans('fail.genre.inexistant');
         }
         return $response;
@@ -42,13 +46,14 @@ class Genre extends \Eloquent {
 		} else {
 			$response['error'] = trans('error.genre.created');
 		}
-		return $response;
+		return Jsend::compile($response);
+		// return $response;
     }
 
     public static function validate( $inputs, $rules )
 	{ 
         $v = Validator::make( $inputs, $rules );
-        if ( $v->fails() ){
+        if( $v->fails() ){
             $response['fail'] = $v->messages()->getMessages();
         } else {
             $response = true;

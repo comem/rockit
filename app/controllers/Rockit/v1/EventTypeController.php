@@ -1,6 +1,6 @@
 <?php
 
-namespace Rockit\v1;
+name_despace Rockit\v1;
 
 class EventTypeController extends \BaseController {
 
