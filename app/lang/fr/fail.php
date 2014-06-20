@@ -20,7 +20,7 @@ return array(
 
 	),
 
-<<<<<<< HEAD
+
 	'routes' => array(
 		'missing' => "Oups! Cette url n'existe pas",
 	),
@@ -35,6 +35,7 @@ return array(
     'routes' => array(
         'missing' => "Oups! Cette url n'existe pas",
     ),
+<<<<<<< HEAD
 >>>>>>> origin/dev/master
 
 	'event_type' => array(
@@ -43,4 +44,9 @@ return array(
 
 		),
 
+=======
+    'event' => array(
+        'overlap' => "Il y a déjà un événement planifié pour cette date là !",
+    ),
+>>>>>>> origin/dev/master
 );
