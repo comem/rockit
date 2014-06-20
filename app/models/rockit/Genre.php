@@ -12,7 +12,7 @@ class Genre extends \Eloquent {
 
 	public static $rules = array(
 		'id' => 'integer|min:1|required',
-        'name_de' => 'required|alpha_num',
+        'name' => 'required|alpha_num|min:2',
 		);
 
 	public function artists()
@@ -20,38 +20,39 @@ class Genre extends \Eloquent {
 		return $this->belongsToMany('Rockit\Artist');
 	}
 
-	public static function exist($id)
+	public static function exist( $id )
 	{
-        return self::find($id) != NULL;
+        $response = self::where('id', '=', $locale)->first();
+        if($response == NULL){
+        	$response['fail'] = trans('fail.genre.inexistant');
+        }
+        return $response;
 	} 
 
-	public static function create($data)
+	public static function createOne( $inputs )
 	{
-		$genre = new self();
-		$genre->name_de = $data['name_de'];
-
-		//$genre = Genre::create(array('name_de' => $data['name_de']));
-        
-        try {
-            $genre->save();
-            Jsend::success("success message to define");
-        } catch (Exception $e) {
-            Jsend::fail("fail message to define");
-        }
-        return "saved?";
+		self::unguard();
+		$object = self::create( $inputs );
+		if( $object != null ){
+			$response['success'] = array(
+				'title' => trans('success.genre.created'),
+				'id' => $object->id,
+				);
+		} else {
+			$response['error'] = trans('error.genre.created');
+		}
+		return $response;
     }
 
-    public static function validate($data, $rules)
+    public static function validate( $inputs, $rules )
 	{ 
-		//alpha_num
-        $validator = Validator::make($data, $rules);
-        if ($validator->fails()) {
-            $result = $validator->messages()
-            ->getMessages();
+        $v = Validator::make( $inputs, $rules );
+        if ( $v->fails() ){
+            $response['fail'] = $v->messages()->getMessages();
         } else {
-            $result = TRUE;
+            $response = true;
         }
-        return $result;
+        return $response;
 	}
 
 	public static function merge($data)
@@ -61,14 +62,29 @@ class Genre extends \Eloquent {
 		}
 	}
 
-	public static function archive($id)
+	public static function deleteOne( Genre $object )
 	{
-		self::find($id)->delete();
+		if( $object->delete() ){
+			$response['success'] = array(
+				'title' => trans('success.genre.deleted'),
+			);
+		} else {
+			$response['error'] = trans('error.genre.deleted');
+			)
+		}
+		return $response;
 	}
 
-	public static function restore($id)
+	public static function restoreOne( Genre $object )
 	{
-		self::find($id)->restore();
+		if( $object->restore() ){
+			$response['success'] = array(
+				'title' => trans('success.genre.restored'),
+			);
+		} else {
+			$response['error'] = trans('error.genre.restored');
+		}
+		return $response;
 	}
 
 }

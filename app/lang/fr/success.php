@@ -6,6 +6,14 @@
 
 return array(
 
+	'genre' => array(
+
+		'created' => "Le genre a été créée",
+		'deleted' => "Le genre a été supprimé",
+		'restored' => "Le genre a été restoré",
+
+		)
+
 	'language' => array(
 
 		'created' => "La langue a été créée",
