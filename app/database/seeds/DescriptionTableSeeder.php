@@ -17,6 +17,15 @@ class DescriptionTableSeeder extends Seeder {
 
         Description::create(array('artist_id' => $artist[0]->id,
                                     'genre_id'=> $genre[0]->id));
+        
+        Description::create(array('artist_id' => $artist[1]->id,
+                                    'genre_id'=> $genre[2]->id));
+        
+        Description::create(array('artist_id' => $artist[2]->id,
+                                    'genre_id'=> $genre[3]->id));
+        
+        Description::create(array('artist_id' => $artist[2]->id,
+                                    'genre_id'=> $genre[4]->id));
 
     }
 }
