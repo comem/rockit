@@ -2,6 +2,7 @@
 
 namespace Rockit\v1;
 
+use \Jsend;
 use \Rockit\Event;
 
 class EventController extends \BaseController {
@@ -13,9 +14,9 @@ class EventController extends \BaseController {
 	 */
 	public function index()
 	{
-		$res = Event::checkDatesDontOverlap('2014-07-04 13:00:00', '2014-07-04 14:30:00');
-		if($res) return 'oui';
-		else return 'non';
+		$res = Event::checkOpeningDoorsHour('2014-07-04 13:00:00', '2014-07-04 15:30:00');
+		if($res === true) return 'oui';
+		else return Jsend::compile($res);
 	}
 
 

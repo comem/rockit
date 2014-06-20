@@ -84,7 +84,6 @@ class Event extends \Eloquent {
 	{
 		return $this->belongsTo('Rockit\Representer');
 	}
-	
 
 	/**
 	* Check that there is an event that exists in the set of persistant Events, 
@@ -102,6 +101,12 @@ class Event extends \Eloquent {
 		return $response;
 	}
 
+	/**
+	* Validate the information passed in parameters
+	*
+	* @param $inputs, $rules
+	* @return true or fail message
+	*/
 	public static function validate( $inputs, $rules )
 	{
 		$v = Validator::make( $inputs, $rules );
@@ -117,7 +122,7 @@ class Event extends \Eloquent {
 	* Check that anEventStartDateHour is set after anEventOpeningDoors
 	*
 	* @param $start_date_hour, $opening_doors_hour
-	* @return 
+	* @return  true or fail message
 	*/
 	public static function checkOpeningDoorsHour( $start_date_hour, $opening_doors_hour )
 	{
@@ -137,7 +142,7 @@ class Event extends \Eloquent {
 	* Check that anEventStartDateHour is set before anEventEndingDateHour
 	*
 	* @param $start_date_hour, $ending_date_hour
-	* @return 
+	* @return  true or fail message
 	*/
 	public static function checkDatesChronological( $start_date_hour, $ending_date_hour )
 	{
@@ -167,7 +172,7 @@ class Event extends \Eloquent {
 	* aChronologicalEnding
 	*
 	* @param $start_date_hour, $ending_date_hour
-	* @return 
+	* @return  true or fail message
 	*/
 	public static function checkDatesDontOverlap( $start_date_hour, $ending_date_hour )
 	{
@@ -181,9 +186,22 @@ class Event extends \Eloquent {
 				$start_date_hour, $ending_date_hour,
 				$start_date_hour, $ending_date_hour,
 			));
-		return $results == NULL;
+		if($results != NULL){
+			$response['fail'] = array(
+				'title' => trans('fail.event.overlap'),
+			);
+		} else {
+			$response = true;
+		}
+		return $response;
 	}
 
+	/**
+	* Create a new Event
+	*
+	* @param $inputs
+	* @return  true or error message
+	*/
 	public static function createOne( $inputs )
 	{
 		self::unguard();
@@ -199,6 +217,13 @@ class Event extends \Eloquent {
 		return $response;
 	}
 
+	/**
+	* Update a persistant Event, based on the difference between a 
+	* provided anEventToModify and anExistingEvent
+	*
+	* @param $new_values, Event $object
+	* @return  true or error message
+	*/
 	public static function updateOne( $new_values, Event $object )
 	{
 		foreach( $new_values as $key => $value )
@@ -215,6 +240,12 @@ class Event extends \Eloquent {
 		return $response;
 	}
 
+	/**
+	* Delete a persistant Event
+	*
+	* @param Event $object
+	* @return  true or error message
+	*/
 	public static function deleteOne( Event $object )
 	{
 		if( $object->delete() ){ 
