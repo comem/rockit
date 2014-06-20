@@ -3,7 +3,6 @@
 
 
 return array(
-<<<<<<< HEAD
 
 	'genre' => array(
 
