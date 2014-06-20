@@ -2,6 +2,8 @@
 
 namespace Rockit;
 
+use \Validator;
+
 class Event extends \Eloquent {
 
 	protected $table = 'events';
@@ -114,30 +116,57 @@ class Event extends \Eloquent {
 	/**
 	* Check that anEventStartDateHour is set after anEventOpeningDoors
 	*
-	* @param 
+	* @param $start_date_hour, $opening_doors_hour
 	* @return 
 	*/
 	public static function checkOpeningDoorsHour( $start_date_hour, $opening_doors_hour )
 	{
-
+		$v = Validator::make(
+		    array('start_date_hour' => $start_date_hour),
+		    array('start_date_hour' => 'required|after:'.$opening_doors_hour)
+		);
+		if( $v->fails() ){
+			$response['fail'] = $v->messages()->getMessages();
+		} else {
+			$response = true;
+		}
+		return $response;
 	}
 
 	/**
 	* Check that anEventStartDateHour is set before anEventEndingDateHour
 	*
-	* @param 
+	* @param $start_date_hour, $ending_date_hour
 	* @return 
 	*/
 	public static function checkDatesChronological( $start_date_hour, $ending_date_hour )
 	{
-
+		$v = Validator::make(
+		    array('start_date_hour' => $start_date_hour),
+		    array('start_date_hour' => 'required|before:'.$ending_date_hour)
+		);
+		if( $v->fails() ){
+			$response['fail'] = $v->messages()->getMessages();
+		} else {
+			$response = true;
+		}
+		return $response;
 	}
 
 	/**
 	* Check that the interval between anEventStartDateHour and 
 	* anEventEndingHour does not overlap with another Event
 	*
-	* @param 
+	* IF ((any persisting Events have a start_date_hour OR an ending_date_hour 
+	* BETWEEN aChonologicalStart AND aChronologicalEnding) OR 
+	* (any persisting Events have a start_date_hour which is smaller 
+	* than aChronologicalStart AND has an ending_date_hour which is 
+	* greater than aChronologicalEnding)),THEN generate eventsOverlapping, 
+	* ELSE generate :- aNonOverlappingStart that matches the received 
+	* aChronologicalStart,- aNonOverlappingEnding that matches the received 
+	* aChronologicalEnding
+	*
+	* @param $start_date_hour, $ending_date_hour
 	* @return 
 	*/
 	public static function checkDatesDontOverlap( $start_date_hour, $ending_date_hour )
