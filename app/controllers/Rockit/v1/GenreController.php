@@ -16,7 +16,7 @@ class GenreController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		return Genre::all();
 	}
 
 
@@ -30,11 +30,17 @@ class GenreController extends \BaseController {
 		$data = Input::only('name');
 
 		if(Genre::validate($data)){
-			// check trash
-			$trashedObject = Genre::onlyTrashed()->where('name_de', $data))->get();
-			if(exist($trashedObject->id)){
-				Genre::restore($trashedObject->id);
-			} else if ()
+			// check trashed genres
+			$trashedObject = Genre::onlyTrashed()->where('name_de', $data->name))->get();
+			// check living genres
+			$livingObject = Genre::where('name_de', $data->name))->get();
+			if($trashedObject){
+				return Genre::restore($trashedObject->id);
+			} else if (exist($livingObject->id)){
+				return $livingObject;
+			} else {
+				return Genre::create($data);
+			}
 		}
 	}
 
@@ -47,7 +53,7 @@ class GenreController extends \BaseController {
 	 */
 	public static function destroy($id)
 	{
-		//
+		Genre::archive($id);
 	}
 
 

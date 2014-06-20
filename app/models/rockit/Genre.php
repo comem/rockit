@@ -54,7 +54,7 @@ class Genre extends \Eloquent {
         return $result;
 	}
 
-	public static function merge()
+	public static function merge($data)
 	{
 		//
 	}
