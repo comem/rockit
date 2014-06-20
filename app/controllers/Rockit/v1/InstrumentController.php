@@ -11,7 +11,7 @@ class InstrumentController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		 return  \Jsend::success(\Rockit\Instrument::all()->toArray());
 	}
 
 

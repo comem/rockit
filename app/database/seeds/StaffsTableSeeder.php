@@ -20,6 +20,31 @@ class StaffsTableSeeder extends Seeder {
         Staff::create(array('member_id' => $member[0]->id,
                             'event_id'=> $event[0]->id,
                             'skill_id'=> $skill[0]->id));
+        
+        Staff::create(array('member_id' => $member[1]->id,
+                            'event_id'=> $event[0]->id,
+                            'skill_id'=> $skill[2]->id));
+        
+        Staff::create(array('member_id' => $member[2]->id,
+                            'event_id'=> $event[0]->id,
+                            'skill_id'=> $skill[4]->id));
+        
+        Staff::create(array('member_id' => $member[1]->id,
+                            'event_id'=> $event[1]->id,
+                            'skill_id'=> $skill[3]->id));
+        
+        Staff::create(array('member_id' => $member[1]->id,
+                            'event_id'=> $event[2]->id,
+                            'skill_id'=> $skill[0]->id));
+        
+        Staff::create(array('member_id' => $member[3]->id,
+                            'event_id'=> $event[2]->id,
+                            'skill_id'=> $skill[1]->id));
+        
+        Staff::create(array('member_id' => $member[3]->id,
+                            'event_id'=> $event[1]->id,
+                            'skill_id'=> $skill[4]->id));
+        
     }
 }
 

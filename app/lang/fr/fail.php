@@ -19,4 +19,11 @@ return array(
 
 	),
 
+<<<<<<< HEAD
+	'routes' => array(
+		'missing' => "Oups! Cette url n'existe pas",
+	),
+
+=======
+>>>>>>> origin/dev/master
 );

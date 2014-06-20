@@ -18,7 +18,7 @@ class Jsend {
      * @param int $status
      * @return \Illuminate\Http\JsonResponse
      */
-    private static function success($data = null, $status = null) {
+    public static function success($data = null, $status = null) {
         // Choisit un code de status HTTP par défaut si non spécifié
         if (!isset($status)) {
             $status = self::HTTP_SUCCESS;
@@ -37,7 +37,7 @@ class Jsend {
      * @param int $status
      * @return \Illuminate\Http\JsonResponse
      */
-    private static function fail($data, $status = null) {
+    public static function fail($data, $status = null) {
         // Choisit un code de status HTTP par défaut si non spécifié
         if (!isset($status)) {
             $status = self::HTTP_FAIL_VALIDATION;
@@ -56,7 +56,7 @@ class Jsend {
      * @param int $status
      * @return \Illuminate\Http\JsonResponse
      */
-    private static function error($message, $status = null) {
+    public static function error($message, $status = null) {
         // Choisit un code de status HTTP par défaut si non spécifié
         if (!isset($status)) {
             $status = self::HTTP_ERROR_NOT_FOUND;
