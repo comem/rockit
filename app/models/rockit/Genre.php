@@ -3,6 +3,7 @@
 namespace Rockit;
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
+use \Validator;
 
 class Genre extends \Eloquent {
 
@@ -10,7 +11,7 @@ class Genre extends \Eloquent {
 	public $timestamps = false;
 	protected $dates = array('deleted_at');
 
-	public static $rules = array(
+	public static $create_rules = array(
 		'id' => 'integer|min:1|required',
         'name' => 'required|alpha_num|min:2',
 		);
@@ -70,7 +71,6 @@ class Genre extends \Eloquent {
 			);
 		} else {
 			$response['error'] = trans('error.genre.deleted');
-			)
 		}
 		return $response;
 	}
