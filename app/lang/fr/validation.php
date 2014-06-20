@@ -52,6 +52,7 @@ return array(
 		"string"  => "L'attribut :attribute doit avoir au minimum :min caractères.",
 		"array"   => "L'attribut :attribute doit avoir au minimum :min éléments.",
 	),
+	"names"                => "L'attribut :attribute ne peut contenir que des lettres ou un apostrophe.",
 	"not_in"               => "L'attribut :attribute sélectionné n'est pas valide.",
 	"numeric"              => "L'attribut :attribute doit être un nombre.",
 	"phone"                => "L'attribut :attribute ne peut avoir que des nombres, des espaces ou le signe '+'.",
