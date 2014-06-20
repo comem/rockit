@@ -2,7 +2,7 @@
 
 namespace Rockit\v1;
 
-use \Rockit\Artist,
+use \Rockit\Artist, \Rockit\Genre,
         \Jsend,
         \Input;
 
@@ -75,16 +75,14 @@ class ArtistController extends \BaseController {
         
         public static function save($inputs) {
             $existingMergedGenres = array();
-            foreach ($inputs['genre'] as $genre_id) {
+            foreach ($inputs['genres'] as $genre_id) {
                 if(Genre::exists($genre_id)) {
-                    if();
-                    $existingMergedGenres[] = $genre_id;
+                    if(!in_array($genre_id, $existingMergedGenres)) {
+                        $existingMergedGenres['genres'] = $genre_id;
+                    }
                 }
             }
-            
-            
-            Artist::createOne($inputs);
-            return $response;
+            return Artist::createOne($inputs);
         }
 
 }

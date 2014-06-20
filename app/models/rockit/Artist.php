@@ -64,12 +64,17 @@ class Artist extends \Eloquent {
         self::unguard();
         $object = self::create($inputs);
         if ($object != null) {
+            if(array_count_values($inputs['genres']) > 0) {
+                foreach($inputs['genres'] as $genre_id => $genre) {
+                    Description::create($genre)
+                }
+            }
             $response['success'] = array(
                 'title' => trans('success.artist.created'),
                 'id' => $object->id,
             );
         } else {
-            $response['error'] = trans('error.language.created');
+            $response['error'] = trans('error.artist.created');
         }
         return $response;
     }
