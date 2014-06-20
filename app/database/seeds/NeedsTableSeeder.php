@@ -16,8 +16,32 @@ class NeedsTableSeeder extends Seeder {
         DB::table('needs')->delete();
 
         Need::create(array('skill_id' => $skill[0]->id,
-                                'event_id' => $skill[0]->id,
+                                'event_id' => $event[0]->id,
                                 'nb_people' => '2'));
-    }
+        
+        Need::create(array('skill_id' => $skill[1]->id,
+                                'event_id' => $event[0]->id,
+                                'nb_people' => '1'));
+        
+        Need::create(array('skill_id' => $skill[2]->id,
+                                'event_id' => $event[0]->id,
+                                'nb_people' => '1'));
+        
+        Need::create(array('skill_id' => $skill[0]->id,
+                                'event_id' => $event[1]->id,
+                                'nb_people' => '1'));
+        
+        Need::create(array('skill_id' => $skill[2]->id,
+                                'event_id' => $event[1]->id,
+                                'nb_people' => '1'));
+        
+        Need::create(array('skill_id' => $skill[1]->id,
+                                'event_id' => $event[2]->id,
+                                'nb_people' => '1'));
+        
+        Need::create(array('skill_id' => $skill[0]->id,
+                                'event_id' => $event[2]->id,
+                                'nb_people' => '1'));
+        }
 }
 

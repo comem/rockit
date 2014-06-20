@@ -10,6 +10,8 @@ class PlatformsTableSeeder extends Seeder {
         DB::table('platforms')->delete();
 
         Platform::create(array('name' => 'facebook'));
+        
+        Platform::create(array('name' => 'Event booster'));
     }
 }
 
