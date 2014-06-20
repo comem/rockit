@@ -13,4 +13,8 @@ return array(
 
 	),
 
+	'routes' => array(
+		'missing' => "Oups! Cette url n'existe pas",
+	),
+
 );

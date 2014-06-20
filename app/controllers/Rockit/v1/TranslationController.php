@@ -45,31 +45,19 @@ class TranslationController extends \BaseController {
 		return Jsend::compile($response);
 	}
 
-
-
-
-
 	public static function setLocale( $locale )
 	{
 		$lang = Language::exist( $locale );
 		if( is_object( $lang ) ) {
-			/*
-			Lang::where()
-			$user = Auth::user();
-			$user->language_id = 0;
-			*/
-			//$response['success'] = $lang;
-			$response = Language::deleteOne(
-				$lang
+			$response = User::updateOne(
+				array('language_id' => $lang->id),
+				Auth::user()
 			);
-
+			App::setLocale( $locale->locale );
 			return $response;
-
-			//return $lang;
 		} else {
 			return $lang;
 		}
 	}
-
 
 }
