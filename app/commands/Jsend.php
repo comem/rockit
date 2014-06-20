@@ -18,7 +18,7 @@ class Jsend {
      * @param int $status
      * @return \Illuminate\Http\JsonResponse
      */
-    public static function success($data = null, $status = null) {
+    private static function success($data = null, $status = null) {
         // Choisit un code de status HTTP par défaut si non spécifié
         if (!isset($status)) {
             $status = self::HTTP_SUCCESS;
@@ -37,7 +37,7 @@ class Jsend {
      * @param int $status
      * @return \Illuminate\Http\JsonResponse
      */
-    public static function fail($data, $status = null) {
+    private static function fail($data, $status = null) {
         // Choisit un code de status HTTP par défaut si non spécifié
         if (!isset($status)) {
             $status = self::HTTP_FAIL_VALIDATION;
@@ -56,7 +56,7 @@ class Jsend {
      * @param int $status
      * @return \Illuminate\Http\JsonResponse
      */
-    public static function error($message, $status = null) {
+    private static function error($message, $status = null) {
         // Choisit un code de status HTTP par défaut si non spécifié
         if (!isset($status)) {
             $status = self::HTTP_ERROR_NOT_FOUND;
@@ -65,6 +65,17 @@ class Jsend {
         $rep->status = 'error';
         $rep->message = $message;
         return Response::json($rep, $status);
+    }
+
+    public static function compile($array){
+        if (isset($array['success'])){
+            $compile = self::success($array['success']);
+        } elseif (isset($array['fail'])){
+            $compile = self::fail($array['fail']);
+        } elseif (isset($array['error'])){
+            $compile = self::error($array['error']);
+        }
+        return $compile;
     }
 
 }
