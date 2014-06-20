@@ -1,7 +1,5 @@
 <?php
 
-use Rockit\User;
-
 class UserTableSeeder extends Seeder {
 
     public function run() {
