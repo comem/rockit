@@ -4,8 +4,8 @@ namespace Rockit\v1;
 
 use \Input;
 use \Validator;
-use \Genre
-use \Jsend
+use \Genre;
+use \Jsend;
 
 class GenreController extends \BaseController {
 
@@ -55,6 +55,5 @@ class GenreController extends \BaseController {
 	{
 		Genre::archive($id);
 	}
-
 
 }

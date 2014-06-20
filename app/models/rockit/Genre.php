@@ -10,7 +10,7 @@ class Genre extends \Eloquent {
 	public $timestamps = false;
 	protected $dates = array('deleted_at');
 
-	static $rules = array(
+	public static $rules = array(
 		'id' => 'integer|min:1|required',
         'name_de' => 'required|alpha_num',
 		);
@@ -41,13 +41,13 @@ class Genre extends \Eloquent {
         return "saved?";
     }
 
-    public static function validate($data)
+    public static function validate($data, $rules)
 	{ 
 		//alpha_num
         $validator = Validator::make($data, $rules);
         if ($validator->fails()) {
             $result = $validator->messages()
-            //->getMessages();
+            ->getMessages();
         } else {
             $result = TRUE;
         }
@@ -56,7 +56,9 @@ class Genre extends \Eloquent {
 
 	public static function merge($data)
 	{
-		//
+		foreach ($data as $genre){
+			//
+		}
 	}
 
 	public static function archive($id)
