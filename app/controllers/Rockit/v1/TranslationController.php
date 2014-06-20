@@ -2,6 +2,9 @@
 
 namespace Rockit\v1;
 
+use \App, \Lang, \Input, \Auth, \Jsend;
+use \Rockit\Language;
+
 class TranslationController extends \BaseController {
 
 	/**
@@ -19,9 +22,10 @@ class TranslationController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function translate($locale)
+	public function translate($locale = NULL)
 	{
-		//
+		if($locale != NULL) App::setLocale($locale);
+		return Lang::get('ihm');
 	}
 
 	/**
@@ -29,9 +33,42 @@ class TranslationController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function setLocale()
+	public function changeLocale()
 	{
-		//
+		$inputs = Input::only('locale');
+		$validate = Language::validate( $inputs, Language::$update_rules );
+		if( $validate === true ){
+			$response = self::setLocale( $inputs['locale'] );
+		} else {
+			$response = $validate;
+		}
+		return Jsend::compile($response);
+	}
+
+
+
+
+
+	public static function setLocale( $locale )
+	{
+		$lang = Language::exist( $locale );
+		if( is_object( $lang ) ) {
+			/*
+			Lang::where()
+			$user = Auth::user();
+			$user->language_id = 0;
+			*/
+			//$response['success'] = $lang;
+			$response = Language::deleteOne(
+				$lang
+			);
+
+			return $response;
+
+			//return $lang;
+		} else {
+			return $lang;
+		}
 	}
 
 
