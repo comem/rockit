@@ -3,6 +3,7 @@
 namespace Rockit;
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
+use \Validator;
 
 class Artist extends \Eloquent {
 
