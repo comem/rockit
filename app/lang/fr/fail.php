@@ -15,4 +15,7 @@ return array(
     'event' => array(
         'overlap' => "Il y a déjà un événement planifié pour cette date là !",
     ),
+    'representer' => array(
+        'inexistant' => "Le représentant demandé n'existe pas.",
+    ),
 );

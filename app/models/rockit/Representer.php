@@ -2,12 +2,12 @@
 
 namespace Rockit;
 
-use Illuminate\Database\Eloquent\SoftDeletingTrait,
-    \Validator;
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class Representer extends \Eloquent {
-
-    use SoftDeletingTrait;
+    
+    use SoftDeletingTrait,
+        RockitModelTrait;
 
     public $timestamps = true;
     protected $table = 'representers';
@@ -29,10 +29,10 @@ class Representer extends \Eloquent {
         'first_name' => 'required|min:1|max:100|names',
         'last_name' => 'required|min:1|max:100|names',
         'email' => 'email|min:1|max:200|required_without:phone',
-        'phone' => 'phone|max:20|required_without:email',
-        'street' => 'max:200',
-        'npa' => 'alpha_dash|max:20',
-        'city' => 'max:200',
+        'phone' => 'phone|min:1|max:20|required_without:email',
+        'street' => 'min:1|max:200',
+        'npa' => 'min:1|alpha_dash|max:20',
+        'city' => 'min:1|max:200',
     );
 
     /**
@@ -40,62 +40,22 @@ class Representer extends \Eloquent {
      * @var array 
      */
     public static $update_rules = array(
-        'first_name' => 'required|min:1|max:100|names',
-        'last_name' => 'required|min:1|max:100|names',
-        'email' => 'email|min:1|max:200|required_without:phone',
-        'phone' => 'phone|max:20|required_without:email',
-        'street' => 'max:200',
-        'npa' => 'alpha_dash|max:20',
-        'city' => 'max:200',
+        'first_name' => 'min:1|max:100|names',
+        'last_name' => 'min:1|max:100|names',
+        'email' => 'email|min:1|max:200',
+        'phone' => 'phone|min:1|max:20',
+        'street' => 'min:1|max:200',
+        'npa' => 'alpha_dash|min:1|max:20',
+        'city' => 'min:1|max:200',
     );
 
     /**
-     * Check that the provided data are valids according to the choosed set of rules.
-     * 
-     * @param array $data The data to check
-     * @param array $rules The rules to apply to the data
-     * @return mixed true : the data are valids. array : an array containing the fail messages 
+     * Check if there is a persistant Representer matchnig the provided id.
+     * @param integer $id The numeric identifier for the requester Representer
+     * @return Representer : The provided id matches an existing Representer. null : The provided id does not match any existing Representer.
      */
-    public static function validate(array $data, array $rules) {
-        $v = Validator::make($data, $rules);
-        if ($v->fails()) {
-            $response['fail'] = $v->messages()->getMessages();
-        } else {
-            $response = true;
-        }
-        return $response;
-    }
-
-    /**
-     * Create and save in the database a new Representer with the provided data.
-     * 
-     * @param array $data The data for the Representer to create
-     * @return array 
-     */
-    public static function createOne($data) {
-        self::unguard();
-        $object = self::create($data);
-        if ($object != null) {
-            $response['success'] = array(
-                'title' => trans('success.representer.created'),
-                'id' => $object->id,
-            );
-        } else {
-            $response['error'] = trans('error.representer.created');
-        }
-        return $response;
-    }
-
-    public static function updateOne() {
-        
-    }
-
-    public static function archiveOne() {
-        
-    }
-
-    public static function exist() {
-        
+    public static function exist($id) {
+        return self::find($id);
     }
 
 }

@@ -5,10 +5,16 @@ namespace Rockit;
 use \Validator, \DB;
 
 class Event extends \Eloquent {
+    
+        use RockitModelTrait;
 
 	protected $table = 'events';
 	public $timestamps = true;
 
+        /**
+         *
+         * @var array 
+         */
 	public static $create_rules = array(
 		'start_date_hour' 		=> 'date|required',
 		'ending_date_hour' 		=> 'date|required',
@@ -100,23 +106,23 @@ class Event extends \Eloquent {
 		}
 		return $response;
 	}
-
-	/**
-	* Validate the information passed in parameters
-	*
-	* @param $inputs, $rules
-	* @return true or fail message
-	*/
-	public static function validate( $inputs, $rules )
-	{
-		$v = Validator::make( $inputs, $rules );
-		if( $v->fails() ){
-			$response['fail'] = $v->messages()->getMessages();
-		} else {
-			$response = true;
-		}
-		return $response;
-	}
+//
+//	/**
+//	* Validate the information passed in parameters
+//	*
+//	* @param $inputs, $rules
+//	* @return true or fail message
+//	*/
+//	public static function validate( $inputs, $rules )
+//	{
+//		$v = Validator::make( $inputs, $rules );
+//		if( $v->fails() ){
+//			$response['fail'] = $v->messages()->getMessages();
+//		} else {
+//			$response = true;
+//		}
+//		return $response;
+//	}
 
 	/**
 	* Check that anEventStartDateHour is set after anEventOpeningDoors

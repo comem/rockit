@@ -4,6 +4,7 @@ namespace Rockit\v1;
 
 use \Input,
     \BaseController,
+    \Jsend,
     Rockit\Representer;
 
 class RepresenterController extends BaseController {
@@ -19,7 +20,7 @@ class RepresenterController extends BaseController {
         if ($response === true) {
             $response = Representer::createOne($data);
         }
-        return $response;
+        return Jsend::compile($response);
     }
 
     /**
@@ -29,7 +30,18 @@ class RepresenterController extends BaseController {
      * @return Response
      */
     public function destroy($id) {
-        //
+        $object = Representer::exist($id);
+        if ($object == null) {
+            $response = array(
+                'fail' => array(
+                    'title' => trans('fail.representer.inexistant'),
+                    'id' => (int) $id,
+                ),
+            );
+        } else {
+            $response = Representer::deleteOne($object);
+        }
+        return Jsend::compile($response);
     }
 
     /**
@@ -38,7 +50,7 @@ class RepresenterController extends BaseController {
      * @return Response
      */
     public function index() {
-        //
+        return Representer::all();
     }
 
     /**
@@ -59,6 +71,21 @@ class RepresenterController extends BaseController {
      */
     public function update($id) {
         $data = Input::only('first_name', 'last_name', 'email', 'phone', 'street', 'npa', 'city');
+        $response = Representer::validate($data, Representer::$update_rules);
+        if ($response === true) {
+            $object = Representer::exist($id);
+            if ($object == null) {
+                $response = array(
+                    'fail' => array(
+                        'title' => trans('fail.representer.inexistant'),
+                        'id' => (int) $id,
+                    ),
+                );
+            } else {
+                $response = Representer::updateOne($data, $object);
+            }
+        }
+        return Jsend::compile($response);
     }
 
 }
