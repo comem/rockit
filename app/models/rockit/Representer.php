@@ -6,16 +6,16 @@ use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class Representer extends \Eloquent {
 
-	protected $table = 'representers';
-	public $timestamps = true;
+    protected $table = 'representers';
+    public $timestamps = true;
 
-	use SoftDeletingTrait;
+    use SoftDeletingTrait,
+        RockitModelTrait;
 
-	protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at'];
 
-	public function events()
-	{
-		return $this->hasMany('Rockit\Event');
-	}
+    public function events() {
+        return $this->hasMany('Rockit\Event');
+    }
 
 }
