@@ -5,13 +5,15 @@ use Rockit\Resource,
     Illuminate\Auth\UserInterface,
     Illuminate\Auth\Reminders\RemindableTrait,
     Illuminate\Auth\Reminders\RemindableInterface,
-    Illuminate\Database\Eloquent\SoftDeletingTrait;
+    Illuminate\Database\Eloquent\SoftDeletingTrait,
+    Rockit\RockitModelTrait;
 
 class User extends Eloquent implements UserInterface, RemindableInterface {
 
     use UserTrait,
         RemindableTrait,
-        SoftDeletingTrait;
+        SoftDeletingTrait,
+        RockitModelTrait;
 
     public $timestamps = true;
     protected static $rules = array(
@@ -39,56 +41,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
      * @return boolean true if data is validated, false if not
      */
     public static function validate($data = array()) {
-        $v = Validator::make($data, User::$rules);
+        $v = Validator::make($data, self::$rules);
         return $v->passes();
-    }
-
-    /**
-     * Get the unique identifier for the user.
-     *
-     * @return mixed
-     */
-    public function getAuthIdentifier() {
-        return $this->getKey();
-    }
-
-    /**
-     * Get the password for the user.
-     *
-     * @return string
-     */
-    public function getAuthPassword() {
-        return $this->password;
-    }
-
-    /**
-     * Get the e-mail address where password reminders are sent.
-     * @return string
-     */
-    public function getReminderEmail() {
-        return $this->email;
-    }
-
-    /**
-     * Get the token value for the "remember me" session.
-     */
-    public function getRememberToken() {
-        return $this->remember_token;
-    }
-
-    /**
-     * Get the column name for the "remember me" token.
-     */
-    public function getRememberTokenName() {
-        return 'remember_token';
-    }
-
-    /*
-     * Set the token value for the "remember me" session.
-     */
-
-    public function setRememberToken($value) {
-        $this->remember_token = $value;
     }
 
     public function group() {
