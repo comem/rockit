@@ -50,7 +50,7 @@ class Representer extends \Eloquent {
     );
 
     /**
-     * Check if there is a persistant Representer matchnig the provided id.
+     * Check if there is a persistant Representer matching the provided id.
      * @param integer $id The numeric identifier for the requester Representer
      * @return Representer : The provided id matches an existing Representer. null : The provided id does not match any existing Representer.
      */
