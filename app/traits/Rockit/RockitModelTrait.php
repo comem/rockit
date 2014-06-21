@@ -12,7 +12,7 @@ trait RockitModelTrait {
     }
 
     /**
-     * Check that the provided datas are valids according to the choosed set of rules.
+     * Check that the provided datas are valid according to the choosed set of rules.
      * 
      * @param array $data The data to check
      * @param array $rules The rules to apply to the data
@@ -78,7 +78,7 @@ trait RockitModelTrait {
     /**
      * Delete a persistant Model
      *
-     * @param Object $object
+     * @param Object $object The Model to delete
      * @return true or error message
      */
     public static function deleteOne($object) {
@@ -89,6 +89,24 @@ trait RockitModelTrait {
             );
         } else {
             $response['error'] = trans('error.' . $class_name . '.deleted');
+        }
+        return $response;
+    }
+
+    /**
+     * Restore a previsouly soft deleted Model
+     * 
+     * @param Object $object The trashed Model to restore
+     * @return 
+     */
+    public static function restoreOne($object) {
+        $class_name = self::getClass();
+        if ($object->restore()) {
+            $response['success'] = array(
+                'title' => trans('success.' . $class_name . '.restored'),
+            );
+        } else {
+            $response['error'] = trans('error.' . $class_name . '.restored');
         }
         return $response;
     }

@@ -8,7 +8,7 @@ use \Input,
     Rockit\Representer;
 
 class RepresenterController extends BaseController {
-
+    
     /**
      * Store a newly created resource in storage.
      *
