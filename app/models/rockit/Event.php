@@ -208,20 +208,20 @@ class Event extends \Eloquent {
 	* @param $inputs
 	* @return  true or error message
 	*/
-	public static function createOne( $inputs )
-	{
-		self::unguard();
-		$object = self::create( $inputs );
-		if( $object != null ){
-			$response['success'] = array(
-				'title' => trans('success.event.created'),
-				'id' => $object->id,
-			);
-		} else {
-			$response['error'] = trans('error.event.created');
-		}
-		return $response;
-	}
+//	public static function createOne( $inputs )
+//	{
+//		self::unguard();
+//		$object = self::create( $inputs );
+//		if( $object != null ){
+//			$response['success'] = array(
+//				'title' => trans('success.event.created'),
+//				'id' => $object->id,
+//			);
+//		} else {
+//			$response['error'] = trans('error.event.created');
+//		}
+//		return $response;
+//	}
 
 	/**
 	* Update a persistant Event, based on the difference between a 
@@ -230,21 +230,21 @@ class Event extends \Eloquent {
 	* @param $new_values, Event $object
 	* @return  true or error message
 	*/
-	public static function updateOne( $new_values, Event $object )
-	{
-		foreach( $new_values as $key => $value )
-		{
-			$object->$key = $value;
-		}
-		if( $object->save() ){ 
-			$response['success'] = array(
-				'title' => trans('success.event.updated'),
-			);
-		} else {
-			$response['error'] = trans('error.event.updated');
-		}
-		return $response;
-	}
+//	public static function updateOne( $new_values, Event $object )
+//	{
+//		foreach( $new_values as $key => $value )
+//		{
+//			$object->$key = $value;
+//		}
+//		if( $object->save() ){ 
+//			$response['success'] = array(
+//				'title' => trans('success.event.updated'),
+//			);
+//		} else {
+//			$response['error'] = trans('error.event.updated');
+//		}
+//		return $response;
+//	}
 
 	/**
 	* Delete a persistant Event
@@ -252,16 +252,16 @@ class Event extends \Eloquent {
 	* @param Event $object
 	* @return  true or error message
 	*/
-	public static function deleteOne( Event $object )
-	{
-		if( $object->delete() ){ 
-			$response['success'] = array(
-				'title' => trans('success.event.deleted'),
-			);
-		} else {
-			$response['error'] = trans('error.event.deleted');
-		}
-		return $response;
-	}
+//	public static function deleteOne( Event $object )
+//	{
+//		if( $object->delete() ){ 
+//			$response['success'] = array(
+//				'title' => trans('success.event.deleted'),
+//			);
+//		} else {
+//			$response['error'] = trans('error.event.deleted');
+//		}
+//		return $response;
+//	}
 
 }
