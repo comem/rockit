@@ -29,9 +29,9 @@ class AuthController extends \BaseController {
         if (($credentials['email'] != null && $credentials['password'] != null) &&
                 User::validate(array($credentials['email'], $credentials['password'])) &&
                 Auth::attempt($credentials, $remember, true)) {
-            return Jsend::success("message to define");
+            return Jsend::success(trans('success.auth.login'));
         }
-        return Jsend::fail("message to define");
+        return Jsend::error(trans('error.auth.login'));
     }
 
     /**
@@ -42,9 +42,9 @@ class AuthController extends \BaseController {
         try {
             Auth::logout();
         } catch (Exception $e) {
-            Jsend::fail("message to define");
+            Jsend::error(trans('error.auth.logout'));
         }
-        return Jsend::success("message to define");
+        return Jsend::success(trans('sucess.auth.logout'));
     }
 
 }
