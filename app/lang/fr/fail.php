@@ -6,7 +6,7 @@
 
 return array(
     'language' => array(
-        'inexistant' => "La langue n'existe pas",
+        'inexistant' => "Cette langue n'existe pas",
         'missing' => "L'attribut 'locale' est manquant",
     ),
     'routes' => array(
@@ -16,6 +16,8 @@ return array(
         'overlap' => "Il y a déjà un événement planifié pour cette date là !",
     ),
     'representer' => array(
-        'inexistant' => "Le représentant demandé n'existe pas.",
+        'inexistant' => "Ce représentant n'existe pas.",
     ),
+    'acl' => "Vous n'avez pas le droit d'effectuer cette action",
+    'auth' => "Vous devez être authentifié pour effectuer cette action",
 );
