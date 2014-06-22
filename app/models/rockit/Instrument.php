@@ -20,8 +20,8 @@ class Instrument extends \Eloquent {
         'name_de' => 'alpha|required|min:1',
     );
 
-    public static function exist($name) {
-        $response = self::where('name_de', '=', $name)->first();
+    public static function exist($name, $column) {
+        $response = self::where($column, '=', $name)->first();
         if ($response == NULL) {
             $response['fail'] = trans('fail.instrument.inexistant');
         }

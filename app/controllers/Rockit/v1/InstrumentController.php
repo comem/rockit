@@ -4,9 +4,12 @@ namespace Rockit\v1;
 
 use Rockit\Instrument,
     \Input,
-    \Jsend;
+    \Jsend,
+    Rockit\FunctionnalServicesTrait;
 
 class InstrumentController extends \BaseController {
+
+    use FunctionnalServicesTrait;
 
     /**
      * Display a listing of the resource.
@@ -26,7 +29,7 @@ class InstrumentController extends \BaseController {
         $inputs = Input::only('name_de');
         $validate = Instrument::validate($inputs, Instrument::$create_rules);
         if ($validate === true) {
-            $response = self::setLocale($inputs['name_de']);
+            $response = self::save('Instrument', $inputs, true, $inputs['name_de']);
         } else {
             $response = $validate;
         }
