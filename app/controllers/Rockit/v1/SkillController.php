@@ -5,12 +5,12 @@ namespace Rockit\v1;
 use \Input,
     \Jsend,
     \Rockit\Skill,
-    \Rockit\FunctionnalServicesTrait;
+    \Rockit\Controllers\ControllerBSRDTrait;
 
 class SkillController extends \BaseController {
 
-    use FunctionnalServicesTrait;
-
+    use ControllerBSRDTrait;
+    
     /**
      * Display a listing of the resource.
      *

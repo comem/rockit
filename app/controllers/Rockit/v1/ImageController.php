@@ -3,12 +3,9 @@
 namespace Rockit\v1;
 
 use \Input,
-    Rockit\Image,
-    \Rockit\FunctionnalServicesTrait;
+    \Rockit\Image;
 
 class ImageController extends \BaseController {
-
-    use FunctionnalServicesTrait;
 
     /**
      * Display a listing of the resource.

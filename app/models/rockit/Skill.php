@@ -3,7 +3,7 @@
 namespace Rockit;
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait,
-    Rockit\RockitModelTrait;
+    Rockit\Models\ModelBCRDTrait;
 
 class Skill extends \Eloquent {
 
@@ -12,7 +12,7 @@ class Skill extends \Eloquent {
     protected $hidden = array('deleted_at');
 
     use SoftDeletingTrait,
-        RockitModelTrait;
+        ModelBCRDTrait;
 
     protected $dates = ['deleted_at'];
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Rockit\functions;
+namespace Rockit\Models\Functions;
 
 trait DeleteOneTrait {
     

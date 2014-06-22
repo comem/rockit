@@ -1,6 +1,6 @@
 <?php
 
-namespace Rockit;
+namespace Rockit\Models;
 
 /**
  * This trait is used by models who needs to implements the following methods :
@@ -12,8 +12,8 @@ namespace Rockit;
  */
 trait ModelBCUDTrait {
 
-    use functions\BasModelTrait,
-        functions\CreateOneTrait,
-        functions\UpdateOneTrait,
-        functions\DeleteOneTrait;
+    use Functions\BasModelTrait,
+        Functions\CreateOneTrait,
+        Functions\UpdateOneTrait,
+        Functions\DeleteOneTrait;
 }
