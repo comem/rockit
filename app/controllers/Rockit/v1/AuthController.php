@@ -44,7 +44,7 @@ class AuthController extends \BaseController {
         } catch (Exception $e) {
             Jsend::error(trans('error.auth.logout'));
         }
-        return Jsend::success(trans('sucess.auth.logout'));
+        return Jsend::success(trans('success.auth.logout'));
     }
 
 }

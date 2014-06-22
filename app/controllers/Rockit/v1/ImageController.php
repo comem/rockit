@@ -9,16 +9,17 @@ class ImageController extends \BaseController {
 
     /**
      * Display a listing of the resource.
+     * 
      *
      * @return Response
      */
     public function index() {
         if (Input::has('is_illustration')) {
-            $illustrates = Input::get('is_illustration');
-            if ($illustrates == true) {
-                $response = Input::whereRaw('artist_id IS NOT NULL')->get();
+            $illustrates = filter_var(Input::get('is_illustration'), FILTER_VALIDATE_BOOLEAN);
+            if ($illustrates) {
+                $response = Image::whereRaw('artist_id IS NOT NULL')->get();
             } else {
-                $response = Input::whereRaw('artist_id IS NULL')->get();
+                $response = Image::whereRaw('artist_id IS NULL')->get();
             }
         } else {
             $response = Image::all();

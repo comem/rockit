@@ -22,7 +22,7 @@ return array(
     ),
     'auth' => array(
         'login' => "Vous êtes maintenant authentifié.",
-        'logout' => "Vous êtes maintenat déconnecté.",
+        'logout' => "Vous êtes maintenant déconnecté.",
     ),
     'skill' => array(
         'deleted' => "La compétence a été supprimée.",

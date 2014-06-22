@@ -38,6 +38,8 @@ Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function()
 		Route::group(array('before' => 'acl'), function()
 		{
 			// before acl
+                    
+                        Route::get('upload', 'Files@upload');
 
 			Route::resource('artists', 'ArtistController', 
 				array('only' => array('index', 'show', 'store', 'update', 'destroy')));
