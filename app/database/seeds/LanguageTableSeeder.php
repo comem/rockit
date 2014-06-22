@@ -16,5 +16,10 @@ class LanguageTableSeeder extends Seeder {
             'locale' => 'fr',
             'name' => 'Français',
         ));
+        Language::create(array(
+            'id' => 3,
+            'locale' => 'en',
+            'name' => 'English',
+        ));
     }
 }
