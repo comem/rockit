@@ -26,6 +26,7 @@ return array(
     ),
     'skill' => array(
         'deleted' => "La compétence a été supprimée.",
-        'restored' => "La compétence a été restaurée."
+        'restored' => "La compétence a été restaurée.",
+        'created' => "La compétence a été créée.",
     ),
 );

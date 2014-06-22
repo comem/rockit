@@ -49,6 +49,8 @@ class RepresenterController extends BaseController {
             $response = Jsend::fail(trans('fail.representer.none'));
         }
         return $response;
+        // OR
+        // return Jsend::success(Representer::all());
     }
 
     /**
@@ -65,6 +67,8 @@ class RepresenterController extends BaseController {
             $response = Jsend::fail(trans('fail.representer.inexistant'));
         }
         return $response;
+        // OR
+        // return Jsend::success(Representer::find($id));
     }
 
     /**

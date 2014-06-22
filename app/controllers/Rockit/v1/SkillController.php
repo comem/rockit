@@ -37,7 +37,7 @@ class SkillController extends \BaseController {
         if ($response !== false) {
             $response = array('success' => trans('success.skill.restored'));
         } else {
-            $response = self::save('Skill', $data, true, $data['name_de']);
+            $response = self::save('Skill', $data, true, 'name_de');
         }
         return Jsend::compile($response);
     }

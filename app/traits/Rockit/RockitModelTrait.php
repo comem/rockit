@@ -29,10 +29,22 @@ trait RockitModelTrait {
     }
 
     /**
+     * Check if there is a persistant Model whose column matches the provided value.
+     * If no column is provided, the function tests the existence on an 'id' column.
+     * 
+     * @param mixed $value The value that the column must match
+     * @param type $column The column that needs to match the value
+     * @return Model : an instance of the model if existant. null : the given value does not match any model.
+     */
+    public static function exist($value, $column = 'id') {
+        return self::where($column, '=', $value)->first();
+    }
+
+    /**
      * Create and save in the database a new Model with the provided data.
      * 
      * @param array $data The data for the Model to create
-     * @return array 
+     * @return array An array containing a key 'success' or 'error' depending on the result
      */
     public static function createOne($data) {
         $class = self::getClass();
@@ -45,6 +57,25 @@ trait RockitModelTrait {
             );
         } else {
             $response['error'] = trans('error.' . $class . '.created');
+        }
+        return $response;
+    }
+
+    /**
+     * Restore a previsouly soft deleted Model
+     * 
+     * @param Object $object The trashed Model to restore
+     * @return 
+     */
+    public static function restoreOne($object) {
+        $class_name = self::getClass();
+        if ($object->restore()) {
+            $response['success'] = array(
+                'title' => trans('success.' . $class_name . '.restored'),
+                'id' => $object->id,
+            );
+        } else {
+            $response['error'] = trans('error.' . $class_name . '.restored');
         }
         return $response;
     }
@@ -91,36 +122,6 @@ trait RockitModelTrait {
             $response['error'] = trans('error.' . $class_name . '.deleted');
         }
         return $response;
-    }
-
-    /**
-     * Restore a previsouly soft deleted Model
-     * 
-     * @param Object $object The trashed Model to restore
-     * @return 
-     */
-    public static function restoreOne($object) {
-        $class_name = self::getClass();
-        if ($object->restore()) {
-            $response['success'] = array(
-                'title' => trans('success.' . $class_name . '.restored'),
-            );
-        } else {
-            $response['error'] = trans('error.' . $class_name . '.restored');
-        }
-        return $response;
-    }
-
-    /**
-     * Check if there is a persistant Model whose column matches the provided value.
-     * If no column is provided, the function tests the existence on an 'id' column.
-     * 
-     * @param mixed $value The value that the column must match
-     * @param type $column The column that needs to match the value
-     * @return Model : an instance of the model if existant. null : the given value does not match any model.
-     */
-    public static function exist($value, $column = 'id') {
-        return self::where($column, '=', $value)->first();
     }
 
 }

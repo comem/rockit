@@ -14,9 +14,7 @@ class SkillsTableSeeder extends Seeder {
         Skill::create(array('name_de' => 'Ticketverkäufer'));
         
         Skill::create(array('name_de' => 'Auffräumen'));
-        
-        Skill::create(array('name_de' => 'Ticketverkäufer'));
-        
+                
         Skill::create(array('name_de' => 'Eventorganiser'));
    }
 }
