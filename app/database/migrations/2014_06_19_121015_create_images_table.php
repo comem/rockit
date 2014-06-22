@@ -13,7 +13,7 @@ class CreateImagesTable extends Migration {
 			$table->string('caption_de', 200)->nullable();
 			$table->string('source', 100);
 			$table->timestamps();
-			$table->integer('artist_id')->unsigned()->nullable();
+			$table->unsignedInteger('artist_id')->nullable();
 			$table->softDeletes();
 		});
 	}
