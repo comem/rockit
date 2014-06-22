@@ -9,10 +9,10 @@ class CreatePerformersTable extends Migration {
 	{
 		Schema::create('performers', function(Blueprint $table) {
 			$table->increments('id');
-			$table->integer('artist_id')->unsigned();
-			$table->integer('event_id')->unsigned();
+			$table->unsignedInteger('artist_id');
+			$table->unsignedInteger('event_id');
 			$table->integer('order');
-			$table->boolean('is_support');
+			$table->boolean('is_support')->default(false);
 			$table->timestamp('artist_hour_of_arrival');
 		});
 	}
