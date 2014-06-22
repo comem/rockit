@@ -9,7 +9,7 @@ class CreateSkillsTable extends Migration {
 	{
 		Schema::create('skills', function(Blueprint $table) {
 			$table->increments('id');
-			$table->string('name_de', 200);
+			$table->string('name_de', 200)->unique();
 			$table->softDeletes();
 		});
 	}

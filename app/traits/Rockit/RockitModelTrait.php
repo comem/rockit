@@ -111,4 +111,16 @@ trait RockitModelTrait {
         return $response;
     }
 
+    /**
+     * Check if there is a persistant Model whose column matches the provided value.
+     * If no column is provided, the function tests the existence on an 'id' column.
+     * 
+     * @param mixed $value The value that the column must match
+     * @param type $column The column that needs to match the value
+     * @return Model : an instance of the model if existant. null : the given value does not match any model.
+     */
+    public static function exist($value, $column = 'id') {
+        return self::where($column, '=', $value)->first();
+    }
+
 }

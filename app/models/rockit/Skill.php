@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\SoftDeletingTrait,
 
 class Skill extends \Eloquent {
 
-    protected $table = 'skills';
     public $timestamps = false;
+    protected $table = 'skills';
+    protected $hidden = array('deleted_at');
 
     use SoftDeletingTrait,
         RockitModelTrait;
@@ -25,10 +26,6 @@ class Skill extends \Eloquent {
 
     public function staffs() {
         return $this->hasMany('Rockit\Staff');
-    }
-    
-    public static function exist($value, $column) {
-        return self::where($column, '=', $value)->first();
     }
 
 }

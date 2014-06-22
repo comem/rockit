@@ -2,9 +2,10 @@
 
 namespace Rockit\v1;
 
-use \Rockit\FunctionnalServicesTrait,
-    \Input,
-    \Jsend;
+use \Input,
+    \Jsend,
+    \Rockit\Skill,
+    \Rockit\FunctionnalServicesTrait;
 
 class SkillController extends \BaseController {
 
@@ -16,7 +17,13 @@ class SkillController extends \BaseController {
      * @return Response
      */
     public function index() {
-        //
+        $models = Skill::all();
+        if (is_object($models)) {
+            $response = Jsend::success($models);
+        } else {
+            $response = Jsend::fail('fail.skill.none');
+        }
+        return $response;
     }
 
     /**
@@ -26,7 +33,12 @@ class SkillController extends \BaseController {
      */
     public function store() {
         $data = Input::only('name_de');
-        $response = self::save('Skill', $data, true, $data['name_de']);
+        $response = self::renew('Skill', $data);
+        if ($response !== false) {
+            $response = array('success' => trans('success.skill.restored'));
+        } else {
+            $response = self::save('Skill', $data, true, $data['name_de']);
+        }
         return Jsend::compile($response);
     }
 
@@ -37,7 +49,7 @@ class SkillController extends \BaseController {
      * @return Response
      */
     public function destroy($id) {
-        //
+        return Jsend::compile(self::delete('Skill', $id));
     }
 
 }

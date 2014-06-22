@@ -20,7 +20,7 @@ trait FunctionnalServicesTrait {
      * @param mixed $matching_value
      * @param string $identifier
      */
-    public static function save($model, array $data, $check_existence = false, $matching_value = null, $identifier = 'name_de') {
+    public static function save($model, array $data, $check_existence = false, $matching_value = null, $identifier = 'id') {
         $call = self::$namespace . $model;
         if ($check_existence === true) {
             $object = $call::exist($matching_value, $identifier);
@@ -38,8 +38,26 @@ trait FunctionnalServicesTrait {
         return $response;
     }
 
-    public static function renew($model, $name) {
+    /**
+     * Reactive a previsouly soft deleted model that column matches the provided value.
+     * 
+     * @param type $model
+     * @param type $name
+     * @param type $column
+     * @return type
+     */
+    public static function renew($model, $data, $column = 'name_de') {
         $call = self::$namespace . $model;
+        $response = false;
+        $trashed_model = $call::onlyTrashed()->where($column, '=', $data[$column])->first();
+        if (is_object($trashed_model)) {
+            $trashed_model->restore();
+            $response = array('success' => array(
+                    'title' => trans('success.' . snake_case($model) . 'restored'),
+                    'id' => $trashed_model->id,
+            ));
+        }
+        return $response;
     }
 
     /**

@@ -20,6 +20,7 @@ return array(
     ),
     'skill' => array(
         'existing' => "Cette compétence existe déjà.",
+        'inexistant' => "Cette compétence n'existe pas.",
     ),
     'instrument' => array(
         'existing' => "Cet instrument existe déjà.",

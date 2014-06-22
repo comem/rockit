@@ -11,7 +11,8 @@ class Representer extends \Eloquent {
 
     public $timestamps = true;
     protected $table = 'representers';
-    protected $dates = ['deleted_at'];
+    protected $hidden = array('deleted_at', 'created_at', 'updated_at');
+    protected $dates = array('deleted_at');
 
     /**
      * Get all the events that this Representer represents.
@@ -48,14 +49,5 @@ class Representer extends \Eloquent {
         'npa' => 'alpha_dash|min:1|max:20',
         'city' => 'min:1|max:200',
     );
-
-    /**
-     * Check if there is a persistant Representer matching the provided id.
-     * @param integer $id The numeric identifier for the requester Representer
-     * @return Representer : The provided id matches an existing Representer. null : The provided id does not match any existing Representer.
-     */
-    public static function exist($id) {
-        return self::find($id);
-    }
 
 }

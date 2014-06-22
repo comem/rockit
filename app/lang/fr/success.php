@@ -24,4 +24,8 @@ return array(
         'login' => "Vous êtes maintenant authentifié.",
         'logout' => "Vous êtes maintenat déconnecté.",
     ),
+    'skill' => array(
+        'deleted' => "La compétence a été supprimée.",
+        'restored' => "La compétence a été restaurée."
+    ),
 );

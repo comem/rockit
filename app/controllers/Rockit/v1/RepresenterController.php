@@ -42,7 +42,13 @@ class RepresenterController extends BaseController {
      * @return Response
      */
     public function index() {
-        return Representer::all();
+        $models = Representer::all();
+        if (is_object($models)) {
+            $response = Jsend::success($models);
+        } else {
+            $response = Jsend::fail(trans('fail.representer.none'));
+        }
+        return $response;
     }
 
     /**
@@ -52,7 +58,13 @@ class RepresenterController extends BaseController {
      * @return Response
      */
     public function show($id) {
-        //
+        $model = Representer::find($id);
+        if (is_object($model)) {
+            $response = Jsend::success($model->toArray());
+        } else {
+            $response = Jsend::fail(trans('fail.representer.inexistant'));
+        }
+        return $response;
     }
 
     /**
