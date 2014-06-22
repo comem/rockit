@@ -34,7 +34,7 @@ Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function()
 		// before auth
 
 		Route::put('langs', 'TranslationController@changeLocale');
-
+                
 		Route::group(array('before' => 'acl'), function()
 		{
 			// before acl
