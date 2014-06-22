@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class Image extends \Eloquent {
 
-    protected $table = 'images';
-    public $timestamps = true;
-
     use SoftDeletingTrait;
 
-    protected $dates = ['deleted_at'];
+    public $timestamps = true;
+    protected $table = 'images';
+    protected $hidden = array('deleted_at');
+    protected $dates = array('deleted_at');
 
     public function artist() {
         return $this->belongsTo('Rockit\Artist');

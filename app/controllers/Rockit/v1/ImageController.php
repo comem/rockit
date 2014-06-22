@@ -14,8 +14,12 @@ class ImageController extends \BaseController {
      */
     public function index() {
         if (Input::has('is_illustration')) {
-            // DO something depending on the value of is_illustration
-            $response = 'illustrations';
+            $illustrates = Input::get('is_illustration');
+            if ($illustrates == true) {
+                $response = Input::whereRaw('artist_id IS NOT NULL')->get();
+            } else {
+                $response = Input::whereRaw('artist_id IS NULL')->get();
+            }
         } else {
             $response = Image::all();
         }
