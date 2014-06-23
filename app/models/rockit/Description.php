@@ -4,7 +4,13 @@ namespace Rockit;
 
 class Description extends \Eloquent {
 
-	protected $table = 'descriptions';
-	public $timestamps = false;
+    use Models\SimplePivotModelTrait;
+
+    public $timestamps = false;
+    protected $table = 'descriptions';
+    public static $rules = array(
+        'artist_id' => 'required|integer|min:1',
+        'genre_id' => 'required|integer|min:1',
+    );
 
 }

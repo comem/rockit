@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletingTrait;
 class Representer extends \Eloquent {
     
     use SoftDeletingTrait,
-        RockitModelTrait;
+        Models\ModelBCUDTrait;
 
     public $timestamps = true;
     protected $table = 'representers';

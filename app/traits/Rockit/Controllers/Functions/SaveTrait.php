@@ -15,7 +15,6 @@ trait SaveTrait {
      * @param boolean $check_existence Indicate if an existence checking needs to be done
      * @param string $column The name of the column upon which the check has to be done
      * @return mixed array : An array containing either a 'success', 'fail' or 'error' key depending on the result
-
      */
     public static function save($model, array $data, $check_existence = false, $column = 'id') {
         $call = self::$namespace . $model;

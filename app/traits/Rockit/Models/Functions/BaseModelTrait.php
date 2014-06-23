@@ -2,7 +2,7 @@
 
 namespace Rockit\Models\Functions;
 
-trait BasModelTrait {
+trait BaseModelTrait {
 
     private static function getClass() {
         $class = explode('\\', mb_strtolower(get_called_class()));
@@ -36,14 +36,6 @@ trait BasModelTrait {
      */
     public static function exist($value, $column = 'id') {
         return self::where($column, '=', $value)->first();
-    }
-    
-    public static function existRelationship(array $ids) {
-        $query = \Rockit\Description::select();
-        foreach ($ids as $key => $value) {
-            $query->where($key, '=', $value);
-        }
-        return $query->first();
     }
 
 }

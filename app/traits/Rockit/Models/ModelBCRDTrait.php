@@ -12,7 +12,7 @@ namespace Rockit\Models;
  */
 trait ModelBCRDTrait {
 
-    use Functions\BasModelTrait,
+    use Functions\BaseModelTrait,
         Functions\CreateOneTrait,
         Functions\RestoreOneTrait,
         Functions\DeleteOneTrait;
