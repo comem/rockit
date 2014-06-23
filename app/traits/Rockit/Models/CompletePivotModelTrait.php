@@ -16,7 +16,7 @@ trait CompletePivotModelTrait {
      * @param array $data
      * @return null (doesn't exist) or object (exists)
      */
-    public static function exist(array $data) {
+    public static function existByIds(array $data) {
         $query = self::select();
         foreach ($data as $key => $value) {
             if (ends_with('_id', $key)) {

@@ -16,7 +16,7 @@ trait SavePivotTrait {
      */
     public static function save($pivot_model, array $data) {
         $call = self::$namespace . $pivot_model;
-        $object = $call::exist($data);
+        $object = $call::existByIds($data);
         if (is_object($object)) {
             $response = array('fail' => trans('fail.' . snake_case($pivot_model) . '.existing'));
         }

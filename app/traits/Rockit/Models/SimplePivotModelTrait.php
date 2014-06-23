@@ -15,7 +15,7 @@ trait SimplePivotModelTrait {
      * @param array $ids
      * @return null (doesn't exist) or object (exists)
      */
-    public static function exist(array $ids) {
+    public static function existByIds(array $ids) {
         $query = self::select();
         foreach ($ids as $key => $value) {
             $query->where($key, '=', $value);
