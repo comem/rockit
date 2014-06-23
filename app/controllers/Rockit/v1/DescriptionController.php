@@ -3,6 +3,7 @@
 namespace Rockit\v1;
 
 use \Input,
+    \Jsend,
     Rockit\Description;
 
 class DescriptionController extends \BaseController {
@@ -20,7 +21,7 @@ class DescriptionController extends \BaseController {
         if ($response === true) {
             $response = self::save('Description', $data);
         }
-        return $response;
+        return Jsend::compile($response);
     }
 
     /**
