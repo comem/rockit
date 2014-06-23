@@ -7,6 +7,8 @@ use \Validator;
 
 class Genre extends \Eloquent {
 
+	use SoftDeletingTrait;
+
 	protected $table = 'genres';
 	public $timestamps = false;
 	protected $dates = array('deleted_at');
