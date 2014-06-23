@@ -13,7 +13,7 @@ class CreatePrintingsTable extends Migration {
 			$table->integer('event_id')->unsigned();
 			$table->string('source', 100);
 			$table->integer('nb_copies');
-			$table->integer('nb_copies_surplus');
+			$table->integer('nb_copies_surplus')->default(0);
 		});
 	}
 
