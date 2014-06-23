@@ -17,7 +17,7 @@ class LinkController extends \BaseController {
     public function store() {
         $data = Input::only('url', 'name_de', 'title_de', 'artist_id');
         $response = self::save('Link', $data, true, 'url');
-        return $response;
+        return \Jsend::compile($response);
     }
 
     /**
@@ -27,7 +27,9 @@ class LinkController extends \BaseController {
      * @return Response
      */
     public function update($id) {
-        //
+        $response = array('fail' => '1ere erreur');
+        $response = array_add($response, 'success', '2eme erreur');
+        return $response;
     }
 
     /**

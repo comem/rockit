@@ -21,23 +21,29 @@ trait SaveTrait {
         if ($check_existence === true) {
             $object = $call::exist($data[$column], $column);
             if (is_object($object)) {
-                $response = array('fail' => trans('fail.' . snake_case($model) . '.existing'));
+                $response = array('fail' => array(trans('fail.' . snake_case($model) . '.existing')));
+            } else {
+                $response = self::checkForeignKeys($data);
             }
-            $foreign_keys = array_where($data, function($key) {
-                return ends_with($key, '_id');
-            });
-            dd($foreign_keys);
         }
         if (!isset($response)) {
             $response = $call::createOne($data);
         }
         return $response;
     }
-    
-    protected static function checkForeignKeys($foreign_keys) {
+
+    protected static function checkForeignKeys($data) {
+        $foreign_keys = array_where($data, function($key) {
+            return ends_with($key, '_id');
+        });
+        $exist_foreign = self::checkForeignKeys($foreign_keys);
+        $response = true;
         foreach ($foreign_keys as $key => $value) {
-            $model = studly_case($value);
+            $model = studly_case(preg_replace('#\_id$#u', '', $key));
+            $call = self::$namespace . $model;
+            $response = $call::exist($value);
         }
+        return $response;
     }
 
 }
