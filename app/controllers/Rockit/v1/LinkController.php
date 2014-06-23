@@ -3,12 +3,13 @@
 namespace Rockit\v1;
 
 use \Input,
+    \Jsend,
     Rockit\Link;
 
 class LinkController extends \BaseController {
 
     use \Rockit\Controllers\ControllerBSUDTrait;
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -16,8 +17,11 @@ class LinkController extends \BaseController {
      */
     public function store() {
         $data = Input::only('url', 'name_de', 'title_de', 'artist_id');
-        $response = self::save('Link', $data, true, 'url');
-        return \Jsend::compile($response);
+        $response = Link::validate($data, Link::$create_rules);
+        if ($response === true) {
+            $response = self::save('Link', $data);
+        }
+        return Jsend::compile($response);
     }
 
     /**

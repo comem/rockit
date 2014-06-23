@@ -16,29 +16,16 @@ trait SaveTrait {
      * @param string $column The name of the column upon which the check has to be done
      * @return mixed array : An array containing either a 'success', 'fail' or 'error' key depending on the result
      */
-    public static function save($model, array $data, $check_foreign = false, $check_existence = false, $column = 'id') {
+    public static function save($model, array $data, $check_existence = false, $column = 'id') {
         $call = self::$namespace . $model;
         if ($check_existence === true) {
             $object = $call::exist($data[$column], $column);
             if (is_object($object)) {
-                $response = array('fail' => array(trans('fail.' . snake_case($model) . '.existing')));
+                $response = array('fail' => trans('fail.' . snake_case($model) . '.existing'));
             }
-        }
-        if ($check_foreign === true) {
-            
         }
         if (!isset($response)) {
             $response = $call::createOne($data);
-        }
-        return $response;
-    }
-
-    protected static function checkForeignKeys($data) {
-        $response = true;
-        foreach ($foreign_keys as $key => $value) {
-            $model = studly_case(preg_replace('#\_id$#u', '', $key));
-            $call = self::$namespace . $model;
-            $response = $call::exist($value);
         }
         return $response;
     }
