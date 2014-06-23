@@ -23,11 +23,21 @@ trait SaveTrait {
             if (is_object($object)) {
                 $response = array('fail' => trans('fail.' . snake_case($model) . '.existing'));
             }
+            $foreign_keys = array_where($data, function($key) {
+                return ends_with($key, '_id');
+            });
+            dd($foreign_keys);
         }
         if (!isset($response)) {
             $response = $call::createOne($data);
         }
         return $response;
+    }
+    
+    protected static function checkForeignKeys($foreign_keys) {
+        foreach ($foreign_keys as $key => $value) {
+            $model = studly_case($value);
+        }
     }
 
 }
