@@ -25,4 +25,8 @@ class Genre extends \Eloquent {
 		return $this->belongsToMany('Rockit\Artist');
 	}
 
+	public static function mergeGenres(array $genresToMerge){
+        return array_unique( $genresToMerge );
+    }
+
 }
