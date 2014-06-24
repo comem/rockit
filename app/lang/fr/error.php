@@ -31,18 +31,18 @@ return array(
     ),
     
     'equipment' => array(
-        'created' => "L'équipement n'a pas pu être créé",
-        'deleted' => "L'équipement n'a pas pu être supprimé",
-        'restored' => "L'équipement n'a pas pu être restauré",
+        'created' => "L'équipement ':name' n'a pas pu être créé",
+        'deleted' => "L'équipement ':name' n'a pas pu être supprimé",
+        'restored' => "L'équipement ':name' n'a pas pu être restauré",
     ),
     'genre' => array(
-        'created' => "Le genre n'a pas pu être créé",
-        'deleted' => "Le genre n'a pas pu être supprimé",
-        'restored' => "Le genre n'a pas pu être restauré",
+        'created' => "Le genre ':name' n'a pas pu être créé",
+        'deleted' => "Le genre ':name' n'a pas pu être supprimé",
+        'restored' => "Le genre ':name' n'a pas pu être restauré",
     ),
     'event_type' => array(
-        'created' => "Le type d'événement n'a pas pu être créé",
-        'deleted' => "Le type d'événement n'a pas pu être supprimé",
-        'restored' => "Le type d'événement n'a pas pu être restauré",
+        'created' => "Le type d'événement ':name' n'a pas pu être créé",
+        'deleted' => "Le type d'événement ':name' n'a pas pu être supprimé",
+        'restored' => "Le type d'événement ':name' n'a pas pu être restauré",
     ),
 );

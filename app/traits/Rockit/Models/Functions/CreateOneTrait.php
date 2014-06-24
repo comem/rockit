@@ -12,15 +12,16 @@ trait CreateOneTrait {
      */
     public static function createOne($data) {
         $class = self::getClass();
+        $field = self::$response_field;
         self::unguard();
         $object = self::create($data);
         if ($object != null) {
             $response['success'] = array(
-                'title' => trans('success.' . snake_case($class) . '.created'),
+                'title' => trans('success.' . snake_case($class) . '.created', array('name' => $object->$field)),
                 'id' => $object->id,
             );
         } else {
-            $response['error'] = trans('error.' . snake_case($class) . '.created');
+            $response['error'] = trans('error.' . snake_case($class) . '.created', array('name' => $object->$field));
         }
         return $response;
     }
