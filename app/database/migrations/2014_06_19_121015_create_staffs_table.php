@@ -12,6 +12,7 @@ class CreateStaffsTable extends Migration {
 			$table->integer('member_id')->unsigned();
 			$table->integer('event_id')->unsigned();
 			$table->integer('skill_id')->unsigned();
+                        $table->unique(array('event_id', 'member_id'));
 		});
 	}
 

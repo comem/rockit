@@ -15,6 +15,7 @@ class CreateGroupResourceTable extends Migration {
             $table->increments('id');
             $table->integer('group_id')->unsigned();
             $table->integer('resource_id')->unsigned();
+            $table->unique(array('group_id', 'resource_id'));
         });
     }
 

@@ -14,6 +14,7 @@ class CreatePerformersTable extends Migration {
 			$table->integer('order');
 			$table->boolean('is_support')->default(false);
 			$table->timestamp('artist_hour_of_arrival');
+                        $table->unique(array('artist_id', 'event_id'));
 		});
 	}
 
