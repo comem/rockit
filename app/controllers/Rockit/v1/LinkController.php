@@ -31,9 +31,12 @@ class LinkController extends \BaseController {
      * @return Response
      */
     public function update($id) {
-        $response = array('fail' => '1ere erreur');
-        $response = array_add($response, 'success', '2eme erreur');
-        return $response;
+        $new_data = Input::only('url', 'name_de', 'title_de');
+        $response = Link::validate($data, Link::$update_rules);
+        if($response === true) {
+            $response = self::modify('Link', $id, $new_data);
+        }
+        return Jsend::compile($response);
     }
 
     /**
@@ -43,7 +46,7 @@ class LinkController extends \BaseController {
      * @return Response
      */
     public function destroy($id) {
-        //
+        return Jsend::compile(self::delete('Link', $id));
     }
 
 }
