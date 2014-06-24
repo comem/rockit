@@ -16,7 +16,8 @@ class GenreController extends \BaseController {
      *
      * @return Response
      */
-    public function index() {
+    public function index()
+    {
         return Jsend::success(Genre::all());
     }
 

@@ -18,7 +18,7 @@ class SkillController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+        return Jsend::success(Skill::all());
 	}
 
     /**

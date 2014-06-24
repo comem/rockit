@@ -18,7 +18,7 @@ class EquipmentController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+        return Jsend::success(Equipment::all());
 	}
 
     /**
