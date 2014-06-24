@@ -21,6 +21,15 @@ return array(
         'deleted' => "Le genre ':name' n'a pas pu être supprimé",
         'restored' => "Le genre ':name' n'a pas pu être restauré",
     ),
+    'instrument' => array(
+        'created' => "L'instrument genre ':name' n'a pas pu être supprimé",
+        'restored' => "L'instrument ':name' n'a pas pu être restauré",
+    ),
+    'gift' => array(
+        'created' => "Le lot ':name' n'a pas pu être créé",
+        'deleted' => "Le lot ':name' n'a pas pu être supprimé",
+        'restored' => "Le lot ':name' n'a pas pu être restauré",
+    ),
     'event_type' => array(
         'created' => "Le type d'événement ':name' n'a pas pu être créé",
         'deleted' => "Le type d'événement ':name' n'a pas pu être supprimé",

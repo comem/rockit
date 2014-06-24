@@ -2,14 +2,19 @@
 
 namespace Rockit;
 
-use Illuminate\Database\Eloquent\SoftDeletingTrait;
+use Illuminate\Database\Eloquent\SoftDeletingTrait,
+	Rockit\Models\ModelBCRDTrait;
 
 class Gift extends \Eloquent {
 
+        use SoftDeletingTrait,
+		ModelBCRDTrait; 
+        
 	protected $table = 'gifts';
 	public $timestamps = false;
 
 	use SoftDeletingTrait;
+        public static $response_field = 'name_de';
 
 	protected $dates = ['deleted_at'];
 

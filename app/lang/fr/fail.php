@@ -23,6 +23,14 @@ return array(
         'existing' => "Il y a déjà un genre ':name' enregistré !",
         'inexistant' => "Il n'y aucun genre enregistré correspondant !",
     ),
+     'instrument' => array(
+        'existing' => "Il y a déjà un instrument ':name' enregistré !",
+        'inexistant' => "Il n'y aucun instrument enregistré correspondant !",
+    ),
+     'gift' => array(
+        'existing' => "Il y a déjà un lot ':name' enregistré !",
+        'inexistant' => "Il n'y aucun lot enregistré correspondant !",
+    ),
     'event_type' => array(
         'existing' => "Il y a déjà un type d'événement ':name' enregistré !",
         'inexistant' => "Il n'y aucun type d'événement enregistré correspondant !",

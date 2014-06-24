@@ -21,6 +21,16 @@ return array(
         'deleted' => "Le genre ':name' à bien été supprimé !",
         'restored' => "Le genre ':name' à été restauré !",
     ),
+    'instrument' => array(
+        'created' => "Le nouvel instrument ':name' à bien été sauvegardé !",
+        'deleted' => "L'instrument ':name' à bien été supprimé !",
+        'restored' => "L'instrument ':name' à été restauré !",
+    ),
+    'gift' => array(
+        'created' => "Le lot genre ':name' à bien été sauvegardé !",
+        'deleted' => "Le lot ':name' à bien été supprimé !",
+        'restored' => "Le lot ':name' à été restauré !",
+    ),
     'event_type' => array(
         'created' => "Le nouveau type d'événement ':name' à bien été sauvegardé !",
         'deleted' => "Le type d'événement ':name' à bien été supprimé !",
