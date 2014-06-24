@@ -35,7 +35,7 @@ class PrintingController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		$data = Input::only('cost', 'quantity', 'comment_de');
+		$data = Input::only('nb_copies', 'nb_copies_surplus');
 		$response = Printing::validate($data, Printing::$update_rules);
         if ($response === true) {
             $response = self::modify('Printing', $id, $data);
