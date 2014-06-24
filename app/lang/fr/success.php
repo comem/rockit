@@ -64,4 +64,18 @@ return array(
         'deleted' => "La catégorie de tickets ':name' à bien été supprimée !",
         'restored' => "La catégorie de tickets ':name' à été restaurée !",
     ),
+    'ticket' => array(
+        'created' => "Le nouveau ticket d'entrée à été rajouté !",
+        'updated' => "Le ticket d'entrée a bien été modifié !",
+        'deleted' => "Le ticket d'entrée à bien été supprimé !",
+    ),
+    'need' => array(
+        'created' => "Le nouveau besoin de cet événement à été rajouté !",
+        'updated' => "Le besoin a bien été modifié !",
+        'deleted' => "Le besoin à bien été supprimé !",
+    ),
+    'fulfillment' => array(
+        'created' => "L'assigniation de la compétence à bien été rajoutée !",
+        'deleted' => "L'assigniation de la compétence à bien été supprimée !",
+    ),
 );

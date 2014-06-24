@@ -65,5 +65,18 @@ return array(
         'existing' => "Il y a déjà une offre de même type enregistrée !",
         'inexistant' => "Il n'y aucune offre enregistrée correspondante !",
     ),
+    'ticket' => array(
+        'existing' => "Il y a déjà un ticket d'entrée de même type enregistré !",
+        'inexistant' => "Il n'y aucun ticket d'entrée enregistré correspondant !",
+        'last_ticket' => "Ce ticket d'entrée est le dernier, vous ne pouvez pas le supprimé !",
+    ),
+    'need' => array(
+        'existing' => "Il y a déjà un besoin de même type enregistré !",
+        'inexistant' => "Il n'y aucun besoin enregistré correspondant !",
+    ),
+    'fulfillment' => array(
+        'existing' => "Il y a déjà une compétence assignée à ce membre !",
+        'inexistant' => "Il n'y aucune compétence assignée correspondante !",
+    ),
 
 );
