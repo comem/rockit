@@ -2,6 +2,8 @@
 
 namespace Rockit\Models\Functions;
 
+use \Validator;
+
 trait BasModelTrait {
 
     private static function getClass() {
