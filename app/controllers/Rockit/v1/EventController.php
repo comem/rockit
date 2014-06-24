@@ -89,4 +89,28 @@ class EventController extends \BaseController {
 	}
 
 
+	/**
+	 * Export events to word
+	 *
+	 * @param
+	 * @return Response
+	 */
+	public function exportWord()
+	{
+		//
+	}
+
+
+	/**
+	 * Export events to XML
+	 *
+	 * @param
+	 * @return Response
+	 */
+	public function exportXML()
+	{
+		//
+	}
+
+
 }
