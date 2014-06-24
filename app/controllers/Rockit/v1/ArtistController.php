@@ -4,6 +4,7 @@ namespace Rockit\v1;
 
 use \Rockit\Artist,
     \Rockit\Genre,
+    \Rockit\Image,    
     \Rockit\Controllers\ControllerBSUDTrait,
     \Jsend,
     \Input;
@@ -37,7 +38,7 @@ class ArtistController extends \BaseController {
      * @return Response
      */
     public function store() {
-        $inputs = Input::only('name', 'short_description_de', 'complete_description_de', 'genres');
+        $inputs = Input::only('name', 'short_description_de', 'complete_description_de', 'genres', 'images');
         $validate = Artist::validate($inputs, Artist::$create_rules);
         if ($validate === true) {
             $response = self::save($inputs);
@@ -76,7 +77,8 @@ class ArtistController extends \BaseController {
 
     /**
      * Method checks genres to be unique and to be existing before 
-     * passing to valid $inputs to createOne method.
+     * passing to valid $inputs to createOne method, as well as checking images
+     * to be unique and to be existing and not already illustrating an artist.
      * @param type $inputs
      * @return Message
      */
@@ -89,6 +91,14 @@ class ArtistController extends \BaseController {
             }
         }
         $inputs['genres'] = $existingMergedGenres;
+        $existingMergedImages = array();
+        $inputs['images'] = array_unique($inputs['images']);
+        foreach($inputs['images'] as $image) {
+            if (Image::where('id', '=', $image)->where('artist_id', '=', NULL)->first()) {
+                $existingMergedImages[] = $image; 
+            }
+        }
+        $inputs['images'] = $existingMergedImages;
         return Artist::createOne($inputs);
     }
 
