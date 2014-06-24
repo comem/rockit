@@ -12,6 +12,7 @@ class Skill extends \Eloquent {
 
 	protected $table = 'skills';
 	protected $dates = ['deleted_at'];
+	protected $hidden = ['deleted_at'];
 
 	public $timestamps = false;
 	public static $response_field = 'name_de';
