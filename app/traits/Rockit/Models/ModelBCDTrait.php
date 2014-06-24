@@ -11,7 +11,7 @@ namespace Rockit\Models;
  */
 trait ModelBCDTrait {
 
-    use Functions\BasModelTrait,
+    use Functions\BaseModelTrait,
         Functions\CreateOneTrait,
         Functions\DeleteOneTrait;
 }
