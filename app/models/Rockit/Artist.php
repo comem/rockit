@@ -31,7 +31,7 @@ class Artist extends \Eloquent {
     }
 
     public function genres() {
-        return $this->belongsToMany('Rockit\Genre');
+        return $this->belongsToMany('Rockit\Genre', 'descriptions', 'genre_id', 'artist_id');
     }
 
     public function images() {
