@@ -86,7 +86,8 @@ return array(
     ),
     'lineup' => array(
         'existing' => "Ce musician joue déjà de cet instrument !",
-        'inexistant' => "Le musician ne joue pas de cet instrument !",
+        'inexistant' => "La formation n'existe pas !",
+        'last_lineup' => "Cette formation est la dernière, vous ne pouvez pas la supprimée !",
     ),
 
 );

@@ -34,7 +34,29 @@ class LineupController extends \BaseController {
      */
     public function destroy($id) 
     {
-        return Jsend::compile(self::delete('Lineup', $id));
+        return Jsend::compile(self::delete($id));
+    }
+
+    /**
+     * 
+     * @param 
+     * @param 
+     */
+    public static function delete($id) {
+        $object = Lineup::exist($id);
+        if ($object == null) {
+            $response = array(
+                'fail' => array(
+                    'title' => trans('fail.lineup.inexistant'),
+                ),
+            );
+        } else {
+            $response = Lineup::isLastLineup($object);
+            if($response === false){
+                $response = Lineup::deleteOne($object);
+            }
+        }
+        return $response;
     }
 
 }

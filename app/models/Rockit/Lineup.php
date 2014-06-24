@@ -33,4 +33,17 @@ class Lineup extends \Eloquent {
 		return $this->belongsTo('Rockit\Musician');
 	}
 
+	public static function isLastLineup($object){
+		$response = false;
+		$lineup = Lineup::where('musician_id', '=', $object->musician_id)->count();
+		if($lineup < 2){
+			$response = array(
+                'fail' => array(
+                    'title' => trans('fail.lineup.last_lineup'),
+                ),
+            );
+		}
+		return $response;
+	}
+
 }

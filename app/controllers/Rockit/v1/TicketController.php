@@ -65,7 +65,7 @@ class TicketController extends \BaseController {
         if ($object == null) {
             $response = array(
                 'fail' => array(
-                    'title' => trans('fail.' . snake_case($model) . '.inexistant'),
+                    'title' => trans('fail.ticket.inexistant'),
                 ),
             );
         } else {
