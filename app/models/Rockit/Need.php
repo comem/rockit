@@ -17,7 +17,7 @@ class Need extends \Eloquent {
 		'skill_id' 		=> 'integer|required|min:1|exists:skills,id',
 	];
 	public static $update_rules = [
-		'nb_people' 	=> 'integer|required|min:1',
+		'nb_people' 	=> 'integer|min:1',
 	];
 	public static $response_field = 'id';
 
