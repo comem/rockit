@@ -36,4 +36,14 @@ return array(
         'deleted' => "Le type d'événement ':name' à bien été supprimé !",
         'restored' => "Le type d'événement ':name' à été restauré !",
     ),
+    'printing_type' => array(
+        'created' => "Le nouveau type d'imprimé ':name' à bien été sauvegardé !",
+        'deleted' => "Le type d'imprimé ':name' à bien été supprimé !",
+        'restored' => "Le type d'imprimé ':name' à été restauré !",
+    ),
+    'ticket_category' => array(
+        'created' => "La nouvelle catégorie de tickets ':name' à bien été sauvegardée !",
+        'deleted' => "La catégorie de tickets ':name' à bien été supprimée !",
+        'restored' => "La catégorie de tickets ':name' à été restaurée !",
+    ),
 );

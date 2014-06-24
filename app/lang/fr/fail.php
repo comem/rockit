@@ -35,4 +35,12 @@ return array(
         'existing' => "Il y a déjà un type d'événement ':name' enregistré !",
         'inexistant' => "Il n'y aucun type d'événement enregistré correspondant !",
     ),
+    'printing_type' => array(
+        'existing' => "Il y a déjà un type d'imprimé ':name' enregistré !",
+        'inexistant' => "Il n'y aucun type d'imprimé enregistré correspondant !",
+    ),
+    'event_type' => array(
+        'existing' => "Il y a déjà une catégorie de tickets ':name' enregistré !",
+        'inexistant' => "Il n'y aucun catégorie de tickets enregistré correspondant !",
+    ),
 );

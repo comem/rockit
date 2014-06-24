@@ -35,4 +35,14 @@ return array(
         'deleted' => "Le type d'événement ':name' n'a pas pu être supprimé",
         'restored' => "Le type d'événement ':name' n'a pas pu être restauré",
     ),
+     'printing_type' => array(
+        'created' => "Le type d'imprimé ':name' n'a pas pu être créé",
+        'deleted' => "Le type d'imprimé ':name' n'a pas pu être supprimé",
+        'restored' => "Le type d'imprimé ':name' n'a pas pu être restauré",
+    ),
+     'ticket_category' => array(
+        'created' => "La catégorie de tickets ':name' n'a pas pu être créé",
+        'deleted' => "La catégorie de tickets ':name' n'a pas pu être supprimé",
+        'restored' => "La catégorie de tickets  ':name' n'a pas pu être restauré",
+    ),   
 );
