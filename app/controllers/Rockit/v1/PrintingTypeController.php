@@ -4,7 +4,7 @@ namespace Rockit\v1;
 
 use \Input,
     \Jsend,
-    \Rockit\Genre,
+    Rockit\PrintingType,
     \Rockit\Controllers\ControllerBSRDTrait;
 
 class PrintingTypeController extends \BaseController {
