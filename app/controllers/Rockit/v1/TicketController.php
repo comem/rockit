@@ -52,8 +52,30 @@ class TicketController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		return Jsend::compile(self::delete('Ticket', $id));
-	}
+		return Jsend::compile(self::delete($id));
+	}    
+
+	/**
+     * 
+     * @param 
+     * @param 
+     */
+    public static function delete($id) {
+        $object = Ticket::exist($id);
+        if ($object == null) {
+            $response = array(
+                'fail' => array(
+                    'title' => trans('fail.' . snake_case($model) . '.inexistant'),
+                ),
+            );
+        } else {
+        	$response = Ticket::isLastTicket($object);
+        	if($response === false){
+        		$response = Ticket::deleteOne($object);
+        	}
+        }
+        return $response;
+    }
 
 
 }

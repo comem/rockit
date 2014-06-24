@@ -25,4 +25,17 @@ class Ticket extends \Eloquent {
 	];
 	public static $response_field = 'id';
 
+	public static function isLastTicket($object){
+		$response = false;
+		$tickets = Ticket::where('event_id', '=', $object->event_id)->count();
+		if($tickets < 2){
+			$response = array(
+                'fail' => array(
+                    'title' => trans('fail.tickets.last_ticket'),
+                ),
+            );
+		}
+		return $response;
+	}
+
 }
