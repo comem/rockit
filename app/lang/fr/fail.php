@@ -6,7 +6,7 @@
 
 return array(
     'language' => array(
-        'inexistant' => "La langue n'existe pas",
+        'inexistant' => "Cette langue n'existe pas",
         'missing' => "L'attribut 'locale' est manquant",
     ),
     'routes' => array(
@@ -14,6 +14,9 @@ return array(
     ),
     'event' => array(
         'overlap' => "Il y a déjà un événement planifié pour cette date là !",
+    ),
+    'representer' => array(
+        'inexistant' => "Ce représentant n'existe pas.",
     ),
     'equipment' => array(
         'existing' => "Il y a déjà un équipement ':name' enregistré !",
@@ -43,4 +46,19 @@ return array(
         'existing' => "Il y a déjà une catégorie de tickets ':name' enregistré !",
         'inexistant' => "Il n'y aucun catégorie de tickets enregistré correspondant !",
     ),
+    'skill' => array(
+        'existing' => "Il y a déjà une compétence ':name' enregistrée !",
+        'inexistant' => "Il n'y aucune compétence enregistrée correspondante !",
+    ),
+    'instrument' => array(
+        'existing' => "Cet instrument existe déjà.",
+    ),
+
+    'attribution' => array(
+        'existing' => "Il y a déjà une attribution de même type enregistrée !",
+        'inexistant' => "Il n'y aucune attribution enregistrée correspondante !",
+    ),
+    'acl' => "Vous n'avez pas le droit d'effectuer cette action",
+    'auth' => "Vous devez être authentifié pour effectuer cette action",
+
 );

@@ -12,6 +12,7 @@ class Genre extends \Eloquent {
 
 	protected $table = 'genres';
 	protected $dates = ['deleted_at'];
+	protected $hidden = ['deleted_at'];
 
 	public $timestamps = false;
 	public static $response_field = 'name_de';
@@ -24,5 +25,9 @@ class Genre extends \Eloquent {
 	{
 		return $this->belongsToMany('Rockit\Artist');
 	}
+
+	public static function mergeGenres(array $genresToMerge){
+        return array_unique( $genresToMerge );
+    }
 
 }

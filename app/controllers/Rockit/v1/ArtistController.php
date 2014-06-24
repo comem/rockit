@@ -2,6 +2,11 @@
 
 namespace Rockit\v1;
 
+use \Rockit\Artist, \Rockit\Genre,
+        \Jsend,
+        \Input;
+
+
 class ArtistController extends \BaseController {
 
 	/**
@@ -34,7 +39,15 @@ class ArtistController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+            $inputs = Input::only('name', 'short_description_de', 'complete_description_de');
+            $genres = Input::only('genres');
+            $validate = Artist::validate($inputs, Artist::$create_rules);
+            if($validate === true) {
+                $response = self::save($inputs, $genres['genres']);
+            } else {
+                $response = $validate;
+            }
+            return Jsend::compile($response);
 	}
 
 
@@ -60,5 +73,18 @@ class ArtistController extends \BaseController {
 	{
 		//
 	}
+        
+        public static function save($inputs, $genres) {
+            $existingMergedGenres = array();
+            foreach ($genres as $genre) {
+                if(Genre::exists($genre)) {
+                    if(!in_array($genre, $existingMergedGenres)) {
+                        $existingMergedGenres[] = $genre;
+                    }
+                }
+            }
+            $genres = $existingMergedGenres;
+            return Artist::createOne($inputs, $genres);
+        }
 
 }

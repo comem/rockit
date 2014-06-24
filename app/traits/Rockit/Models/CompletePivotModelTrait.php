@@ -19,7 +19,7 @@ trait CompletePivotModelTrait {
     public static function existByIds(array $data) {
         $query = self::select();
         foreach ($data as $key => $value) {
-            if (ends_with('_id', $key)) {
+            if (ends_with($key, '_id')) {
                 $query->where($key, '=', $value);
             }
         }

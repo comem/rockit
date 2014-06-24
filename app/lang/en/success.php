@@ -13,12 +13,12 @@ return array(
     ),
     'representer' => array(
         'created' => "Le représentant a été créé.",
-        'updated' => "Le représentant a été modifié.",
+        'updated' => "The representer has been updated.",
         'deleted' => "Le représentant a été supprimé.",
         'restored' => "Le représentant a été restauré.",
     ),
     'auth' => array(
-        'login' => "Sie sind jetzt verbunden.",
-        'logout' => "Vous êtes maintenat déconnecté.",
+        'login' => "You are now logged in.",
+        'logout' => "You have been successfuly logged out.",
     ),
 );
