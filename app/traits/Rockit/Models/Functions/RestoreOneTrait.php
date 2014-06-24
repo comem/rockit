@@ -14,11 +14,11 @@ trait RestoreOneTrait {
         $class_name = self::getClass();
         if ($object->restore()) {
             $response['success'] = array(
-                'title' => trans('success.' . $class_name . '.restored'),
+                'title' => trans('success.' . snake_case($class_name) . '.restored'),
                 'id' => $object->id,
             );
         } else {
-            $response['error'] = trans('error.' . $class_name . '.restored');
+            $response['error'] = trans('error.' . snake_case($class_name) . '.restored');
         }
         return $response;
     }
