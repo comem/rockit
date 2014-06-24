@@ -36,7 +36,7 @@ class LinkController extends \BaseController {
         if($response === true) {
             $response = self::modify('Link', $id, $new_data);
         }
-        return $response;
+        return Jsend::compile($response);
     }
 
     /**
@@ -46,8 +46,7 @@ class LinkController extends \BaseController {
      * @return Response
      */
     public function destroy($id) {
-        $response = self::delete('Link', $id);
-        return $response;
+        return Jsend::compile(self::delete('Link', $id));
     }
 
 }
