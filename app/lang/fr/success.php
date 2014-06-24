@@ -83,4 +83,8 @@ return array(
         'updated' => "Le role du membre a été changer !",
         'deleted' => "Le role a bien été supprimé ",
     ),
+    'lineup' => array(
+        'created' => "La formation a bien été rajoutée",
+        'deleted' => "La formation a bien été supprimée",
+    ),
 );

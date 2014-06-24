@@ -11,7 +11,7 @@ class Lineup extends \Eloquent {
 	protected $table = 'lineups';
 	public static $create_rules = [
 		'musician_id' 	=> 'integer|required|min:1|exists:musicians,id',
-		'instrument_id' => 'integer|required|min:1|exists:intruments,id',
+		'instrument_id' => 'integer|required|min:1|exists:instruments,id',
 		'artist_id' 	=> 'integer|required|min:1|exists:artists,id',
 	];
 	public static $response_field = 'id';

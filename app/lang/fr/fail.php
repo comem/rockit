@@ -84,5 +84,9 @@ return array(
         'existing' => "Il y a déjà un role assignée à ce membre !",
         'inexistant' => "Il n'y aucun role assignée correspondant !",
     ),
+    'lineup' => array(
+        'existing' => "Ce musician joue déjà de cet instrument !",
+        'inexistant' => "Le musician ne joue pas de cet instrument !",
+    ),
 
 );

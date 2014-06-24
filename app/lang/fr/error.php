@@ -79,4 +79,8 @@ return array(
         'updated' => "Le role n'a pas pu être modifié",
         'deleted' => "Le role n'a pas pu être supprimé",
     ),
+    'lineup' => array(
+        'created' => "La formation n'a pas pu être enregistrée",
+        'deleted' => "La formation n'a pas pu être supprimée",
+    ),
 );
