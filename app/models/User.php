@@ -1,21 +1,22 @@
 <?php
 
 use Rockit\Resource,
+    Rockit\Models\ModelBCURDTrait,
     Illuminate\Auth\UserTrait,
     Illuminate\Auth\UserInterface,
     Illuminate\Auth\Reminders\RemindableTrait,
     Illuminate\Auth\Reminders\RemindableInterface,
-    Illuminate\Database\Eloquent\SoftDeletingTrait,
-    Rockit\RockitModelTrait;
+    Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class User extends Eloquent implements UserInterface, RemindableInterface {
 
     use UserTrait,
         RemindableTrait,
         SoftDeletingTrait,
-        RockitModelTrait;
+        ModelBCURDTrait;
 
     public $timestamps = true;
+    protected $appends = array('language', 'group');
     protected static $rules = array(
         'email' => 'email|max:300|unique:users',
         'password' => 'min:4|max:2000'
@@ -33,7 +34,15 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
      *
      * @var array
      */
-    protected $hidden = array('password', 'remember_token');
+    protected $hidden = array(
+        'password',
+        'remember_token',
+        'language_id',
+        'group_id',
+//        'deleted_at',
+//        'created_at',
+//        'updated_at',
+    );
 
     /**
      * Static function to validate User data
@@ -49,7 +58,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return $this->belongsTo('Rockit\Group');
     }
 
-    public function language() {
+    protected function language() {
         return $this->belongsTo('Rockit\Language');
     }
 
@@ -57,4 +66,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return $this->group->hasAccess($resource);
     }
 
+    protected function getLanguageAttribute() {
+        return $this->language()->getResults();
+    }
+    
+    protected function getGroupAttribute() {
+        return $this->group()->getResults();
+    }
 }

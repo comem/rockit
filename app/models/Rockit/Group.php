@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class Group extends \Eloquent {
 
-    protected $table = 'groups';
-    public $timestamps = true;
-
     use SoftDeletingTrait;
 
+    public $timestamps = true;
+    protected $table = 'groups';
     protected $dates = ['deleted_at'];
+    // protected $hidden = array('deleted_at', 'created_at', 'updated_at', 'group_id');
 
     /**
      * Get the group from which this instance inherits
