@@ -5,49 +5,28 @@
  */
 
 return array(
-    'artist' => array(
-        'created' => "L'artist a été créé",
-        'updated' => "L'artist a été modifié",
-        'deleted' => "L'artist a été supprimé",
-    ),
-    
     'language' => array(
-        'created' => "La langue a été créée",
-        'updated' => "La langue a été modifiée",
-        'deleted' => "La langue a été supprimée",
-        'restored' => "La langue a été restaurée",
+        'created' => "La langue a été créée.",
+        'updated' => "La langue a été mise à jour.",
+        'deleted' => "La langue a été supprimée.",
+        'restored' => "La langue a été restaurée.",
     ),
-    
-    'link' => array(
-        'created' => "Le lien a été créé",
-        'updated' => "Le lien a été modifié",
-        'deleted' => "Le lien a été supprimé",
+    'representer' => array(
+        'created' => "Le représentant a été créé.",
+        'updated' => "Le représentant a été mis à jour.",
+        'deleted' => "Le représentant a été supprimé.",
+        'restored' => "Le représentant a été restauré.",
     ),
-    
-    'artist' => array(
-        'created' => "Le musicien a été créé",
-        'updated' => "Le musicien a été modifié",
-        'deleted' => "Le musicien a été supprimé",
+    'user' => array(
+        'updated' => "L'utilisateur a été mis à jour."
     ),
-    
-    'equipment' => array(
-        'created' => "Le nouvel equipment ':name' à bien été sauvegardé !",
-        'deleted' => "L'équipement ':name' à bien été supprimé !",
-        'restored' => "L'équipement ':name' à été restauré !",
-    ),
-    'genre' => array(
-        'created' => "Le nouveau genre ':name' à bien été sauvegardé !",
-        'deleted' => "Le genre ':name' à bien été supprimé !",
-        'restored' => "Le genre ':name' à été restauré !",
-    ),
-    'event_type' => array(
-        'created' => "Le nouveau type d'événement ':name' à bien été sauvegardé !",
-        'deleted' => "Le type d'événement ':name' à bien été supprimé !",
-        'restored' => "Le type d'événement ':name' à été restauré !",
+    'auth' => array(
+        'login' => "Vous êtes maintenant authentifié.",
+        'logout' => "Vous êtes maintenant déconnecté.",
     ),
     'skill' => array(
-        'created' => "La nouvelle compétence ':name' à bien été sauvegardée !",
-        'deleted' => "La compétence ':name' à bien été supprimée !",
-        'restored' => "La compétence ':name' à été restaurée !",
+        'deleted' => "La compétence a été supprimée.",
+        'restored' => "La compétence a été restaurée.",
+        'created' => "La compétence a été créée.",
     ),
 );

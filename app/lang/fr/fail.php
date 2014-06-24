@@ -5,18 +5,9 @@
  */
 
 return array(
-    'artist' => array(
-        'inexistant' => "L'artiste n'existe pas",
-    ),
     'language' => array(
-        'inexistant' => "La langue n'existe pas",
+        'inexistant' => "Cette langue n'existe pas",
         'missing' => "L'attribut 'locale' est manquant",
-    ),
-    'link' => array(
-        'inexistant' => "Le lien n'existe pas",
-    ),
-    'musician' => array(
-        'inexistant' => "Le musicien n'existe pas",
     ),
     'routes' => array(
         'missing' => "Oups! Cette url n'existe pas",
@@ -24,20 +15,16 @@ return array(
     'event' => array(
         'overlap' => "Il y a déjà un événement planifié pour cette date là !",
     ),
-    'equipment' => array(
-        'existing' => "Il y a déjà un équipement ':name' enregistré !",
-        'inexistant' => "Il n'y aucun équipement enregistré correspondant !",
-    ),
-    'genre' => array(
-        'existing' => "Il y a déjà un genre ':name' enregistré !",
-        'inexistant' => "Il n'y aucun genre enregistré correspondant !",
-    ),
-    'event_type' => array(
-        'existing' => "Il y a déjà un type d'événement ':name' enregistré !",
-        'inexistant' => "Il n'y aucun type d'événement enregistré correspondant !",
+    'representer' => array(
+        'inexistant' => "Ce représentant n'existe pas.",
     ),
     'skill' => array(
-        'existing' => "Il y a déjà une compétence ':name' enregistrée !",
-        'inexistant' => "Il n'y aucune compétence enregistrée correspondante !",
+        'existing' => "Cette compétence existe déjà.",
+        'inexistant' => "Cette compétence n'existe pas.",
     ),
+    'instrument' => array(
+        'existing' => "Cet instrument existe déjà.",
+    ),
+    'acl' => "Vous n'avez pas le droit d'effectuer cette action",
+    'auth' => "Vous devez être authentifié pour effectuer cette action",
 );
