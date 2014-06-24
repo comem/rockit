@@ -2,7 +2,14 @@
 
 namespace Rockit\v1;
 
+use \Input,
+    \Jsend,
+    Rockit\TicketCategory,
+    \Rockit\Controllers\ControllerBSRDTrait;
+
 class TicketCategoryController extends \BaseController {
+    
+        use ControllerBSRDTrait;
 
 	/**
 	 * Display a listing of the resource.
@@ -22,7 +29,15 @@ class TicketCategoryController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		$data = Input::only('name_de');
+        $response = self::renew('TicketCategory', $data);
+        if ($response === false) {
+            $response = TicketCategory::validate($data, TicketCategory::$create_rules);
+            if ($response === true) {
+                $response = self::save('TicketCategory', $data, TRUE, 'name_de');
+            }
+        }
+        return Jsend::compile($response);
 	}
 
 
@@ -34,7 +49,7 @@ class TicketCategoryController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		return Jsend::compile(self::delete('TicketCategory', $id));
 	}
 
 
