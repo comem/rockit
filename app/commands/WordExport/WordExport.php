@@ -57,7 +57,8 @@ class WordExport {
 
         // add header with logo
         $header = $section->createHeader();
-        $header->addImage('images/mahogany.png', array('width' => 90, 'height' => 104, 'align' => 'right'));
+        // ?CHE : should we really implement image in app?
+        $header->addImage('http://mahogany.chrissharkman.ch/mahogany-pos.jpg', array('width' => 90, 'height' => 104, 'align' => 'right')); 
 
         //// add static content to section
         $section->addText("Organisation und Lokalität:", $fsDate);
