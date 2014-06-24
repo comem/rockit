@@ -4,7 +4,7 @@ namespace Rockit\v1;
 
 use \Input,
     \Jsend,
-    \Rockit\Attribution,
+    \Rockit\Offer,
 	Rockit\Controllers\CompletePivotControllerTrait;
 
 class OfferController extends \BaseController {
