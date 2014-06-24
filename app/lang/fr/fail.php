@@ -31,4 +31,8 @@ return array(
         'existing' => "Il y a déjà une compétence ':name' enregistrée !",
         'inexistant' => "Il n'y aucune compétence enregistrée correspondante !",
     ),
+    'attribution' => array(
+        'existing' => "Il y a déjà une attribution de même type enregistrée !",
+        'inexistant' => "Il n'y aucune attribution enregistrée correspondante !",
+    ),
 );

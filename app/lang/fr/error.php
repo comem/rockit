@@ -31,4 +31,9 @@ return array(
         'deleted' => "La nouvelle compétence ':name' n'a pas pu être supprimée",
         'restored' => "La nouvelle compétence ':name' n'a pas pu être restaurée",
     ),
+    'attribution' => array(
+        'created' => "L'attribution n'a pas pu être créée",
+        'updated' => "L'attribution n'a pas pu être modifiée",
+        'deleted' => "L'attribution n'a pas pu être supprimée",
+    ),
 );

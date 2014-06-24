@@ -31,4 +31,9 @@ return array(
         'deleted' => "La compétence ':name' à bien été supprimée !",
         'restored' => "La compétence ':name' à été restaurée !",
     ),
+    'attribution' => array(
+        'created' => "La nouvelle attribution à été rajoutée !",
+        'updated' => "L'attribution a bien été modifiée",
+        'deleted' => "L'attribution à bien été supprimée !",
+    ),
 );
