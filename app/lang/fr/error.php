@@ -11,4 +11,9 @@ return array(
         'deleted' => "La langue n'a pas pu être supprimée",
         'restored' => "La langue n'a pas pu être restaurée",
     ),
+    'equipment' => array(
+        'created' => "L'équipement n'a pas pu être créé",
+        'deleted' => "L'équipement n'a pas pu être supprimé",
+        'restored' => "L'équipement n'a pas pu être restauré",
+    ),
 );

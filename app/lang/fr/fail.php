@@ -15,4 +15,8 @@ return array(
     'event' => array(
         'overlap' => "Il y a déjà un événement planifié pour cette date là !",
     ),
+    'equipment' => array(
+        'existing' => "Il y a déjà un équipement semblable enregistré !",
+        'inexistant' => "Il n'y aucun équipement enregistré correspondant !",
+    ),
 );

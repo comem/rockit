@@ -11,4 +11,9 @@ return array(
         'deleted' => "La langue a été supprimée",
         'restored' => "La langue a été restaurée",
     ),
+    'equipment' => array(
+        'created' => "Le nouvel equipment à bien été sauvegardé !",
+        'deleted' => "L'équipement à bien été supprimé !",
+        'restored' => "L'équipement à été restauré !",
+    ),
 );
