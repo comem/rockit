@@ -10,12 +10,14 @@ class Genre extends \Eloquent {
 	use SoftDeletingTrait,
 		ModelBCRDTrait;
 
+	protected $table = 'genres';
+	protected $dates = ['deleted_at'];
+
+	public $timestamps = false;
+
 	public static $create_rules = array(
 		'name_de' => 'required',
 	);
-
-	protected $table = 'genres';
-	public $timestamps = false;
 
 	public function artists()
 	{
