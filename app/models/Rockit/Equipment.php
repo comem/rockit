@@ -2,16 +2,22 @@
 
 namespace Rockit;
 
-use Illuminate\Database\Eloquent\SoftDeletingTrait;
+use Illuminate\Database\Eloquent\SoftDeletingTrait,
+	Rockit\Models\ModelBCRDTrait;
 
 class Equipment extends \Eloquent {
 
+	use SoftDeletingTrait,
+		ModelBCRDTrait;
+
 	protected $table = 'equipments';
+	protected $dates = ['deleted_at'];
+
 	public $timestamps = false;
 
-	use SoftDeletingTrait;
-
-	protected $dates = ['deleted_at'];
+	public static $create_rules = array(
+		'name_de' => 'required',
+	);
 
 	public function events()
 	{

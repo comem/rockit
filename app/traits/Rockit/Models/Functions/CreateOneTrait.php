@@ -16,11 +16,11 @@ trait CreateOneTrait {
         $object = self::create($data);
         if ($object != null) {
             $response['success'] = array(
-                'title' => trans('success.' . $class . '.created'),
+                'title' => trans('success.' . snake_case($class) . '.created'),
                 'id' => $object->id,
             );
         } else {
-            $response['error'] = trans('error.' . $class . '.created');
+            $response['error'] = trans('error.' . snake_case($class) . '.created');
         }
         return $response;
     }

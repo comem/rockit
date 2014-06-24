@@ -7,12 +7,15 @@ use \Validator;
 
 class Artist extends \Eloquent {
 
+    use Models\ModelBCUDTrait;
+    
     protected $table = 'artists';
     public $timestamps = true;
 
     use SoftDeletingTrait;
 
     protected $dates = ['deleted_at'];
+
     public static $create_rules = array(
         'name' => 'required|min:1|max:100',
         'short_description_de' => 'max:200',
@@ -21,6 +24,7 @@ class Artist extends \Eloquent {
         'name' => 'required|min:1|max:100',
         'short_description_de' => 'max:200',
     );
+
 
     public function links() {
         return $this->hasMany('Rockit\Link');

@@ -2,10 +2,22 @@
 
 namespace Rockit;
 
+use Illuminate\Database\Eloquent\SoftDeletingTrait,
+	Rockit\Models\ModelBCRDTrait;
+
 class Genre extends \Eloquent {
+    
+	use SoftDeletingTrait,
+		ModelBCRDTrait;
 
 	protected $table = 'genres';
+	protected $dates = ['deleted_at'];
+
 	public $timestamps = false;
+
+	public static $create_rules = array(
+		'name_de' => 'required',
+	);
 
 	public function artists()
 	{
