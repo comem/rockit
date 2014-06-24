@@ -2,8 +2,14 @@
 
 namespace Rockit\v1;
 
+use \Input,
+    \Jsend,
+    \Rockit\Fulfillment,
+	Rockit\Controllers\SimplePivotControllerTrait;
+
 class FulfillmentController extends \BaseController {
 
+	use SimplePivotControllerTrait;
 
 	/**
 	 * Store a newly created resource in storage.
@@ -12,7 +18,12 @@ class FulfillmentController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		$data = Input::only('member_id', 'skill_id');
+		$response = Fulfillment::validate($data, Fulfillment::$create_rules);
+        if ($response === true) {
+            $response = self::save('Fulfillment', $data);
+        }
+        return Jsend::compile($response);
 	}
 
 
@@ -24,7 +35,7 @@ class FulfillmentController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		return Jsend::compile(self::delete('Fulfillment', $id));
 	}
 
 
