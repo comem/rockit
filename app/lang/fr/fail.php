@@ -98,5 +98,9 @@ return array(
         'existing' => "Ce type d'imprimé est déjà lié à cet événement !",
         'inexistant' => "Il n'y aucun imprimé correspondant !",
     ),
+    'performer' => array(
+        'existing' => "Ce groupe joue déjà dans cet événement !",
+        'inexistant' => "Il n'y aucune liaison correspondant !",
+    ),
 
 );

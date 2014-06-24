@@ -92,4 +92,9 @@ return array(
         'updated' => "L'imprimé n'a pas pu être modifiée",
         'deleted' => "L'imprimé n'a pas pu être supprimée",
     ),
+    'performer' => array(
+        'created' => "La liaison n'a pas pu être créée",
+        'updated' => "La liaison n'a pas pu être modifiée",
+        'deleted' => "La liaison n'a pas pu être supprimée",
+    ),
 );

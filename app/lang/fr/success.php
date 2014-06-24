@@ -93,7 +93,12 @@ return array(
     ),
     'printing' => array(
         'created' => "L'imprimé à bien été rajouté à l'événement !",
-        'updated' => "L'imprimé à bien été modifié' !",
+        'updated' => "L'imprimé à bien été modifié !",
         'deleted' => "L'imprimé à bient été supprimé de l'événement !",
+    ),
+    'performer' => array(
+        'created' => "L'artist à bien été rajouté à l'événement !",
+        'updated' => "La liaison entre l'artist et l'événement à bien été modifiée !",
+        'deleted' => "L'artist à bient été supprimé de l'événement !",
     ),
 );
