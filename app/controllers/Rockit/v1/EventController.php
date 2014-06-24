@@ -14,9 +14,7 @@ class EventController extends \BaseController {
 	 */
 	public function index()
 	{
-		$res = Event::checkOpeningDoorsHour('2014-07-04 13:00:00', '2014-07-04 15:30:00');
-		if($res === true) return 'oui';
-		else return Jsend::compile($res);
+		// 
 	}
 
 
@@ -86,6 +84,30 @@ class EventController extends \BaseController {
 	 * @return Response
 	 */
 	public function unpublish($id)
+	{
+		//
+	}
+
+
+	/**
+	 * Export events to word
+	 *
+	 * @param
+	 * @return Response
+	 */
+	public function exportWord()
+	{
+		//
+	}
+
+
+	/**
+	 * Export events to XML
+	 *
+	 * @param
+	 * @return Response
+	 */
+	public function exportXML()
 	{
 		//
 	}
