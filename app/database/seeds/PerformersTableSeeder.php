@@ -21,7 +21,7 @@ class PerformersTableSeeder extends Seeder {
                                 'is_support' => '0',
                                 'artist_hour_of_arrival'=>'2014-08-02 18:00:00'));
         
-        Performer::create(array('artist_id' => $artist[0]->id,
+        Performer::create(array('artist_id' => $artist[1]->id,
                                 'event_id'=> $event[0]->id,
                                 'order' => '0',
                                 'is_support' => '1',

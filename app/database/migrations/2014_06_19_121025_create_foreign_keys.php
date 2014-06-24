@@ -118,7 +118,6 @@ class CreateForeignKeys extends Migration {
 			$table->foreign('instrument_id')->references('id')->on('instruments')
 						->onDelete('no action')
 						->onUpdate('no action');
-			$table->unique(array('musician_id', 'artist_id', 'instrument_id'));
 		});
 		Schema::table('descriptions', function(Blueprint $table) {
 			$table->foreign('genre_id')->references('id')->on('genres')
