@@ -22,7 +22,7 @@ Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function()
 
 	// start
 
-	Route::get('trads/{locale?}', 'TranslationController@translate')->where('locale', '[A-Za-z_]+');
+	Route::get('trads/{locale?}', 'TranslationController@translate')->where('locale', '[a-z]+');
 	Route::get('langs', 'TranslationController@index');
 
 	Route::post('login', 'AuthController@login');
@@ -33,7 +33,7 @@ Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function()
 	{
 		// before auth
 
-		Route::put('langs', 'TranslationController@setLocale');
+		Route::put('langs', 'TranslationController@changeLocale');
 
 		Route::group(array('before' => 'acl'), function()
 		{
@@ -45,6 +45,8 @@ Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function()
                         Route::get('events/exportword', 'EventController@exportWord');
 			Route::put('events/{id}/publish', 'EventController@publish')->where('id', '[0-9]+');
 			Route::put('events/{id}/unpublish', 'EventController@unpublish')->where('id', '[0-9]+');
+			Route::get('events/export/word', 'EventController@exportWord');
+			Route::get('events/export/xml', 'EventController@exportXML');
 			Route::resource('events', 'EventController', 
 				array('only' => array('index', 'show', 'store', 'update', 'destroy')));
 
@@ -144,5 +146,5 @@ Route::get('events/exportword', 'Rockit\v1\EventController@exportWord');
 
 App::missing(function($exception)
 {
-    return 'error 404';
+    return Jsend::fail('fail.routes.missing');
 });

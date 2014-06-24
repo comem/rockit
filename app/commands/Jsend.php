@@ -67,4 +67,15 @@ class Jsend {
         return Response::json($rep, $status);
     }
 
+    public static function compile($array){
+        if (isset($array['success'])){
+            $compile = self::success($array['success']);
+        } elseif (isset($array['fail'])){
+            $compile = self::fail($array['fail']);
+        } elseif (isset($array['error'])){
+            $compile = self::error($array['error']);
+        }
+        return $compile;
+    }
+
 }

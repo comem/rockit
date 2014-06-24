@@ -19,5 +19,11 @@ class AttributionsTableSeeder extends Seeder {
                                     'quantity'=>'5' ,
                                     'event_id'=>$event[0]->id ,
                                     'equipment_id'=>$equipment[0]->id));
+        
+        
+        Attribution::create(array(  'cost'=>'0',
+                                    'quantity'=>'5' ,
+                                    'event_id'=>$event[2]->id ,
+                                    'equipment_id'=>$equipment[0]->id));
     }
 }

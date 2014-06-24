@@ -20,6 +20,18 @@ use Rockit\Event;
                                  'nb_copies_surplus'=>'400',
                                  'event_id' => $event[0]->id,
                                  'printing_type_id' => $printingtype[0]->id));
+         
+         Printing::create(array('source' => 'die band',
+                                 'nb_copies'=>'20',
+                                 'nb_copies_surplus'=>'1',
+                                 'event_id' => $event[2]->id,
+                                 'printing_type_id' => $printingtype[1]->id));
+         
+         Printing::create(array('source' => 'ein supporter',
+                                 'nb_copies'=>'20',
+                                 'nb_copies_surplus'=>'4',
+                                 'event_id' => $event[2]->id,
+                                 'printing_type_id' => $printingtype[2]->id));
      }
  }
 

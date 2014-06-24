@@ -27,6 +27,28 @@ class EventsTableSeeder extends Seeder {
                             'nb_places'=>'180',
                             'followed_by_private'=>'0',
                             ));
+        
+        Event::create(array('start_date_hour' => '2014-08-07 18:00:00',
+                            'image_id'=> $image[1]->id,
+                            'event_type_id'=> $eventtype[0]->id,
+                            'representer_id' => $representer[1]->id,
+                            'title_de'=> '',
+                            'nb_meal'=>'6',
+                            'nb_vegan_meal'=>'12',
+                            'nb_places'=>'180',
+                            'followed_by_private'=>'0',
+                            ));
+        
+        Event::create(array('start_date_hour' => '2014-07-14 18:00:00',
+                            'image_id'=> $image[3]->id,
+                            'event_type_id'=> $eventtype[2]->id,
+                            'representer_id' => $representer[1]->id,
+                            'title_de'=> '',
+                            'nb_meal'=>'21',
+                            'nb_vegan_meal'=>'4',
+                            'nb_places'=>'180',
+                            'followed_by_private'=>'1',
+                            ));
     }
 }
 

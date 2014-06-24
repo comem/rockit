@@ -10,6 +10,10 @@ class PrintingsTypesTableSeeder extends Seeder {
         DB::table('printing_types')->delete();
 
         PrintingType::create(array('name_de' => 'flyer'));
+        
+        PrintingType::create(array('name_de' => 'A4 Blatt'));
+        
+        PrintingType::create(array('name_de' => 'Sticker'));
     }
 }
 

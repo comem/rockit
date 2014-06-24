@@ -9,6 +9,7 @@ class CreateInstrumentsTable extends Migration {
         Schema::create('instruments', function(Blueprint $table) {
             $table->increments('id');
             $table->string('name_de', 50)->unique();
+            $table->softDeletes();
         });
     }
 

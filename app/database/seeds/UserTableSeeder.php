@@ -1,7 +1,5 @@
 <?php
 
-use Rockit\User;
-
 class UserTableSeeder extends Seeder {
 
     public function run() {
@@ -21,7 +19,7 @@ class UserTableSeeder extends Seeder {
             'first_name' => 'Christopher',
             'last_name' => 'De Guzman',
             'password' => Hash::make('guzi'),
-            'language_id' => 2,
+            'language_id' => 3,
             'group_id' => 2,
         ));
         User::create(array(
