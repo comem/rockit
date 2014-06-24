@@ -10,6 +10,8 @@ class Artist extends \Eloquent {
     use Models\ModelBCUDTrait;
 
     protected $table = 'artists';
+    protected $hidden = ['deleted_at'];
+
     public $timestamps = true;
 
     use SoftDeletingTrait;
