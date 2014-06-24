@@ -51,4 +51,9 @@ return array(
     'acl' => "Vous n'avez pas le droit d'effectuer cette action",
     'auth' => "Vous devez être authentifié pour effectuer cette action",
 
+    'offer' => array(
+        'existing' => "Il y a déjà une offre de même type enregistrée !",
+        'inexistant' => "Il n'y aucune offre enregistrée correspondante !",
+    ),
+
 );

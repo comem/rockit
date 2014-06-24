@@ -26,4 +26,9 @@ return array(
         'updated' => "L'attribution n'a pas pu être modifiée",
         'deleted' => "L'attribution n'a pas pu être supprimée",
     ),
+    'attribution' => array(
+        'created' => "L'offre n'a pas pu être créée",
+        'updated' => "L'offre n'a pas pu être modifiée",
+        'deleted' => "L'offre n'a pas pu être supprimée",
+    ),
 );

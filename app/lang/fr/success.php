@@ -34,4 +34,9 @@ return array(
         'updated' => "L'attribution a bien été modifiée",
         'deleted' => "L'attribution à bien été supprimée !",
     ),
+    'offer' => array(
+        'created' => "La nouvelle offre à été rajoutée !",
+        'updated' => "L'offre a bien été modifiée",
+        'deleted' => "L'offre à bien été supprimée !",
+    ),
 );
