@@ -23,4 +23,8 @@ return array(
         'existing' => "Il y a déjà un genre semblable enregistré !",
         'inexistant' => "Il n'y aucun genre enregistré correspondant !",
     ),
+    'event_type' => array(
+        'existing' => "Il y a déjà un type d'événement semblable enregistré !",
+        'inexistant' => "Il n'y aucun type d'événement enregistré correspondant !",
+    ),
 );
