@@ -5,10 +5,16 @@ namespace Rockit;
 use \Validator, \DB;
 
 class Event extends \Eloquent {
+    
+        use RockitModelTrait;
 
 	protected $table = 'events';
 	public $timestamps = true;
 
+        /**
+         *
+         * @var array 
+         */
 	public static $create_rules = array(
 		'start_date_hour' 		=> 'date|required',
 		'ending_date_hour' 		=> 'date|required',
@@ -100,23 +106,23 @@ class Event extends \Eloquent {
 		}
 		return $response;
 	}
-
-	/**
-	* Validate the information passed in parameters
-	*
-	* @param $inputs, $rules
-	* @return true or fail message
-	*/
-	public static function validate( $inputs, $rules )
-	{
-		$v = Validator::make( $inputs, $rules );
-		if( $v->fails() ){
-			$response['fail'] = $v->messages()->getMessages();
-		} else {
-			$response = true;
-		}
-		return $response;
-	}
+//
+//	/**
+//	* Validate the information passed in parameters
+//	*
+//	* @param $inputs, $rules
+//	* @return true or fail message
+//	*/
+//	public static function validate( $inputs, $rules )
+//	{
+//		$v = Validator::make( $inputs, $rules );
+//		if( $v->fails() ){
+//			$response['fail'] = $v->messages()->getMessages();
+//		} else {
+//			$response = true;
+//		}
+//		return $response;
+//	}
 
 	/**
 	* Check that anEventStartDateHour is set after anEventOpeningDoors
@@ -202,20 +208,20 @@ class Event extends \Eloquent {
 	* @param $inputs
 	* @return  true or error message
 	*/
-	public static function createOne( $inputs )
-	{
-		self::unguard();
-		$object = self::create( $inputs );
-		if( $object != null ){
-			$response['success'] = array(
-				'title' => trans('success.event.created'),
-				'id' => $object->id,
-			);
-		} else {
-			$response['error'] = trans('error.event.created');
-		}
-		return $response;
-	}
+//	public static function createOne( $inputs )
+//	{
+//		self::unguard();
+//		$object = self::create( $inputs );
+//		if( $object != null ){
+//			$response['success'] = array(
+//				'title' => trans('success.event.created'),
+//				'id' => $object->id,
+//			);
+//		} else {
+//			$response['error'] = trans('error.event.created');
+//		}
+//		return $response;
+//	}
 
 	/**
 	* Update a persistant Event, based on the difference between a 
@@ -224,21 +230,21 @@ class Event extends \Eloquent {
 	* @param $new_values, Event $object
 	* @return  true or error message
 	*/
-	public static function updateOne( $new_values, Event $object )
-	{
-		foreach( $new_values as $key => $value )
-		{
-			$object->$key = $value;
-		}
-		if( $object->save() ){ 
-			$response['success'] = array(
-				'title' => trans('success.event.updated'),
-			);
-		} else {
-			$response['error'] = trans('error.event.updated');
-		}
-		return $response;
-	}
+//	public static function updateOne( $new_values, Event $object )
+//	{
+//		foreach( $new_values as $key => $value )
+//		{
+//			$object->$key = $value;
+//		}
+//		if( $object->save() ){ 
+//			$response['success'] = array(
+//				'title' => trans('success.event.updated'),
+//			);
+//		} else {
+//			$response['error'] = trans('error.event.updated');
+//		}
+//		return $response;
+//	}
 
 	/**
 	* Delete a persistant Event
@@ -246,16 +252,16 @@ class Event extends \Eloquent {
 	* @param Event $object
 	* @return  true or error message
 	*/
-	public static function deleteOne( Event $object )
-	{
-		if( $object->delete() ){ 
-			$response['success'] = array(
-				'title' => trans('success.event.deleted'),
-			);
-		} else {
-			$response['error'] = trans('error.event.deleted');
-		}
-		return $response;
-	}
+//	public static function deleteOne( Event $object )
+//	{
+//		if( $object->delete() ){ 
+//			$response['success'] = array(
+//				'title' => trans('success.event.deleted'),
+//			);
+//		} else {
+//			$response['error'] = trans('error.event.deleted');
+//		}
+//		return $response;
+//	}
 
 }

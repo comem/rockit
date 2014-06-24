@@ -12,7 +12,7 @@ class CreateOffersTable extends Migration {
 			$table->integer('gift_id')->unsigned();
 			$table->integer('event_id')->unsigned();
 			$table->integer('quantity');
-			$table->integer('cost');
+			$table->integer('cost')->default(0);
 			$table->string('comment_de', 200)->nullable();
 		});
 	}

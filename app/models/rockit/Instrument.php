@@ -4,12 +4,28 @@ namespace Rockit;
 
 class Instrument extends \Eloquent {
 
-	protected $table = 'instruments';
-	public $timestamps = false;
+    use RockitModelTrait;
 
-	public function lineups()
-	{
-		return $this->hasMany('Rockit\Lineup');
-	}
+    public $timestamps = false;
+    protected $table = 'instruments';
+
+    public function lineups() {
+        return $this->hasMany('Rockit\Lineup');
+    }
+
+    public static $create_rules = array(
+        'name_de' => 'alpha|required|min:1',
+    );
+    public static $update_rules = array(
+        'name_de' => 'alpha|required|min:1',
+    );
+
+    public static function exist($name, $column) {
+        $response = self::where($column, '=', $name)->first();
+        if ($response == NULL) {
+            $response['fail'] = trans('fail.instrument.inexistant');
+        }
+        return $response;
+    }
 
 }

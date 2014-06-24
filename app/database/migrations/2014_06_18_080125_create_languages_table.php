@@ -13,7 +13,7 @@ class CreateLanguagesTable extends Migration {
     public function up() {
         Schema::create('languages', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('locale', 8);
+            $table->string('locale', 8)->unique();
             $table->string('name', 100);
         });
     }

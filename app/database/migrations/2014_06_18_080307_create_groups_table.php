@@ -13,8 +13,8 @@ class CreateGroupsTable extends Migration {
     public function up() {
         Schema::create('groups', function(Blueprint $table) {
             $table->increments('id');
-            $table->integer('group_id')->unsigned()->nullable();
-            $table->string('name', 100);
+            $table->unsignedInteger('group_id')->nullable();
+            $table->string('name', 100)->unique();
             $table->timestamps();
             $table->softDeletes();
         });
