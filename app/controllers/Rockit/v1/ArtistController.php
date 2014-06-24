@@ -30,7 +30,8 @@ class ArtistController extends \BaseController {
      * @return Response
      */
     public function show($id) {
-        //
+        $artists = Artist::with('links', 'images', 'genres', 'events')->find($id);
+        return Jsend::success($artists);
     }
 
     /**
