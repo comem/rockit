@@ -16,4 +16,9 @@ return array(
         'deleted' => "L'équipement n'a pas pu être supprimé",
         'restored' => "L'équipement n'a pas pu être restauré",
     ),
+    'genre' => array(
+        'created' => "Le genre n'a pas pu être créé",
+        'deleted' => "Le genre n'a pas pu être supprimé",
+        'restored' => "Le genre n'a pas pu être restauré",
+    ),
 );

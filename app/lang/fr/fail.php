@@ -19,4 +19,8 @@ return array(
         'existing' => "Il y a déjà un équipement semblable enregistré !",
         'inexistant' => "Il n'y aucun équipement enregistré correspondant !",
     ),
+    'genre' => array(
+        'existing' => "Il y a déjà un genre semblable enregistré !",
+        'inexistant' => "Il n'y aucun genre enregistré correspondant !",
+    ),
 );

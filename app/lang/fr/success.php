@@ -16,4 +16,9 @@ return array(
         'deleted' => "L'équipement à bien été supprimé !",
         'restored' => "L'équipement à été restauré !",
     ),
+    'genre' => array(
+        'created' => "Le nouveau genre à bien été sauvegardé !",
+        'deleted' => "Le genre à bien été supprimé !",
+        'restored' => "Le genre à été restauré !",
+    ),
 );
