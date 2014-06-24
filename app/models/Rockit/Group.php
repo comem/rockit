@@ -11,6 +11,7 @@ class Group extends \Eloquent {
     public $timestamps = true;
     protected $table = 'groups';
     protected $dates = ['deleted_at'];
+
     // protected $hidden = array('deleted_at', 'created_at', 'updated_at', 'group_id');
 
     /**
