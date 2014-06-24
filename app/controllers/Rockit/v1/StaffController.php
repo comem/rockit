@@ -5,11 +5,11 @@ namespace Rockit\v1;
 use \Input,
     \Jsend,
     \Rockit\Staff,
-	Rockit\Controllers\SimplePivotControllerTrait;
+	Rockit\Controllers\CompletePivotControllerTrait;
 
 class StaffController extends \BaseController {
 
-	use SimplePivotControllerTrait;
+	use CompletePivotControllerTrait;
 
 
 	/**
@@ -36,7 +36,12 @@ class StaffController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		$data = Input::only('skill_id');
+		$response = Staff::validate($data, Staff::$update_rules);
+        if ($response === true) {
+            $response = self::modify($id, $data);
+        }
+        return Jsend::compile($response);
 	}
 
 
@@ -48,12 +53,12 @@ class StaffController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		return Jsend::compile(self::delete('Staff', $id));
 	}
 
 
 	public static function save(array $data) {
-        $object = Staff::exist($data);
+        $object = Staff::existByIds($data);
         if (is_object($object)) {
             $response = array('fail' => trans('fail.staff.existing'));
         } else {
@@ -62,6 +67,26 @@ class StaffController extends \BaseController {
 	        	$response = Staff::checkEventNeed($data['event_id'], $data['skill_id']);
 	        	if ($response === true) {
 	        		$response = Staff::createOne($data);
+	        	}
+	        }
+        }
+        return $response;
+    }
+
+    public static function modify($id, $data) {
+        $object = Staff::exist($id);
+        if ($object == null) {
+            $response = array(
+                'fail' => array(
+                    'title' => trans('fail.staff.inexistant'),
+                ),
+            );
+        } else {
+        	$response = Staff::checkMemberFulfillment($object->member_id, $object->skill_id);
+	        if ($response === true) {
+	        	$response = Staff::checkEventNeed($object->event_id, $object->skill_id);
+	        	if ($response === true) {
+            		$response = Staff::updateOne($data, $object);
 	        	}
 	        }
         }

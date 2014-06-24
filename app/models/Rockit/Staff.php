@@ -2,11 +2,11 @@
 
 namespace Rockit;
 
-use Rockit\Models\SimplePivotModelTrait;
+use Rockit\Models\CompletePivotModelTrait;
 
 class Staff extends \Eloquent {
 
-	use SimplePivotModelTrait;
+	use CompletePivotModelTrait;
 
 	protected $table = 'staffs';
 
@@ -14,6 +14,9 @@ class Staff extends \Eloquent {
 	public static $create_rules = [
 		'member_id' 	=> 'integer|required|min:1|exists:members,id',
 		'event_id'	 	=> 'integer|required|min:1|exists:events,id',
+		'skill_id' 		=> 'integer|required|min:1|exists:skills,id',
+	];
+	public static $update_rules = [
 		'skill_id' 		=> 'integer|required|min:1|exists:skills,id',
 	];
 	public static $response_field = 'id';
@@ -53,7 +56,7 @@ class Staff extends \Eloquent {
 	}
 
 
-    public static function exist($data) {
+    public static function existByIds($data) {
         return self::where('member_id', '=', $data['member_id'])->where('event_id', '=', $data['event_id'])->first();
     }
 
