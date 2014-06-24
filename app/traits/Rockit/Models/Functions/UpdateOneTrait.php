@@ -14,6 +14,7 @@ trait UpdateOneTrait {
      */
     public static function updateOne(array $new_values, $object) {
         $class_name = self::getClass();
+        $field = self::$response_field;
         foreach ($new_values as $key => $value) {
             if ($value != null) {
                 $object->$key = $value;
@@ -21,11 +22,11 @@ trait UpdateOneTrait {
         }
         if ($object->save()) {
             $response['success'] = array(
-                'title' => trans('success.' . snake_case($class_name) . '.updated'),
+                'title' => trans('success.' . snake_case($class_name) . '.updated', array('name' => $object->$field)),
                 'id' => $object->id,
             );
         } else {
-            $response['error'] = trans('error.' . snake_case($class_name) . '.updated');
+            $response['error'] = trans('error.' . snake_case($class_name) . '.updated', array('name' => $object->$field));
         }
         return $response;
     }
