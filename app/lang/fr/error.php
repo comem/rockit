@@ -87,4 +87,9 @@ return array(
         'created' => "La description n'a pas pu être enregistrée",
         'deleted' => "La description n'a pas pu être supprimée",
     ),
+    'printing' => array(
+        'created' => "L'imprimé n'a pas pu être créée",
+        'updated' => "L'imprimé n'a pas pu être modifiée",
+        'deleted' => "L'imprimé n'a pas pu être supprimée",
+    ),
 );

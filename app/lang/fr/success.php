@@ -91,4 +91,9 @@ return array(
         'created' => "Le genre a bien été rajouté à l'artist !",
         'deleted' => "Le genre a bien été supprimé de l'artist !",
     ),
+    'printing' => array(
+        'created' => "L'imprimé à bien été rajouté à l'événement !",
+        'updated' => "L'imprimé à bien été modifié' !",
+        'deleted' => "L'imprimé à bient été supprimé de l'événement !",
+    ),
 );

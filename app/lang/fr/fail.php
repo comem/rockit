@@ -94,5 +94,9 @@ return array(
         'inexistant' => "Cette description n'existe pas !",
         'last_genre' => "Ce genre est le dernier, vous ne pouvez pas le supprimé !",
     ),
+    'printing' => array(
+        'existing' => "Ce type d'imprimé est déjà lié à cet événement !",
+        'inexistant' => "Il n'y aucun imprimé correspondant !",
+    ),
 
 );
