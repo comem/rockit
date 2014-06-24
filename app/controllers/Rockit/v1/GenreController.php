@@ -2,9 +2,14 @@
 
 namespace Rockit\v1;
 
+use \Input,
+    \Jsend,
+    \Rockit\Genre,
+    \Rockit\Controllers\ControllerBSRDTrait;
+
 class GenreController extends \BaseController {
 
-    use \Rockit\Controllers\ControllerBSRDTrait;
+    use ControllerBSRDTrait;
 
     /**
      * Display a listing of the resource.
@@ -21,15 +26,15 @@ class GenreController extends \BaseController {
      * @return Response
      */
     public function store() {
-        $data = \Input::only('name_de');
+        $data = Input::only('name_de');
         $response = self::renew('Genre', $data);
         if ($response === false) {
-            $response = \Rockit\Genre::validate($data, \Rockit\Genre::$create_rules);
+            $response = Genre::validate($data, Genre::$create_rules);
             if ($response === true) {
                 $response = self::save('Genre', $data, TRUE, 'name_de');
             }
         }
-        return \Jsend::compile($response);
+        return Jsend::compile($response);
     }
 
     /**
@@ -39,7 +44,7 @@ class GenreController extends \BaseController {
      * @return Response
      */
     public function destroy($id) {
-        return \Jsend::compile(self::delete('Genre', $id));
+        return Jsend::compile(self::delete('Genre', $id));
     }
 
 }
