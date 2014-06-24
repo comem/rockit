@@ -18,9 +18,6 @@ return array(
     'representer' => array(
         'inexistant' => "Ce représentant n'existe pas.",
     ),
-
-
-
     'equipment' => array(
         'existing' => "Il y a déjà un équipement ':name' enregistré !",
         'inexistant' => "Il n'y aucun équipement enregistré correspondant !",
@@ -29,12 +26,26 @@ return array(
         'existing' => "Il y a déjà un genre ':name' enregistré !",
         'inexistant' => "Il n'y aucun genre enregistré correspondant !",
     ),
+     'instrument' => array(
+        'existing' => "Il y a déjà un instrument ':name' enregistré !",
+        'inexistant' => "Il n'y aucun instrument enregistré correspondant !",
+    ),
+     'gift' => array(
+        'existing' => "Il y a déjà un lot ':name' enregistré !",
+        'inexistant' => "Il n'y aucun lot enregistré correspondant !",
+    ),
     'event_type' => array(
         'existing' => "Il y a déjà un type d'événement ':name' enregistré !",
         'inexistant' => "Il n'y aucun type d'événement enregistré correspondant !",
     ),
-
-
+    'printing_type' => array(
+        'existing' => "Il y a déjà un type d'imprimé ':name' enregistré !",
+        'inexistant' => "Il n'y aucun type d'imprimé enregistré correspondant !",
+    ),
+    'event_type' => array(
+        'existing' => "Il y a déjà une catégorie de tickets ':name' enregistré !",
+        'inexistant' => "Il n'y aucun catégorie de tickets enregistré correspondant !",
+    ),
     'skill' => array(
         'existing' => "Il y a déjà une compétence ':name' enregistrée !",
         'inexistant' => "Il n'y aucune compétence enregistrée correspondante !",
@@ -47,7 +58,6 @@ return array(
         'existing' => "Il y a déjà une attribution de même type enregistrée !",
         'inexistant' => "Il n'y aucune attribution enregistrée correspondante !",
     ),
-
     'acl' => "Vous n'avez pas le droit d'effectuer cette action",
     'auth' => "Vous devez être authentifié pour effectuer cette action",
 
