@@ -22,8 +22,8 @@ return array(
         'restored' => "Le genre ':name' n'a pas pu être restauré",
     ),
     'instrument' => array(
-        'created' => "L'instrument genre ':name' n'a pas pu être supprimé",
-        'restored' => "L'instrument ':name' n'a pas pu être restauré",
+        'created' => "L instrument ':name' n'a pas pu être supprimé",
+        'restored' => "L instrument ':name' n'a pas pu être restauré",
     ),
     'gift' => array(
         'created' => "Le lot ':name' n'a pas pu être créé",

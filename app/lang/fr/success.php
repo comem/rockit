@@ -23,11 +23,11 @@ return array(
     ),
     'instrument' => array(
         'created' => "Le nouvel instrument ':name' à bien été sauvegardé !",
-        'deleted' => "L'instrument ':name' à bien été supprimé !",
-        'restored' => "L'instrument ':name' à été restauré !",
+        'deleted' => "L instrument ':name' à bien été supprimé !",
+        'restored' => "L instrument ':name' à été restauré !",
     ),
     'gift' => array(
-        'created' => "Le lot genre ':name' à bien été sauvegardé !",
+        'created' => "Le nouveau lot':name' à bien été sauvegardé !",
         'deleted' => "Le lot ':name' à bien été supprimé !",
         'restored' => "Le lot ':name' à été restauré !",
     ),
