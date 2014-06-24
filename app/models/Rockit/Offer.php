@@ -20,7 +20,7 @@ class Offer extends \Eloquent {
 	];
 	public static $update_rules = [
 		'cost' 			=> 'integer|min:0',
-		'quantity' 		=> 'integer|required|min:1',
+		'quantity' 		=> 'integer|min:1',
 		'comment_de' 	=> 'min:1',
 	];
 	public static $response_field = 'id';
