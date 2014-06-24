@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Input,
     \Auth,
     \Jsend;
 
-
 class AuthController extends \BaseController {
 
     /**
@@ -19,19 +18,22 @@ class AuthController extends \BaseController {
     public function login() {
         // test if remember is set true
         $remember = Input::get('remember');
-        if(!empty($remember)) {
+        if (!empty($remember)) {
             $remember = $remember == 'true' ? true : false;
-        }    
+        }
         $credentials = [
             'email' => Input::get('email'),
             'password' => Input::get('password')
         ];
         if (($credentials['email'] != null && $credentials['password'] != null) &&
-                User::validate(array($credentials['email'], $credentials['password'])) &&
-                Auth::attempt($credentials, $remember, true)) {
-            return Jsend::success(trans('success.auth.login'));
+        User::validate(array($credentials['email'], $credentials['password'])) &&
+        Auth::attempt($credentials, $remember, true)) {
+            return Jsend::success(array(
+                'title' => trans('success.auth.login'),
+                'user' => Auth::user(),
+            ));
         }
-        return Jsend::error(trans('error.auth.login'));
+        return Jsend::error(array('title' => trans('error.auth.login')));
     }
 
     /**
