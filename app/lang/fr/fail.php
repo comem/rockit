@@ -73,10 +73,16 @@ return array(
     'need' => array(
         'existing' => "Il y a déjà un besoin de même type enregistré !",
         'inexistant' => "Il n'y aucun besoin enregistré correspondant !",
+        'non_needed' => "Cette compétence n'est pas requise pour cet événement !",
     ),
     'fulfillment' => array(
         'existing' => "Il y a déjà une compétence assignée à ce membre !",
         'inexistant' => "Il n'y aucune compétence assignée correspondante !",
+        'non_assigned' => "Cette compétence ne peut pas être remplie par ce membre !",
+    ),
+    'staff' => array(
+        'existing' => "Il y a déjà un role assignée à ce membre !",
+        'inexistant' => "Il n'y aucun role assignée correspondant !",
     ),
 
 );

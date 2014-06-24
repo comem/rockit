@@ -78,4 +78,9 @@ return array(
         'created' => "L'assigniation de la compétence à bien été rajoutée !",
         'deleted' => "L'assigniation de la compétence à bien été supprimée !",
     ),
+    'staff' => array(
+        'created' => "Le role a correctement été assigné !",
+        'updated' => "Le role du membre a été changer !",
+        'deleted' => "Le role a bien été supprimé ",
+    ),
 );

@@ -74,4 +74,9 @@ return array(
         'created' => "La compétence n'a pas pu être assignée",
         'deleted' => "La compétence assignée n'a pas pu être supprimée",
     ),
+    'staff' => array(
+        'created' => "Le role n'a pas pu être assigné",
+        'updated' => "Le role n'a pas pu être modifié",
+        'deleted' => "Le role n'a pas pu être supprimé",
+    ),
 );
