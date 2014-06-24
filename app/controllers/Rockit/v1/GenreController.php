@@ -34,7 +34,7 @@ class GenreController extends \BaseController {
                 $response = self::save('Genre', $data, TRUE, 'name_de');
             }
         }
-        return \Jsend::compile($response);
+        return Jsend::compile($response);
     }
 
     /**
