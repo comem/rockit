@@ -12,7 +12,7 @@ class CreateAttributionsTable extends Migration {
 			$table->integer('equipment_id')->unsigned();
 			$table->integer('event_id')->unsigned();
 			$table->integer('cost')->nullable();
-			$table->integer('quantity')->default('1');
+			$table->integer('quantity')->default(1);
 		});
 	}
 
