@@ -45,4 +45,9 @@ return array(
         'deleted' => "Le type d'événement ':name' à bien été supprimé !",
         'restored' => "Le type d'événement ':name' à été restauré !",
     ),
+    'skill' => array(
+        'created' => "La nouvelle compétence ':name' à bien été sauvegardée !",
+        'deleted' => "La compétence ':name' à bien été supprimée !",
+        'restored' => "La compétence ':name' à été restaurée !",
+    ),
 );
