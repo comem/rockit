@@ -53,7 +53,7 @@ class TicketController extends \BaseController {
 	public function destroy($id)
 	{
 		return Jsend::compile(self::delete($id));
-	}    
+	}
 
 	/**
      * 

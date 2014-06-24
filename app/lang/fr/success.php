@@ -87,4 +87,8 @@ return array(
         'created' => "La formation a bien été rajoutée",
         'deleted' => "La formation a bien été supprimée",
     ),
+    'description' => array(
+        'created' => "Le genre a bien été rajouté à l'artist !",
+        'deleted' => "Le genre a bien été supprimé de l'artist !",
+    ),
 );

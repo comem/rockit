@@ -83,4 +83,8 @@ return array(
         'created' => "La formation n'a pas pu être enregistrée",
         'deleted' => "La formation n'a pas pu être supprimée",
     ),
+    'description' => array(
+        'created' => "La description n'a pas pu être enregistrée",
+        'deleted' => "La description n'a pas pu être supprimée",
+    ),
 );

@@ -89,5 +89,10 @@ return array(
         'inexistant' => "La formation n'existe pas !",
         'last_lineup' => "Cette formation est la dernière, vous ne pouvez pas la supprimée !",
     ),
+    'description' => array(
+        'existing' => "Cet artist est déjà lié à ce genre !",
+        'inexistant' => "Cette description n'existe pas !",
+        'last_genre' => "Ce genre est le dernier, vous ne pouvez pas le supprimé !",
+    ),
 
 );
