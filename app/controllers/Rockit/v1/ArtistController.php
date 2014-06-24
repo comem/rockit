@@ -40,7 +40,7 @@ class ArtistController extends \BaseController {
         $inputs = Input::only('name', 'short_description_de', 'complete_description_de', 'genres');
         $validate = Artist::validate($inputs, Artist::$create_rules);
         if ($validate === true) {
-            $response = self::save($inputs, $genres['genres']);
+            $response = self::save($inputs);
         } else {
             $response = $validate;
         }
@@ -55,7 +55,7 @@ class ArtistController extends \BaseController {
      */
     public function update($id) {
         $new_data = Input::only('name', 'short_description_de', 'complete_description_de');
-        $validate = Artist::validate($inputs, Artist::$update_rules);
+        $validate = Artist::validate($new_data, Artist::$update_rules);
         if ($validate === true) {
             $response = self::modify('Artist', $id, $new_data);
         } else {
@@ -74,14 +74,22 @@ class ArtistController extends \BaseController {
         return Jsend::compile(self::delete('Artist', $id));
     }
 
-    public static function save($inputs, $genres) {
-        $mergedGenres = array_unique($genres);
-        foreach ($mergedGenres as $genre) {
+    /**
+     * Method checks genres to be unique and to be existing before 
+     * passing to valid $inputs to createOne method.
+     * @param type $inputs
+     * @return Message
+     */
+    public static function save($inputs) {
+        $existingMergedGenres = array();
+        $inputs['genres'] = array_unique($inputs['genres']);
+        foreach ($inputs['genres'] as $genre) {
             if (Genre::exists($genre, 'id')) {
                 $existingMergedGenres[] = $genre;
             }
         }
-        return Artist::createOne($inputs, $existingMergedGenres);
+        $inputs['genres'] = $existingMergedGenres;
+        return Artist::createOne($inputs);
     }
 
 }
