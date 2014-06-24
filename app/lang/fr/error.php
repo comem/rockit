@@ -26,4 +26,9 @@ return array(
         'deleted' => "Le type d'événement ':name' n'a pas pu être supprimé",
         'restored' => "Le type d'événement ':name' n'a pas pu être restauré",
     ),
+    'skill' => array(
+        'created' => "La nouvelle compétence ':name' n'a pas pu être créée",
+        'deleted' => "La nouvelle compétence ':name' n'a pas pu être supprimée",
+        'restored' => "La nouvelle compétence ':name' n'a pas pu être restaurée",
+    ),
 );

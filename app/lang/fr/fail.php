@@ -27,4 +27,8 @@ return array(
         'existing' => "Il y a déjà un type d'événement ':name' enregistré !",
         'inexistant' => "Il n'y aucun type d'événement enregistré correspondant !",
     ),
+    'skill' => array(
+        'existing' => "Il y a déjà une compétence ':name' enregistrée !",
+        'inexistant' => "Il n'y aucune compétence enregistrée correspondante !",
+    ),
 );
