@@ -25,7 +25,7 @@ class Jsend {
         $rep = new stdClass();
         $rep->status = 'success';
         $rep->data = $data;
-        $rep->code = $status;
+        // $rep->code = $status;
         return Response::json($rep);
     }
 
@@ -44,7 +44,7 @@ class Jsend {
         $rep = new stdClass();
         $rep->status = 'fail';
         $rep->data = $data;
-        $rep->code = $status;
+        // $rep->code = $status;
         return Response::json($rep);
     }
 
@@ -63,7 +63,7 @@ class Jsend {
         $rep = new stdClass();
         $rep->status = 'error';
         $rep->message = $message;
-        $rep->code = $status;
+        // $rep->code = $status;
         return Response::json($rep);
     }
 
