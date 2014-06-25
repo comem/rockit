@@ -10,6 +10,9 @@ class Image extends \Eloquent {
     use SoftDeletingTrait,
         ModelBCUDTrait;
 
+    public static $create_rules = array(
+        ''
+    );
     public $timestamps = true;
     protected $table = 'images';
     protected $hidden = array('deleted_at');
