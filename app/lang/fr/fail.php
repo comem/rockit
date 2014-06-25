@@ -99,7 +99,7 @@ return array(
         'inexistant' => "Il n'y aucun imprimé correspondant !",
     ),
     'performer' => array(
-        'existing' => "Ce groupe joue déjà dans cet événement !",
+        'existing' => "Ce groupe joue déjà dans cet événement à cette position !",
         'inexistant' => "Il n'y aucune liaison correspondant !",
     ),
 

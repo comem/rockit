@@ -67,7 +67,7 @@ class Event extends \Eloquent {
 
 	public function artists()
 	{
-		return $this->belongsToMany('Rockit\Artist')->withPivot('order','is_support','artist_hour_of_arrival');
+		return $this->belongsToMany('Rockit\Artist', 'performers')->withPivot('order','is_support','artist_hour_of_arrival');
 	}
 
 	public function members()
