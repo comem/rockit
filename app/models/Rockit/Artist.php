@@ -3,7 +3,7 @@
 namespace Rockit;
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
-use \Validator, \DB, Rockit\Image;
+use \Validator, \DB, Rockit\Image, \Rockit\Performer;
 
 class Artist extends \Eloquent {
 
@@ -46,8 +46,9 @@ class Artist extends \Eloquent {
 
     public function events() {
         return $this->belongsToMany('Rockit\Event', 'performers', 'artist_id', 'event_id')
-                    ->withPivot('order', 'is_support', 'artist_hour_of_arrival');
+                    ->withPivot('id')->groupBy('id');
     }
+
 
     /**
      * Create and save in the database a new Model with the provided data.

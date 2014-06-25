@@ -4,7 +4,8 @@ namespace Rockit\v1;
 
 use \Rockit\Artist,
     \Rockit\Genre,
-    \Rockit\Image,    
+    \Rockit\Image,
+    \Rockit\Performer,
     \Rockit\Controllers\ControllerBSUDTrait,
     \Jsend,
     \Input;
@@ -30,8 +31,14 @@ class ArtistController extends \BaseController {
      * @return Response
      */
     public function show($id) {
-        $artists = Artist::with('links', 'images', 'genres', 'events')->find($id);
-        return Jsend::success($artists);
+        $artist = Artist::with('links', 'images', 'genres', 'events')->find($id);
+        foreach($artist->events as $event){
+            $event->performers = Performer::where('artist_id', '=', $event->pivot->artist_id)
+                                                ->where('event_id', '=', $event->pivot->event_id)
+                                                ->get(['id', 'order', 'is_support', 'artist_hour_of_arrival']);
+            unset($event->pivot);
+        }
+        return Jsend::success($artist);
     }
 
     /**
