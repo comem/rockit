@@ -54,6 +54,43 @@ class Artist extends \Eloquent {
         return $this->belongsToMany('Rockit\Musician', 'lineups')->groupBy('id');
     }
 
+    public function scopeName($query, $string)
+    {
+        return $query->where('name', 'LIKE', '%'.$string.'%');
+    }
+
+    public function scopeGenres($query, array $genres)
+    {
+        return $query->whereHas('genres', function($q) use ($genres)
+        {
+            $q->whereIn('genres.id', $genres);
+        });
+    }
+
+    public function scopeMusicianStagename($query, $string)
+    {
+        return $query->whereHas('musicians', function($q) use ($string)
+        {
+            $q->where('stagename', 'LIKE', '%'.$string.'%');
+        });
+    }
+
+    public function scopeMusicianFirstname($query, $string)
+    {
+        return $query->whereHas('musicians', function($q) use ($string)
+        {
+            $q->where('stagename', 'LIKE', '%'.$string.'%');
+        });
+    }
+
+    public function scopeMusicianLastname($query, $string)
+    {
+        return $query->whereHas('musicians', function($q) use ($string)
+        {
+            $q->where('stagename', 'LIKE', '%'.$string.'%');
+        });
+    }
+
 
     /**
      * Create and save in the database a new Model with the provided data.

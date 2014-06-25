@@ -18,7 +18,7 @@ class InstrumentController extends \BaseController {
      * @return Response
      */
     public function index() {
-        return \Jsend::success(\Rockit\Instrument::all()->toArray());
+        return Jsend::success(Instrument::all()->toArray());
     }
 
     /**
@@ -27,15 +27,15 @@ class InstrumentController extends \BaseController {
      * @return Response
      */
     public function store() {
-        $data = \Input::only('name_de');
+        $data = Input::only('name_de');
         $response = self::renew('Instrument', $data);
         if ($response === false) {
-            $response = \Rockit\Instrument::validate($data, \Rockit\Instrument::$create_rules);
+            $response = Instrument::validate($data, Instrument::$create_rules);
             if ($response === true) {
                 $response = self::save('Instrument', $data, TRUE, 'name_de');
             }
         }
-        return \Jsend::compile($response);
+        return Jsend::compile($response);
     }
 
     /**
@@ -45,7 +45,7 @@ class InstrumentController extends \BaseController {
      * @return Response
      */
     public function destroy($id) {
-        return \Jsend::compile(self::delete('Instrument', $id));
+        return Jsend::compile(self::delete('Instrument', $id));
     }
 
 }
