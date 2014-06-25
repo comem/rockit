@@ -31,6 +31,9 @@ class WordExport {
         $fsGenre = array('font' => 'Arial', 'color' => '000000', 'size' => 10, 'bold' => true, 'italic' => true);
         $fsShortDesc = array('font' => 'Arial', 'color' => '000000', 'size' => 10, 'bold' => true);
         $fsStandard = array('font' => 'Arial', 'color' => '000000', 'size' => 10); // for complete description and other «standard» formatted texts
+        $fsSmall = array('font' => 'Arial', 'color' => '0000000', 'size' => 7);
+        $fsSmallBold = array('font' => 'Arial', 'color' => '0000000', 'size' => 7, 'bold' => true);
+        
         //// Set paragraph style definitions (they do not contain font information)
         $psH1 = array('spaceBefore' => 400, 'spaceAfter' => 200, 'align' => 'left');
         $psH2 = array('spaceBefore' => 700, 'spaceAfter' => 300, 'align' => 'left');
@@ -53,7 +56,8 @@ class WordExport {
 
 
         // create word section
-        $section = $word->createSection(array('marginLeft' => 1350, 'marginRight' => 1350, 'marginTop' => 3000, 'marginBottom' => 1350));
+        $section = $word->createSection(array('marginLeft' => 1350, 'marginRight' => 1350, 'marginTop' => 3000, 'marginBottom' => 1350,
+            'footerHeight' => 700));
 
         // add header with logo
         $header = $section->createHeader();
@@ -84,6 +88,25 @@ class WordExport {
 
         $section->addLine($lsSimple);
 
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        // set footer text/address/pagenumber
+        $footer = $section->createFooter();
+        $textrun = $footer->addTextRun($psStandard);
+        $textrun->addText("Mahogany Hall Bern", $fsSmallBold);
+        $textrun->addText(" • Klösterlistutz 18 • Postfach 579 • 3000 Bern 8 • Tel. +41 (0)31 331 60 00", $fsSmall);
+        $footer->addText("info@mahogany.ch • konzerte@mahogany.ch • privatvanlass@mahogany.ch", $fsSmall);
+
+        
         //// create dynamic content
         // prepare doc for download and display «save as» dialog/or treat like browser behaviour
         $file = 'test.docx';

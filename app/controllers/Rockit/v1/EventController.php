@@ -4,7 +4,7 @@ namespace Rockit\v1;
 
 use \Jsend,
     \Input,
-    \WordExport;
+    \WordExport\WordExport;
 use \Rockit\Event;
 
 class EventController extends \BaseController {
