@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Input,
     \Auth,
     \Jsend;
 
-
 class AuthController extends \BaseController {
 
     /**
@@ -19,19 +18,22 @@ class AuthController extends \BaseController {
     public function login() {
         // test if remember is set true
         $remember = Input::get('remember');
-        if(!empty($remember)) {
+        if (!empty($remember)) {
             $remember = $remember == 'true' ? true : false;
-        }    
+        }
         $credentials = [
             'email' => Input::get('email'),
             'password' => Input::get('password')
         ];
         if (($credentials['email'] != null && $credentials['password'] != null) &&
-                User::validate(array($credentials['email'], $credentials['password'])) &&
-                Auth::attempt($credentials, $remember, true)) {
-            return Jsend::success("message to define");
+        User::validate(array($credentials['email'], $credentials['password'])) &&
+        Auth::attempt($credentials, $remember, true)) {
+            return Jsend::success(array(
+                'title' => trans('success.auth.login'),
+                'user' => Auth::user(),
+            ));
         }
-        return Jsend::fail("message to define");
+        return Jsend::error(array('title' => trans('error.auth.login')));
     }
 
     /**
@@ -42,9 +44,17 @@ class AuthController extends \BaseController {
         try {
             Auth::logout();
         } catch (Exception $e) {
-            Jsend::fail("message to define");
+            Jsend::error(trans('error.auth.logout'));
         }
-        return Jsend::success("message to define");
+        return Jsend::success(trans('success.auth.logout'));
+    }
+    
+    /**
+     * Check wether the current user is logged in the application.
+     * @return boolean
+     */
+    public function authCheck() {
+        return Auth::guest() ? Jsend::fail(null) : Jsend::success();
     }
 
 }

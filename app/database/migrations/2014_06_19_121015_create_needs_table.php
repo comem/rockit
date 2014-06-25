@@ -12,6 +12,7 @@ class CreateNeedsTable extends Migration {
 			$table->integer('skill_id')->unsigned();
 			$table->integer('event_id')->unsigned();
 			$table->integer('nb_people');
+                        $table->unique(array('event_id', 'skill_id'));
 		});
 	}
 

@@ -14,6 +14,7 @@ class CreateOffersTable extends Migration {
 			$table->integer('quantity');
 			$table->integer('cost')->default(0);
 			$table->string('comment_de', 200)->nullable();
+                        $table->unique(array('gift_id', 'event_id'));
 		});
 	}
 
