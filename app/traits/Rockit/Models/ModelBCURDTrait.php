@@ -13,7 +13,7 @@ namespace Rockit\Models;
  */
 trait ModelBCURDTrait {
 
-    use Functions\BasModelTrait,
+    use Functions\BaseModelTrait,
         Functions\CreateOneTrait,
         Functions\UpdateOneTrait,
         Functions\RestoreOneTrait,

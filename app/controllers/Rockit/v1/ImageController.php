@@ -3,6 +3,7 @@
 namespace Rockit\v1;
 
 use \Input,
+    \Validator,
     \Rockit\Image;
 
 class ImageController extends \BaseController {
@@ -43,7 +44,15 @@ class ImageController extends \BaseController {
      * @return Response
      */
     public function store() {
-        //
+        $file = array('file' => Input::file('file'));
+        $validate_file = Validator::make($file, array(
+            'file' => 'image'
+        ));
+        if ($validate_file->passes()) {
+            return "OK";
+        } else {
+            return $validate_file->messages();
+        }
     }
 
     /**

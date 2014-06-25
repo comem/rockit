@@ -2,11 +2,13 @@
 
 namespace Rockit;
 
-use Illuminate\Database\Eloquent\SoftDeletingTrait;
+use Models\ModelBCUDTrait,
+    Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class Image extends \Eloquent {
 
-    use SoftDeletingTrait;
+    use SoftDeletingTrait,
+        ModelBCUDTrait;
 
     public $timestamps = true;
     protected $table = 'images';
