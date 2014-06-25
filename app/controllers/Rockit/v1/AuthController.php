@@ -54,7 +54,7 @@ class AuthController extends \BaseController {
      * @return boolean
      */
     public function authCheck() {
-        return !Auth::guest() ? "true" : "false";
+        return Auth::guest() ? Jsend::fail(null) : Jsend::success();
     }
 
 }
