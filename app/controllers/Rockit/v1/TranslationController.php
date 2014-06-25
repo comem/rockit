@@ -18,7 +18,7 @@ class TranslationController extends \BaseController {
      * @return Response
      */
     public function index() {
-        //
+        return Jsend::success(Language::all()->toArray());
     }
 
     /**
