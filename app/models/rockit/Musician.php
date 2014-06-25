@@ -4,7 +4,8 @@ namespace Rockit;
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait,
     \DB,    
-    Rockit\Lineup;
+    Rockit\Lineup,
+    Rockit\Instrument;
 
 class Musician extends \Eloquent {
     
@@ -32,6 +33,10 @@ class Musician extends \Eloquent {
 
     public function lineups() {
         return $this->hasMany('Rockit\Lineup');
+    }
+    
+    public function instrumentsFor($artist_id) {
+        return $this->belongsToMany('Rockit\Instrument', 'lineups')->where('artist_id', '=', $artist_id);
     }
 
     public static function createOne($data) {

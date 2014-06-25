@@ -42,7 +42,7 @@ class Event extends \Eloquent {
 
 	public function ticketCategories()
 	{
-		return $this->belongsToMany('Rockit\TicketCategory')->withPivot('ammount','comment_de','quantity_sold');
+		return $this->belongsToMany('Rockit\TicketCategory', 'Tickets')->withPivot('amount','comment_de','quantity_sold')->orderBy('amount', 'desc');
 	}
 
 	public function equipments()

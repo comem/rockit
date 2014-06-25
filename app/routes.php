@@ -142,7 +142,6 @@ Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function()
 Route::get('events/exportword', 'Rockit\v1\EventController@exportWord');
 
 
-
 // catching 404 error
 
 App::missing(function($exception)

@@ -7,6 +7,9 @@ use PhpOffice\PhpWord\PhpWord,
 class WordExport {
 
     public static function events($from, $to) {
+   
+        setlocale(LC_ALL, 'de_DE@euro', 'de_DE', 'de', 'ge');
+        header('Content-Type: text/html; charset=utf-8');
 
         $word = new PhpWord();
 
@@ -27,29 +30,31 @@ class WordExport {
         $fsH1 = array('font' => 'Arial', 'color' => '000000', 'size' => 22, 'bold' => true);
         $fsH2 = array('font' => 'Arial', 'color' => 'b2a68b', 'size' => 13, 'bold' => true, 'allCaps' => true);
         $fsH3 = array('font' => 'Arial', 'color' => '000000', 'size' => 18, 'bold' => true);
-        $fsH4 = array('font' => 'Arial', 'color' => '000000', 'size' => 10, 'bold' => true);
-        $fsDate = array('font' => 'Arial', 'color' => '000000', 'size' => 10, 'bold' => true);
-        $fsGenre = array('font' => 'Arial', 'color' => '000000', 'size' => 10, 'bold' => true, 'italic' => true);
-        $fsShortDesc = array('font' => 'Arial', 'color' => '000000', 'size' => 10, 'bold' => true);
-        $fsStandard = array('font' => 'Arial', 'color' => '000000', 'size' => 10); // for complete description and other «standard» formatted texts
+        $fsH4 = array('font' => 'Arial', 'color' => '000000', 'size' => 9, 'bold' => true);
+        $fsDate = array('font' => 'Arial', 'color' => '000000', 'size' => 13, 'bold' => true);
+        $fsGenre = array('font' => 'Arial', 'color' => '000000', 'size' => 9, 'bold' => true, 'italic' => true);
+        $fsShortDesc = array('font' => 'Arial', 'color' => '000000', 'size' => 9, 'bold' => true);
+        $fsStandard = array('font' => 'Arial', 'color' => '000000', 'size' => 9); // for complete description and other «standard» formatted texts
+        $fsItalic = array('font' => 'Arial', 'color' => '000000', 'size' => 9, 'italic' => true);
         $fsSmall = array('font' => 'Arial', 'color' => '0000000', 'size' => 7);
         $fsSmallBold = array('font' => 'Arial', 'color' => '0000000', 'size' => 7, 'bold' => true);
 
         //// Set paragraph style definitions (they do not contain font information)
-        $psH1 = array('spaceBefore' => 400, 'spaceAfter' => 200, 'align' => 'left');
+        $psH1 = array('spaceBefore' => 200, 'spaceAfter' => 100, 'align' => 'left');
         $psH2 = array('spaceBefore' => 700, 'spaceAfter' => 300, 'align' => 'left');
         $psH3 = array('spaceBefore' => 700, 'spaceAfter' => 300, 'align' => 'left');
         $psH4 = array('spaceBefore' => 120, 'spaceAfter' => 60, 'align' => 'left');
-        $psStandard = array('align' => 'left', 'lineHeight' => '1.2');
-        $psStandardSpaceAfter = array('spaceAfter' => 200, 'align' => 'left', 'lineHeight' => '1.2');
-        $psFooter = array('align' => 'left', 'lineHeight' => '1.2');
+        $psStandard = array('align' => 'left', 'lineHeight' => '1.1');
+        $psStandardSpaceAfter = array('spaceAfter' => 120, 'align' => 'left', 'lineHeight' => '1.1');
+        $psStandardSpaceBefore = array('spaceBefore' => 120, 'align' => 'left', 'lineHeight' => '1.1');
+        $psFooter = array('align' => 'left', 'lineHeight' => '1.1');
 
 
         //// Set line style definitions
         $lsSimple = array('weight' => 1, 'width' => 462, 'height' => 0); // for seperator between paragraphs
         // 1 = Main title document
         $word->addTitleStyle(1, $fsH1, $psH1);
-        // 2 = title indicated dates (from-to or month)
+        // 2 = title indicated global dates (from-to or month)
         $word->addTitleStyle(2, $fsH2, $psH1);
         // 3 = title «event title»
         $word->addTitleStyle(3, $fsH3, $psH1);
@@ -59,7 +64,7 @@ class WordExport {
 
         // create word section
         $section = $word->createSection(array('marginLeft' => 1350, 'marginRight' => 1350, 'marginTop' => 3000, 'marginBottom' => 1850,
-            'footerHeight' => 700));
+            'footerHeight' => 600));
 
         // add header with logo
         $header = $section->createHeader();
@@ -92,10 +97,78 @@ class WordExport {
 
         ////// DYNAMIC CONTENT START
 
-        $events = Event::all();
+        $from = "2013-08-01 00:00:00"; // testingvalues, can be deleted later
+        $to = "2014-08-13 00:00:00"; // testingvalues, can be deleted later
+        $events = Event::whereNotNull("published_at")->where('start_date_hour', '>=', $from)->where('start_date_hour', '<=', $to)->orderBy('start_date_hour')->get();
 
         foreach ($events as $event) {
-            echo $event . " hey";
+            $date = strftime("%A, %e. %B %Y  |  %H.%M Uhr", strtotime($event->start_date_hour));
+            $opening_doors = strftime("  (Türöffnung %H.%M Uhr)", strtotime($event->opening_doors));
+            $textrun = $section->addTextRun($psStandard);
+            $textrun->addText($date, $fsDate);
+            $textrun->addText($opening_doors, $fsStandard);
+
+            foreach ($event->artists as $artist) {
+                $section->addTitle($artist->name, 3);
+                $trgenres = $section->addTextRun($psStandard);
+                $index = 0;
+                foreach ($artist->genres as $genre) {
+                    if ($index > 0) {
+                        $trgenres->addText(" / ");
+                    }
+                    $trgenres->addText($genre->name_de, $fsGenre);
+                    $index++;
+                }
+                $section->addText($artist->short_description_de, $fsShortDesc, $psStandard);
+                $section->addText($artist->complete_description_de, $fsStandard, $psStandard);
+                if (count($artist->musicians) > 0) {
+                    $trLineup = $section->addTextRun($psStandardSpaceAfter);
+                    $trLineup->addText("Lineup:", $fsItalic);
+                    $indexMusician = 0;
+                    foreach($artist->musicians as $musician) {
+                        if($indexMusician > 0) {
+                            $trLineup->addText(",", $fsItalic);
+                        }
+                        if(isset($musician->stagename)) {
+                            $trLineup->addText(" " . $musician->stagename, $fsItalic);
+                        } else {
+                            $trLineup->addText(" " . $musician->first_name, $fsItalic);
+                            if(isset($musician->last_name)) {
+                                $trLineup->addText(" " . $musician->last_name, $fsItalic);
+                            }
+                        }
+                        $trLineup->addText(" ");
+                        $indexInstr = 0;
+                        foreach($musician->instrumentsFor($artist->id)->get() as $instrument) {
+                            if($indexInstr > 0) {
+                                $trLineup->addText("/", $fsItalic);
+                            }
+                            $trLineup->addText($instrument->name_de, $fsItalic);
+                            $indexInstr++;
+                        }
+                        $indexMusician++;
+                    }
+                }
+                foreach($artist->links as $link) {
+                    $section->addText($link->url);                    
+                }
+            }
+            $trTickets = $section->addTextRun($psStandardSpaceAfter);
+            $indexTickets = 0;
+            foreach ($event->ticketCategories as $ticket) {
+                if ($indexTickets > 0) {
+                    $trTickets->addText(" / ");
+                } else {
+                    $trTickets->addText("CHF ");
+                }
+                $ho = "";
+                if ($ticket->pivot->comment_de != NULL) {
+                    $comment = " " . $ticket->pivot->comment_de;
+                }
+                $trTickets->addText($ticket->pivot->amount . ".–" . $comment, $fsStandard);
+                $indexTickets++;
+            }
+            $section->addLine($lsSimple);
         }
 
 
@@ -116,7 +189,7 @@ class WordExport {
 
         // prepare doc for download and display «save as» dialog/or treat like browser behaviour
         $file = 'test.docx';
-        WordExport::setWordHeader($file);
+        self::setWordHeader($file);
         $io = IOFactory::createWriter($word);
         $io->save('php://output');
     }
