@@ -2,12 +2,13 @@
 
 namespace Rockit;
 
-use Illuminate\Database\Eloquent\SoftDeletingTrait;
+use Rockit\Models\ModelBCUDTrait,
+    Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class Representer extends \Eloquent {
 
     use SoftDeletingTrait,
-        Models\ModelBCUDTrait;
+        ModelBCUDTrait;
 
     public $timestamps = true;
     protected $table = 'representers';

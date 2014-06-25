@@ -2,7 +2,7 @@
 
 namespace Rockit;
 
-use Models\ModelBCUDTrait,
+use Rockit\Models\ModelBCUDTrait,
     Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class Image extends \Eloquent {
@@ -10,9 +10,9 @@ class Image extends \Eloquent {
     use SoftDeletingTrait,
         ModelBCUDTrait;
 
-    public static $create_rules = array(
-        ''
-    );
+//    public static $create_rules = array(
+//        ''
+//    );
     public $timestamps = true;
     protected $table = 'images';
     protected $hidden = array('deleted_at');
