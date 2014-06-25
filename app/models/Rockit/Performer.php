@@ -25,4 +25,13 @@ class Performer extends \Eloquent {
 	];
 	public static $response_field = 'id';
 
+
+
+    public static function existByIds($data) {
+        return self::where('artist_id', '=', $data['artist_id'])
+        			->where('event_id', '=', $data['event_id'])
+        			->where('order', '=', $data['order'])
+        			->first();
+    }
+
 }
