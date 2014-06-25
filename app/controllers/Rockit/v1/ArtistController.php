@@ -6,6 +6,9 @@ use \Rockit\Artist,
     \Rockit\Genre,
     \Rockit\Image,
     \Rockit\Performer,
+    \Rockit\Lineup,
+    \Rockit\Musician,
+    \Rockit\Instrument,
     \Rockit\Controllers\ControllerBSUDTrait,
     \Jsend,
     \Input;
@@ -31,15 +34,29 @@ class ArtistController extends \BaseController {
      * @return Response
      */
     public function show($id) {
-        $artist = Artist::with('links', 'images', 'genres', 'events')->find($id);
+        $artist = Artist::with('links', 'images', 'genres', 'events', 'musicians')->find($id);
         foreach($artist->events as $event){
             $event->performers = Performer::where('artist_id', '=', $event->pivot->artist_id)
                                                 ->where('event_id', '=', $event->pivot->event_id)
                                                 ->get(['id', 'order', 'is_support', 'artist_hour_of_arrival']);
             unset($event->pivot);
         }
+        foreach($artist->musicians as $musician){
+            $lineups = Lineup::where('artist_id', '=', $musician->pivot->artist_id)
+                            ->where('musician_id', '=', $musician->pivot->musician_id)
+                            ->get();
+            foreach($lineups as $lineup){
+                $instrument = Instrument::where('id', '=', $lineup->instrument_id)->first();
+                $instrument->lineup_id = $lineup->id;
+                $instruments[] = $instrument;
+            }
+            $musician->instruments = $instruments;
+            unset($musician->pivot);
+            unset($instruments);
+        }
         return Jsend::success($artist);
     }
+
 
     /**
      * Store a newly created resource in storage.

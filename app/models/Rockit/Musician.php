@@ -6,12 +6,15 @@ use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class Musician extends \Eloquent {
 
-    protected $table = 'musicians';
-    public $timestamps = true;
-
     use SoftDeletingTrait;
 
+    protected $table = 'musicians';
     protected $dates = ['deleted_at'];
+    protected $hidden = ['deleted_at'];
+
+
+    public $timestamps = true;
+
     public static $create_rules = array(
         'first_name' => 'required|min:1|max:100',
         'last_name' => 'max:100',
