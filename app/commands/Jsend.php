@@ -21,7 +21,7 @@ class Jsend {
     public static function success($data = null, $status = null) {
         // Choisit un code de status HTTP par défaut si non spécifié
         if (!isset($status)) {
-            $status = self::HTTP_FAIL_VALIDATION;
+            $status = self::HTTP_SUCCESS;
         }
         $rep = new stdClass();
         $rep->status = 'success';
