@@ -18,7 +18,7 @@ class TicketCategoryController extends \BaseController {
 	 */
 	public function index()
 	{
-		return \Jsend::success(\Rockit\TicketCategory::all()->toArray());
+		return Jsend::success(TicketCategory::all()->toArray());
 	}
 
 
