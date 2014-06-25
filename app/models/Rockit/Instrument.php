@@ -4,28 +4,18 @@ namespace Rockit;
 
 class Instrument extends \Eloquent {
 
-    use RockitModelTrait;
-
-    public $timestamps = false;
-    protected $table = 'instruments';
-
-    public function lineups() {
-        return $this->hasMany('Rockit\Lineup');
-    }
-
-    public static $create_rules = array(
-        'name_de' => 'alpha|required|min:1',
-    );
-    public static $update_rules = array(
-        'name_de' => 'alpha|required|min:1',
-    );
-
-    public static function exist($name, $column) {
-        $response = self::where($column, '=', $name)->first();
-        if ($response == NULL) {
-            $response['fail'] = trans('fail.instrument.inexistant');
-        }
-        return $response;
-    }
-
+        use \Illuminate\Database\Eloquent\SoftDeletingTrait,
+        Models\ModelBCRDTrait;
+        
+        protected $table = 'instruments';
+	public $timestamps = false;
+        
+        public static $create_rules = array(
+            'name_de' => 'required',
+        );
+    
+	public function lineups()
+	{
+		return $this->hasMany('Rockit\Lineup');
+	}
 }

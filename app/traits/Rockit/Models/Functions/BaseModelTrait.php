@@ -7,7 +7,7 @@ use \Validator;
 trait BaseModelTrait {
 
     private static function getClass() {
-        $class = explode('\\', mb_strtolower(get_called_class()));
+        $class = explode('\\', get_called_class());
         return end($class);
     }
 

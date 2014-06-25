@@ -3,22 +3,28 @@
 namespace Rockit;
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait,
-    Rockit\Models\ModelBCRDTrait;
+	Rockit\Models\ModelBCRDTrait;
 
 class Skill extends \Eloquent {
+    
+	use SoftDeletingTrait,
+		ModelBCRDTrait;
 
-    public $timestamps = false;
-    protected $table = 'skills';
-    protected $hidden = array('deleted_at');
+	protected $table = 'skills';
+	protected $dates = ['deleted_at'];
+	protected $hidden = ['deleted_at'];
 
-    use SoftDeletingTrait,
-        ModelBCRDTrait;
+	public $timestamps = false;
+	public static $response_field = 'name_de';
 
-    protected $dates = ['deleted_at'];
+	public static $create_rules = array(
+		'name_de' => 'required',
+	);
 
-    public function membersm() {
-        return $this->belongsToMany('Rockit\Member');
-    }
+	public function members()
+	{
+		return $this->belongsToMany('Rockit\Member');
+	}
 
     public function events() {
         return $this->belongsToMany('Rockit\Event')->withPivot('nb_people');

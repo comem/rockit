@@ -17,7 +17,6 @@ trait DeleteTrait {
             $response = array(
                 'fail' => array(
                     'title' => trans('fail.' . snake_case($model) . '.inexistant'),
-                    'id' => (int) $id,
                 ),
             );
         } else {
