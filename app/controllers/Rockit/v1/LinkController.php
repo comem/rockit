@@ -32,7 +32,7 @@ class LinkController extends \BaseController {
      */
     public function update($id) {
         $new_data = Input::only('url', 'name_de', 'title_de');
-        $response = Link::validate($data, Link::$update_rules);
+        $response = Link::validate($new_data, Link::$update_rules);
         if($response === true) {
             $response = self::modify('Link', $id, $new_data);
         }

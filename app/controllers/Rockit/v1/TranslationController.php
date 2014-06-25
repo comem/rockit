@@ -18,7 +18,7 @@ class TranslationController extends \BaseController {
      * @return Response
      */
     public function index() {
-        //
+        return Jsend::success(Language::all()->toArray());
     }
 
     /**
@@ -52,7 +52,7 @@ class TranslationController extends \BaseController {
         $lang = Language::exist($locale);
         if (is_object($lang)) {
             $response = User::updateOne(
-            array('language_id' => $lang->id), Auth::user()
+                array('language_id' => $lang->id), Auth::user()
             );
             App::setLocale($lang->locale);
             return $response;

@@ -17,7 +17,7 @@ class PrintingTypeController extends \BaseController {
      * @return Response
      */
     public function index() {
-        return \Jsend::success(\Rockit\PrintingType::all()->toArray());
+        return Jsend::success(PrintingType::all()->toArray());
     }
 
     /**
