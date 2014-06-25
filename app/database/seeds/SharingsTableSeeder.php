@@ -22,13 +22,13 @@ class SharingsTableSeeder extends Seeder {
             ));
         
         Sharing::create(array('platform_id' => $platform[0]->id,
-                                   'event_id' => $event[0]->id,
+                                   'event_id' => $event[1]->id,
                                    'url'=> 'http://facebook.com/SuperDienst-tag',
                                    'external_id' => '234756862a',
             ));
         
         Sharing::create(array('platform_id' => $platform[0]->id,
-                                   'event_id' => $event[0]->id,
+                                   'event_id' => $event[2]->id,
                                    'url'=> 'http://facebook.com/Freytag-schokoladegesponosort',
                                    'external_id' => '234756862a',
             ));

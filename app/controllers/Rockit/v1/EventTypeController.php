@@ -18,7 +18,7 @@ class EventTypeController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+        return Jsend::success(EventType::all());
 	}
 
     /**

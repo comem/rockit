@@ -12,8 +12,10 @@ class EventType extends \Eloquent {
 
 	protected $table = 'event_types';
 	protected $dates = ['deleted_at'];
+	protected $hidden = ['deleted_at'];
 
 	public $timestamps = false;
+	public static $response_field = 'name_de';
 
 	public static $create_rules = array(
 		'name_de' => 'required',

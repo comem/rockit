@@ -5,12 +5,12 @@ namespace Rockit;
 use Illuminate\Database\Eloquent\SoftDeletingTrait,
 	Rockit\Models\ModelBCRDTrait;
 
-class Skill extends \Eloquent {
+class Genre extends \Eloquent {
     
 	use SoftDeletingTrait,
 		ModelBCRDTrait;
 
-	protected $table = 'skills';
+	protected $table = 'genres';
 	protected $dates = ['deleted_at'];
 	protected $hidden = ['deleted_at'];
 
@@ -21,19 +21,13 @@ class Skill extends \Eloquent {
 		'name_de' => 'required',
 	);
 
-	public function members()
+	public function artists()
 	{
-		return $this->belongsToMany('Rockit\Member');
+		return $this->belongsToMany('Rockit\Artist', 'descriptions', 'genre_id', 'artist_id');
 	}
 
-	public function events()
-	{
-		return $this->belongsToMany('Rockit\Event')->withPivot('nb_people');
-	}
-
-	public function staffs()
-	{
-		return $this->hasMany('Rockit\Staff');
-	}
+	public static function mergeGenres(array $genresToMerge){
+        return array_unique( $genresToMerge );
+    }
 
 }

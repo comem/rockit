@@ -15,6 +15,7 @@ class CreateSharingsTable extends Migration {
 			$table->timestamps();
 			$table->string('external_id');
 			$table->text('external_infos')->nullable();
+                        $table->unique(array('platform_id', 'event_id'));
 		});
 	}
 
