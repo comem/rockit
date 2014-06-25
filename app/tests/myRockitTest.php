@@ -23,4 +23,10 @@ class myRockitTest extends TestCase {
 	}
 
 
+	public function testLangs()
+	{
+		$response = $this->call('GET', 'v1/langs');
+		var_dump($response->getContent());
+	}
+
 }
