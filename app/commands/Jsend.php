@@ -11,15 +11,14 @@ class Jsend {
     const HTTP_ERROR_OTHER = 500;
 
     /**
-     * Retourne une réponse JSEND de succès avec le code de status HTTP.
-     * Si le code du status n'est pas fournit, il vaut par défaut 200.
+     * Return a JSEND 'success' response with the provided HTTP status code.
+     * If the status code is not provided, its default value is 200.
      *
-     * @param mixed $data
-     * @param int $status
+     * @param mixed $data (Nullable) The data that will be returned
+     * @param int $status (Nullable) The PHP status code that will be returned.
      * @return \Illuminate\Http\JsonResponse
      */
     public static function success($data = null, $status = null) {
-        // Choisit un code de status HTTP par défaut si non spécifié
         if (!isset($status)) {
             $status = self::HTTP_SUCCESS;
         }
@@ -31,15 +30,14 @@ class Jsend {
     }
 
     /**
-     * Retourne une réponse JSEND d'échec avec le code de status HTTP.
-     * Si le code du status n'est pas fournit, il vaut par défaut 400.
+     * Return a JSEND 'fail' response with the provided HTTP status code.
+     * If the status code is not provided, its default value is 400.
      *
-     * @param mixed $data
-     * @param int $status
+     * @param mixed $data The data that will be returned
+     * @param int $status (Nullable) The PHP status code that will be returned
      * @return \Illuminate\Http\JsonResponse
      */
     public static function fail($data, $status = null) {
-        // Choisit un code de status HTTP par défaut si non spécifié
         if (!isset($status)) {
             $status = self::HTTP_FAIL_VALIDATION;
         }
@@ -51,15 +49,14 @@ class Jsend {
     }
 
     /**
-     * Retourne une réponse JSEND d'erreur avec le code de status HTTP.
-     * Si le code du status n'est pas fournit, il vaut par défaut 404.
+     * Return a JSEND 'error' response with the provided HTTP status code.
+     * If the status code is not provided, its default value is 404.
      *
-     * @param string $message
-     * @param int $status
+     * @param string $message The message returned to explain the error
+     * @param int $status (Nullable) The PHP status code that will be returned
      * @return \Illuminate\Http\JsonResponse
      */
     public static function error($message, $status = null) {
-        // Choisit un code de status HTTP par défaut si non spécifié
         if (!isset($status)) {
             $status = self::HTTP_ERROR_NOT_FOUND;
         }
@@ -70,12 +67,20 @@ class Jsend {
         return Response::json($rep);
     }
 
-    public static function compile($array){
-        if (isset($array['success'])){
+    /**
+     * Return the adequat JSEND response depending on the context.
+     * The array of data provided MUST contains at least one item
+     * referenced by a key value of either 'success', 'fail' or 'error'.
+     * 
+     * @param array $array The data that will be returned
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public static function compile($array) {
+        if (isset($array['success'])) {
             $compile = self::success($array['success']);
-        } elseif (isset($array['fail'])){
+        } elseif (isset($array['fail'])) {
             $compile = self::fail($array['fail']);
-        } elseif (isset($array['error'])){
+        } elseif (isset($array['error'])) {
             $compile = self::error($array['error']);
         }
         return $compile;
