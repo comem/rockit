@@ -3,6 +3,7 @@
 namespace Rockit;
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
+
 use \Validator, \DB, Rockit\Image, \Rockit\Performer, \Rockit\Musician, \Rockit\Lineup;
 
 class Artist extends \Eloquent {
@@ -68,43 +69,38 @@ class Artist extends \Eloquent {
         $images = $data['images'];
         unset($data['images']); // delete key/value to prepare data for self::create()
         unset($data['genres']); // delete key/value to prepare data for self::create()
-        if (count($genres) > 0) {
-            DB::beginTransaction();
-            self::unguard();
-            $object = self::create($data);
-            // check if object was created correctly
-            if ($object != null) {
-                $descriptions = array();
-                $inputs['artist_id'] = $object->id;
-                // insert all genre associations
-                foreach($genres as $genre) {
-                    $inputs['genre_id'] = $genre;
-                    $descriptions[] = Description::create($inputs);
-                }
-                unset($inputs['genre_id']);
-                // insert all image associations
-                foreach($images as $image) {
-                    $illustration = Image::find($image);
-                    $illustration->artist_id = $inputs['artist_id'];
-                    $illustration->save();
-                }
-                // check if at least one genre was created
-                if (count($descriptions) > 0) {
-                    $response['success'] = array(
-                        'title' => trans('success.' . snake_case($class) . '.created', array('name' => $object->$field)),
-                        'id' => $object->id,
-                    );
-                    DB::commit();
-                } else {
-                    $response['error'] = trans('error.' . snake_case($class) . '.genreerror', array('name' => $object->$field));
+        DB::beginTransaction();
+        self::unguard();
+        $object = self::create($data);
+        // check if object was created correctly
+        if ($object != null) {
+            $inputs['artist_id'] = $object->id;
+            // insert all genre associations
+            foreach ($genres as $genre) {
+                $inputs['genre_id'] = $genre;
+                $objectDescription = Description::create($inputs);
+                // if an objectDescription was not created correctly, return response error message
+                if ($objectDescription == null) {
+                    $response['error'] = trans('error.genre.created');
                     DB::rollback();
+                    return $response;
                 }
-            } else {
-                $response['error'] = trans('error.' . snake_case($class) . '.created', array('name' => $object->$field));
-                DB::rollback();
             }
+            unset($inputs['genre_id']);
+            // insert all image associations
+            foreach ($images as $image) {
+                $illustration = Image::find($image);
+                $illustration->artist_id = $inputs['artist_id'];
+                $illustration->save();
+            }
+            $response['success'] = array(
+                'title' => trans('success.' . snake_case($class) . '.created', array('name' => $object->$field)),
+                'id' => $object->id,
+            );
+            DB::commit();
         } else {
-            $response['error'] = trans('error.' . snake_case($class) . '.nogenre', array('name' => $object->$field));
+            $response['error'] = trans('error.' . snake_case($class) . '.created', array('name' => $object->$field));
+            DB::rollback();
         }
         return $response;
     }
