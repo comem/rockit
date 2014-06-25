@@ -8,6 +8,9 @@ class Link extends \Eloquent {
 
     protected $table = 'links';
     public $timestamps = false;
+    public static $response_field = 'id';
+
+    
     public static $create_rules = array(
         'url' => 'required|url|max:400|unique:links',
         'name_de' => 'required|max:200',
@@ -16,7 +19,7 @@ class Link extends \Eloquent {
 
     );
     public static $update_rules = array(
-        'url' => 'url|required|min:400|unique:links',
+        'url' => 'url|required|max:400',
         'name_de' => 'required|max:200',
         'title_de' => 'max:50',
     );

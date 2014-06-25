@@ -4,7 +4,7 @@ namespace Rockit\v1;
 
 use \Rockit\Artist,
     \Rockit\Genre,
-    \Rockit\Image,    
+    \Rockit\Image,
     \Rockit\Controllers\ControllerBSUDTrait,
     \Jsend,
     \Input;
@@ -79,6 +79,7 @@ class ArtistController extends \BaseController {
      * Method checks genres to be unique and to be existing before 
      * passing to valid $inputs to createOne method, as well as checking images
      * to be unique and to be existing and not already illustrating an artist.
+     * If no existing genre is found, so return a fail message
      * @param type $inputs
      * @return Message
      */
@@ -86,20 +87,25 @@ class ArtistController extends \BaseController {
         $existingMergedGenres = array();
         $inputs['genres'] = array_unique($inputs['genres']);
         foreach ($inputs['genres'] as $genre) {
-            if (Genre::exists($genre, 'id')) {
+            if (Genre::exist($genre, 'id')) {
                 $existingMergedGenres[] = $genre;
-            }
+            }    
         }
-        $inputs['genres'] = $existingMergedGenres;
-        $existingMergedImages = array();
-        $inputs['images'] = array_unique($inputs['images']);
-        foreach($inputs['images'] as $image) {
-            if (Image::where('id', '=', $image)->where('artist_id', '=', NULL)->first()) {
-                $existingMergedImages[] = $image; 
+        if (!count($existingMergedGenres) > 0) {
+            $response['fail'] = trans('fail.artist.nogenre');
+        } else {
+            $inputs['genres'] = $existingMergedGenres;
+            $existingMergedImages = array();
+            $inputs['images'] = array_unique($inputs['images']);
+            foreach ($inputs['images'] as $image) {
+                if (Image::where('id', '=', $image)->where('artist_id', '=', NULL)->first()) {
+                    $existingMergedImages[] = $image;
+                }
             }
+            $inputs['images'] = $existingMergedImages;
+            $response = Artist::createOne($inputs);
         }
-        $inputs['images'] = $existingMergedImages;
-        return Artist::createOne($inputs);
+        return $response;
     }
 
 }

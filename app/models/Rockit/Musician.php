@@ -2,23 +2,28 @@
 
 namespace Rockit;
 
-use Illuminate\Database\Eloquent\SoftDeletingTrait;
+use Illuminate\Database\Eloquent\SoftDeletingTrait,
+    \DB,    
+    Rockit\Lineup;
 
 class Musician extends \Eloquent {
+
+    use Models\ModelBCUDTrait,
+        SoftDeletingTrait;
 
     protected $table = 'musicians';
     public $timestamps = true;
 
-    use SoftDeletingTrait;
-
     protected $dates = ['deleted_at'];
+    public static $response_field = 'id';
     public static $create_rules = array(
         'first_name' => 'required|min:1|max:100',
         'last_name' => 'max:100',
         'stagename' => 'max:100',
+        'lineups' => 'required',
     );
     public static $update_rules = array(
-        'first_name' => 'required|min:1|max:100',
+        'first_name' => 'min:1|max:100',
         'last_name' => 'max:100',
         'stagename' => 'max:100',
     );
@@ -27,59 +32,33 @@ class Musician extends \Eloquent {
         return $this->hasMany('Rockit\Lineup');
     }
 
-    public static function exist($id) {
-        $response = self::find($id);
-        if ($response == NULL) {
-            $response['fail'] = trans('fail.musician.inexistant');
-        }
-        return $response;
-    }
-
-    public static function validate($inputs, $rules) {
-        $v = Validator::make($inputs, $rules);
-        if ($v->fails()) {
-            $response['fail'] = $v->messages()->getMessages();
-        } else {
-            $response = true;
-        }
-        return $response;
-    }
-
-    public static function createOne($inputs) {
+    public static function createOne($data) {
+        $class = self::getClass();
+        $field = self::$response_field;
         self::unguard();
-        $object = self::create($inputs);
+        DB::beginTransaction();
+        $lineups = $data['lineups'];
+        unset($data['lineups']); // to put data into create() function for musician
+        $object = self::create($data);
         if ($object != null) {
+            foreach($lineups as $lineup) {
+                $lineup['musician_id'] = $object->id;
+                $objectLineup = Lineup::create($lineup);
+                // if an lineup object is not created correctly, return response errore message
+                if($objectLineup == null) {
+                    $response['error'] = trans('error.lineup.created');
+                    DB::rollback();
+                    return $response; 
+                }
+            }
             $response['success'] = array(
-                'title' => trans('success.musician.created'),
+                'title' => trans('success.' . snake_case($class) . '.created', array('name' => $object->$field)),
                 'id' => $object->id,
             );
+            DB::commit();
         } else {
-            $response['error'] = trans('error.musician.created');
-        }
-        return $response;
-    }
-
-    public static function updateOne($new_values, Musician $object) {
-        foreach ($new_values as $key => $value) {
-            $object->$key = $value;
-        }
-        if ($object->save()) {
-            $response['success'] = array(
-                'title' => trans('success.musician.updated'),
-            );
-        } else {
-            $response['error'] = trans('error.musician.updated');
-        }
-        return $response;
-    }
-
-    public static function deleteOne(Artist $object) {
-        if ($object->delete()) {
-            $response['success'] = array(
-                'title' => trans('success.musician.deleted'),
-            );
-        } else {
-            $response['error'] = trans('error.musician.deleted');
+            $response['error'] = trans('error.' . snake_case($class) . '.created', array('name' => $object->$field));
+            DB::rollback();
         }
         return $response;
     }
