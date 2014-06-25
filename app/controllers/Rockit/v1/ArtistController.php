@@ -23,8 +23,20 @@ class ArtistController extends \BaseController {
      * @return Response
      */
     public function index() {
-        $artists = Artist::with('images', 'genres')->paginate(10);
-        return Jsend::success($artists->toArray());
+        $artists = Artist::with('images', 'genres');
+        if(Input::has('name')){
+            $artists = $artists->name(Input::get('name'));
+        }
+        if(Input::has('genres')){
+            $artists = $artists->genres(Input::get('genres'));
+        }
+        if(Input::has('musician_name')){
+            $string = Input::get('musician_name');
+            $artists = $artists->musicianStagename($string);
+            $artists = $artists->musicianFirstname($string);
+            $artists = $artists->musicianLastname($string);
+        }
+        return Jsend::success($artists->paginate(10)->toArray());
     }
 
     /**
