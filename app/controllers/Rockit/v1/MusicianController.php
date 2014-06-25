@@ -6,6 +6,7 @@ use \Rockit\Controllers\ControllerBSUDTrait,
     \Rockit\Musician,
     \Rockit\Instrument,
     \Rockit\Artist,
+    \Rockit\Lineup,
     \Input,
     \Jsend;
 
@@ -20,7 +21,23 @@ class MusicianController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		$musicians = Musician::with('artists')->get();
+		foreach($musicians as $musician){
+	        foreach($musician->artists as $artist){
+	            $lineups = Lineup::where('artist_id', '=', $artist->pivot->artist_id)
+	                            ->where('musician_id', '=', $artist->pivot->musician_id)
+	                            ->get();
+	            foreach($lineups as $lineup){
+	                $instrument = Instrument::where('id', '=', $lineup->instrument_id)->first();
+	                $instrument->lineup_id = $lineup->id;
+	                $instruments[] = $instrument;
+	            }
+	            $artist->instruments = $instruments;
+	            unset($artist->pivot);
+	            unset($instruments);
+	        }
+	    }
+		return Jsend::success($musicians->toArray());
 	}
 
 
@@ -32,7 +49,21 @@ class MusicianController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+		$musician = Musician::with('artists')->find($id);
+		foreach($musician->artists as $artist){
+		    $lineups = Lineup::where('artist_id', '=', $artist->pivot->artist_id)
+		                    ->where('musician_id', '=', $artist->pivot->musician_id)
+		                    ->get();
+		    foreach($lineups as $lineup){
+		        $instrument = Instrument::where('id', '=', $lineup->instrument_id)->first();
+		        $instrument->lineup_id = $lineup->id;
+		        $instruments[] = $instrument;
+		    }
+		    $artist->instruments = $instruments;
+		    unset($artist->pivot);
+		    unset($instruments);
+		}
+		return Jsend::success($musician);
 	}
 
 
