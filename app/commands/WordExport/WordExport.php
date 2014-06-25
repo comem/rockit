@@ -1,7 +1,8 @@
 <?php
 
 use PhpOffice\PhpWord\PhpWord,
-    PhpOffice\PhpWord\IOFactory;
+    PhpOffice\PhpWord\IOFactory,
+    \Rockit\Event;
 
 class WordExport {
 
@@ -33,7 +34,7 @@ class WordExport {
         $fsStandard = array('font' => 'Arial', 'color' => '000000', 'size' => 10); // for complete description and other «standard» formatted texts
         $fsSmall = array('font' => 'Arial', 'color' => '0000000', 'size' => 7);
         $fsSmallBold = array('font' => 'Arial', 'color' => '0000000', 'size' => 7, 'bold' => true);
-        
+
         //// Set paragraph style definitions (they do not contain font information)
         $psH1 = array('spaceBefore' => 400, 'spaceAfter' => 200, 'align' => 'left');
         $psH2 = array('spaceBefore' => 700, 'spaceAfter' => 300, 'align' => 'left');
@@ -41,6 +42,7 @@ class WordExport {
         $psH4 = array('spaceBefore' => 120, 'spaceAfter' => 60, 'align' => 'left');
         $psStandard = array('align' => 'left', 'lineHeight' => '1.2');
         $psStandardSpaceAfter = array('spaceAfter' => 200, 'align' => 'left', 'lineHeight' => '1.2');
+        $psFooter = array('align' => 'left', 'lineHeight' => '1.2');
 
 
         //// Set line style definitions
@@ -56,13 +58,13 @@ class WordExport {
 
 
         // create word section
-        $section = $word->createSection(array('marginLeft' => 1350, 'marginRight' => 1350, 'marginTop' => 3000, 'marginBottom' => 1350,
+        $section = $word->createSection(array('marginLeft' => 1350, 'marginRight' => 1350, 'marginTop' => 3000, 'marginBottom' => 1850,
             'footerHeight' => 700));
 
         // add header with logo
         $header = $section->createHeader();
         // ?CHE : should we really implement image in app?
-        $header->addImage('http://mahogany.chrissharkman.ch/mahogany-pos.jpg', array('width' => 90, 'height' => 104, 'align' => 'right')); 
+        $header->addImage('http://mahogany.chrissharkman.ch/mahogany-pos.jpg', array('width' => 90, 'height' => 104, 'align' => 'right'));
 
         //// add static content to section
         $section->addText("Organisation und Lokalität:", $fsDate);
@@ -88,26 +90,30 @@ class WordExport {
 
         $section->addLine($lsSimple);
 
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        // set footer text/address/pagenumber
+        ////// DYNAMIC CONTENT START
+
+        $events = Event::all();
+
+        foreach ($events as $event) {
+            echo $event . " hey";
+        }
+
+
+
+
+
+
+        ////// DYNAMIC CONTENT END
+        // set static footer text/address/pagenumber
         $footer = $section->createFooter();
-        $textrun = $footer->addTextRun($psStandard);
+        $textrun = $footer->addTextRun($psFooter);
         $textrun->addText("Mahogany Hall Bern", $fsSmallBold);
         $textrun->addText(" • Klösterlistutz 18 • Postfach 579 • 3000 Bern 8 • Tel. +41 (0)31 331 60 00", $fsSmall);
         $footer->addText("info@mahogany.ch • konzerte@mahogany.ch • privatvanlass@mahogany.ch", $fsSmall);
+        $footer->addTextBreak();
+        $footer->addPreserveText('Seite {PAGE} / {NUMPAGES}', $fsSmall);
+        $footer->addText("www.mahogany.ch", $fsSmallBold);
 
-        
-        //// create dynamic content
         // prepare doc for download and display «save as» dialog/or treat like browser behaviour
         $file = 'test.docx';
         WordExport::setWordHeader($file);
