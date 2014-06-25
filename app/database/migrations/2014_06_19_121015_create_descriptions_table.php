@@ -11,6 +11,7 @@ class CreateDescriptionsTable extends Migration {
 			$table->increments('id');
 			$table->integer('genre_id')->unsigned();
 			$table->integer('artist_id')->unsigned();
+                        $table->unique(array('genre_id', 'artist_id'));
 		});
 	}
 

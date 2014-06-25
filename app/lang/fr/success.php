@@ -78,4 +78,27 @@ return array(
         'created' => "L'assigniation de la compétence à bien été rajoutée !",
         'deleted' => "L'assigniation de la compétence à bien été supprimée !",
     ),
+    'staff' => array(
+        'created' => "Le role a correctement été assigné !",
+        'updated' => "Le role du membre a été changer !",
+        'deleted' => "Le role a bien été supprimé ",
+    ),
+    'lineup' => array(
+        'created' => "La formation a bien été rajoutée",
+        'deleted' => "La formation a bien été supprimée",
+    ),
+    'description' => array(
+        'created' => "Le genre a bien été rajouté à l'artist !",
+        'deleted' => "Le genre a bien été supprimé de l'artist !",
+    ),
+    'printing' => array(
+        'created' => "L'imprimé à bien été rajouté à l'événement !",
+        'updated' => "L'imprimé à bien été modifié !",
+        'deleted' => "L'imprimé à bient été supprimé de l'événement !",
+    ),
+    'performer' => array(
+        'created' => "L'artist à bien été rajouté à l'événement !",
+        'updated' => "La liaison entre l'artist et l'événement à bien été modifiée !",
+        'deleted' => "L'artist à bient été supprimé de l'événement !",
+    ),
 );

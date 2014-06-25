@@ -7,6 +7,8 @@ class Link extends \Eloquent {
     use Models\ModelBCUDTrait;
 
     protected $table = 'links';
+    protected $hidden = ['artist_id'];
+
     public $timestamps = false;
     public static $response_field = 'id';
 

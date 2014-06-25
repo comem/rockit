@@ -1,6 +1,7 @@
 <?php
 
 namespace Rockit\v1;
+
 use \Input,
     \Jsend,
     \Rockit\Fulfillment,

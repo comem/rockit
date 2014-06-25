@@ -27,6 +27,7 @@ Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function()
 
 	Route::post('login', 'AuthController@login');
 	Route::get('logout', 'AuthController@logout');
+        Route::get('auth-check', 'AuthController@authCheck');
 
 
 	Route::group(array('before' => 'auth'), function()

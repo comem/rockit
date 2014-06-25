@@ -23,7 +23,7 @@ return array(
 	"before"               => "L'attribut :attribute doit être une date antérieure à :date.",
 	"between"              => array(
 		"numeric" => "L'attribut :attribute doit être compris entre :min et :max.",
-		"file"    => "L'attribut :attribute doit avoir un poids compris entre :min et :max Ko (kilobytes).",
+		"file"    => "L'attribut :attribute doit avoir un poids compris entre :min et :max Ko (kilo octet).",
 		"string"  => "L'attribut :attribute doit avoir entre :min et :max caractères.",
 		"array"   => "L'attribut :attribute doit avoir entre :min et :max éléments.",
 	),

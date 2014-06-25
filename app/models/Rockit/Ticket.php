@@ -31,7 +31,7 @@ class Ticket extends \Eloquent {
 		if($tickets < 2){
 			$response = array(
                 'fail' => array(
-                    'title' => trans('fail.tickets.last_ticket'),
+                    'title' => trans('fail.ticket.last_ticket'),
                 ),
             );
 		}

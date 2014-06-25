@@ -11,6 +11,7 @@ class CreateFulfillmentsTable extends Migration {
 			$table->increments('id');
 			$table->integer('skill_id')->unsigned();
 			$table->integer('member_id')->unsigned();
+                        $table->unique(array('skill_id', 'member_id'));
 		});
 	}
 

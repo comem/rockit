@@ -12,6 +12,8 @@ class Artist extends \Eloquent {
     use Models\ModelBCUDTrait;
 
     protected $table = 'artists';
+    protected $hidden = ['deleted_at'];
+
     public $timestamps = true;
 
     use SoftDeletingTrait;
@@ -33,7 +35,7 @@ class Artist extends \Eloquent {
     }
 
     public function genres() {
-        return $this->belongsToMany('Rockit\Genre');
+        return $this->belongsToMany('Rockit\Genre', 'descriptions', 'artist_id', 'genre_id');
     }
 
     public function images() {
@@ -45,7 +47,8 @@ class Artist extends \Eloquent {
     }
 
     public function events() {
-        return $this->belongsToMany('Rockit\Event')->withPivot('order', 'is_support', 'artist_hour_of_arrival');
+        return $this->belongsToMany('Rockit\Event', 'performers', 'artist_id', 'event_id')
+                    ->withPivot('order', 'is_support', 'artist_hour_of_arrival');
     }
 
     /**

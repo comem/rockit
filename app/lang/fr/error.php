@@ -74,4 +74,27 @@ return array(
         'created' => "La compétence n'a pas pu être assignée",
         'deleted' => "La compétence assignée n'a pas pu être supprimée",
     ),
+    'staff' => array(
+        'created' => "Le role n'a pas pu être assigné",
+        'updated' => "Le role n'a pas pu être modifié",
+        'deleted' => "Le role n'a pas pu être supprimé",
+    ),
+    'lineup' => array(
+        'created' => "La formation n'a pas pu être enregistrée",
+        'deleted' => "La formation n'a pas pu être supprimée",
+    ),
+    'description' => array(
+        'created' => "La description n'a pas pu être enregistrée",
+        'deleted' => "La description n'a pas pu être supprimée",
+    ),
+    'printing' => array(
+        'created' => "L'imprimé n'a pas pu être créée",
+        'updated' => "L'imprimé n'a pas pu être modifiée",
+        'deleted' => "L'imprimé n'a pas pu être supprimée",
+    ),
+    'performer' => array(
+        'created' => "La liaison n'a pas pu être créée",
+        'updated' => "La liaison n'a pas pu être modifiée",
+        'deleted' => "La liaison n'a pas pu être supprimée",
+    ),
 );

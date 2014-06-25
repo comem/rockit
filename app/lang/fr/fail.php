@@ -73,10 +73,34 @@ return array(
     'need' => array(
         'existing' => "Il y a déjà un besoin de même type enregistré !",
         'inexistant' => "Il n'y aucun besoin enregistré correspondant !",
+        'non_needed' => "Cette compétence n'est pas requise pour cet événement !",
     ),
     'fulfillment' => array(
         'existing' => "Il y a déjà une compétence assignée à ce membre !",
         'inexistant' => "Il n'y aucune compétence assignée correspondante !",
+        'non_assigned' => "Cette compétence ne peut pas être remplie par ce membre !",
+    ),
+    'staff' => array(
+        'existing' => "Il y a déjà un role assignée à ce membre !",
+        'inexistant' => "Il n'y aucun role assignée correspondant !",
+    ),
+    'lineup' => array(
+        'existing' => "Ce musician joue déjà de cet instrument !",
+        'inexistant' => "La formation n'existe pas !",
+        'last_lineup' => "Cette formation est la dernière, vous ne pouvez pas la supprimée !",
+    ),
+    'description' => array(
+        'existing' => "Cet artist est déjà lié à ce genre !",
+        'inexistant' => "Cette description n'existe pas !",
+        'last_genre' => "Ce genre est le dernier, vous ne pouvez pas le supprimé !",
+    ),
+    'printing' => array(
+        'existing' => "Ce type d'imprimé est déjà lié à cet événement !",
+        'inexistant' => "Il n'y aucun imprimé correspondant !",
+    ),
+    'performer' => array(
+        'existing' => "Ce groupe joue déjà dans cet événement !",
+        'inexistant' => "Il n'y aucune liaison correspondant !",
     ),
 
 );
