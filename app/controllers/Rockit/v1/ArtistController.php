@@ -7,7 +7,6 @@ use \Rockit\Artist,
     \Rockit\Image,
     \Rockit\Performer,
     \Rockit\Lineup,
-    \Rockit\Musician,
     \Rockit\Instrument,
     \Rockit\Controllers\ControllerBSUDTrait,
     \Jsend,
@@ -24,13 +23,13 @@ class ArtistController extends \BaseController {
      */
     public function index() {
         $artists = Artist::with('images', 'genres');
-        if(Input::has('name')){
+        if (Input::has('name')) {
             $artists = $artists->name(Input::get('name'));
         }
-        if(Input::has('genres')){
+        if (Input::has('genres')) {
             $artists = $artists->genres(Input::get('genres'));
         }
-        if(Input::has('musician_name')){
+        if (Input::has('musician_name')) {
             $string = Input::get('musician_name');
             $artists = $artists->musicianStagename($string);
             $artists = $artists->musicianFirstname($string);
@@ -47,28 +46,32 @@ class ArtistController extends \BaseController {
      */
     public function show($id) {
         $artist = Artist::with('links', 'images', 'genres', 'events', 'musicians')->find($id);
-        foreach($artist->events as $event){
-            $event->performers = Performer::where('artist_id', '=', $event->pivot->artist_id)
-                                                ->where('event_id', '=', $event->pivot->event_id)
-                                                ->get(['id', 'order', 'is_support', 'artist_hour_of_arrival']);
-            unset($event->pivot);
-        }
-        foreach($artist->musicians as $musician){
-            $lineups = Lineup::where('artist_id', '=', $musician->pivot->artist_id)
-                            ->where('musician_id', '=', $musician->pivot->musician_id)
-                            ->get();
-            foreach($lineups as $lineup){
-                $instrument = Instrument::where('id', '=', $lineup->instrument_id)->first();
-                $instrument->lineup_id = $lineup->id;
-                $instruments[] = $instrument;
+        if (empty($artist)) {
+            $response = Jsend::fail(array('title' => trans('fail.artist.inexistant')));
+        } else {
+            foreach ($artist->events as $event) {
+                $event->performers = Performer::where('artist_id', '=', $event->pivot->artist_id)
+                ->where('event_id', '=', $event->pivot->event_id)
+                ->get(['id', 'order', 'is_support', 'artist_hour_of_arrival']);
+                unset($event->pivot);
             }
-            $musician->instruments = $instruments;
-            unset($musician->pivot);
-            unset($instruments);
+            foreach ($artist->musicians as $musician) {
+                $lineups = Lineup::where('artist_id', '=', $musician->pivot->artist_id)
+                ->where('musician_id', '=', $musician->pivot->musician_id)
+                ->get();
+                foreach ($lineups as $lineup) {
+                    $instrument = Instrument::where('id', '=', $lineup->instrument_id)->first();
+                    $instrument->lineup_id = $lineup->id;
+                    $instruments[] = $instrument;
+                }
+                $musician->instruments = $instruments;
+                unset($musician->pivot);
+                unset($instruments);
+            }
+            $response = Jsend::success($artist);
         }
-        return Jsend::success($artist);
+        return $response;
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -127,7 +130,7 @@ class ArtistController extends \BaseController {
         foreach ($inputs['genres'] as $genre) {
             if (Genre::exist($genre, 'id')) {
                 $existingMergedGenres[] = $genre;
-            }    
+            }
         }
         if (!count($existingMergedGenres) > 0) {
             $response['fail'] = trans('fail.artist.nogenre');
