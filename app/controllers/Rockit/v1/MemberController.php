@@ -2,6 +2,8 @@
 
 namespace Rockit\v1;
 
+use \Input;
+
 class MemberController extends \BaseController {
 
 	/**
@@ -11,7 +13,13 @@ class MemberController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		// code pour tester les tests unitaires. Il me fallait un controller sans traits.
+		$var = Input::only('id');
+		var_dump($var['id']);
+		// send an integer
+		return $var['id'];
+		// send a string
+		// return "true";
 	}
 
 
