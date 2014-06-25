@@ -23,8 +23,8 @@ class ArtistController extends \BaseController {
      * @return Response
      */
     public function index() {
-        $artists = Artist::with('images', 'genres')->get();
-        return Jsend::success($artists);
+        $artists = Artist::with('images', 'genres')->paginate(10);
+        return Jsend::success($artists->toArray());
     }
 
     /**
