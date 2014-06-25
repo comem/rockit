@@ -39,6 +39,10 @@ class Musician extends \Eloquent {
         return $this->belongsToMany('Rockit\Instrument', 'lineups')->where('artist_id', '=', $artist_id);
     }
 
+    public function artists() {
+        return $this->belongsToMany('Rockit\Artist', 'lineups')->groupBy('id');
+    }
+
     public static function createOne($data) {
         $class = self::getClass();
         $field = self::$response_field;
