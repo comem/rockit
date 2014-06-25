@@ -7,15 +7,17 @@ use Illuminate\Database\Eloquent\SoftDeletingTrait,
     Rockit\Lineup;
 
 class Musician extends \Eloquent {
-
+    
     use Models\ModelBCUDTrait,
         SoftDeletingTrait;
 
     protected $table = 'musicians';
-    public $timestamps = true;
-
     protected $dates = ['deleted_at'];
+    protected $hidden = ['deleted_at'];
+
+    public $timestamps = true;
     public static $response_field = 'id';
+
     public static $create_rules = array(
         'first_name' => 'required|min:1|max:100',
         'last_name' => 'max:100',
