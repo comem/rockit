@@ -68,10 +68,16 @@ class EventController extends \BaseController {
      * @return Response
      */
     public function show($id) {
-        $events = Event::with('representer', 'eventType', 'image', 
-                            'ticketCategories', 'platforms', 'printingTypes', 'artists', 
-                            'members', 'skills', 'gifts', 'equipments');
-        return Jsend::success($events->find($id));
+        $event = Event::with('representer', 'eventType', 'image', 
+                            'tickets.ticketCategory', 'sharings.platform', 'printings.printingType', 
+                            'performers.artist', 'staffs.member', 'staffs.skill', 'needs.skill', 'offers.gift', 
+                            'attributions.equipment');
+        if (empty($event)) {
+            $response = Jsend::fail(array('title' => trans('fail.event.inexistant')));
+        } else {
+            $response = Jsend::success($event->find($id));
+        }
+        return $response;
     }
 
     /**
