@@ -35,10 +35,10 @@ class WordExport {
 
         //// Set font style definitions
         $fsH1 = array('font' => $defFontType, 'color' => $defFontColor, 'size' => 22, 'bold' => true);
-        $fsH2 = array('font' => $defFontType, 'color' => 'b2a68b', 'size' => 13, 'bold' => true);
+        $fsH2 = array('font' => $defFontType, 'color' => 'b2a68b', 'size' => 12, 'bold' => true);
         $fsH3 = array('font' => $defFontType, 'color' => $defFontColor, 'size' => 18, 'bold' => true);
-        $fsH4 = array('font' => $defFontType, 'color' => $defFontColor, 'size' => 13, 'bold' => true);
-        $fsDate = array('font' => $defFontType, 'color' => $defFontColor, 'size' => 13, 'bold' => true);
+        $fsH4 = array('font' => $defFontType, 'color' => $defFontColor, 'size' => 12, 'bold' => true);
+        $fsDate = array('font' => $defFontType, 'color' => $defFontColor, 'size' => 12, 'bold' => true);
         $fsGenre = array('font' => $defFontType, 'color' => $defFontColor, 'size' => $defFontSize, 'bold' => true, 'italic' => true);
         $fsShortDesc = array('font' => $defFontType, 'color' => $defFontColor, 'size' => $defFontSize, 'bold' => true);
         $fsStandard = array('font' => $defFontType, 'color' => $defFontColor, 'size' => $defFontSize); // for complete description and other «standard» formatted texts
@@ -48,19 +48,21 @@ class WordExport {
 
         //// Set paragraph style definitions (they do not contain font information)
         $psH1 = array('spaceBefore' => 200, 'spaceAfter' => 100, 'align' => 'left');
-        $psH2 = array('spaceBefore' => 200, 'spaceAfter' => 200, 'align' => 'left');
+        $psH2 = array('spaceBefore' => 150, 'spaceAfter' => 200, 'align' => 'left');
         $psH3 = array('spaceBefore' => 120, 'spaceAfter' => 20, 'align' => 'left', 'keepNext' => true);
         $psH4 = array('spaceBefore' => 120, 'spaceAfter' => 60, 'align' => 'left');
         $psStandard = array('align' => 'left', 'lineHeight' => '1.1');
         $psStandardkeepNext = array('align' => 'left', 'lineHeight' => '1.1', 'keepNext' => true);
-        $psStandardSpaceAfter = array('spaceAfter' => 120, 'align' => 'left', 'lineHeight' => '1.1');
+        $psStandardSpaceAfter = array('spaceAfter' => 140, 'align' => 'left', 'lineHeight' => '1.1');
         $psStandardSpaceBefore = array('spaceBefore' => 120, 'align' => 'left', 'lineHeight' => '1.1');
         $psStandardSpaceBeforeAndAfter = array('spaceBefore' => 120, 'spaceAfter' => 180, 'align' => 'left', 'lineHeight' => '1.1');
         $psFooter = array('align' => 'left', 'lineHeight' => '1.1');
 
 
         //// Set line style definitions
-        $lsSimple = array('weight' => 1, 'width' => 462, 'height' => 0); // for seperator between paragraphs
+        $lsSimple = array('weight' => 1, 'width' => 460, 'height' => 0); // for seperator between paragraphs
+        $lsColor = array('weight' => 1, 'width' => 460, 'height' => 0, 'color' => '#b2a68b');
+        
         // 1 = Main title document
         $word->addTitleStyle(1, $fsH1, $psH1);
         // 2 = title indicated global dates (from-to or month)
@@ -95,32 +97,33 @@ class WordExport {
         $section->addTitle("BAND-BILDER in 300 dpi DOWNLOAD UNTER", 4);
         $section->addText("www.mydrive.ch", $fsStandard, $psStandard);
         $section->addText("Benutzer: presse@mahog_werb", $fsStandard, $psStandard);
-        $section->addText("Passwort: pressemahog11", $fsStandard, $psStandard);
-        $section->addTextBreak();
+        $section->addText("Passwort: pressemahog11", $fsStandard, $psStandardSpaceAfter);
         $section->addText("Es können ohne Rückfrage jeweils 1x2 Tickets verlost werden. "
                 . "Für mehr Tickets bitte kurze Anfrage an konzerte@mahogany.ch. "
                 . "Gewinnermeldungen von Ticketverlosungen bitte direkt an reservationen@mahogany.ch.", $fsShortDesc, $psStandardSpaceAfter);
 
-        $section->addLine($lsSimple);
+        $section->addLine($lsColor);
 
         ////// DYNAMIC CONTENT START
 
-        $from = "2013-08-01 00:00:00"; // testingvalues, can be deleted later
-        $to = "2014-08-30 00:00:00"; // testingvalues, can be deleted later
         $timeFrom = strtotime($from);
         $timeTo = strtotime($to);
         // test if it is a whole month:
         if (self::isWholeMonth($timeFrom, $timeTo)) {
             $section->addTitle("Konzerte im " . strftime("%B %Y", $timeFrom), 2);
         } else {
-            $section->addTitle("Konzerte vom " . strftime("%e. %B %Y", $timeFrom) . " bis " . strftime("%e. %B %Y", $timeTo), 2);
+            $dates = "Konzerte vom " . strftime("%e. %B %Y", $timeFrom) . " bis " . strftime("%e. %B %Y", $timeTo);
+            $dates = self::deleteDoubleWhitspace($dates);
+            $section->addTitle($dates, 2);
         }
-        $section->addLine($lsSimple);
-
+        $section->addLine($lsColor);
+        
+        // Events listing loop
         $events = Event::whereNotNull("published_at")->where('start_date_hour', '>=', $from)->where('start_date_hour', '<=', $to)->orderBy('start_date_hour')->get();
-
         foreach ($events as $event) {
             $date = strftime("%A, %e. %B %Y  |  %H.%M Uhr", strtotime($event->start_date_hour));
+            $date = self::deleteDoubleWhitspace($date);
+            
             if ($event->opening_doors != NULL) {
                 $opening_doors = strftime("  (Türöffnung %H.%M Uhr)", strtotime($event->opening_doors));
             } else {
@@ -178,7 +181,7 @@ class WordExport {
                         $indexMusician++;
                     }
                 }
-                // if no link is set, then add responsable person
+                // if artist has no link, then add artists representer if there is one
                 if (count($artist->links) > 0) {
                     $trLinks = $section->addTextRun($psStandard);
                     $indexLinks = 0;
@@ -194,8 +197,6 @@ class WordExport {
                     $trContact = $section->addTextRun($psStandard);
                     $trContact->addText("Bandkontakt: " . $contactDetails, $fsStandard);
                 }
-                print_r($event->representer->events);
-                die();
             }
             $trTickets = $section->addTextRun($psStandardSpaceBeforeAndAfter);
             $indexTickets = 0;
@@ -205,7 +206,6 @@ class WordExport {
                 } else {
                     $trTickets->addText("CHF ");
                 }
-                $ho = "";
                 if ($ticket->pivot->comment_de != NULL) {
                     $comment = " " . $ticket->pivot->comment_de;
                 } else {
@@ -216,10 +216,6 @@ class WordExport {
             }
             $section->addLine($lsSimple);
         }
-
-
-
-
 
 
         ////// DYNAMIC CONTENT END
@@ -270,6 +266,11 @@ class WordExport {
             }
         }
         return $contact;
+    }
+    
+    private static function deleteDoubleWhitspace($date) {
+        $date = preg_replace("/\s\s(\d\.)/", " $1", $date);
+        return $date;
     }
 
 }
