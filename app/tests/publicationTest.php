@@ -8,16 +8,16 @@ class publicationTest extends TestCase {
 
 	public function test_publish()
 	{
-		$id = 3;
+		$id = 1;
 
 		// $response = $this->call('PUT', "events/{$id}/publish");
 		$response = $this->call('PUT', "v1/events/$id/publish");
 		// $response = $this->action('events/{id}/publish', 'EventController@publish', array('remember' => 'true', 'email' => 'bla@example.com', 'password' => 'password'));
 		// difference of two lines above?
-		$result = $response->getContent();
+		$result = json_decode($response->getContent());
 		echo "publish status is : ";
-		var_dump($result);
-		$this->assertEquals("success", $result, 'We expected the publish function to have a success status !');
+		var_dump($result->status);
+		$this->assertEquals("success", $result->status, 'We expected the publish function to have a success status !');
 		$this->assertResponseStatus(200);
 	}
 
@@ -25,13 +25,13 @@ class publicationTest extends TestCase {
 
 	public function test_unpublish()
 	{
-		$id = 3;
+		$id = 2;
 
 		$response = $this->call('PUT', "v1/events/$id/unpublish");
-		$result = $response->getContent();
+		$result = json_decode($response->getContent());
 		echo "unpublish status is : ";
-		var_dump($result);
-		$this->assertEquals("success", $result, 'We expected the unpublish function to have a success status !');
+		var_dump($result->status);
+		$this->assertEquals("success", $result->status, 'We expected the unpublish function to have a success status !');
 		$this->assertResponseStatus(200);
 	}
 
