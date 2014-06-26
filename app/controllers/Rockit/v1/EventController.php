@@ -74,7 +74,7 @@ class EventController extends \BaseController {
                             'performers.artist', 'staffs.member', 'staffs.skill', 'needs.skill', 'offers.gift', 
                             'attributions.equipment');
         if (empty($event)) {
-            $response = Jsend::fail(array('title' => trans('fail.event.inexistant')));
+            $response = Jsend::fail(['title' => trans('fail.event.inexistant')]);
         } else {
             $response = Jsend::success($event->find($id));
         }
