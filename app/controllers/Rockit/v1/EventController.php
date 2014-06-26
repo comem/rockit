@@ -121,6 +121,8 @@ class EventController extends \BaseController {
         $response = Event::exist($id);
         if ( is_object($response) ) {
             $response = self::sfPublish( $response );
+        } else {
+            $response['fail'] = ['title' => trans('fail.event.inexistant')];
         }
         return Jsend::compile($response);
     }
@@ -136,6 +138,8 @@ class EventController extends \BaseController {
         $response = Event::exist($id);
         if ( is_object($response) ) {
             $response = self::sfUnpublish( $response );
+        } else {
+            $response['fail'] = ['title' => trans('fail.event.inexistant')];
         }
         return Jsend::compile($response);
     }
@@ -171,7 +175,16 @@ class EventController extends \BaseController {
 
     public static function sfPublish( $event )
     {
-        return Event::updateOne(['published_at' => date('Y-m-d H:i:s')], $event);
+        $response = Event::atLeastOneMainPerformer( $event );
+        if ( $response === true )
+        {
+            $response = Event::isSymbolized( $event );
+            if ( $response === true )
+            {
+                $response = Event::updateOne(['published_at' => date('Y-m-d H:i:s')], $event);
+            }
+        }
+        return $response;
     }
 
 }

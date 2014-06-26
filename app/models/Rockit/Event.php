@@ -9,8 +9,9 @@ class Event extends \Eloquent {
 	use Models\ModelBCUDTrait;
 
 	protected $table = 'events';
-	public $timestamps = true;
 
+	public static $response_field = 'title';
+	public $timestamps = true;
 	public static $create_rules = array(
 		'start_date_hour' 		=> 'date|required',
 		'ending_date_hour' 		=> 'date|required',
@@ -280,6 +281,42 @@ class Event extends \Eloquent {
 				'title' => trans('fail.event.overlap'),
 			);
 		} else {
+			$response = true;
+		}
+		return $response;
+	}
+
+
+	public static function atLeastOneMainPerformer( Event $event )
+	{
+		$cpt = Performer::where('performers.event_id', '=', $event->id)
+		    	->where('performers.is_support', '=', FALSE)
+		    	->count();
+		if( $cpt > 0 )
+		{
+			$response = true;
+		} 
+		else 
+		{
+			$response['fail'] = [
+				'title' => trans('fail.event.at_least_one_main_performer')
+			];
+		}
+		return $response;
+	}
+
+
+
+	public static function isSymbolized( Event $event )
+	{
+		if( empty( $event->image_id ) )
+		{
+			$response['fail'] = [
+				'title' => trans('fail.event.is_symbolized')
+			];
+		}
+		else
+		{
 			$response = true;
 		}
 		return $response;
