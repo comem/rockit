@@ -22,6 +22,17 @@ class myRockitTest extends TestCase {
 	// $this->assertResponseOk();
 	}
 
+	/////////////////////////// Test that includes a name space ////////////////////
+	public function testClassWithTrait()
+	{
+		$response = $this->call('GET', 'v1/instruments');
+		var_dump($response->getContent());
+	}
+
+
+
+
+
 	/////////////////////////// Composite Test ///////////////////////////////////
 
 	// public function testMultipleIds() {

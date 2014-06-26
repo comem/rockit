@@ -11,7 +11,7 @@ use \App,
 
 class InstrumentController extends \BaseController {
 
-    use \Rockit\Controllers\ControllerBSRDTrait;
+    use Rockit\Controllers\ControllerBSRDTrait;
     /**
      * Display a listing of the resource.
      *
