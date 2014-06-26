@@ -54,17 +54,17 @@ return array(
         'created' => "La catégorie de tickets ':name' n'a pas pu être créé",
         'deleted' => "La catégorie de tickets ':name' n'a pas pu être supprimé",
         'restored' => "La catégorie de tickets  ':name' n'a pas pu être restauré",
-    ), 
+    ),
     'ticket' => array(
         'created' => "Le ticket d'entrée n'a pas pu être créé",
         'deleted' => "Le ticket d'entrée n'a pas pu être supprimé",
         'restored' => "Le ticket d'entrée n'a pas pu être restauré",
-    ), 
+    ),
     'need' => array(
         'created' => "Le besoin n'a pas pu être créé",
         'deleted' => "Le besoin n'a pas pu être supprimé",
         'restored' => "Le besoin n'a pas pu être restauré",
-    ), 
+    ),
     'skill' => array(
         'created' => "La compétence n'a pas pu être créé",
         'deleted' => "La compétence n'a pas pu être supprimé",

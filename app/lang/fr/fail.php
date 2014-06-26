@@ -26,11 +26,11 @@ return array(
         'existing' => "Il y a déjà un genre ':name' enregistré !",
         'inexistant' => "Il n'y aucun genre enregistré correspondant !",
     ),
-     'instrument' => array(
+    'instrument' => array(
         'existing' => "Il y a déjà un instrument ':name' enregistré !",
         'inexistant' => "Il n'y aucun instrument enregistré correspondant !",
     ),
-     'gift' => array(
+    'gift' => array(
         'existing' => "Il y a déjà un lot ':name' enregistré !",
         'inexistant' => "Il n'y aucun lot enregistré correspondant !",
     ),
@@ -53,14 +53,12 @@ return array(
     'instrument' => array(
         'existing' => "Cet instrument existe déjà.",
     ),
-
     'attribution' => array(
         'existing' => "Il y a déjà une attribution de même type enregistrée !",
         'inexistant' => "Il n'y aucune attribution enregistrée correspondante !",
     ),
     'acl' => "Vous n'avez pas le droit d'effectuer cette action",
     'auth' => "Vous devez être authentifié pour effectuer cette action",
-
     'offer' => array(
         'existing' => "Il y a déjà une offre de même type enregistrée !",
         'inexistant' => "Il n'y aucune offre enregistrée correspondante !",
@@ -102,5 +100,4 @@ return array(
         'existing' => "Ce groupe joue déjà dans cet événement à cette position !",
         'inexistant' => "Il n'y aucune liaison correspondant !",
     ),
-
 );
