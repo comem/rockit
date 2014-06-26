@@ -17,7 +17,7 @@ class GroupResourceTableSeeder extends Seeder {
             // store accesses
             77,
             // other accesses
-            100, 101,
+            100, 101, 103, 104,
         ));
         // Managers' specifics accesses
         Group::find(2)->resources()->sync(array(
@@ -28,7 +28,7 @@ class GroupResourceTableSeeder extends Seeder {
             // update accesses
             84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97,
             // other accesses
-            98, 99,
+            98, 99, 102, 105, 106,
         ));
     }
 
