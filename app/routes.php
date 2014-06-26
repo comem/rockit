@@ -29,8 +29,8 @@ Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function()
 	Route::get('logout', 'AuthController@logout');
         Route::get('auth-check', 'AuthController@authCheck');
         
-        Route::get('download', 'FilesManager@download');
-        Route::post('upload', 'FilesManager@upload');
+        Route::get('file/{folder}/{source}', 'FilesManager@download');
+        Route::post('file', 'FilesManager@upload');
 
 	Route::group(array('before' => 'auth'), function()
 	{

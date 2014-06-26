@@ -4,16 +4,24 @@ namespace Rockit\v1;
 
 use \Input,
     \Validator,
-    \Jsend;
+    \Jsend,
+    \Response;
 
 class FilesManager extends \BaseController {
+
+    const IMAGES_FOLDER = '\images\\';
+    const CONTRACTS_FOLDER = '\contracts\\';
+    const PRINTINGS_FOLDER = '\printings\\';
 
     public $image_rules = array(
         'file' => 'image|max:2000|min:1',
     );
 
-    public function download() {
-        return \Config::get('app.locale');
+    public function download($folder, $source_path) {
+        $call = 'get' . studly_case(str_singular($folder));
+        if (method_exists($this, $call)) {
+            return $this->$call($source_path);
+        }
     }
 
     public function upload() {
@@ -29,6 +37,18 @@ class FilesManager extends \BaseController {
             $response = array('fail' => trans('fail.file.invalid'));
         }
         return Jsend::compile($response);
+    }
+
+    private function getImage($source) {
+        return 'Image' . $source;
+    }
+
+    private function getContract($source) {
+        return 'Contract' . $source;
+    }
+
+    private function getPrinting($source) {
+        return 'Printing' . $source;
     }
 
 }
