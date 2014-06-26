@@ -31,7 +31,7 @@ class MemberController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+		return $id;
 	}
 
 
