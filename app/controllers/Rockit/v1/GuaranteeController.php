@@ -40,4 +40,34 @@ class GuaranteeController extends \BaseController {
 	}
 
 
+	public static function save( $inputs )
+	{
+		$event = Event::find( $inputs['event_id'] );
+		if ( empty( $event->representer_id ) )
+		{
+			$update = Event::updateOne(['representer_id' => $inputs['representer_id']], $event);
+			if ( isset( $update['success'] ) )
+			{
+				$response['success'] = [
+					'title' => trans('success.guarantee.created'),
+					'id' => $event->id,
+				];
+			}
+			else
+			{
+				$response['error'] = [
+					'title' => trans('error.guarantee.created')
+				];
+			}
+		}
+		else
+		{
+			$response['fail'] = [
+				'title' =>  trans('fail.guarantee.existing')
+			];
+		}
+		return $response;
+	}
+
+
 }
