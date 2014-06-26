@@ -33,7 +33,7 @@ class AuthController extends \BaseController {
                 'user' => Auth::user(),
             ));
         }
-        return Jsend::error(array('title' => trans('error.auth.login')));
+        return Jsend::error(array('title' => trans('error.auth.login'), Jsend::HTTP_FAIL_AUTH));
     }
 
     /**
@@ -44,7 +44,7 @@ class AuthController extends \BaseController {
         try {
             Auth::logout();
         } catch (Exception $e) {
-            Jsend::error(trans('error.auth.logout'));
+            Jsend::error(trans('error.auth.logout'), Jsend::HTTP_FAIL_AUTH);
         }
         return Jsend::success(trans('success.auth.logout'));
     }
