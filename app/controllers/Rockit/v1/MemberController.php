@@ -15,7 +15,7 @@ class MemberController extends \BaseController {
 	{
 		// code pour tester les tests unitaires. Il me fallait un controller sans traits.
 		$var = Input::only('id');
-		var_dump($var['id']);
+	// var_dump($var['id']);
 		// send an integer
 		return $var['id'];
 		// send a string
