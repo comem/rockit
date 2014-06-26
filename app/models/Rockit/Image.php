@@ -24,6 +24,7 @@ class Image extends \Eloquent {
     protected $table = 'images';
     protected $hidden = array('deleted_at');
     protected $dates = array('deleted_at');
+    public static $response_field = 'id';
 
     public function artist() {
         return $this->belongsTo('Rockit\Artist');
