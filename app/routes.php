@@ -114,7 +114,7 @@ Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function()
 			Route::resource('printings', 'PrintingController', 
 				array('only' => array('store', 'update', 'destroy')));
 
-			Route::resource('sharings', 'ScharingController', 
+			Route::resource('sharings', 'SharingController', 
 				array('only' => array('store', 'destroy')));
 
 			Route::resource('staffs', 'StaffController', 
