@@ -2,59 +2,56 @@
 
 class myRockitTest extends TestCase {
 
-	///////////////////////////// Single test ////////////////////////////////////
+	///////////////////////////// Test for show ////////////////////////////////////
 
-	public function test_all_show_for_peripheral_tables()
-	{
+	// public function test_all_show_for_peripheral_tables()
+	// {
+	// 	// $cases = array("instruments", "genres");
+	// 	// foreach ($cases as $case) {
+	// 	// 	$this->generic_for_peripheral_table($case);
+	// 	// }
+	// 		$this->generic_for_peripheral_table("genres");
+	// 		$this->generic_for_peripheral_table("instruments");
+	// }
 
-		$cases = array("instruments");
-
-		foreach ($cases as $case) {
-			$this->test_generic_for_peripheral_table($case);
-		}
-
-		// $this->test_generic("event-types");
-		// $this->test_generic("ticket-categories");
-		// $this->test_generic("gifts");
-		// $this->test_generic("skills");
-		// $this->test_generic("printing-types");	
-		// $this->test_generic("instruments");
-		// $this->test_generic("equipments");
-	}
-
-	public function test_generic_for_peripheral_table($class = "genres")
-	{	
-		$response = $this->call('GET', "v1/$class");
-		$result = json_decode($response->getContent());
-		// echo "call here";
-		echo "$class ";
-		var_dump($result->status);
-		$this->assertEquals("success", $result->status,'We expected to have a success status !');
-		$this->assertResponseStatus(200);
-	}
+	// public function generic_for_peripheral_table($class)
+	// {	
+	// 	$response = $this->call('GET', "v1/$class");
+	// 	$result = json_decode($response->getContent());
+	// 	// echo "Pas de probleme si on appel UNE fois : \n";
+	// 	echo "$class ";
+	// 	var_dump($result->status);
+	// 	$this->assertEquals("success", $result
+	// 			->status,'We expected the show all of $class to have a success status !');
+	// 	$this->assertResponseStatus(200);
+	// }
 
 	
 	///////////////////////////// test for updates /////////////////////////
 
 	public function test_all_update()
 	{
-		$cases = array("skills");
+		$cases = array(
+			array(
+				"class" => "ticket-categories", "name" => "ble"
+			));
+			// array(
+			// 	"class" => "instruments", "name" => "bla"
+			// ));
 
 		foreach ($cases as $case) {
-			$this->test_generic_add_to_peripheral_table("ble", $case);
+			$this->generic_add_to_peripheral_table($case['class'], $case['name']);
 		}
 	}
 
-	public function test_generic_add_to_peripheral_table($name_de = "bln", $class = "genres")
+	public function generic_add_to_peripheral_table($class, $name)
 	{
-		$response = $this->call('POST', "v1/$class", array('name_de' => $name_de));
-
+		$response = $this->call('POST', "v1/$class", array('name_de' => $name));
 		$result = json_decode($response->getContent());
 
 		echo "$class ";
 		var_dump($result->status);
-
-		$this->assertEquals("success", $result->status,'We expected to have a success status !');
+		$this->assertEquals("success", $result->status,'We expected an update to $class to have a success status !');
 		$this->assertResponseStatus(200);
 
 		// $this->assertResponseOk();
