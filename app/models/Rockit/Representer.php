@@ -14,6 +14,7 @@ class Representer extends \Eloquent {
     protected $table = 'representers';
     protected $hidden = array('deleted_at', 'created_at', 'updated_at');
     protected $dates = array('deleted_at');
+    protected static $response_field = 'first_name';
 
     /**
      * Get all the events that this Representer represents.
