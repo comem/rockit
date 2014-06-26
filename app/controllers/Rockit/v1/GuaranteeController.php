@@ -78,4 +78,32 @@ class GuaranteeController extends \BaseController {
 	}
 
 
+	public static function delete( Event $event )
+	{
+		if ( empty( $event->representer_id ) )
+		{
+			$response['fail'] = [
+				'title' =>  trans('fail.guarantee.inexistant')
+			];
+		}
+		else
+		{
+			$event->representer_id = NULL;
+			if ( $event->save() )
+			{
+				$response['success'] = [
+					'title' => trans('success.guarantee.deleted'),
+				];
+			}
+			else
+			{
+				$response['error'] = [
+					'title' => trans('error.guarantee.deleted')
+				];
+			}
+		}
+		return $response;
+	}
+
+
 }
