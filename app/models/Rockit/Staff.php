@@ -26,6 +26,16 @@ class Staff extends \Eloquent {
 		return $this->belongsTo('Rockit\Skill');
 	}
 
+	public function member()
+	{
+		return $this->belongsTo('Rockit\Member');
+	}
+
+	public function event()
+	{
+		return $this->belongsTo('Rockit\Event');
+	}
+
 	public static function checkMemberFulfillment($member_id, $skill_id){
 		$fulfillment = Fulfillment::where('member_id', '=', $member_id)->where('skill_id', '=', $skill_id)->first();
 		if(is_object($fulfillment)){

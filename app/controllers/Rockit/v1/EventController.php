@@ -17,12 +17,54 @@ class EventController extends \BaseController {
     public function index() 
     {
         $events = Event::with('representer', 'eventType', 'image', 
-                            'ticketCategories', 'platforms', 'printingTypes', 'artists', 
-                            'members', 'skills', 'gifts', 'equipments');
-        if (Input::has('name')) {
-            //$events = $events->name(Input::get('name'));
+                            'tickets.ticketCategory', 'sharings.platform', 'printings.printingType', 
+                            'performers.artist', 'staffs.member', 'needs.skill', 'offers.gift', 
+                            'attributions.equipment');
+        
+        if (Input::has('genres')) {
+            $events = $events->artistGenres(Input::get('genres'));
         }
-        return Jsend::success($events->paginate(10)->toArray());
+        if (Input::has('event_types')) {
+            $events = $events->eventType(Input::get('event_types'));
+        }
+        if (Input::has('is_published')) {
+            $is_published = Input::get('is_published');
+            if($is_published == '1') $events = $events->isPublished(TRUE);
+            else $events = $events->isPublished(FALSE);
+        }
+        if (Input::has('title')) {
+            $events = $events->title(Input::get('title'));
+        }
+        if (Input::has('from')) {
+            $events = $events->from(Input::get('from'));
+        } else {
+            $events = $events->from(date('Y-m-d H:i:s'));
+        }
+        if (Input::has('to')) {
+            $events = $events->to(Input::get('to'));
+        }
+        if (Input::has('artist_name')) {
+            $events = $events->artistName(Input::get('artist_name'));
+        }
+        if (Input::has('platforms')) {
+            $events = $events->platforms(Input::get('platforms'));
+        }
+        if (Input::has('is_followed_by_private')) {
+            $is_followed_by_private = Input::get('is_followed_by_private');
+            if($is_followed_by_private == '1') $events = $events->isFollowedByPrivate(TRUE);
+            else $events = $events->isFollowedByPrivate(FALSE);
+        }
+        if (Input::has('has_representer')) {
+            $has_representer = Input::get('has_representer');
+            if($has_representer == '1') $events = $events->hasRepresenter(TRUE);
+            else $events = $events->hasRepresenter(FALSE);
+        }
+        $response = $events->paginate(10);
+        foreach ($response as $event)
+        {
+
+        }
+        return Jsend::success($response->toArray());
     }
 
     /**
@@ -32,7 +74,10 @@ class EventController extends \BaseController {
      * @return Response
      */
     public function show($id) {
-        //
+        $events = Event::with('representer', 'eventType', 'image', 
+                            'ticketCategories', 'platforms', 'printingTypes', 'artists', 
+                            'members', 'skills', 'gifts', 'equipments');
+        return Jsend::success($events->find($id));
     }
 
     /**

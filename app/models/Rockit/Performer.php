@@ -34,4 +34,14 @@ class Performer extends \Eloquent {
         			->first();
     }
 
+	public function artist()
+	{
+		return $this->belongsTo('Rockit\Artist');
+	}
+
+	public function event()
+	{
+		return $this->belongsTo('Rockit\Event');
+	}
+
 }

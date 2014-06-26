@@ -21,4 +21,14 @@ class Need extends \Eloquent {
 	];
 	public static $response_field = 'id';
 
+	public function skill()
+	{
+		return $this->belongsTo('Rockit\Skill');
+	}
+
+	public function event()
+	{
+		return $this->belongsTo('Rockit\Event');
+	}
+
 }

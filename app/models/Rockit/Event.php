@@ -41,10 +41,21 @@ class Event extends \Eloquent {
 					->withPivot('quantity','cost','comment_de');
 	}
 
+	public function offers()
+	{
+		return $this->hasMany('Rockit\Offer');
+	}
+
 	public function ticketCategories()
 	{
 		return $this->belongsToMany('Rockit\TicketCategory', 'Tickets')
 					->withPivot('amount','comment_de','quantity_sold')
+					->orderBy('amount', 'desc');
+	}
+
+	public function tickets()
+	{
+		return $this->hasMany('Rockit\Ticket')
 					->orderBy('amount', 'desc');
 	}
 
@@ -54,16 +65,31 @@ class Event extends \Eloquent {
 					->withPivot('quantity','cost');
 	}
 
+	public function attributions()
+	{
+		return $this->hasMany('Rockit\Attribution');
+	}
+
 	public function platforms()
 	{
 		return $this->belongsToMany('Rockit\Platform', 'sharings')
 					->withPivot('url');
 	}
 
+	public function sharings()
+	{
+		return $this->hasMany('Rockit\Sharing');
+	}
+
 	public function printingTypes()
 	{
 		return $this->belongsToMany('Rockit\PrintingType', 'printings')
 					->withPivot('source','nb_copies','nb_copies_surplus');
+	}
+
+	public function printings()
+	{
+		return $this->hasMany('Rockit\Printing');
 	}
 
 	public function eventType()
@@ -82,9 +108,19 @@ class Event extends \Eloquent {
 					->withPivot('order','is_support','artist_hour_of_arrival');
 	}
 
+	public function performers()
+	{
+		return $this->hasMany('Rockit\Performer');
+	}
+
 	public function members()
 	{
 		return $this->belongsToMany('Rockit\Member', 'staffs');
+	}
+
+	public function staffs()
+	{
+		return $this->hasMany('Rockit\Staff');
 	}
 
 	public function skills()
@@ -93,10 +129,80 @@ class Event extends \Eloquent {
 					->withPivot('nb_people');
 	}
 
+	public function needs()
+	{
+		return $this->hasMany('Rockit\Need');
+	}
+
 	public function representer()
 	{
 		return $this->belongsTo('Rockit\Representer');
 	}
+
+    public function scopeArtistGenres($query, array $genres)
+    {
+        return $query->whereHas('artists', function($q) use ($genres)
+        {
+            $q->whereHas('genres', function($q) use ($genres)
+	        {
+	            $q->whereIn('genres.id', $genres);
+	        });
+        });
+    }
+
+    public function scopeEventType($query, array $event_types)
+    {
+        return $query->whereIn('events.event_type_id', $event_types);
+    }
+
+    public function scopeIsPublished($query, $boolean)
+    {
+        if($boolean) return $query->where('events.published_at', '<>', 'NULL');
+        else return $query->where('events.published_at', '=', NULL);
+    }
+
+    public function scopeTitle($query, $title)
+    {
+        return $query->where('events.title_de', 'LIKE', '%'.$title.'%');
+    }
+
+    public function scopeFrom($query, $from)
+    {
+        return $query->where('events.start_date_hour', '>=', $from);
+    }
+
+    public function scopeTo($query, $to)
+    {
+        return $query->where('events.start_date_hour', '<=', $to);
+    }
+
+    public function scopeArtistName($query, $artist_name)
+    {
+        return $query->whereHas('artists', function($q) use ($artist_name)
+        {
+            $q->where('artists.name', 'LIKE', '%'.$artist_name.'%');
+        });
+    }
+
+    public function scopePlatforms($query, array $platforms)
+    {
+        return $query->whereHas('platforms', function($q) use ($platforms)
+        {
+            $q->whereIn('platforms.id', $platforms);
+        });
+    }
+
+    public function scopeIsFollowedByPrivate($query, $boolean)
+    {
+        if($boolean) return $query->where('events.followed_by_private', '=', TRUE);
+        else return $query->where('events.followed_by_private', '=', FALSE);
+    }
+
+    public function scopeHasRepresenter($query, $boolean)
+    {
+        if($boolean) return $query->has('representer', '>', 0);
+        else return $query->has('representer', '<', 1);
+    }
 
 	/**
 	* Check that there is an event that exists in the set of persistant Events, 

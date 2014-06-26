@@ -25,4 +25,14 @@ class Offer extends \Eloquent {
 	];
 	public static $response_field = 'id';
 
+	public function gift()
+	{
+		return $this->belongsTo('Rockit\Gift');
+	}
+
+	public function event()
+	{
+		return $this->belongsTo('Rockit\Event');
+	}
+
 }

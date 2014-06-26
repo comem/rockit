@@ -23,4 +23,14 @@ class Attribution extends \Eloquent {
 	];
 	public static $response_field = 'id';
 
+	public function equipment()
+	{
+		return $this->belongsTo('Rockit\Equipment');
+	}
+
+	public function event()
+	{
+		return $this->belongsTo('Rockit\Event');
+	}
+
 }
