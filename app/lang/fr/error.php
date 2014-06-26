@@ -105,4 +105,8 @@ return array(
         'created' => "L'image n'a pas pu être rajoutée à l'événement !",
         'deleted' => "L'image n'a pas pu être supprimée à l'événement !",
     ),
+    'illustration' => array(
+        'created' => "Le représentant n'a pas pu être rajouté à l'événement !",
+        'deleted' => "Le représentant n'a pas pu être supprimé à l'événement !",
+    ),
 );

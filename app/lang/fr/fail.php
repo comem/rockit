@@ -117,4 +117,8 @@ return array(
         'inexistant' => "Cet événement n'a pas d'image de couverture !",
         'attach_image_not_performer' => "L'image que vous souhaiter attacher n'appartient pas à un group qui joue dand l'événement !",
     ),
+    'illustration' => array(
+        'existing' => "Il y a déjà un représentant pour cet événement !",
+        'inexistant' => "Il n'y aucun représentant pour cet événement !",
+    ),
 );
