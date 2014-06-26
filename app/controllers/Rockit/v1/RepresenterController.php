@@ -6,11 +6,11 @@ use \Input,
     \BaseController,
     \Jsend,
     \Rockit\Representer,
-    \Rockit\FunctionnalServicesTrait;
+    \Rockit\Controllers\ControllerBSUDTrait;
 
 class RepresenterController extends BaseController {
 
-    use FunctionnalServicesTrait;
+    use ControllerBSUDTrait;
 
     /**
      * Store a newly created resource in storage.

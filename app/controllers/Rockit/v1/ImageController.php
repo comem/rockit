@@ -4,6 +4,7 @@ namespace Rockit\v1;
 
 use \Input,
     \Validator,
+    \Jsend,
     \Rockit\Image;
 
 class ImageController extends \BaseController {
@@ -44,15 +45,13 @@ class ImageController extends \BaseController {
      * @return Response
      */
     public function store() {
-        $file = array('file' => Input::file('file'));
-        $validate_file = Validator::make($file, array(
-            'file' => 'image'
-        ));
-        if ($validate_file->passes()) {
-            return "OK";
+        dd(Input::json());
+        if (!$data['source']->isValid()) {
+            $response = array('fail' => trans('fail.file.invalid'));
         } else {
-            return $validate_file->messages();
+            $response = Image::validate($data, Image::$create_rules);
         }
+        return Jsend::compile($response);
     }
 
     /**

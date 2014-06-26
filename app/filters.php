@@ -14,7 +14,9 @@ use Rockit\Resource;
  */
 
 App::before(function($request) {
-    //
+    if (!Auth::guest() && App::getLocale() !== Auth::user()->language->locale) {
+        App::setLocale(Auth::user()->language->locale);
+    }
 });
 
 
