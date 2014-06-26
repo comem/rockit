@@ -37,7 +37,15 @@ class SymbolizationController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		$event = Event::exist( $id );
+		if( is_object( $event ) ){
+			$response = self::delete( $event );
+		} else {
+			$response['fail'] = [
+				'title' => trans('fail.event.inexistant'),
+			];
+		}
+		return Jsend::compile($response);
 	}
 
 
