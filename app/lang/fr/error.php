@@ -101,4 +101,8 @@ return array(
         'created' => "L'image n'a pas pu être rajoutée à l'artist !",
         'deleted' => "L'image n'a pas pu être supprimée à l'artist !",
     ),
+    'symbolization' => array(
+        'created' => "L'image n'a pas pu être rajoutée à l'événement !",
+        'deleted' => "L'image n'a pas pu être supprimée à l'événement !",
+    ),
 );

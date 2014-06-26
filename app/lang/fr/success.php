@@ -105,4 +105,8 @@ return array(
         'created' => "L'image à bien étée ajoutée à l'artist !",
         'deleted' => "L'image à bient été supprimée de l'artist !",
     ),
+    'symbolization' => array(
+        'created' => "L'image à bien étée ajoutée à l'événement !",
+        'deleted' => "L'image à bient été supprimée de l'événement !",
+    ),
 );
