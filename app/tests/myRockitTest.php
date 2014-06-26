@@ -7,7 +7,7 @@ class myRockitTest extends TestCase {
 	public function test_all_show_for_peripheral_tables()
 	{
 
-		$cases = array("instruments", "gifts", "event-types");
+		$cases = array("instruments");
 
 		foreach ($cases as $case) {
 			$this->test_generic_for_peripheral_table($case);
@@ -20,10 +20,9 @@ class myRockitTest extends TestCase {
 		// $this->test_generic("printing-types");	
 		// $this->test_generic("instruments");
 		// $this->test_generic("equipments");
-		// echo "finish";
 	}
 
-	protected function test_generic_for_peripheral_table($class = "genres")
+	public function test_generic_for_peripheral_table($class = "genres")
 	{	
 		$response = $this->call('GET', "v1/$class");
 		$result = json_decode($response->getContent());
@@ -34,19 +33,32 @@ class myRockitTest extends TestCase {
 		$this->assertResponseStatus(200);
 	}
 
-	// public function test_instruments_show()
-	// {
-	// 	$response = $this->call('GET', "v1/genres");
+	
+	///////////////////////////// test for updates /////////////////////////
 
-	// 	$result = json_decode($response->getContent());
+	public function test_all_update()
+	{
+		$cases = array("skills");
 
-	// 	var_dump($result);
+		foreach ($cases as $case) {
+			$this->test_generic_add_to_peripheral_table("ble", $case);
+		}
+	}
 
-	// 	$this->assertEquals("success", $result->status,'We expected to have a success status !');
-	// 	$this->assertResponseStatus(200);
+	public function test_generic_add_to_peripheral_table($name_de = "bln", $class = "genres")
+	{
+		$response = $this->call('POST', "v1/$class", array('name_de' => $name_de));
 
-	// 	// $this->assertResponseOk();
-	// }
+		$result = json_decode($response->getContent());
+
+		echo "$class ";
+		var_dump($result->status);
+
+		$this->assertEquals("success", $result->status,'We expected to have a success status !');
+		$this->assertResponseStatus(200);
+
+		// $this->assertResponseOk();
+	}
 
 
 
