@@ -2,7 +2,7 @@
 
 namespace Rockit\v1;
 
-use \Input, \Validator, \Rockit\Image, \Jsend;
+use \Input, \Validator, \Rockit\Image, \Jsend, \Rockit\Event;
 
 class GuaranteeController extends \BaseController {
 
@@ -36,7 +36,15 @@ class GuaranteeController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		$event = Event::exist( $id );
+		if( is_object( $event ) ){
+			$response = self::delete( $event );
+		} else {
+			$response['fail'] = [
+				'title' => trans('fail.event.inexistant'),
+			];
+		}
+		return Jsend::compile($response);
 	}
 
 
