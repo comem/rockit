@@ -12,18 +12,38 @@ use \Rockit\Artist,
     \Jsend,
     \Input;
 
+/**
+ * Contains interaction methods to the Artist model in the database.<br>
+ * Base on the Laravel's BaseController.<br>
+ * Can : <b>index</b> all the Artists, <b>save</b>, <b>show</b>, <b>delete</b> and <b>update</b> one Artist.<br>
+ * Since Artists are required by an event, the <b>delete</b> is actually a <b>softDelete</b>.
+ * 
+ * @author Joël Gugger <joel.gugger@heig-vd.ch>
+ */
 class ArtistController extends \BaseController {
 
     use ControllerBSUDTrait;
 
     /**
      * Display a listing of the resource.
-     *
-     * @return Response
+     * 
+     * It is possible to give extra parameters in order to filter the results.<br>
+     * These parameters are :<br>
+     * <ul>
+     * <li><b>name</b>: an artist's name</li>
+     * <li><b>genres</b>: an array of genres id</li>
+     * <li><b>musician_name</b>: a musician's name</li>
+     * </ul>
+     * Each provided attribute reduces the scope of the results.<br>
+     * If the Collection posesses more than <b>10</b> items, it will be divided into chunck of <b>10</b> items.<br>
+     * This number of returned item can be changed by providing a value to the <b>nb_item</b> attribute.<br>
+     * This value can not be lower than <b>0</b>. 
+     * 
+     * @return Jsend
      */
-    public function index() 
-    {
+    public function index() {
         $artists = Artist::with('images', 'genres');
+        $nb_item = Input::has('nb_item') && Input::get('nb_item') > 0 ? Input::get('nb_item') : 10;
         if (Input::has('name')) {
             $artists = $artists->name(Input::get('name'));
         }
@@ -36,19 +56,26 @@ class ArtistController extends \BaseController {
             $artists = $artists->musicianFirstname($string);
             $artists = $artists->musicianLastname($string);
         }
-        return Jsend::success($artists->paginate(10)->toArray());
+        $paginate = $artists->paginate($nb_item)->toArray();
+        $artist_data = $paginate['data'];
+        unset($paginate['data']);
+        return Jsend::success(array(
+            'artists' => $artist_data,
+            'paginate' => $paginate,
+        ));
     }
 
     /**
      * Display the specified resource.
+     * 
+     * Return an Artist with all its relationships.
      *
      * @param  int  $id
      * @return Response
      */
-    public function show($id) 
-    {
+    public function show($id) {
         $artist = Artist::with('links', 'images', 'genres', 'events', 'musicians')
-                        ->find($id);
+        ->find($id);
         if (empty($artist)) {
             $response = Jsend::fail(array('title' => trans('fail.artist.inexistant')));
         } else {
@@ -120,11 +147,14 @@ class ArtistController extends \BaseController {
     }
 
     /**
+     * Save a new Artist inthe database with the given inputs.
+     * 
      * Method checks genres to be unique and to be existing before 
      * passing to valid $inputs to createOne method, as well as checking images
      * to be unique and to be existing and not already illustrating an artist.
      * If no existing genre is found, so return a fail message
-     * @param type $inputs
+     * 
+     * @param array $inputs
      * @return Message
      */
     public static function save($inputs) {

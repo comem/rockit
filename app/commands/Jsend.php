@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * This class allows you to return Jsend adequates responses.<br>
+ * You can either return a Jsend fail, error or success.<br>
+ * If your response is more likely to depends of the result of your method, use <b>Jsend::compile</b> instead.<br>
+ * It will guess the status of your response based on the data you give it.<br>
+ */
 class Jsend {
 
     const HTTP_SUCCESS = 200;

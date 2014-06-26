@@ -27,9 +27,10 @@ class TranslationController extends \BaseController {
      * @return Response
      */
     public function translate($locale = NULL) {
-        if ($locale != NULL)
+        if ($locale != NULL) {
             App::setLocale($locale);
-        return Lang::get('ihm');
+        }
+        return Jsend::success(trans('ihm'));
     }
 
     /**
@@ -52,7 +53,7 @@ class TranslationController extends \BaseController {
         $lang = Language::exist($locale);
         if (is_object($lang)) {
             $response = User::updateOne(
-                array('language_id' => $lang->id), Auth::user()
+            array('language_id' => $lang->id), Auth::user()
             );
             App::setLocale($lang->locale);
             return $response;

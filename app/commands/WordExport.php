@@ -4,8 +4,23 @@ use PhpOffice\PhpWord\PhpWord,
     PhpOffice\PhpWord\IOFactory,
     \Rockit\Event;
 
+/**
+ * This class is used to export an interval of selected Event into a well-formatted Word file.
+ * 
+ * @author Christian Heimann <christian.heimann@heig-vd.ch>
+ */
 class WordExport {
 
+    /**
+     * Return a Word file containing data from the events filtered by the <b>from</b> and <b>to</b> attribute.<br>
+     * 
+     * The <b>from</b> and <b>to</b> attribute must be UTC datetime formatted with the 'YYYY-mm-DD hh:mm:ss' format.<br>
+     * They are mandatory and will set a time interval from which the events will be retrieved and returned.<br>
+     * 
+     * @param DateTime $from The interval beginning time
+     * @param DateTime $to The interval end time
+     * @return Word An output to download the created Word file
+     */
     public static function events($from, $to) {
 
         setlocale(LC_ALL, 'de_DE@euro', 'de_DE', 'de', 'ge');
@@ -62,7 +77,7 @@ class WordExport {
         //// Set line style definitions
         $lsSimple = array('weight' => 1, 'width' => 460, 'height' => 0); // for seperator between paragraphs
         $lsColor = array('weight' => 1, 'width' => 460, 'height' => 0, 'color' => '#b2a68b');
-        
+
         // 1 = Main title document
         $word->addTitleStyle(1, $fsH1, $psH1);
         // 2 = title indicated global dates (from-to or month)
@@ -99,8 +114,8 @@ class WordExport {
         $section->addText("Benutzer: presse@mahog_werb", $fsStandard, $psStandard);
         $section->addText("Passwort: pressemahog11", $fsStandard, $psStandardSpaceAfter);
         $section->addText("Es können ohne Rückfrage jeweils 1x2 Tickets verlost werden. "
-                . "Für mehr Tickets bitte kurze Anfrage an konzerte@mahogany.ch. "
-                . "Gewinnermeldungen von Ticketverlosungen bitte direkt an reservationen@mahogany.ch.", $fsShortDesc, $psStandardSpaceAfter);
+        . "Für mehr Tickets bitte kurze Anfrage an konzerte@mahogany.ch. "
+        . "Gewinnermeldungen von Ticketverlosungen bitte direkt an reservationen@mahogany.ch.", $fsShortDesc, $psStandardSpaceAfter);
 
         $section->addLine($lsColor);
 
@@ -117,13 +132,13 @@ class WordExport {
             $section->addTitle($dates, 2);
         }
         $section->addLine($lsColor);
-        
+
         // Events listing loop
         $events = Event::whereNotNull("published_at")->where('start_date_hour', '>=', $from)->where('start_date_hour', '<=', $to)->orderBy('start_date_hour')->get();
         foreach ($events as $event) {
             $date = strftime("%A, %e. %B %Y  |  %H.%M Uhr", strtotime($event->start_date_hour));
             $date = self::deleteDoubleWhitspace($date);
-            
+
             if ($event->opening_doors != NULL) {
                 $opening_doors = strftime("  (Türöffnung %H.%M Uhr)", strtotime($event->opening_doors));
             } else {
@@ -247,27 +262,26 @@ class WordExport {
 
     private static function isWholeMonth($timeFrom, $timeTo) {
         $isWholeMonth = false;
-        if(date('n', $timeFrom) == date('n', $timeTo) && date('Y', $timeFrom) == date('Y', $timeTo)
-                && date('j', $timeFrom) == 1 && date('j', $timeTo) == date('t', $timeFrom)) {
+        if (date('n', $timeFrom) == date('n', $timeTo) && date('Y', $timeFrom) == date('Y', $timeTo) && date('j', $timeFrom) == 1 && date('j', $timeTo) == date('t', $timeFrom)) {
             $isWholeMonth = true;
         }
         return $isWholeMonth;
     }
-    
+
     private static function getRepresenterDetails($representer) {
         $contact = "";
-        if($representer != NULL) {
+        if ($representer != NULL) {
             $contact = $contact . $representer->first_name . " " . $representer->last_name;
-            if($representer->phone != NULL) {
+            if ($representer->phone != NULL) {
                 $contact = $contact . ", Tel. " . $representer->phone;
             }
-            if($representer->email != NULL) {
+            if ($representer->email != NULL) {
                 $contact = $contact . ", " . $representer->email;
             }
         }
         return $contact;
     }
-    
+
     private static function deleteDoubleWhitspace($date) {
         $date = preg_replace("/\s\s(\d\.)/", " $1", $date);
         return $date;
