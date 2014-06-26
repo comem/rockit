@@ -37,7 +37,8 @@ class Event extends \Eloquent {
 
 	public function gifts()
 	{
-		return $this->belongsToMany('Rockit\Gift')->withPivot('quantity','cost','comment_de');
+		return $this->belongsToMany('Rockit\Gift', 'offers')
+					->withPivot('quantity','cost','comment_de');
 	}
 
 	public function ticketCategories()
@@ -49,25 +50,30 @@ class Event extends \Eloquent {
 
 	public function equipments()
 	{
-		return $this->belongsToMany('Rockit\Equipment')
+		return $this->belongsToMany('Rockit\Equipment', 'attributions')
 					->withPivot('quantity','cost');
 	}
 
 	public function platforms()
 	{
-		return $this->belongsToMany('Rockit\Platform')
+		return $this->belongsToMany('Rockit\Platform', 'sharings')
 					->withPivot('url');
 	}
 
 	public function printingTypes()
 	{
-		return $this->belongsToMany('Rockit\PrintingType')
+		return $this->belongsToMany('Rockit\PrintingType', 'printings')
 					->withPivot('source','nb_copies','nb_copies_surplus');
 	}
 
-	public function eventTypes()
+	public function eventType()
 	{
-		return $this->belongsToMany('Rockit\EventType');
+		return $this->belongsTo('Rockit\EventType');
+	}
+
+	public function image()
+	{
+		return $this->belongsTo('Rockit\Image');
 	}
 
 	public function artists()
@@ -78,12 +84,12 @@ class Event extends \Eloquent {
 
 	public function members()
 	{
-		return $this->belongsToMany('Rockit\Member');
+		return $this->belongsToMany('Rockit\Member', 'staffs');
 	}
 
 	public function skills()
 	{
-		return $this->belongsToMany('Rockit\Skill')
+		return $this->belongsToMany('Rockit\Skill', 'needs')
 					->withPivot('nb_people');
 	}
 

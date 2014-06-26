@@ -16,9 +16,9 @@ class EventController extends \BaseController {
      */
     public function index() 
     {
-        $events = Event::with('representer', 'tickets', 'sharings', 
-                            'event_type', 'image', 'printings', 'performers', 
-                            'staffs', 'needs', 'offers', 'attribution');
+        $events = Event::with('representer', 'eventType', 'image', 
+                            'ticketCategories', 'platforms', 'printingTypes', 'artists', 
+                            'members', 'skills', 'gifts', 'equipments');
         if (Input::has('name')) {
             //$events = $events->name(Input::get('name'));
         }
