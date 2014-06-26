@@ -9,6 +9,7 @@ class Printing extends \Eloquent {
 	use CompletePivotModelTrait;
 
 	protected $table = 'printings';
+	protected $hidden = ['printing_type_id', 'event_id'];
 
 	public $timestamps = false;
 	public static $create_rules = [
@@ -22,6 +23,16 @@ class Printing extends \Eloquent {
 		'nb_copies_surplus'	=> 'integer|min:0',
 	];
 	public static $response_field = 'id';
+
+	public function printingType()
+	{
+		return $this->belongsTo('Rockit\PrintingType');
+	}
+
+	public function event()
+	{
+		return $this->belongsTo('Rockit\Event');
+	}
 
 
 }

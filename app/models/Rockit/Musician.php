@@ -17,7 +17,7 @@ class Musician extends \Eloquent {
     protected $hidden = ['deleted_at'];
 
     public $timestamps = true;
-    public static $response_field = 'id';
+    public static $response_field = 'first_name';
 
     public static $create_rules = array(
         'first_name' => 'required|min:1|max:100',
@@ -37,6 +37,10 @@ class Musician extends \Eloquent {
     
     public function instrumentsFor($artist_id) {
         return $this->belongsToMany('Rockit\Instrument', 'lineups')->where('artist_id', '=', $artist_id);
+    }
+    
+    public function instruments() {
+        return $this->belongsToMany('Rockit\Instrument', 'lineups');
     }
 
     public function artists() {
