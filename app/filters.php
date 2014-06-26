@@ -14,6 +14,7 @@ use Rockit\Resource;
  */
 
 App::before(function($request) {
+    // Check the current locale and set it to the user's locale
     if (!Auth::guest() && App::getLocale() !== Auth::user()->language->locale) {
         App::setLocale(Auth::user()->language->locale);
     }
