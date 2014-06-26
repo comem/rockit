@@ -147,7 +147,7 @@ class ArtistController extends \BaseController {
     }
 
     /**
-     * Save a new Artist inthe database with the given inputs.
+     * Save a new Artist in the database with the given inputs.
      * 
      * Method checks genres to be unique and to be existing before 
      * passing to valid $inputs to createOne method, as well as checking images

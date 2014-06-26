@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
     /*
       |--------------------------------------------------------------------------
       | Password Reminder Language Lines
@@ -16,4 +16,4 @@ return array(
     "user" => "Cette adresse e-mail ne correspond à aucun utilisateur existant.",
     "token" => "Ce jeton de réinitialisation n'est pas valide.",
     "sent" => "Le pense-bête de mot de passe a été envoyé !",
-);
+];
