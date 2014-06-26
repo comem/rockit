@@ -2,33 +2,54 @@
 
 class myRockitTest extends TestCase {
 
-	/////////////////////////////// Single test ////////////////////////////////////
+	///////////////////////////// Single test ////////////////////////////////////
 
-// 	public function testsMulti(){
+	public function test_all_show_for_peripheral_tables()
+	{
 
-// 	$class = "instruments";
-// 	$this->testByClass_showAll("instruments");	
-// 	}
-// 	/**
-// 	 * A basic functional test example.
-// 	 *
-// 	 * @return void
-// 	 */
-// 	protected function testByClass_showAll($class)
-// 	{
-// 		$response = $this->call('GET', "v1/$class");
+		$cases = array("instruments", "gifts", "event-types");
 
-// // var_dump($response->getContent() . ' is received');
-// 	// receive a string
-// 		$result = json_decode($response->getContent());
+		foreach ($cases as $case) {
+			$this->test_generic_for_peripheral_table($case);
+		}
 
-// 	// dd($result->status);
-// 	$this->assertEquals("success", $result->status,'We expected to see that the id sent = 2');
-// 	// receive a string
-// 	// $this->assertEquals("true", $response->getContent());
+		// $this->test_generic("event-types");
+		// $this->test_generic("ticket-categories");
+		// $this->test_generic("gifts");
+		// $this->test_generic("skills");
+		// $this->test_generic("printing-types");	
+		// $this->test_generic("instruments");
+		// $this->test_generic("equipments");
+		// echo "finish";
+	}
 
-// 	// $this->assertResponseOk();
-// 	}
+	protected function test_generic_for_peripheral_table($class = "genres")
+	{	
+		$response = $this->call('GET', "v1/$class");
+		$result = json_decode($response->getContent());
+		// echo "call here";
+		echo "$class ";
+		var_dump($result->status);
+		$this->assertEquals("success", $result->status,'We expected to have a success status !');
+		$this->assertResponseStatus(200);
+	}
+
+	// public function test_instruments_show()
+	// {
+	// 	$response = $this->call('GET', "v1/genres");
+
+	// 	$result = json_decode($response->getContent());
+
+	// 	var_dump($result);
+
+	// 	$this->assertEquals("success", $result->status,'We expected to have a success status !');
+	// 	$this->assertResponseStatus(200);
+
+	// 	// $this->assertResponseOk();
+	// }
+
+
+
 
 	/////////////////////////// Test that includes a name space ////////////////////
 	// public function testClassWithTrait()
@@ -39,36 +60,6 @@ class myRockitTest extends TestCase {
 
 
 
-
-
-	/////////////////////////// Composite Test ///////////////////////////////////
-
-	public function testMultipleIds() {
-		$this->testGetMemberById('1');
-		$this->testGetMemberById('2');
-		// $this->testGetMemberById(3);
-	}
-
-
-	/**
-	 * A basic functional test example.
-	 *
-	 * @return void
-	 */
-	protected function testGetMemberById($id)
-	{
-		var_dump($id);
-		$response = $this->call('GET', 'v1/members', array('id' => $id));
-	// $response = $this->call('GET', 'MemberController@show', array('id' => '3')); // doesnt work
-
-	var_dump($response->getContent() . ' is received');
-	// receive a string
-	$this->assertEquals(2, $response->getContent(),'We expected to see that {$id} sent = 2');
-	// receive a string
-	// $this->assertEquals("true", $response->getContent());
-
-	// $this->assertResponseOk();
-	}
 
 	///////////////////////////// PDO exception test ////////////////////////////
 
