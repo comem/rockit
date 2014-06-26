@@ -38,6 +38,10 @@ class Musician extends \Eloquent {
     public function instrumentsFor($artist_id) {
         return $this->belongsToMany('Rockit\Instrument', 'lineups')->where('artist_id', '=', $artist_id);
     }
+    
+    public function instruments() {
+        return $this->belongsToMany('Rockit\Instrument', 'lineups');
+    }
 
     public function artists() {
         return $this->belongsToMany('Rockit\Artist', 'lineups')->groupBy('id');

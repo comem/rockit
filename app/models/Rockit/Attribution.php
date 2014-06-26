@@ -9,6 +9,7 @@ class Attribution extends \Eloquent {
 	use CompletePivotModelTrait;
 
 	protected $table = 'attributions';
+	protected $hidden = ['equipment_id', 'event_id'];
 	
 	public $timestamps = false;
 	public static $create_rules = [

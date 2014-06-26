@@ -9,6 +9,7 @@ class Staff extends \Eloquent {
 	use CompletePivotModelTrait;
 
 	protected $table = 'staffs';
+	protected $hidden = ['event_id', 'member_id', 'skill_id'];
 
 	public $timestamps = false;
 	public static $create_rules = [

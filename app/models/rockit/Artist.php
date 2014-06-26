@@ -42,16 +42,23 @@ class Artist extends \Eloquent {
     }
 
     public function lineups() {
-        return $this->hasMany('Rockit\Lineup')->groupBy('musician_id');
+        return $this->hasMany('Rockit\Lineup');
     }
 
     public function events() {
-        return $this->belongsToMany('Rockit\Event', 'performers')
-                    ->withPivot('id')->groupBy('id');
+        return $this->belongsToMany('Rockit\Event', 'performers')->groupBy('event_id');
+    }
+
+    public function performers() {
+        return $this->hasMany('Rockit\Performer');
     }
 
     public function musicians() {
-        return $this->belongsToMany('Rockit\Musician', 'lineups')->groupBy('id');
+        return $this->belongsToMany('Rockit\Musician', 'lineups')->groupBy('musician_id');
+    }
+
+    public function instruments() {
+        return $this->belongsToMany('Rockit\Instrument', 'lineups');
     }
 
     public function scopeName($query, $string)

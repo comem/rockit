@@ -9,6 +9,7 @@ class Need extends \Eloquent {
 	use CompletePivotModelTrait;
 
 	protected $table = 'needs';
+	protected $hidden = ['skill_id', 'event_id'];
 
 	public $timestamps = false;
 	public static $create_rules = [

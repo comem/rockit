@@ -110,7 +110,8 @@ class Event extends \Eloquent {
 
 	public function performers()
 	{
-		return $this->hasMany('Rockit\Performer');
+		return $this->hasMany('Rockit\Performer')
+					->orderBy('order');;
 	}
 
 	public function members()

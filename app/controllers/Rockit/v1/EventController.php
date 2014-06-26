@@ -18,9 +18,8 @@ class EventController extends \BaseController {
     {
         $events = Event::with('representer', 'eventType', 'image', 
                             'tickets.ticketCategory', 'sharings.platform', 'printings.printingType', 
-                            'performers.artist', 'staffs.member', 'needs.skill', 'offers.gift', 
+                            'performers.artist', 'staffs.member', 'staffs.skill', 'needs.skill', 'offers.gift', 
                             'attributions.equipment');
-        
         if (Input::has('genres')) {
             $events = $events->artistGenres(Input::get('genres'));
         }
@@ -59,12 +58,7 @@ class EventController extends \BaseController {
             if($has_representer == '1') $events = $events->hasRepresenter(TRUE);
             else $events = $events->hasRepresenter(FALSE);
         }
-        $response = $events->paginate(10);
-        foreach ($response as $event)
-        {
-
-        }
-        return Jsend::success($response->toArray());
+        return Jsend::success($events->paginate(10)->toArray());
     }
 
     /**

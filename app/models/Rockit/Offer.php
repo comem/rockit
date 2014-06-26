@@ -9,6 +9,7 @@ class Offer extends \Eloquent {
 	use CompletePivotModelTrait;
 
 	protected $table = 'offers';
+	protected $hidden = ['gift_id', 'event_id'];
 
 	public $timestamps = false;
 	public static $create_rules = [

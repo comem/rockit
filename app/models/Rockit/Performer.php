@@ -9,6 +9,7 @@ class Performer extends \Eloquent {
 	use CompletePivotModelTrait;
 
 	protected $table = 'performers';
+	protected $hidden = ['artist_id', 'event_id'];
 
 	public $timestamps = false;
 	public static $create_rules = [
