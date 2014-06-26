@@ -208,39 +208,6 @@ class Event extends \Eloquent {
     }
 
 	/**
-	* Check that there is an event that exists in the set of persistant Events, 
-	* based on a provided id
-	*
-	* @param $id
-	* @return true or fail message
-	*/
-	public static function exist( $id )
-	{
-		$response = self::where('id', '=', $id)->first();
-		if($response == NULL){
-			$response['fail'] = trans('fail.event.inexistant');
-		}
-		return $response;
-	}
-
-	/**
-	* Validate the information passed in parameters
-	*
-	* @param $inputs, $rules
-	* @return true or fail message
-	*/
-	public static function validate( $inputs, $rules )
-	{
-		$v = Validator::make( $inputs, $rules );
-		if( $v->fails() ){
-			$response['fail'] = $v->messages()->getMessages();
-		} else {
-			$response = true;
-		}
-		return $response;
-	}
-
-	/**
 	* Check that anEventStartDateHour is set after anEventOpeningDoors
 	*
 	* @param $start_date_hour, $opening_doors_hour
@@ -317,68 +284,5 @@ class Event extends \Eloquent {
 		}
 		return $response;
 	}
-
-	/**
-	* Create a new Event
-	*
-	* @param $inputs
-	* @return  true or error message
-	*/
-	public static function createOne( $inputs )
-	{
-		self::unguard();
-		$object = self::create( $inputs );
-		if( $object != null ){
-			$response['success'] = array(
-				'title' => trans('success.event.created'),
-				'id' => $object->id,
-			);
-		} else {
-			$response['error'] = trans('error.event.created');
-		}
-		return $response;
-	}
-
-	/**
-	* Update a persistant Event, based on the difference between a 
-	* provided anEventToModify and anExistingEvent
-	*
-	* @param $new_values, Event $object
-	* @return  true or error message
-	*/
-	public static function updateOne( $new_values, Event $object )
-	{
-		foreach( $new_values as $key => $value )
-		{
-			$object->$key = $value;
-		}
-		if( $object->save() ){ 
-			$response['success'] = array(
-				'title' => trans('success.event.updated'),
-			);
-		} else {
-			$response['error'] = trans('error.event.updated');
-		}
-		return $response;
-	}
-
-	/**
-	* Delete a persistant Event
-	*
-	* @param Event $object
-	* @return  true or error message
-	*/
-	public static function deleteOne( Event $object )
-	{
-		if( $object->delete() ){ 
-			$response['success'] = array(
-				'title' => trans('success.event.deleted'),
-			);
-		} else {
-			$response['error'] = trans('error.event.deleted');
-		}
-		return $response;
-	}
-       
 
 }

@@ -116,8 +116,13 @@ class EventController extends \BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function publish($id) {
-        //
+    public function publish($id) 
+    {
+        $response = Event::exist($id);
+        if ( is_object($response) ) {
+            $response = self::sfPublish( $response );
+        }
+        return Jsend::compile($response);
     }
 
     /**
@@ -157,10 +162,16 @@ class EventController extends \BaseController {
         //
     }
 
-    //$response = Event::updateOne(['published_at' => date('Y-m-d H:i:s')], $response);
+
     public static function sfUnpublish( $event )
     {
         return Event::updateOne(['published_at' => NULL], $event);
+    }
+
+
+    public static function sfPublish( $event )
+    {
+        return Event::updateOne(['published_at' => date('Y-m-d H:i:s')], $event);
     }
 
 }
