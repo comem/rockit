@@ -11,7 +11,8 @@ class TicketCategory extends \Eloquent {
 		ModelBCRDTrait;
         
 	protected $table = 'ticket_categories';
-        protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at'];
+    protected $hidden = ['deleted_at'];
         
 	public $timestamps = false;
         public static $response_field = 'name_de';
