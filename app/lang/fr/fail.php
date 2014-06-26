@@ -120,11 +120,10 @@ return array(
     ),
     'representer' => array(
         'existing' => "Les artistes de cet événement sont déjà représentés par un autre représentant.",
-        'inexistant' => "Il n'existe aucun représentant pour cet événement.",
     ),
     'file' => array(
         'invalid' => "Le fichier n'est pas un fichier valide.",
         'inexistant' => "Le fichier auquel vous tentez d'accéder n'existe pas.",
-        'unsupported' => "Le type du fichier sélectionné n'est pas supporté.",
+        'unsupported' => "Le type du fichier sélectionné n'est pas supporté par l'application.",
     ),
 );
