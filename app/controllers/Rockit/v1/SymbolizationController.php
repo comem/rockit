@@ -88,4 +88,32 @@ class SymbolizationController extends \BaseController {
 	}
 
 
+	public static function delete( Event $event )
+	{
+		if ( empty( $event->image_id ) )
+		{
+			$response['fail'] = [
+				'title' =>  trans('fail.symbolization.inexistant')
+			];
+		}
+		else
+		{
+			$event->image_id = NULL;
+			if ( $event->save() )
+			{
+				$response['success'] = [
+					'title' => trans('success.symbolization.deleted'),
+				];
+			}
+			else
+			{
+				$response['error'] = [
+					'title' => trans('error.symbolization.deleted')
+				];
+			}
+		}
+		return $response;
+	}
+
+
 }
