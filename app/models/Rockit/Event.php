@@ -6,6 +6,8 @@ use \Validator, \DB;
 
 class Event extends \Eloquent {
 
+	use Models\ModelBCUDTrait;
+
 	protected $table = 'events';
 	public $timestamps = true;
 

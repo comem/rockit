@@ -2,10 +2,11 @@
 
 namespace Rockit\v1;
 
+use \Rockit\Controllers\ControllerBSUDTrait;
 use \Jsend,
     \Input,
-    \WordExport;
-use \Rockit\Event;
+    \WordExport,
+    \Rockit\Event;
 
 class EventController extends \BaseController {
 
@@ -125,8 +126,13 @@ class EventController extends \BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function unpublish($id) {
-        //
+    public function unpublish($id)
+    {
+        $response = Event::exist($id);
+        if ( is_object($response) ) {
+            $response = self::sfUnpublish( $response );
+        }
+        return Jsend::compile($response);
     }
 
     /**
@@ -149,6 +155,12 @@ class EventController extends \BaseController {
      */
     public function exportXML() {
         //
+    }
+
+    //$response = Event::updateOne(['published_at' => date('Y-m-d H:i:s')], $response);
+    public static function sfUnpublish( $event )
+    {
+        return Event::updateOne(['published_at' => NULL], $event);
     }
 
 }
