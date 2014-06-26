@@ -14,8 +14,15 @@ class EventController extends \BaseController {
      *
      * @return Response
      */
-    public function index() {
-        // 
+    public function index() 
+    {
+        $events = Event::with('representer', 'tickets', 'sharings', 
+                            'event_type', 'image', 'printings', 'performers', 
+                            'staffs', 'needs', 'offers', 'attribution');
+        if (Input::has('name')) {
+            //$events = $events->name(Input::get('name'));
+        }
+        return Jsend::success($events->paginate(10)->toArray());
     }
 
     /**

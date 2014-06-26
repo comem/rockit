@@ -42,22 +42,27 @@ class Event extends \Eloquent {
 
 	public function ticketCategories()
 	{
-		return $this->belongsToMany('Rockit\TicketCategory', 'Tickets')->withPivot('amount','comment_de','quantity_sold')->orderBy('amount', 'desc');
+		return $this->belongsToMany('Rockit\TicketCategory', 'Tickets')
+					->withPivot('amount','comment_de','quantity_sold')
+					->orderBy('amount', 'desc');
 	}
 
 	public function equipments()
 	{
-		return $this->belongsToMany('Rockit\Equipment')->withPivot('quantity','cost');
+		return $this->belongsToMany('Rockit\Equipment')
+					->withPivot('quantity','cost');
 	}
 
 	public function platforms()
 	{
-		return $this->belongsToMany('Rockit\Platform')->withPivot('url');
+		return $this->belongsToMany('Rockit\Platform')
+					->withPivot('url');
 	}
 
 	public function printingTypes()
 	{
-		return $this->belongsToMany('Rockit\PrintingType')->withPivot('source','nb_copies','nb_copies_surplus');
+		return $this->belongsToMany('Rockit\PrintingType')
+					->withPivot('source','nb_copies','nb_copies_surplus');
 	}
 
 	public function eventTypes()
@@ -67,7 +72,8 @@ class Event extends \Eloquent {
 
 	public function artists()
 	{
-		return $this->belongsToMany('Rockit\Artist', 'performers')->withPivot('order','is_support','artist_hour_of_arrival');
+		return $this->belongsToMany('Rockit\Artist', 'performers')
+					->withPivot('order','is_support','artist_hour_of_arrival');
 	}
 
 	public function members()
@@ -77,7 +83,8 @@ class Event extends \Eloquent {
 
 	public function skills()
 	{
-		return $this->belongsToMany('Rockit\Skill')->withPivot('nb_people');
+		return $this->belongsToMany('Rockit\Skill')
+					->withPivot('nb_people');
 	}
 
 	public function representer()

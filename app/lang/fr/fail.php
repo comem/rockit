@@ -100,4 +100,8 @@ return array(
         'existing' => "Ce groupe joue déjà dans cet événement à cette position !",
         'inexistant' => "Il n'y aucune liaison correspondant !",
     ),
+    'musician' => array(
+        'existing' => "Il y a déjà un musician ':name' enregistré !",
+        'inexistant' => "Il n'y aucun musician enregistré correspondant !",
+    ),
 );
