@@ -64,7 +64,7 @@ class EventController extends \BaseController {
      * @return Response
      */
     public function publish($id) {
-        //
+        return "success";
     }
 
     /**
@@ -74,7 +74,7 @@ class EventController extends \BaseController {
      * @return Response
      */
     public function unpublish($id) {
-        //
+        return "success";
     }
 
     /**
