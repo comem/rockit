@@ -190,10 +190,12 @@ class WordExport {
                         $indexLinks++;
                     }
                 } elseif ($event->representer != NULL) {
-                    $contactDetails = self::getRepresenterDetails($event);
+                    $contactDetails = self::getRepresenterDetails($event->representer);
                     $trContact = $section->addTextRun($psStandard);
                     $trContact->addText("Bandkontakt: " . $contactDetails, $fsStandard);
                 }
+                print_r($event->representer->events);
+                die();
             }
             $trTickets = $section->addTextRun($psStandardSpaceBeforeAndAfter);
             $indexTickets = 0;
@@ -256,9 +258,8 @@ class WordExport {
         return $isWholeMonth;
     }
     
-    private static function getRepresenterDetails($event) {
+    private static function getRepresenterDetails($representer) {
         $contact = "";
-        $representer = $event->representer;
         if($representer != NULL) {
             $contact = $contact . $representer->first_name . " " . $representer->last_name;
             if($representer->phone != NULL) {
