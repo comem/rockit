@@ -12,7 +12,7 @@ class tablesWithAddressTest extends TestCase {
 		$cases = array( 
 			array( 
 				'method' => 'GET', 
-				'uri' => 'v1/members'
+				'uri' => 'v1/musicians'
 			));
 		foreach ($cases as $case){
 			$response = $this->show_all_for_tables_with_addresses( $case['method'], $case['uri'] );
@@ -60,56 +60,56 @@ class tablesWithAddressTest extends TestCase {
 
 	///////////////////////////// Test for show ////////////////////////////////////
 
-	// public function test_store_one_for_tables_with_addresses()
-	// {
-	// 	//first_name', 'last_name', 'stagename', 'lineups');
-	// 	$cases = array( 
-	// 				array( 
-	// 					'method' => 'POST', 
-	// 					'uri' => "v1/musicians",
-	// 					'first_name' => 'Karl',
-	// 					'last_name' => 'Legerfeld',
-	// 					'stagename' => 'Bonzai',
-	// 					'lineups' => array(
-	// 									array(
-	// 										'artist_id' => 1,
-	// 										'instrument_id' =>1
-	// 										),
-	// 									array(
-	// 										'artist_id' => 1,
-	// 										'instrument_id' =>2
-	// 										),
-	// 									array(
-	// 										'artist_id' => 1,
-	// 										'instrument_id' =>3
-	// 										)
-	// 									)
-	// 				)
-	// 			);
-	// 	foreach ($cases as $case){
-	// 		$response = $this->store_one_for_tables_with_addresses( $case );
-	// 	}
-	// }
+	public function test_store_one_for_tables_with_addresses()
+	{
+		//first_name', 'last_name', 'stagename', 'lineups');
+		$cases = array( 
+					array( 
+						'method' => 'POST', 
+						'uri' => "v1/musicians",
+						'first_name' => 'Karl',
+						'last_name' => 'Legerfeld',
+						'stagename' => 'Bonzai',
+						'lineups' => array(
+										array(
+											'artist_id' => 1,
+											'instrument_id' =>1
+											),
+										array(
+											'artist_id' => 1,
+											'instrument_id' =>2
+											),
+										array(
+											'artist_id' => 1,
+											'instrument_id' =>3
+											)
+										)
+					)
+				);
+		foreach ($cases as $case){
+			$response = $this->store_one_for_tables_with_addresses( $case );
+		}
+	}
 
-	// public function store_one_for_tables_with_addresses( $case )
-	// {
+	public function store_one_for_tables_with_addresses( $case )
+	{
 		
-	// 	// var_dump($case);
-	// 	$response = $this->call($case['method'], $case['uri'], 
-	// 					array(
-	// 						'first_name' => $case['first_name'],
-	// 						'last_name' => $case['last_name'],
-	// 						'stagename' => $case['stagename'],
-	// 						'lineups' => $case['lineups'],
-	// 						)
-	// 					);
-	// 	$result = json_decode($response->getContent());
-	// 	// echo "Store " . $case['uri'] . " : ";
-	// 	dd($result->status);
-	// 	$this->assertEquals("success", $result
-	// 			->status,'We expected the store one to have a success status !');
-	// 	$this->assertResponseStatus(200);
-	// }
+		// var_dump($case);
+		$response = $this->call($case['method'], $case['uri'], 
+						array(
+							'first_name' => $case['first_name'],
+							'last_name' => $case['last_name'],
+							'stagename' => $case['stagename'],
+							'lineups' => $case['lineups'],
+							)
+						);
+		$result = json_decode($response->getContent());
+		echo "Store " . $case['uri'] . " : ";
+		var_dump($result->status);
+		$this->assertEquals("success", $result
+				->status,'We expected the store one to have a success status !');
+		$this->assertResponseStatus(200);
+	}
 
 
 
