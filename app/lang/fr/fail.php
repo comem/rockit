@@ -112,4 +112,9 @@ return array(
         'existing' => "Il y a déjà une relation pour cette image !",
         'inexistant' => "Il n'y aucune relation pour cette image !",
     ),
+    'file' => array(
+        'invalid' => "Le fichier n'est pas un fichier valide.",
+        'inexistant' => "Le fichier auquel vous tentez d'accéder n'existe pas.",
+        'unsupported' => "Le type du fichier sélectionné n'est pas supporté.",
+    ),
 );

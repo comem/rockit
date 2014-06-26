@@ -101,4 +101,9 @@ return array(
         'created' => "L'image n'a pas pu être rajoutée à l'artist !",
         'deleted' => "L'image n'a pas pu être supprimée à l'artist !",
     ),
+    'inexistant' => "Il n'y aucune relation pour cette image !",
+    'file' => array(
+        'not_deleted' => "Le fichier n'a pas pu être supprimé.",
+        'not_uploaded' => "Le fichier n'a pas pu être téléchargé.",
+    ),
 );

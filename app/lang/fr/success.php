@@ -105,4 +105,8 @@ return array(
         'created' => "L'image à bien étée ajoutée à l'artist !",
         'deleted' => "L'image à bient été supprimée de l'artist !",
     ),
+    'file' => array(
+        'deleted' => "Le fichier a été supprimé avec succès.",
+        'uploaded' => "Le fichier a été téléchargé avec succès.",
+    ),
 );
