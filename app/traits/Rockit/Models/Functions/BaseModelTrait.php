@@ -6,11 +6,6 @@ use \Validator;
 
 trait BaseModelTrait {
 
-    private static function getClass() {
-        $class = explode('\\', get_called_class());
-        return end($class);
-    }
-
     /**
      * Check that the provided datas are valid according to the choosed set of rules.
      * 

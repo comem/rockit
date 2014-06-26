@@ -13,7 +13,7 @@ trait UpdateOneTrait {
      * @return true or error message
      */
     public static function updateOne(array $new_values, $object) {
-        $class_name = self::getClass();
+        $class_name = class_basename(get_called_class());
         $field = self::$response_field;
         foreach ($new_values as $key => $value) {
             if ($value != null) {
