@@ -5,9 +5,9 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.2.*",
-                "phpoffice/phpword": "dev-master"
+        "phpoffice/phpword": "dev-master"
 	},
-	"require-dev": {
+		"require-dev": {
         "phpunit/phpunit": "4.1.*"
     },
 	"autoload": {
@@ -15,12 +15,12 @@
 			"app/commands",
 			"app/controllers",
 			"app/models",
-                        "app/traits",
+            "app/traits",
 			"app/database/migrations",
-                        "app/PhpOffice",
+            "app/PhpOffice",
 			"app/database/seeds",
 			"app/tests/TestCase.php",
-                        "app/events.php"
+            "app/events.php"
 		]
 	},
 	"scripts": {
