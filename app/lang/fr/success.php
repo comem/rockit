@@ -101,4 +101,8 @@ return array(
         'updated' => "La liaison entre l'artist et l'événement à bien été modifiée !",
         'deleted' => "L'artist à bient été supprimé de l'événement !",
     ),
+    'illustration' => array(
+        'created' => "L'image à bien étée ajoutée à l'artist !",
+        'deleted' => "L'image à bient été supprimée de l'artist !",
+    ),
 );

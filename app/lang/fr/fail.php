@@ -108,4 +108,8 @@ return array(
         'existing' => "Il y a déjà un musician ':name' enregistré !",
         'inexistant' => "Il n'y aucun musician enregistré correspondant !",
     ),
+    'illustration' => array(
+        'existing' => "Il y a déjà une relation pour cette image !",
+        'inexistant' => "Il n'y aucune relation pour cette image !",
+    ),
 );

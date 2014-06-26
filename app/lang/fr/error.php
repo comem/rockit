@@ -97,4 +97,8 @@ return array(
         'updated' => "La liaison n'a pas pu être modifiée",
         'deleted' => "La liaison n'a pas pu être supprimée",
     ),
+    'illustration' => array(
+        'created' => "L'image n'a pas pu être rajoutée à l'artist !",
+        'deleted' => "L'image n'a pas pu être supprimée à l'artist !",
+    ),
 );
