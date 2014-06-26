@@ -124,7 +124,7 @@ class MusicianController extends \BaseController {
          */
         public static function save($inputs) {
             $existingLineups = array();
-            foreach($inputs['lineups'] as $lineup) {
+            foreach($inputs['lineups'] as $lineup) {             
                 if(Instrument::exist($lineup['instrument_id']) && Artist::exist($lineup['artist_id']) && !in_array($lineup, $existingLineups)) {
                     $existingLineups[] = $lineup;
                 }
