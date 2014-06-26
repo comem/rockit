@@ -46,7 +46,16 @@ class SymbolizationController extends \BaseController {
 		$event = Event::find( $inputs['event_id'] );
 		if ( empty( $event->image_id ) )
 		{
-			$update = Event::updateOne(['image_id' => $inputs['image_id']], $event);
+			$image = Image::find( $inputs['image_id'] );
+			if( !empty( $image->artist_id ) )
+			{
+				$checkPerformer = Image::checkPerformer( $image, $event );
+				if( $checkPerformer !== true )
+				{
+					return $checkPerformer;
+				}
+			}
+			$update = Event::updateOne(['image_id' => $image->id], $event);
 			if ( isset( $update['success'] ) )
 			{
 				$response['success'] = [
