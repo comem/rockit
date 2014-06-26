@@ -25,7 +25,7 @@ class IllustrationController extends \BaseController {
 		} else {
 			$response['fail'] = $v->messages()->getMessages();
 		}
-		return Jsend::success($response);
+		return Jsend::compile($response);
 	}
 
 
