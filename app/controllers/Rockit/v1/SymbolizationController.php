@@ -2,6 +2,8 @@
 
 namespace Rockit\v1;
 
+use \Input, \Validator, \Rockit\Image, \Rockit\Event, \Jsend;
+
 class SymbolizationController extends \BaseController {
 
 
@@ -12,7 +14,18 @@ class SymbolizationController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		$inputs = Input::only('event_id', 'image_id');
+		$v = Validator::make(
+		    $inputs,
+		    ['event_id' => 'required|exists:events,id',
+		    'image_id' => 'required|exists:images,id']
+		);
+		if($v->passes()){
+			$response = self::save( $inputs );
+		} else {
+			$response['fail'] = $v->messages()->getMessages();
+		}
+		return Jsend::compile($response);
 	}
 
 
@@ -25,6 +38,36 @@ class SymbolizationController extends \BaseController {
 	public function destroy($id)
 	{
 		//
+	}
+
+
+	public static function save( $inputs )
+	{
+		$event = Event::find( $inputs['event_id'] );
+		if ( empty( $event->image_id ) )
+		{
+			$update = Event::updateOne(['image_id' => $inputs['image_id']], $event);
+			if ( isset( $update['success'] ) )
+			{
+				$response['success'] = [
+					'title' => trans('success.symbolization.created'),
+					'id' => $event->id,
+				];
+			}
+			else
+			{
+				$response['error'] = [
+					'title' => trans('error.symbolization.created')
+				];
+			}
+		}
+		else
+		{
+			$response['fail'] = [
+				'title' =>  trans('fail.symbolization.existing')
+			];
+		}
+		return $response;
 	}
 
 
