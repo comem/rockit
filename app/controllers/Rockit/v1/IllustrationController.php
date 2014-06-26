@@ -2,7 +2,7 @@
 
 namespace Rockit\v1;
 
-use \Input, \Validator;
+use \Input, \Validator, \Rockit\Image;
 
 class IllustrationController extends \BaseController {
 
@@ -38,6 +38,35 @@ class IllustrationController extends \BaseController {
 	public function destroy($id)
 	{
 		//
+	}
+
+
+	public static function save( $inputs )
+	{
+		$image = Image::find( $inputs['image_id'] );
+		if ( empty( $image->artist_id ) )
+		{
+			$update = Image::updateOne(['artist_id' => $inputs['artist_id']], $image);
+			if ( isset( $update['succes'] ) )
+			{
+				$response['success'] = [
+					'title' => trans('success.illustration.created')
+				]
+			}
+			else
+			{
+				$response['error'] = [
+					'title' => trans('error.illustration.created')
+				]	
+			}
+		}
+		else
+		{
+			$response['fail'] = [
+				'title' =>  trans('fail.illustration.existing')
+			]
+		}
+		return $response;
 	}
 
 
