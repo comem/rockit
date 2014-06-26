@@ -37,7 +37,13 @@ class IllustrationController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		$image = Image::exist( $id );
+		if( is_object( $image ) ){
+			$response = self::delete( $image );
+		} else {
+			$response = $image;
+		}
+		return Jsend::compile($response);
 	}
 
 
