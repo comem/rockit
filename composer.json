@@ -14,7 +14,6 @@
             "app/models",
             "app/traits",
             "app/database/migrations",
-            "app/PhpOffice",
             "app/database/seeds",
             "app/tests/TestCase.php",
             "app/events.php"
