@@ -38,4 +38,14 @@ class Ticket extends \Eloquent {
 		return $response;
 	}
 
+	public function ticketCategory()
+	{
+		return $this->belongsTo('Rockit\TicketCategory');
+	}
+
+	public function event()
+	{
+		return $this->belongsTo('Rockit\Event');
+	}
+
 }

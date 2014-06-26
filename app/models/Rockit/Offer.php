@@ -9,6 +9,7 @@ class Offer extends \Eloquent {
 	use CompletePivotModelTrait;
 
 	protected $table = 'offers';
+	protected $hidden = ['gift_id', 'event_id'];
 
 	public $timestamps = false;
 	public static $create_rules = [
@@ -24,5 +25,15 @@ class Offer extends \Eloquent {
 		'comment_de' 	=> 'min:1',
 	];
 	public static $response_field = 'id';
+
+	public function gift()
+	{
+		return $this->belongsTo('Rockit\Gift');
+	}
+
+	public function event()
+	{
+		return $this->belongsTo('Rockit\Event');
+	}
 
 }

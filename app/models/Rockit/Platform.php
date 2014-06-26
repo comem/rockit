@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class Platform extends \Eloquent {
 
-	protected $table = 'platforms';
 	public $timestamps = false;
+
+	protected $table = 'platforms';
+	protected $hidden = ['client_id', 'client_secret', 'api_infos', 'deleted_at'];
 
 	use SoftDeletingTrait;
 

@@ -14,6 +14,10 @@ return array(
     ),
     'event' => array(
         'overlap' => "Il y a déjà un événement planifié pour cette date là !",
+        'existing' => "Il y a déjà un événement ':name' enregistré !",
+        'inexistant' => "Il n'y aucun équipement enregistré correspondant !",
+        'at_least_one_main_performer' => "L'événement doit accueillir au moins un group principale !",
+        'is_symbolized' => "L'événement doit avoir une image de couverture pour être publié !",
     ),
     'representer' => array(
         'inexistant' => "Ce représentant n'existe pas.",
@@ -99,5 +103,9 @@ return array(
     'performer' => array(
         'existing' => "Ce groupe joue déjà dans cet événement à cette position !",
         'inexistant' => "Il n'y aucune liaison correspondant !",
+    ),
+    'musician' => array(
+        'existing' => "Il y a déjà un musician ':name' enregistré !",
+        'inexistant' => "Il n'y aucun musician enregistré correspondant !",
     ),
 );

@@ -6,9 +6,12 @@ use \Validator, \DB;
 
 class Event extends \Eloquent {
 
-	protected $table = 'events';
-	public $timestamps = true;
+	use Models\ModelBCUDTrait;
 
+	protected $table = 'events';
+
+	public static $response_field = 'title';
+	public $timestamps = true;
 	public static $create_rules = array(
 		'start_date_hour' 		=> 'date|required',
 		'ending_date_hour' 		=> 'date|required',
@@ -37,47 +40,102 @@ class Event extends \Eloquent {
 
 	public function gifts()
 	{
-		return $this->belongsToMany('Rockit\Gift')->withPivot('quantity','cost','comment_de');
+		return $this->belongsToMany('Rockit\Gift', 'offers')
+					->withPivot('quantity','cost','comment_de');
+	}
+
+	public function offers()
+	{
+		return $this->hasMany('Rockit\Offer');
 	}
 
 	public function ticketCategories()
 	{
-		return $this->belongsToMany('Rockit\TicketCategory', 'Tickets')->withPivot('amount','comment_de','quantity_sold')->orderBy('amount', 'desc');
+		return $this->belongsToMany('Rockit\TicketCategory', 'Tickets')
+					->withPivot('amount','comment_de','quantity_sold')
+					->orderBy('amount', 'desc');
+	}
+
+	public function tickets()
+	{
+		return $this->hasMany('Rockit\Ticket')
+					->orderBy('amount', 'desc');
 	}
 
 	public function equipments()
 	{
-		return $this->belongsToMany('Rockit\Equipment')->withPivot('quantity','cost');
+		return $this->belongsToMany('Rockit\Equipment', 'attributions')
+					->withPivot('quantity','cost');
+	}
+
+	public function attributions()
+	{
+		return $this->hasMany('Rockit\Attribution');
 	}
 
 	public function platforms()
 	{
-		return $this->belongsToMany('Rockit\Platform')->withPivot('url');
+		return $this->belongsToMany('Rockit\Platform', 'sharings')
+					->withPivot('url');
+	}
+
+	public function sharings()
+	{
+		return $this->hasMany('Rockit\Sharing');
 	}
 
 	public function printingTypes()
 	{
-		return $this->belongsToMany('Rockit\PrintingType')->withPivot('source','nb_copies','nb_copies_surplus');
+		return $this->belongsToMany('Rockit\PrintingType', 'printings')
+					->withPivot('source','nb_copies','nb_copies_surplus');
 	}
 
-	public function eventTypes()
+	public function printings()
 	{
-		return $this->belongsToMany('Rockit\EventType');
+		return $this->hasMany('Rockit\Printing');
+	}
+
+	public function eventType()
+	{
+		return $this->belongsTo('Rockit\EventType');
+	}
+
+	public function image()
+	{
+		return $this->belongsTo('Rockit\Image');
 	}
 
 	public function artists()
 	{
-		return $this->belongsToMany('Rockit\Artist', 'performers')->withPivot('order','is_support','artist_hour_of_arrival');
+		return $this->belongsToMany('Rockit\Artist', 'performers')
+					->withPivot('order','is_support','artist_hour_of_arrival');
+	}
+
+	public function performers()
+	{
+		return $this->hasMany('Rockit\Performer')
+					->orderBy('order');;
 	}
 
 	public function members()
 	{
-		return $this->belongsToMany('Rockit\Member');
+		return $this->belongsToMany('Rockit\Member', 'staffs');
+	}
+
+	public function staffs()
+	{
+		return $this->hasMany('Rockit\Staff');
 	}
 
 	public function skills()
 	{
-		return $this->belongsToMany('Rockit\Skill')->withPivot('nb_people');
+		return $this->belongsToMany('Rockit\Skill', 'needs')
+					->withPivot('nb_people');
+	}
+
+	public function needs()
+	{
+		return $this->hasMany('Rockit\Need');
 	}
 
 	public function representer()
@@ -85,38 +143,70 @@ class Event extends \Eloquent {
 		return $this->belongsTo('Rockit\Representer');
 	}
 
-	/**
-	* Check that there is an event that exists in the set of persistant Events, 
-	* based on a provided id
-	*
-	* @param $id
-	* @return true or fail message
-	*/
-	public static function exist( $id )
-	{
-		$response = self::where('id', '=', $id)->first();
-		if($response == NULL){
-			$response['fail'] = trans('fail.event.inexistant');
-		}
-		return $response;
-	}
+    public function scopeArtistGenres($query, array $genres)
+    {
+        return $query->whereHas('artists', function($q) use ($genres)
+        {
+            $q->whereHas('genres', function($q) use ($genres)
+	        {
+	            $q->whereIn('genres.id', $genres);
+	        });
+        });
+    }
 
-	/**
-	* Validate the information passed in parameters
-	*
-	* @param $inputs, $rules
-	* @return true or fail message
-	*/
-	public static function validate( $inputs, $rules )
-	{
-		$v = Validator::make( $inputs, $rules );
-		if( $v->fails() ){
-			$response['fail'] = $v->messages()->getMessages();
-		} else {
-			$response = true;
-		}
-		return $response;
-	}
+    public function scopeEventType($query, array $event_types)
+    {
+        return $query->whereIn('events.event_type_id', $event_types);
+    }
+
+    public function scopeIsPublished($query, $boolean)
+    {
+        if($boolean) return $query->where('events.published_at', '<>', 'NULL');
+        else return $query->where('events.published_at', '=', NULL);
+    }
+
+    public function scopeTitle($query, $title)
+    {
+        return $query->where('events.title_de', 'LIKE', '%'.$title.'%');
+    }
+
+    public function scopeFrom($query, $from)
+    {
+        return $query->where('events.start_date_hour', '>=', $from);
+    }
+
+    public function scopeTo($query, $to)
+    {
+        return $query->where('events.start_date_hour', '<=', $to);
+    }
+
+    public function scopeArtistName($query, $artist_name)
+    {
+        return $query->whereHas('artists', function($q) use ($artist_name)
+        {
+            $q->where('artists.name', 'LIKE', '%'.$artist_name.'%');
+        });
+    }
+
+    public function scopePlatforms($query, array $platforms)
+    {
+        return $query->whereHas('platforms', function($q) use ($platforms)
+        {
+            $q->whereIn('platforms.id', $platforms);
+        });
+    }
+
+    public function scopeIsFollowedByPrivate($query, $boolean)
+    {
+        if($boolean) return $query->where('events.followed_by_private', '=', TRUE);
+        else return $query->where('events.followed_by_private', '=', FALSE);
+    }
+
+    public function scopeHasRepresenter($query, $boolean)
+    {
+        if($boolean) return $query->has('representer', '>', 0);
+        else return $query->has('representer', '<', 1);
+    }
 
 	/**
 	* Check that anEventStartDateHour is set after anEventOpeningDoors
@@ -196,67 +286,41 @@ class Event extends \Eloquent {
 		return $response;
 	}
 
-	/**
-	* Create a new Event
-	*
-	* @param $inputs
-	* @return  true or error message
-	*/
-	public static function createOne( $inputs )
-	{
-		self::unguard();
-		$object = self::create( $inputs );
-		if( $object != null ){
-			$response['success'] = array(
-				'title' => trans('success.event.created'),
-				'id' => $object->id,
-			);
-		} else {
-			$response['error'] = trans('error.event.created');
-		}
-		return $response;
-	}
 
-	/**
-	* Update a persistant Event, based on the difference between a 
-	* provided anEventToModify and anExistingEvent
-	*
-	* @param $new_values, Event $object
-	* @return  true or error message
-	*/
-	public static function updateOne( $new_values, Event $object )
+	public static function atLeastOneMainPerformer( Event $event )
 	{
-		foreach( $new_values as $key => $value )
+		$cpt = Performer::where('performers.event_id', '=', $event->id)
+		    	->where('performers.is_support', '=', FALSE)
+		    	->count();
+		if( $cpt > 0 )
 		{
-			$object->$key = $value;
-		}
-		if( $object->save() ){ 
-			$response['success'] = array(
-				'title' => trans('success.event.updated'),
-			);
-		} else {
-			$response['error'] = trans('error.event.updated');
+			$response = true;
+		} 
+		else 
+		{
+			$response['fail'] = [
+				'title' => trans('fail.event.at_least_one_main_performer')
+			];
 		}
 		return $response;
 	}
 
-	/**
-	* Delete a persistant Event
-	*
-	* @param Event $object
-	* @return  true or error message
-	*/
-	public static function deleteOne( Event $object )
+
+
+	public static function isSymbolized( Event $event )
 	{
-		if( $object->delete() ){ 
-			$response['success'] = array(
-				'title' => trans('success.event.deleted'),
-			);
-		} else {
-			$response['error'] = trans('error.event.deleted');
+		if( empty( $event->image_id ) )
+		{
+			$response['fail'] = [
+				'title' => trans('fail.event.is_symbolized')
+			];
+		}
+		else
+		{
+			$response = true;
 		}
 		return $response;
 	}
-       
+
 
 }
