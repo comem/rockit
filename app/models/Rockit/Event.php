@@ -322,4 +322,5 @@ class Event extends \Eloquent {
 		return $response;
 	}
 
+
 }
