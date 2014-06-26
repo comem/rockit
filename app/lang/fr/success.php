@@ -105,6 +105,14 @@ return array(
         'created' => "L'image à bien étée ajoutée à l'artist !",
         'deleted' => "L'image à bient été supprimée de l'artist !",
     ),
+    'symbolization' => array(
+        'created' => "L'image à bien étée ajoutée à l'événement !",
+        'deleted' => "L'image à bient été supprimée de l'événement !",
+    ),
+    'guarantee' => array(
+        'created' => "Le representant à bien été ajouté à l'événement !",
+        'deleted' => "Le representant à bient été supprimé de l'événement !",
+    ),
     'file' => array(
         'deleted' => "Le fichier a été supprimé avec succès.",
         'uploaded' => "Le fichier a été téléchargé avec succès.",
