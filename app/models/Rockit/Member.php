@@ -21,14 +21,14 @@ class Member extends \Eloquent {
      */
     public static $create_rules = array(
         'first_name' => 'required|min:1|max:100|names',
-        'last_name' => 'required|min:1|max:100|names',
-        'email' => 'email|min:1|max:200|required_without:phone',
-        'phone' => 'phone|min:8|max:20|required_without:email',
+        'last_name' => 'required|min:1|max:200|names',
+        'email' => 'email|min:1|max:300|required_without:phone',
+        'phone' => 'phone|min:8|max:30|required_without:email',
         'is_active' => 'required|boolean',
-        'street' => 'required|min:1|max:200',
-        'npa' => 'required|min:1|max:20',
-        'city' => 'required|min:1|max:200',
-        'country' => 'max:'
+        'street' => 'required|min:1|max:300',
+        'npa' => 'required|min:1|max:10',
+        'city' => 'required|min:1|max:100',
+        'country' => 'max:100'
     );
     public static $update_rules = [];
 
