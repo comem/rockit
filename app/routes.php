@@ -142,6 +142,10 @@ Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function()
 
 });
 
+// Development: facebook
+Route::get('v1/sharings', 'Rockit\v1\SharingController@store');
+Route::get('v1/facebook', 'Rockit\v1\FacebookController@facebookRedirect');
+
 
 
 // catching 404 error
