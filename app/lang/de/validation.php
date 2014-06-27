@@ -57,7 +57,7 @@ return array(
 	"numeric"              => "L'attribut :attribute doit être un nombre.",
 	"phone"                => "Le format de l'attribut :attribute n'est pas valide.",
 	"regex"                => "Le format de l'attribut :attribute n'est pas valide.",
-	"required"             => "L'attribut :attribute est obligatoire.",
+	"required"             => "Die :attribute attribute require ist.",
 	"required_if"          => "L'attribut :attribute est obligatoire lorsque :other a une valeur de :value.",
 	"required_with"        => "L'attribut :attribute est obligatoire lorsque :values est présent.",
 	"required_with_all"    => "L'attribut :attribute est obligatoire lorsque :values est présent.",

@@ -54,7 +54,7 @@ class TranslationController extends \BaseController {
             $response = User::updateOne(
                 array('language_id' => $lang->id), Auth::user()
             );
-            App::setLocale($locale->locale);
+            App::setLocale($lang->locale);
             return $response;
         } else {
             return $lang;

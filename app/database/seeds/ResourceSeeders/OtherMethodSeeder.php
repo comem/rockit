@@ -27,6 +27,31 @@ class OtherMethodSeeder {
             'controller' => 'EventController',
             'method' => 'exportXML',
         ));
+        Resource::create(array(
+            'id' => 102,
+            'controller' => 'FilesManager',
+            'method' => 'upload',
+        ));
+        Resource::create(array(
+            'id' => 103,
+            'controller' => 'FilesManager',
+            'method' => 'getImage',
+        ));
+        Resource::create(array(
+            'id' => 104,
+            'controller' => 'FilesManager',
+            'method' => 'getPrinting',
+        ));
+        Resource::create(array(
+            'id' => 105,
+            'controller' => 'FilesManager',
+            'method' => 'getContract',
+        ));
+        Resource::create(array(
+            'id' => 106,
+            'controller' => 'FilesManager',
+            'method' => 'destroy',
+        ));
     }
     
 }

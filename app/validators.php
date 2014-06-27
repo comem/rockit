@@ -23,3 +23,11 @@ Validator::extend('phone', function($field, $value, $parameters) {
 Validator::extend('names', function($field, $value, $parameters) {
     return preg_match("#^[\p{L}'\- ]+$#u", $value);
 });
+
+/**
+ * 
+ */
+Validator::extend('ext', function($field, $value, $parameters) {
+    $ext = $value->getClientOriginalExtension();
+    return array_search($ext, $parameters) !== false;
+});

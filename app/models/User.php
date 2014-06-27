@@ -1,6 +1,7 @@
 <?php
 
 use Rockit\Resource,
+    Rockit\Models\ModelBCURDTrait,
     Illuminate\Auth\UserTrait,
     Illuminate\Auth\UserInterface,
     Illuminate\Auth\Reminders\RemindableTrait,
@@ -11,9 +12,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     use UserTrait,
         RemindableTrait,
-        SoftDeletingTrait;
+        SoftDeletingTrait,
+        ModelBCURDTrait;
 
     public $timestamps = true;
+    protected $appends = array('language', 'group');
     protected static $rules = array(
         'email' => 'email|max:300|unique:users',
         'password' => 'min:4|max:2000'
@@ -31,7 +34,15 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
      *
      * @var array
      */
-    protected $hidden = array('password', 'remember_token');
+    protected $hidden = array(
+        'password',
+        'remember_token',
+        'language_id',
+        'group_id',
+//        'deleted_at',
+//        'created_at',
+//        'updated_at',
+    );
 
     /**
      * Static function to validate User data
@@ -39,63 +50,15 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
      * @return boolean true if data is validated, false if not
      */
     public static function validate($data = array()) {
-        $v = Validator::make($data, User::$rules);
+        $v = Validator::make($data, self::$rules);
         return $v->passes();
-    }
-
-    /**
-     * Get the unique identifier for the user.
-     *
-     * @return mixed
-     */
-    public function getAuthIdentifier() {
-        return $this->getKey();
-    }
-
-    /**
-     * Get the password for the user.
-     *
-     * @return string
-     */
-    public function getAuthPassword() {
-        return $this->password;
-    }
-
-    /**
-     * Get the e-mail address where password reminders are sent.
-     * @return string
-     */
-    public function getReminderEmail() {
-        return $this->email;
-    }
-
-    /**
-     * Get the token value for the "remember me" session.
-     */
-    public function getRememberToken() {
-        return $this->remember_token;
-    }
-
-    /**
-     * Get the column name for the "remember me" token.
-     */
-    public function getRememberTokenName() {
-        return 'remember_token';
-    }
-
-    /*
-     * Set the token value for the "remember me" session.
-     */
-
-    public function setRememberToken($value) {
-        $this->remember_token = $value;
     }
 
     public function group() {
         return $this->belongsTo('Rockit\Group');
     }
 
-    public function language() {
+    protected function language() {
         return $this->belongsTo('Rockit\Language');
     }
 
@@ -103,4 +66,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return $this->group->hasAccess($resource);
     }
 
+    protected function getLanguageAttribute() {
+        return $this->language()->getResults();
+    }
+    
+    protected function getGroupAttribute() {
+        return $this->group()->getResults();
+    }
 }

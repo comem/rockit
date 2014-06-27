@@ -11,7 +11,7 @@ trait DeleteOneTrait {
      * @return true or error message
      */
     public static function deleteOne($object) {
-        $class_name = self::getClass();
+        $class_name = class_basename(get_called_class());
         $field = self::$response_field;
         if ($object->delete()) {
             $response['success'] = array(

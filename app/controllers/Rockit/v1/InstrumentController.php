@@ -3,22 +3,20 @@
 namespace Rockit\v1;
 
 use Rockit\Instrument;
-use \App,
-    \Lang,
-    \Input,
-    \Auth,
+use \Input,
     \Jsend;
 
 class InstrumentController extends \BaseController {
 
     use \Rockit\Controllers\ControllerBSRDTrait;
+
     /**
      * Display a listing of the resource.
      *
      * @return Response
      */
     public function index() {
-        return Jsend::success(Instrument::all()->toArray());
+        return Jsend::success(Instrument::all());
     }
 
     /**

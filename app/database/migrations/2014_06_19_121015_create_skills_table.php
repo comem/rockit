@@ -5,13 +5,14 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateSkillsTable extends Migration {
 
-    public function up() {
-        Schema::create('skills', function(Blueprint $table) {
-            $table->increments('id');
-            $table->string('name_de', 200)->unique();
-            $table->softDeletes();
-        });
-    }
+	public function up()
+	{
+		Schema::create('skills', function(Blueprint $table) {
+			$table->increments('id');
+			$table->string('name_de', 200)->unique();
+			$table->softDeletes();
+		});
+	}
 
     public function down() {
         Schema::drop('skills');
