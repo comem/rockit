@@ -7,6 +7,8 @@ use \DB,
     Rockit\Models\ModelBCUDTrait,
     Illuminate\Database\Eloquent\SoftDeletingTrait;
 
+use \Validator, \DB, Rockit\Image, \Rockit\Performer, \Rockit\Musician, \Rockit\Lineup;
+
 class Artist extends \Eloquent {
 
     use SoftDeletingTrait,
@@ -45,6 +47,16 @@ class Artist extends \Eloquent {
     protected $table = 'artists';
     protected $hidden = ['deleted_at'];
     protected $dates = ['deleted_at'];
+    public static $response_field = 'id';
+    public static $create_rules = array(
+        'name' => 'required|min:1|max:100',
+        'short_description_de' => 'max:200',
+        'genres' => 'required',
+    );
+    public static $update_rules = array(
+        'name' => 'min:1|max:100',
+        'short_description_de' => 'max:200',
+    );
 
     /**
      * Get the Links to which an Artist is related.

@@ -118,6 +118,7 @@ class EventController extends \BaseController {
      * @param  int  $id
      * @return Response
      */
+
     public function publish($id) 
     {
         $response = Event::exist($id);
