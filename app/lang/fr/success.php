@@ -4,40 +4,43 @@
  * Success messages
  * Syntax :
  * 'created' : "Le/La nouveau/nouvelle ... a bien été sauvegardé(e)."
+ * 'updated' : "Le/La ... a bien été mis(e) à jour."
+ * 'deleted' : "Le/La ... a bien été supprimé(e)."
+ * 'restored' : Le/La ... a bien été restauré(e)."
  */
 
 return [
     'representer' => [
         'created' => "Le nouveau représentant a bien été sauvegardé.",
-        'updated' => "Le représentant a été mis à jour.",
-        'deleted' => "Le représentant a été supprimé.",
-        'restored' => "Le représentant a été restauré.",
+        'updated' => "Le représentant a bien été mis à jour.",
+        'deleted' => "Le représentant a bien été supprimé.",
+        'restored' => "Le représentant a bien été restauré.",
     ],
     'user' => [
-        'updated' => "L'utilisateur a été mis à jour."
+        'updated' => "L'utilisateur a bien été mis à jour."
     ],
     'instrument' => [
         'created' => "Le nouvel instrument \":name\" a bien été sauvegardé.",
         'deleted' => "L instrument \":name\" a bien été supprimé.",
-        'restored' => "L instrument \":name\" à été restauré.",
+        'restored' => "L instrument \":name\" a bien été restauré.",
     ],
     'gift' => [
         'created' => "Le nouveau lot\":name\" a bien été sauvegardé.",
         'deleted' => "Le lot \":name\" a bien été supprimé.",
-        'restored' => "Le lot \":name\" à été restauré.",
+        'restored' => "Le lot \":name\" a bien été restauré.",
     ],
     'event_type' => [
         'created' => "Le nouveau type d'événement \":name\" a bien été sauvegardé.",
         'deleted' => "Le type d'événement \":name\" a bien été supprimé.",
-        'restored' => "Le type d'événement \":name\" à été restauré.",
+        'restored' => "Le type d'événement \":name\" a bien été restauré.",
     ],
     'auth' => [
         'login' => "Vous êtes maintenant authentifié.",
         'logout' => "Vous êtes maintenant déconnecté.",
     ],
     'skill' => [
-        'deleted' => "La compétence a été supprimée.",
-        'restored' => "La compétence a été restaurée.",
+        'deleted' => "La compétence a bien été supprimée.",
+        'restored' => "La compétence a bien été restaurée.",
         'created' => "La nouvelle compétence a bien été sauvegardée.",
     ],
     'attribution' => [
@@ -53,12 +56,12 @@ return [
     'printing_type' => [
         'created' => "Le nouveau type d'imprimé \":name\" a bien été sauvegardé.",
         'deleted' => "Le type d'imprimé \":name\" a bien été supprimé.",
-        'restored' => "Le type d'imprimé \":name\" à été restauré.",
+        'restored' => "Le type d'imprimé \":name\" a bien été restauré.",
     ],
     'ticket_category' => [
         'created' => "La nouvelle catégorie de tickets \":name\" a bien été sauvegardée.",
         'deleted' => "La catégorie de tickets \":name\" a bien été supprimée.",
-        'restored' => "La catégorie de tickets \":name\" à été restaurée.",
+        'restored' => "La catégorie de tickets \":name\" a bien été restaurée.",
     ],
     'ticket' => [
         'created' => "Le nouveau ticket d'entrée a bien été sauvegardé.",
@@ -95,11 +98,11 @@ return [
     'performer' => [
         'created' => "L'artiste a bien été rajouté à l'événement.",
         'updated' => "La liaison entre l'artiste et l'événement a bien été modifiée.",
-        'deleted' => "L'artist a bien été supprimé de l'événement.",
+        'deleted' => "L'artiste a bien été supprimé de l'événement.",
     ],
     'illustration' => [
-        'created' => "L'image a bien étée ajoutée à l'artist.",
-        'deleted' => "L'image a bien été supprimée de l'artist.",
+        'created' => "L'image a bien été ajoutée à l'artiste.",
+        'deleted' => "L'image a bien été supprimée de l'artiste.",
     ],
     'symbolization' => [
         'created' => "L'image a bien étée ajoutée à l'événement.",
@@ -110,10 +113,10 @@ return [
         'deleted' => "Le représentant a bien été supprimé de l'événement.",
     ],
     'file' => [
-        'deleted' => "Le fichier a été supprimé avec succès.",
+        'deleted' => "Le fichier a bien été supprimé avec succès.",
         'uploaded' => "Le fichier a été téléchargé avec succès.",
     ],
     'member' => [
-        'created' => "Le membre à été "
+        'created' => "Le membre a bien été sauvegardé ",
     ]
 ];

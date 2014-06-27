@@ -98,22 +98,22 @@ return [
         'deleted' => "La liaison n'a pas pu être supprimée",
     ],
     'illustration' => [
-        'created' => "L'image n'a pas pu être rajoutée à l'artist !",
-        'deleted' => "L'image n'a pas pu être supprimée à l'artist !",
+        'created' => "L'image n'a pas pu être rajoutée à l'artiste.",
+        'deleted' => "L'image n'a pas pu être supprimée à l'artiste.",
     ],
     'symbolization' => [
-        'created' => "L'image n'a pas pu être rajoutée à l'événement !",
-        'deleted' => "L'image n'a pas pu être supprimée à l'événement !",
+        'created' => "L'image n'a pas pu être rajoutée à l'événement.",
+        'deleted' => "L'image n'a pas pu être supprimée à l'événement.",
     ],
     'illustration' => [
-        'created' => "Le représentant n'a pas pu être rajouté à l'événement !",
-        'deleted' => "Le représentant n'a pas pu être supprimé à l'événement !",
+        'created' => "Le représentant n'a pas pu être rajouté à l'événement.",
+        'deleted' => "Le représentant n'a pas pu être supprimé à l'événement.",
     ],
     'guarantee' => [
-        'created' => "Le représentant n'a pas pu être rajouté à l'événement !",
-        'deleted' => "Le représentant n'a pas pu être supprimé à l'événement !",
+        'created' => "Le représentant n'a pas pu être rajouté à l'événement.",
+        'deleted' => "Le représentant n'a pas pu être supprimé à l'événement.",
     ],
-    'inexistant' => "Il n'y aucune relation pour cette image !",
+    'inexistant' => "Il n'y aucune relation pour cette image.",
     'file' => [
         'not_deleted' => "Le fichier n'a pas pu être supprimé.",
         'not_uploaded' => "Le fichier n'a pas pu être téléchargé.",
