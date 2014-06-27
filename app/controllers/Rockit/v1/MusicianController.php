@@ -135,7 +135,7 @@ class MusicianController extends \BaseController {
                 }
             }
             if(!count($existingLineups) > 0) {
-                $response['fail'] = trans('fail.musician.nolineup');
+                $response['fail'] = ['title' => trans('fail.musician.nolineup')];
             } else {
                 $inputs['lineups'] = $existingLineups;
                 $response = Musician::createOne($inputs);

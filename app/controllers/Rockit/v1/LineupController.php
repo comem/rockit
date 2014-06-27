@@ -45,11 +45,7 @@ class LineupController extends \BaseController {
     public static function delete($id) {
         $object = Lineup::exist($id);
         if ($object == null) {
-            $response = array(
-                'fail' => array(
-                    'title' => trans('fail.lineup.inexistant'),
-                ),
-            );
+            $response['fail'] = array('title' => trans('fail.lineup.inexistant'));
         } else {
             $response = Lineup::isLastLineup($object);
             if($response === false){

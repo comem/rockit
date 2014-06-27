@@ -155,11 +155,10 @@ class EventController extends \BaseController {
     public function exportWord() {
         $from = Input::get('from');
         $to = Input::get('to');
-
         if(isset($from) && isset($to)) {
             WordExport::events($from, $to);  
         } else {
-            $response['fail'] = trans('fail.wordexport.noinput');
+        $response['fail'] = ['title' => trans('fail.wordexport.noinput')];
             return Jsend::compile($response);
         }   
     }
@@ -176,7 +175,7 @@ class EventController extends \BaseController {
         if(isset($from) && isset($to)) {
             XMLExport::events($from, $to);
         } else {
-            $response['fail'] = trans('fail.xmlexport.noinput');
+            $response['fail'] = ['title' => trans('fail.xmlexport.noinput')];
             return Jsend::compile($response);
         }   
     }

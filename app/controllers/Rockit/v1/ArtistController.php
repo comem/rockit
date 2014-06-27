@@ -136,7 +136,7 @@ class ArtistController extends \BaseController {
             }
         }
         if (!count($existingMergedGenres) > 0) {
-            $response['fail'] = trans('fail.artist.nogenre');
+            $response['fail'] = ['title' => trans('fail.artist.nogenre')];
         } else {
             $inputs['genres'] = $existingMergedGenres;
             $existingMergedImages = array();
