@@ -22,7 +22,6 @@ class WordExport {
      * @return Word An output to download the created Word file
      */
     public static function events($from, $to) {
-
         setlocale(LC_ALL, 'de_DE@euro', 'de_DE', 'de', 'ge');
         header('Content-Type: text/html; charset=utf-8');
 
@@ -31,7 +30,7 @@ class WordExport {
         $defFontColor = '000000';
         $defFontSize = 9;
         $defLineHeight = '1.1';
-
+        $filename = "events.docx";
 
         $word = new PhpWord();
 
@@ -66,12 +65,12 @@ class WordExport {
         $psH2 = array('spaceBefore' => 150, 'spaceAfter' => 200, 'align' => 'left');
         $psH3 = array('spaceBefore' => 120, 'spaceAfter' => 20, 'align' => 'left', 'keepNext' => true);
         $psH4 = array('spaceBefore' => 120, 'spaceAfter' => 60, 'align' => 'left');
-        $psStandard = array('align' => 'left', 'lineHeight' => '1.1');
+        $psStandard = array('align' => 'left', 'lineHeight' => $defLineHeight);
         $psStandardkeepNext = array('align' => 'left', 'lineHeight' => '1.1', 'keepNext' => true);
-        $psStandardSpaceAfter = array('spaceAfter' => 140, 'align' => 'left', 'lineHeight' => '1.1');
-        $psStandardSpaceBefore = array('spaceBefore' => 120, 'align' => 'left', 'lineHeight' => '1.1');
-        $psStandardSpaceBeforeAndAfter = array('spaceBefore' => 120, 'spaceAfter' => 180, 'align' => 'left', 'lineHeight' => '1.1');
-        $psFooter = array('align' => 'left', 'lineHeight' => '1.1');
+        $psStandardSpaceAfter = array('spaceAfter' => 140, 'align' => 'left', 'lineHeight' => $defLineHeight);
+        $psStandardSpaceBefore = array('spaceBefore' => 120, 'align' => 'left', 'lineHeight' => $defLineHeight);
+        $psStandardSpaceBeforeAndAfter = array('spaceBefore' => 120, 'spaceAfter' => 180, 'align' => 'left', 'lineHeight' => $defLineHeight);
+        $psFooter = array('align' => 'left', 'lineHeight' => $defLineHeight);
 
 
         //// Set line style definitions
@@ -151,68 +150,290 @@ class WordExport {
             $artists = $event->artists->sortByDesc(function($artist) {
                 return $artist->pivot->order;
             });
-            foreach ($artists as $artist) {
-                if ($artist->pivot->is_support == 0) {
-                    $section->addTitle($artist->name, 3);
-                } else {
-                    $section->addTitle("Support: " . $artist->name, 4);
+            $mainArtists = $artists->filter(function($artist) {
+                return $artist->pivot->is_support == 0;
+            })->sortByDesc(function($artist){
+                return $artist->pivot->order;
+            });
+
+            ////  case 1: artistListingStandard: event has no title_de
+            if ($event->title_de == NULL) {
+                if ($event->description_de != NULL) {
+                    $section->addText($event->description_de, $fsStandard, $psStandardSpaceBeforeAndAfter);
                 }
-                $trgenres = $section->addTextRun($psStandardSpaceAfter);
-                $index = 0;
-                foreach ($artist->genres as $genre) {
-                    if ($index > 0) {
-                        $trgenres->addText(" / ");
+                foreach ($artists as $artist) {
+                    if ($artist->pivot->is_support == 0) {
+                        $section->addTitle($artist->name, 3);
+                    } else {
+                        $section->addTitle("Support: " . $artist->name, 4);
                     }
-                    $trgenres->addText($genre->name_de, $fsGenre);
-                    $index++;
-                }
-                $section->addText($artist->short_description_de, $fsShortDesc, $psStandard);
-                $section->addText($artist->complete_description_de, $fsStandard, $psStandard);
-                if (count($artist->musicians) > 0) {
-                    $trLineup = $section->addTextRun($psStandard);
-                    $trLineup->addText("Lineup:", $fsItalic);
-                    $indexMusician = 0;
-                    foreach ($artist->musicians as $musician) {
-                        if ($indexMusician > 0) {
-                            $trLineup->addText(",", $fsItalic);
+                    $trgenres = $section->addTextRun($psStandardSpaceAfter);
+                    $index = 0;
+                    foreach ($artist->genres as $genre) {
+                        if ($index > 0) {
+                            $trgenres->addText(" / ");
                         }
-                        if (isset($musician->stagename)) {
-                            $trLineup->addText(" " . $musician->stagename, $fsItalic);
-                        } else {
-                            $trLineup->addText(" " . $musician->first_name, $fsItalic);
-                            if (isset($musician->last_name)) {
-                                $trLineup->addText(" " . $musician->last_name, $fsItalic);
+                        $trgenres->addText($genre->name_de, $fsGenre);
+                        $index++;
+                    }
+                    $section->addText($artist->short_description_de, $fsShortDesc, $psStandard);
+                    $section->addText($artist->complete_description_de, $fsStandard, $psStandard);
+                    if (count($artist->musicians) > 0) {
+                        $trLineup = $section->addTextRun($psStandard);
+                        $trLineup->addText("Lineup:", $fsItalic);
+                        $indexMusician = 0;
+                        foreach ($artist->musicians as $musician) {
+                            if ($indexMusician > 0) {
+                                $trLineup->addText(",", $fsItalic);
                             }
-                        }
-                        $trLineup->addText(" ");
-                        $indexInstr = 0;
-                        foreach ($musician->instrumentsFor($artist->id)->get() as $instrument) {
-                            if ($indexInstr > 0) {
-                                $trLineup->addText("/", $fsItalic);
+                            if (isset($musician->stagename)) {
+                                $trLineup->addText(" " . $musician->stagename, $fsItalic);
+                            } else {
+                                $trLineup->addText(" " . $musician->first_name, $fsItalic);
+                                if (isset($musician->last_name)) {
+                                    $trLineup->addText(" " . $musician->last_name, $fsItalic);
+                                }
                             }
-                            $trLineup->addText($instrument->name_de, $fsItalic);
-                            $indexInstr++;
+                            $trLineup->addText(" ");
+                            $indexInstr = 0;
+                            foreach ($musician->instrumentsFor($artist->id)->get() as $instrument) {
+                                if ($indexInstr > 0) {
+                                    $trLineup->addText("/", $fsItalic);
+                                }
+                                $trLineup->addText($instrument->name_de, $fsItalic);
+                                $indexInstr++;
+                            }
+                            $indexMusician++;
                         }
-                        $indexMusician++;
                     }
-                }
-                // if artist has no link, then add artists representer if there is one
-                if (count($artist->links) > 0) {
-                    $trLinks = $section->addTextRun($psStandard);
-                    $indexLinks = 0;
-                    foreach ($artist->links as $link) {
-                        if ($indexLinks > 0) {
-                            $trLinks->addText(", ", $fsStandard);
+                    // if artist has no link, then add artists representer if there is one
+                    if (count($artist->links) > 0) {
+                        $trLinks = $section->addTextRun($psStandard);
+                        $indexLinks = 0;
+                        foreach ($artist->links as $link) {
+                            if ($indexLinks > 0) {
+                                $trLinks->addText(", ", $fsStandard);
+                            }
+                            $trLinks->addText($link->url, $fsStandard);
+                            $indexLinks++;
                         }
-                        $trLinks->addText($link->url, $fsStandard);
-                        $indexLinks++;
+                    } elseif ($event->representer != NULL) {
+                        $contactDetails = self::getRepresenterDetails($event->representer);
+                        $trContact = $section->addTextRun($psStandard);
+                        $trContact->addText("Bandkontakt: " . $contactDetails, $fsStandard);
                     }
-                } elseif ($event->representer != NULL) {
-                    $contactDetails = self::getRepresenterDetails($event->representer);
-                    $trContact = $section->addTextRun($psStandard);
-                    $trContact->addText("Bandkontakt: " . $contactDetails, $fsStandard);
                 }
             }
+            //// case 2: artistListingSingle: event has a title_de and only one main artist
+            elseif ($event->title_de != NULL && count($mainArtists) < 2) {
+                $section->addTitle($event->title_de, 3);
+                $trgenres = $section->addTextRun($psStandardSpaceAfter);
+                $index = 0;
+                foreach($mainArtists as $artist) {
+                    foreach ($artist->genres as $genre) {
+                        if ($index > 0) {
+                            $trgenres->addText(" / ");
+                        }
+                        $trgenres->addText($genre->name_de, $fsGenre);
+                        $index++;
+                    }
+                }
+                $section->addText($event->description_de, $fsStandard, $psStandardSpaceAfter);
+                foreach($mainArtist as $artist) {
+                    $section->addText($artist->short_description_de, $fsShortDesc, $psStandard);
+                    $section->addText($artist->complete_description_de, $fsStandard, $psStandard);
+                    if (count($artist->musicians) > 0) {
+                        $trLineup = $section->addTextRun($psStandard);
+                        $trLineup->addText("Lineup:", $fsItalic);
+                        $indexMusician = 0;
+                        foreach ($artist->musicians as $musician) {
+                            if ($indexMusician > 0) {
+                                $trLineup->addText(",", $fsItalic);
+                            }
+                            if (isset($musician->stagename)) {
+                                $trLineup->addText(" " . $musician->stagename, $fsItalic);
+                            } else {
+                                $trLineup->addText(" " . $musician->first_name, $fsItalic);
+                                if (isset($musician->last_name)) {
+                                    $trLineup->addText(" " . $musician->last_name, $fsItalic);
+                                }
+                            }
+                            $trLineup->addText(" ");
+                            $indexInstr = 0;
+                            foreach ($musician->instrumentsFor($artist->id)->get() as $instrument) {
+                                if ($indexInstr > 0) {
+                                    $trLineup->addText("/", $fsItalic);
+                                }
+                                $trLineup->addText($instrument->name_de, $fsItalic);
+                                $indexInstr++;
+                            }
+                            $indexMusician++;
+                        }
+                    }
+                }
+                $supportArtists = $artists->filter(function($artist) {
+                    return $artist->pivot->is_support == 1;
+                });
+                foreach($supportArtists as $artist) {
+                    $section->addTitle("Support: " . $artist->name, 4);
+                    $trgenres = $section->addTextRun($psStandardSpaceAfter);
+                    $index = 0;
+                    foreach ($artist->genres as $genre) {
+                        if ($index > 0) {
+                            $trgenres->addText(" / ");
+                        }
+                        $trgenres->addText($genre->name_de, $fsGenre);
+                        $index++;
+                    }
+                    $section->addText($artist->short_description_de, $fsShortDesc, $psStandard);
+                    $section->addText($artist->complete_description_de, $fsStandard, $psStandard);
+                    if (count($artist->musicians) > 0) {
+                        $trLineup = $section->addTextRun($psStandard);
+                        $trLineup->addText("Lineup:", $fsItalic);
+                        $indexMusician = 0;
+                        foreach ($artist->musicians as $musician) {
+                            if ($indexMusician > 0) {
+                                $trLineup->addText(",", $fsItalic);
+                            }
+                            if (isset($musician->stagename)) {
+                                $trLineup->addText(" " . $musician->stagename, $fsItalic);
+                            } else {
+                                $trLineup->addText(" " . $musician->first_name, $fsItalic);
+                                if (isset($musician->last_name)) {
+                                    $trLineup->addText(" " . $musician->last_name, $fsItalic);
+                                }
+                            }
+                            $trLineup->addText(" ");
+                            $indexInstr = 0;
+                            foreach ($musician->instrumentsFor($artist->id)->get() as $instrument) {
+                                if ($indexInstr > 0) {
+                                    $trLineup->addText("/", $fsItalic);
+                                }
+                                $trLineup->addText($instrument->name_de, $fsItalic);
+                                $indexInstr++;
+                            }
+                            $indexMusician++;
+                        }
+                    }
+                    // if artist has no link, then add artists representer if there is one
+                    if (count($artist->links) > 0) {
+                        $trLinks = $section->addTextRun($psStandard);
+                        $indexLinks = 0;
+                        foreach ($artist->links as $link) {
+                            if ($indexLinks > 0) {
+                                $trLinks->addText(", ", $fsStandard);
+                            }
+                            $trLinks->addText($link->url, $fsStandard);
+                            $indexLinks++;
+                        }
+                    } elseif ($event->representer != NULL) {
+                        $contactDetails = self::getRepresenterDetails($event->representer);
+                        $trContact = $section->addTextRun($psStandard);
+                        $trContact->addText("Bandkontakt: " . $contactDetails, $fsStandard);
+                    }
+                }
+            }
+            //// case 3: artistListingMulti: event has a title_de and multiple main artists
+            elseif ($event->title_de != NULL && count($mainArtists) > 1) {
+                $section->addTitle($event->title_de, 3);
+                $trgenres = $section->addTextRun($psStandardSpaceAfter);
+                $index = 0;
+                foreach($artists as $artist) {
+                    foreach ($artist->genres as $genre) {
+                        if ($index > 0) {
+                            $trgenres->addText(" / ");
+                        }
+                        $trgenres->addText($genre->name_de, $fsGenre);
+                        $index++;
+                    }
+                }
+                $section->addText($event->description_de, $fsStandard, $psStandardSpaceAfter);
+                foreach($mainArtist as $artist) {
+                    $section->addText($artist->name . ": " . $artist->short_description_de, $fsShortDesc, $psStandard);
+                    $section->addText($artist->complete_description_de, $fsStandard, $psStandard);
+                    if (count($artist->musicians) > 0) {
+                        $trLineup = $section->addTextRun($psStandard);
+                        $trLineup->addText("Lineup:", $fsItalic);
+                        $indexMusician = 0;
+                        foreach ($artist->musicians as $musician) {
+                            if ($indexMusician > 0) {
+                                $trLineup->addText(",", $fsItalic);
+                            }
+                            if (isset($musician->stagename)) {
+                                $trLineup->addText(" " . $musician->stagename, $fsItalic);
+                            } else {
+                                $trLineup->addText(" " . $musician->first_name, $fsItalic);
+                                if (isset($musician->last_name)) {
+                                    $trLineup->addText(" " . $musician->last_name, $fsItalic);
+                                }
+                            }
+                            $trLineup->addText(" ");
+                            $indexInstr = 0;
+                            foreach ($musician->instrumentsFor($artist->id)->get() as $instrument) {
+                                if ($indexInstr > 0) {
+                                    $trLineup->addText("/", $fsItalic);
+                                }
+                                $trLineup->addText($instrument->name_de, $fsItalic);
+                                $indexInstr++;
+                            }
+                            $indexMusician++;
+                        }
+                    }
+                }
+                $supportArtists = $artists->filter(function($artist) {
+                    return $artist->pivot->is_support == 1;
+                });
+                foreach($supportArtists as $artist) {                    
+                    $section->addText("Support: " . $artist->name . ": " . $artist->short_description_de, $fsShortDesc, $psStandard);
+                    $section->addText($artist->complete_description_de, $fsStandard, $psStandard);
+                    if (count($artist->musicians) > 0) {
+                        $trLineup = $section->addTextRun($psStandard);
+                        $trLineup->addText("Lineup:", $fsItalic);
+                        $indexMusician = 0;
+                        foreach ($artist->musicians as $musician) {
+                            if ($indexMusician > 0) {
+                                $trLineup->addText(",", $fsItalic);
+                            }
+                            if (isset($musician->stagename)) {
+                                $trLineup->addText(" " . $musician->stagename, $fsItalic);
+                            } else {
+                                $trLineup->addText(" " . $musician->first_name, $fsItalic);
+                                if (isset($musician->last_name)) {
+                                    $trLineup->addText(" " . $musician->last_name, $fsItalic);
+                                }
+                            }
+                            $trLineup->addText(" ");
+                            $indexInstr = 0;
+                            foreach ($musician->instrumentsFor($artist->id)->get() as $instrument) {
+                                if ($indexInstr > 0) {
+                                    $trLineup->addText("/", $fsItalic);
+                                }
+                                $trLineup->addText($instrument->name_de, $fsItalic);
+                                $indexInstr++;
+                            }
+                            $indexMusician++;
+                        }
+                    }
+                    // if artist has no link, then add artists representer if there is one
+                    if (count($artist->links) > 0) {
+                        $trLinks = $section->addTextRun($psStandard);
+                        $indexLinks = 0;
+                        foreach ($artist->links as $link) {
+                            if ($indexLinks > 0) {
+                                $trLinks->addText(", ", $fsStandard);
+                            }
+                            $trLinks->addText($link->url, $fsStandard);
+                            $indexLinks++;
+                        }
+                    } elseif ($event->representer != NULL) {
+                        $contactDetails = self::getRepresenterDetails($event->representer);
+                        $trContact = $section->addTextRun($psStandard);
+                        $trContact->addText("Bandkontakt: " . $contactDetails, $fsStandard);
+                    }
+                }   
+            }
+            //// END cases 1 to 3
+
             $trTickets = $section->addTextRun($psStandardSpaceBeforeAndAfter);
             $indexTickets = 0;
             foreach ($event->ticketCategories as $ticket) {
@@ -245,8 +466,7 @@ class WordExport {
         $footer->addText("www.mahogany.ch", $fsSmallBold);
 
         // prepare doc for download and display «save as» dialog/or treat like browser behaviour
-        $file = 'test.docx';
-        self::setWordHeader($file);
+        self::setWordHeader($filename);
         $io = IOFactory::createWriter($word);
         $io->save('php://output');
     }
