@@ -23,11 +23,12 @@ class Member extends \Eloquent {
         'first_name' => 'required|min:1|max:100|names',
         'last_name' => 'required|min:1|max:100|names',
         'email' => 'email|min:1|max:200|required_without:phone',
-        'phone' => 'phone|min:1|max:20|required_without:email',
+        'phone' => 'phone|min:8|max:20|required_without:email',
         'is_active' => 'required|boolean',
         'street' => 'required|min:1|max:200',
         'npa' => 'required|min:1|max:20',
         'city' => 'min:1|max:200',
+        'country' => 'max:'
     );
     public static $update_rules = [];
 

@@ -10,7 +10,7 @@
  *  - whitespaces
  *  */
 Validator::extend('phone', function($field, $value, $parameters) {
-    return preg_match("#^\+?[0-9./ ]{8+}$#", $value);
+    return preg_match("#^\+?[0-9./ ]+$#", $value);
 });
 
 /**
