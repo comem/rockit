@@ -93,14 +93,13 @@ class tablesWithAddressTest extends TestCase {
 
 	public function store_one_for_tables_with_addresses( $case )
 	{
-		
-		// var_dump($case);
+		var_dump($case);
 		$response = $this->call($case['method'], $case['uri'], 
 						array(
 							'first_name' => $case['first_name'],
 							'last_name' => $case['last_name'],
 							'stagename' => $case['stagename'],
-							'lineups' => $case['lineups'],
+							'lineups' => $case['lineups']
 							)
 						);
 		$result = json_decode($response->getContent());
