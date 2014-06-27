@@ -47,7 +47,7 @@ class FilesManager extends \BaseController {
      * @var array
      */
     public $contract_rules = array(
-        'file' => 'ext:doc,docx|max:2000|min:1',
+        'file' => 'ext:doc,docx,pdf|max:2000|min:1',
     );
 
     /**
