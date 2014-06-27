@@ -48,7 +48,7 @@ class Musician extends \Eloquent {
     }
 
     public static function createOne($data) {
-        $class = self::getClass();
+        $class = class_basename(get_called_class());
         $field = self::$response_field;
         self::unguard();
         DB::beginTransaction();
