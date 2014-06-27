@@ -27,7 +27,7 @@ class Member extends \Eloquent {
         'is_active' => 'required|boolean',
         'street' => 'required|min:1|max:200',
         'npa' => 'required|min:1|max:20',
-        'city' => 'min:1|max:200',
+        'city' => 'required|min:1|max:200',
         'country' => 'max:'
     );
     public static $update_rules = [];

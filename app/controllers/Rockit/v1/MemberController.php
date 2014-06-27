@@ -57,7 +57,12 @@ class MemberController extends \BaseController {
      * @return Response
      */
     public function update($id) {
-        //
+        $data = Input::only('first_name', 'last_name', 'email', 'phone', 'is_active', 'street', 'npa', 'city', 'country');
+        $response = Member::validate($data, Member::$update_rules);
+        if ($response === true) {
+            $response = self::modify('Member', $id, $data);
+        }
+        return Jsend::compile($response);
     }
 
     /**
@@ -67,7 +72,7 @@ class MemberController extends \BaseController {
      * @return Response
      */
     public function destroy($id) {
-        //
+        return Jsend::compile(self::delete('Member', $id));
     }
 
 }

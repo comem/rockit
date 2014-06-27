@@ -7,60 +7,60 @@
 return [
     'language' => [
         'inexistant' => "Il n'existe aucune langue correspondante.",
-        'missing' => "L'attribut 'locale' est manquant",
+        'missing' => "L'attribut \"locale\" est manquant",
     ],
     'routes' => [
         'missing' => "Oups! Cette url n'existe pas",
     ],
     'event' => [
         'overlap' => "Cet événement chevauche un événement déjà existant.",
-        'existing' => "Il y a déjà un événement ':name' enregistré.",
+        'existing' => "Il y a déjà un événement \":name\" enregistré.",
         'inexistant' => "Il n'existe aucun événement correspondant.",
         'at_least_one_main_performer' => "L'événement doit accueillir au moins un groupe principal.",
         'is_symbolized' => "L'événement doit avoir une image de couverture pour être publié.",
     ],
     'representer' => [
         'inexistant' => "Il n'existe aucun représenant correspondant.",
-        'existing' => "Il existe déjà un représentant ':name' enregistré.",
+        'existing' => "Il existe déjà un représentant \":name\" enregistré.",
     ],
     'guarantee' => [
         'existing' => "Les artistes de cet événement sont déjà représentés par un autre représentant.",
         'inexistant' => "Il n'y a aucun représentant rattaché à cet événement.",
     ],
     'equipment' => [
-        'existing' => "Il y a déjà un équipement ':name' enregistré.",
+        'existing' => "Il y a déjà un équipement \":name\" enregistré.",
         'inexistant' => "Il n'existe aucun équipement correspondant.",
     ],
     'genre' => [
-        'existing' => "Il y a déjà un genre ':name' enregistré.",
+        'existing' => "Il y a déjà un genre \":name\" enregistré.",
         'inexistant' => "Il n'existe aucun genre correspondant.",
     ],
     'instrument' => [
-        'existing' => "Il y a déjà un instrument ':name' enregistré.",
+        'existing' => "Il y a déjà un instrument \":name\" enregistré.",
         'inexistant' => "Il n'existe aucun instrument correspondant.",
     ],
     'gift' => [
-        'existing' => "Il y a déjà un lot ':name' enregistré.",
+        'existing' => "Il y a déjà un lot \":name\" enregistré.",
         'inexistant' => "Il n'existe aucun lot correspondant.",
     ],
     'event_type' => [
-        'existing' => "Il y a déjà un type d'événement ':name' enregistré.",
+        'existing' => "Il y a déjà un type d'événement \":name\" enregistré.",
         'inexistant' => "Il n'existe aucun type d'événement correspondant.",
     ],
     'printing_type' => [
-        'existing' => "Il y a déjà un type d'imprimé ':name' enregistré.",
+        'existing' => "Il y a déjà un type d'imprimé \":name\" enregistré.",
         'inexistant' => "Il n'existe aucun type d'imprimé correspondant.",
     ],
     'event_type' => [
-        'existing' => "Il y a déjà une catégorie de tickets ':name' enregistrée.",
+        'existing' => "Il y a déjà une catégorie de tickets \":name\" enregistrée.",
         'inexistant' => "Il n'existe aucune catégorie de tickets correspondante.",
     ],
     'skill' => [
-        'existing' => "Il y a déjà une compétence ':name' enregistrée.",
+        'existing' => "Il y a déjà une compétence \":name\" enregistrée.",
         'inexistant' => "Il n'existe aucune compétence correspondante.",
     ],
     'instrument' => [
-        'existing' => "Il y a déjà un instrument ':name' enregistré.",
+        'existing' => "Il y a déjà un instrument \":name\" enregistré.",
         'inexistant' => "Il n'existe aucun instrument correspondant.",
     ],
     'attribution' => [
@@ -111,7 +111,7 @@ return [
         'inexistant' => "Il n'existe aucun performeur correspondant.",
     ],
     'musician' => [
-        'existing' => "Il y a déjà un musician ':name' enregistré.",
+        'existing' => "Il y a déjà un musician \":name\" enregistré.",
         'inexistant' => "Il n'existe aucun musician correspondant.",
     ],
     'illustration' => [
@@ -130,6 +130,6 @@ return [
     ],
     'member' => [
         'inexistant' => "Il n'existe aucun membre correspondant.",
-        'existing' => "Il y a déjà un membre ':name' enregistré.",
+        'existing' => "Il y a déjà un membre \":name\" enregistré.",
     ],
 ];
