@@ -1,7 +1,6 @@
 <?php
 
 use Rockit\Resource,
-    Rockit\Models\ModelBCURDTrait,
     Illuminate\Auth\UserTrait,
     Illuminate\Auth\UserInterface,
     Illuminate\Auth\Reminders\RemindableTrait,
@@ -12,8 +11,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     use UserTrait,
         RemindableTrait,
-        SoftDeletingTrait,
-        ModelBCURDTrait;
+        SoftDeletingTrait;
 
     public $timestamps = true;
     protected $appends = array('language', 'group');

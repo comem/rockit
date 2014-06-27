@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Validation rules for phone number.
+ * Validation check for phone number.
  * Accepts only :
  *  - an optionnal "+" sign in the beginning
  *  - numbers from 0 to 9
@@ -10,11 +10,11 @@
  *  - whitespaces
  *  */
 Validator::extend('phone', function($field, $value, $parameters) {
-    return preg_match("#^\+?[0-9./ ]+$#", $value);
+    return preg_match("#^\+?[0-9./ ]{8+}$#", $value);
 });
 
 /**
- * Validation rules for names.
+ * Validation check for names (firstname and/or lastname).
  * Accepts only :
  *  - letters
  *  - apostrophe
@@ -25,7 +25,8 @@ Validator::extend('names', function($field, $value, $parameters) {
 });
 
 /**
- * 
+ * Validation check for file extension.
+ * Verify that the checked file's extension is found in the set of provided parameters.
  */
 Validator::extend('ext', function($field, $value, $parameters) {
     $ext = $value->getClientOriginalExtension();

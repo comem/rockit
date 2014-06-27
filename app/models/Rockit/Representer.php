@@ -17,14 +17,6 @@ class Representer extends \Eloquent {
     protected static $response_field = 'first_name';
 
     /**
-     * Get all the events that this Representer represents.
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    public function events() {
-        return $this->hasMany('Rockit\Event');
-    }
-
-    /**
      * Validations rules for creating a new Representer.
      * @var array 
      */
@@ -51,5 +43,13 @@ class Representer extends \Eloquent {
         'npa' => 'alpha_dash|min:1|max:20',
         'city' => 'min:1|max:200',
     );
+
+    /**
+     * Get all the events that this Representer represents.
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function events() {
+        return $this->hasMany('Rockit\Event');
+    }
 
 }

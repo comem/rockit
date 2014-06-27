@@ -21,6 +21,11 @@ return [
     ],
     'representer' => [
         'inexistant' => "Il n'existe aucun représenant correspondant.",
+        'existing' => "Il existe déjà un représentant ':name' enregistré.",
+    ],
+    'guarantee' => [
+        'existing' => "Les artistes de cet événement sont déjà représentés par un autre représentant.",
+        'inexistant' => "Il n'y a aucun représentant rattaché à cet événement.",
     ],
     'equipment' => [
         'existing' => "Il y a déjà un équipement ':name' enregistré.",
@@ -118,12 +123,13 @@ return [
         'inexistant' => "Cet événement n'a pas d'image de couverture.",
         'attach_image_not_performer' => "Cette image n'illustre aucun artiste jouant dans cet événement, il n'est pas possible de l'utiliser comme image de couverture",
     ],
-    'representer' => [
-        'existing' => "Les artistes de cet événement sont déjà représentés par un autre représentant.",
-    ],
     'file' => [
         'invalid' => "Le fichier n'est pas un fichier valide.",
         'inexistant' => "Le fichier auquel vous tentez d'accéder n'existe pas.",
         'unsupported' => "Le type du fichier sélectionné n'est pas supporté par l'application.",
+    ],
+    'member' => [
+        'inexistant' => "Il n'existe aucun membre correspondant.",
+        'existing' => "Il y a déjà un membre ':name' enregistré.",
     ],
 ];

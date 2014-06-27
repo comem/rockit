@@ -100,7 +100,6 @@ class Event extends \Eloquent {
     public function performers() {
         return $this->hasMany('Rockit\Performer')
         ->orderBy('order');
-        ;
     }
 
     public function members() {
@@ -137,10 +136,11 @@ class Event extends \Eloquent {
     }
 
     public function scopeIsPublished($query, $boolean) {
-        if ($boolean)
+        if ($boolean) {
             return $query->where('events.published_at', '<>', 'NULL');
-        else
+        } else {
             return $query->where('events.published_at', '=', NULL);
+        }
     }
 
     public function scopeTitle($query, $title) {
@@ -168,17 +168,19 @@ class Event extends \Eloquent {
     }
 
     public function scopeIsFollowedByPrivate($query, $boolean) {
-        if ($boolean)
+        if ($boolean) {
             return $query->where('events.followed_by_private', '=', TRUE);
-        else
+        } else {
             return $query->where('events.followed_by_private', '=', FALSE);
+        }
     }
 
     public function scopeHasRepresenter($query, $boolean) {
-        if ($boolean)
+        if ($boolean) {
             return $query->has('representer', '>', 0);
-        else
+        } else {
             return $query->has('representer', '<', 1);
+        }
     }
 
     /**
@@ -278,21 +280,4 @@ class Event extends \Eloquent {
         return $response;
     }
 
-    /**
-     * Delete a persistant Event
-     *
-     * @param Event $object
-     * @return  true or error message
-     */
-//	public static function deleteOne( Event $object )
-//	{
-//		if( $object->delete() ){ 
-//			$response['success'] = array(
-//				'title' => trans('success.event.deleted'),
-//			);
-//		} else {
-//			$response['error'] = trans('error.event.deleted');
-//		}
-//		return $response;
-//	}
 }

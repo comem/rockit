@@ -3,12 +3,11 @@
 namespace Rockit\v1;
 
 use \Input,
-    \BaseController,
     \Jsend,
     \Rockit\Representer,
     \Rockit\Controllers\ControllerBSUDTrait;
 
-class RepresenterController extends BaseController {
+class RepresenterController extends \BaseController {
 
     use ControllerBSUDTrait;
 
@@ -43,7 +42,7 @@ class RepresenterController extends BaseController {
      * @return Response
      */
     public function store() {
-        $data = Input::only('first_name', 'last_name', 'email', 'phone', 'street', 'npa', 'city');
+        $data = Input::only('first_name', 'last_name', 'email', 'phone', 'street', 'npa', 'city', 'country');
         $response = Representer::validate($data, Representer::$create_rules);
         if ($response === true) {
             $response = self::save('Representer', $data);
@@ -58,7 +57,7 @@ class RepresenterController extends BaseController {
      * @return Response
      */
     public function update($id) {
-        $data = Input::only('first_name', 'last_name', 'email', 'phone', 'street', 'npa', 'city');
+        $data = Input::only('first_name', 'last_name', 'email', 'phone', 'street', 'npa', 'city', 'country');
         $response = Representer::validate($data, Representer::$update_rules);
         if ($response === true) {
             $response = self::modify('Representer', $id, $data);
