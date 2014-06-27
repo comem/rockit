@@ -115,7 +115,8 @@ return [
     ],
     'inexistant' => "Il n'y aucune relation pour cette image.",
     'file' => [
-        'not_deleted' => "Le fichier n'a pas pu être supprimé.",
-        'not_uploaded' => "Le fichier n'a pas pu être téléchargé.",
+        'not_deleted' => "Le fichier \":file\" n'a pas pu être supprimé.",
+        'not_uploaded' => "Le fichier \":file\" n'a pas pu être téléchargé.",
     ],
+    'app' => "Une erreur est survenue (code :code). Merci de contacter un administrateur.",
 ];

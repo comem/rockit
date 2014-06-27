@@ -28,9 +28,19 @@ class Member extends \Eloquent {
         'street' => 'required|min:1|max:300',
         'npa' => 'required|min:1|max:10',
         'city' => 'required|min:1|max:100',
-        'country' => 'max:100'
+        'country' => 'min:1|max:100'
     );
-    public static $update_rules = [];
+    public static $update_rules = [
+        'first_name' => 'min:1|max:100|names',
+        'last_name' => 'min:1|max:200|names',
+        'email' => 'email|min:1|max:300',
+        'phone' => 'phone|min:8|max:30',
+        'is_active' => 'boolean',
+        'street' => 'min:1|max:300',
+        'npa' => 'min:1|max:10',
+        'city' => 'min:1|max:100',
+        'country' => 'min:1|max:100'
+    ];
 
     public function skills() {
         return $this->belongsToMany('Rockit\Skill', 'fulfillments');

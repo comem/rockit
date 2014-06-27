@@ -82,7 +82,7 @@ class FilesManager extends \BaseController {
     public function getImage($source) {
         $complete_path = public_path() . DIRECTORY_SEPARATOR . self::IMAGE_FOLDER . DIRECTORY_SEPARATOR . $source;
         if (File::exists($complete_path)) {
-            $file_name = preg_replace('#^[0-9]*\_#u', '', $source);
+            $file_name = $this->cleanFileName($source);
             return Response::download($complete_path, $file_name);
         }
     }
@@ -101,7 +101,7 @@ class FilesManager extends \BaseController {
     public function getContract($source) {
         $complete_path = storage_path() . DIRECTORY_SEPARATOR . self::CONTRACT_FOLDER . DIRECTORY_SEPARATOR . $source;
         if (File::exists($complete_path)) {
-            $file_name = preg_replace('#^[0-9]*\_#u', '', $source);
+            $file_name = $this->cleanFileName($source);
             return Response::download($complete_path, $file_name);
         }
     }
@@ -120,7 +120,7 @@ class FilesManager extends \BaseController {
     public function getPrinting($source) {
         $complete_path = storage_path() . DIRECTORY_SEPARATOR . self::PRINTING_FOLDER . DIRECTORY_SEPARATOR . $source;
         if (File::exists($complete_path)) {
-            $file_name = preg_replace('#^[0-9]*\_#u', '', $source);
+            $file_name = $this->cleanFileName($source);
             return Response::download($complete_path, $file_name);
         }
     }
@@ -140,16 +140,16 @@ class FilesManager extends \BaseController {
      */
     public function upload() {
         $file = Input::file('file');
-        if ($file->isValid()) {
-            $file_type = $this->validate($file);
+        if (is_object($file) && $file->isValid()) {
+            $file_type = $this->validateAndGetType($file);
             if (is_array($file_type)) {
-                $response = array('fail' => $file_type);
+                $response = $file_type;
             } else {
                 $call = 'put' . studly_case($file_type);
                 $response = $this->$call($file);
             }
         } else {
-            $response = array('fail' => trans('fail.file.invalid'));
+            $response['fail'] = ['file' => trans('fail.file.invalid')];
         }
         return Jsend::compile($response);
     }
@@ -171,14 +171,15 @@ class FilesManager extends \BaseController {
         } else {
             $complete_path = storage_path() . DIRECTORY_SEPARATOR . $directory . DIRECTORY_SEPARATOR . $file_name;
         }
+        $file = $this->cleanFileName($file_name);
         if (File::exists($complete_path)) {
             if (File::delete($complete_path)) {
-                $response = array('success' => array('title' => trans('success.file.deleted')));
+                $response['success'] = ['title' => [trans('success.file.deleted', ['file' => $file])]];
             } else {
-                $response = array('error' => trans('error.file.not_deleted'));
+                $response['error'] = trans('error.file.not_deleted', ['file' => $file]);
             }
         } else {
-            $response = array('fail' => array('title' => trans('fail.file.inexistant')));
+            $response['fail'] = ['file' => [trans('fail.file.inexistant', ['file' => $file])]];
         }
         return Jsend::compile($response);
     }
@@ -189,19 +190,19 @@ class FilesManager extends \BaseController {
       |-----------------------------------------------------------------
      */
 
-    private function validate(UploadedFile $file) {
-        $validate = Validator::make(array('file' => $file), $this->image_rules);
+    private function validateAndGetType(UploadedFile $file) {
+        $validate = Validator::make(['file' => $file], $this->image_rules);
         $type = self::IMAGE_FOLDER;
         if ($validate->fails()) {
-            $validate = Validator::make(array('file' => $file), $this->contract_rules);
+            $validate = Validator::make(['file' => $file], $this->contract_rules);
             $type = self::CONTRACT_FOLDER;
         }
         if ($validate->fails()) {
-            $validate = Validator::make(array('file' => $file), $this->printing_rules);
+            $validate = Validator::make(['file' => $file], $this->printing_rules);
             $type = self::PRINTING_FOLDER;
         }
         if ($validate->fails()) {
-            $response = array('file' => trans('fail.file.unsupported'));
+            $response['fail'] = ['file' => [trans('fail.file.unsupported', ['ext' => $file->getClientOriginalExtension()])]];
         } else {
             $response = $type;
         }
@@ -228,12 +229,12 @@ class FilesManager extends \BaseController {
 
     private function move(UploadedFile $file, $path) {
         if ($this->checkOrCreate($path) && $file->move($path, $file->name)) {
-            $response = array('success' => array(
-                    'title' => trans('success.file.uploaded'),
-                    'source' => $file->source,
-            ));
+            $response['success'] = [
+                'title' => trans('success.file.uploaded', ['file' => $file->getClientOriginalName()]),
+                'source' => $file->source,
+            ];
         } else {
-            $response = array('error' => trans('error.file.not_uploaded'));
+            $response['error'] = trans('error.file.not_uploaded', ['file' => $file->getClientOriginalName()]);
         }
         return $response;
     }
@@ -244,6 +245,10 @@ class FilesManager extends \BaseController {
             $ok = File::makeDirectory($directory) ? $ok : !$ok;
         }
         return $ok;
+    }
+
+    private function cleanFileName($source) {
+        return preg_replace('#^[0-9]*\_#u', '', $source);
     }
 
 }

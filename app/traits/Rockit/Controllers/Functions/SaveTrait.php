@@ -21,7 +21,7 @@ trait SaveTrait {
         if ($check_existence === true) {
             $object = $call::exist($data[$column], $column);
             if (is_object($object)) {
-                $response = array('fail' => trans('fail.' . snake_case($model) . '.existing'));
+                $response['fail'] = [snake_case($model) => [trans('fail.' . snake_case($model) . '.existing')]];
             }
         }
         if (!isset($response)) {

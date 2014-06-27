@@ -29,7 +29,7 @@ class MemberController extends \BaseController {
     public function show($id) {
         $model = Member::with('staffs.event', 'staffs.skill', 'fulfillments.skill')->find($id);
         if (is_object($model)) {
-            $response = Jsend::success(['member' => $model]);
+            $response = Jsend::success(['response' => $model]);
         } else {
             $response = Jsend::fail(['member' => [trans('fail.member.inexistant')]]);
         }

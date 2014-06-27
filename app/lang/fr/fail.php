@@ -124,9 +124,9 @@ return [
         'attach_image_not_performer' => "Cette image n'illustre aucun artiste jouant dans cet événement, il n'est pas possible de l'utiliser comme image de couverture",
     ],
     'file' => [
-        'invalid' => "Le fichier n'est pas un fichier valide.",
-        'inexistant' => "Le fichier auquel vous tentez d'accéder n'existe pas.",
-        'unsupported' => "Le type du fichier sélectionné n'est pas supporté par l'application.",
+        'invalid' => "Le fichier sélectionné n'est pas un fichier valide.",
+        'inexistant' => "Le fichier \":file\" n'existe pas sur ce serveur.",
+        'unsupported' => "Le type du fichier sélectionné (.:ext) n'est pas supporté par l'application.",
     ],
     'member' => [
         'inexistant' => "Il n'existe aucun membre correspondant.",

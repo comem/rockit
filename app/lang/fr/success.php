@@ -109,14 +109,16 @@ return [
         'deleted' => "L'image a bien été supprimée de l'événement.",
     ],
     'guarantee' => [
-        'created' => "Le représentant a bien été lié à l'événement.",
-        'deleted' => "Le représentant a bien été supprimé de l'événement.",
+        'created' => "Le représentant \":name\" a bien été lié à l'événement.",
+        'deleted' => "Le représentant \":name\" a bien été supprimé de l'événement.",
     ],
     'file' => [
-        'deleted' => "Le fichier a bien été supprimé avec succès.",
-        'uploaded' => "Le fichier a été téléchargé avec succès.",
+        'deleted' => "Le fichier \":file\" a bien été supprimé.",
+        'uploaded' => "Le fichier \":file\" a bien été sauvegardé.",
     ],
     'member' => [
-        'created' => "Le membre a bien été sauvegardé ",
+        'created' => "Le membre \":name\" a bien été sauvegardé ",
+        'updated' => "Le membre \":name\" a bien été mis à jour.",
+        'deleted' => "Le membre \":name\" a bien été supprimé.",
     ]
 ];
