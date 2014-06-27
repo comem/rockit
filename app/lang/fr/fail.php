@@ -14,6 +14,10 @@ return array(
     ),
     'event' => array(
         'overlap' => "Il y a déjà un événement planifié pour cette date là !",
+        'existing' => "Il y a déjà un événement ':name' enregistré !",
+        'inexistant' => "Il n'y aucun équipement enregistré correspondant !",
+        'at_least_one_main_performer' => "L'événement doit accueillir au moins un group principale !",
+        'is_symbolized' => "L'événement doit avoir une image de couverture pour être publié !",
     ),
     'representer' => array(
         'inexistant' => "Ce représentant n'existe pas.",
@@ -26,11 +30,11 @@ return array(
         'existing' => "Il y a déjà un genre ':name' enregistré !",
         'inexistant' => "Il n'y aucun genre enregistré correspondant !",
     ),
-     'instrument' => array(
+    'instrument' => array(
         'existing' => "Il y a déjà un instrument ':name' enregistré !",
         'inexistant' => "Il n'y aucun instrument enregistré correspondant !",
     ),
-     'gift' => array(
+    'gift' => array(
         'existing' => "Il y a déjà un lot ':name' enregistré !",
         'inexistant' => "Il n'y aucun lot enregistré correspondant !",
     ),
@@ -53,14 +57,12 @@ return array(
     'instrument' => array(
         'existing' => "Cet instrument existe déjà.",
     ),
-
     'attribution' => array(
         'existing' => "Il y a déjà une attribution de même type enregistrée !",
         'inexistant' => "Il n'y aucune attribution enregistrée correspondante !",
     ),
     'acl' => "Vous n'avez pas le droit d'effectuer cette action",
     'auth' => "Vous devez être authentifié pour effectuer cette action",
-
     'offer' => array(
         'existing' => "Il y a déjà une offre de même type enregistrée !",
         'inexistant' => "Il n'y aucune offre enregistrée correspondante !",
@@ -102,5 +104,26 @@ return array(
         'existing' => "Ce groupe joue déjà dans cet événement à cette position !",
         'inexistant' => "Il n'y aucune liaison correspondant !",
     ),
-
+    'musician' => array(
+        'existing' => "Il y a déjà un musician ':name' enregistré !",
+        'inexistant' => "Il n'y aucun musician enregistré correspondant !",
+    ),
+    'illustration' => array(
+        'existing' => "Il y a déjà une relation pour cette image !",
+        'inexistant' => "Il n'y aucune relation pour cette image !",
+    ),
+    'symbolization' => array(
+        'existing' => "Cet événement à déjà une image de couverture !",
+        'inexistant' => "Cet événement n'a pas d'image de couverture !",
+        'attach_image_not_performer' => "L'image que vous souhaiter attacher n'appartient pas à un group qui joue dand l'événement !",
+    ),
+    'illustration' => array(
+        'existing' => "Il y a déjà un représentant pour cet événement !",
+        'inexistant' => "Il n'y aucun représentant pour cet événement !",
+    ),
+    'file' => array(
+        'invalid' => "Le fichier n'est pas un fichier valide.",
+        'inexistant' => "Le fichier auquel vous tentez d'accéder n'existe pas.",
+        'unsupported' => "Le type du fichier sélectionné n'est pas supporté.",
+    ),
 );

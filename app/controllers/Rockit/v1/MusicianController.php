@@ -49,21 +49,26 @@ class MusicianController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$musician = Musician::with('artists')->find($id);
-		foreach($musician->artists as $artist){
-		    $lineups = Lineup::where('artist_id', '=', $artist->pivot->artist_id)
-		                    ->where('musician_id', '=', $artist->pivot->musician_id)
-		                    ->get();
-		    foreach($lineups as $lineup){
-		        $instrument = Instrument::where('id', '=', $lineup->instrument_id)->first();
-		        $instrument->lineup_id = $lineup->id;
-		        $instruments[] = $instrument;
-		    }
-		    $artist->instruments = $instruments;
-		    unset($artist->pivot);
-		    unset($instruments);
+        $musician = Musician::with('artists')->find($id);
+        if (empty($musician)) {
+            $response = Jsend::fail(array('title' => trans('fail.musician.inexistant')));
+        } else {
+			foreach($musician->artists as $artist){
+			    $lineups = Lineup::where('artist_id', '=', $artist->pivot->artist_id)
+			                    ->where('musician_id', '=', $artist->pivot->musician_id)
+			                    ->get();
+			    foreach($lineups as $lineup){
+			        $instrument = Instrument::where('id', '=', $lineup->instrument_id)->first();
+			        $instrument->lineup_id = $lineup->id;
+			        $instruments[] = $instrument;
+			    }
+			    $artist->instruments = $instruments;
+			    unset($artist->pivot);
+			    unset($instruments);
+			}
+			$response = Jsend::success($musician);
 		}
-		return Jsend::success($musician);
+		return $response;
 	}
 
 

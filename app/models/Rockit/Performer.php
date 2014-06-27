@@ -9,6 +9,7 @@ class Performer extends \Eloquent {
 	use CompletePivotModelTrait;
 
 	protected $table = 'performers';
+	protected $hidden = ['artist_id', 'event_id'];
 
 	public $timestamps = false;
 	public static $create_rules = [
@@ -33,5 +34,15 @@ class Performer extends \Eloquent {
         			->where('order', '=', $data['order'])
         			->first();
     }
+
+	public function artist()
+	{
+		return $this->belongsTo('Rockit\Artist');
+	}
+
+	public function event()
+	{
+		return $this->belongsTo('Rockit\Event');
+	}
 
 }

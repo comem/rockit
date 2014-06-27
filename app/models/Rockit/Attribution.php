@@ -9,6 +9,7 @@ class Attribution extends \Eloquent {
 	use CompletePivotModelTrait;
 
 	protected $table = 'attributions';
+	protected $hidden = ['equipment_id', 'event_id'];
 	
 	public $timestamps = false;
 	public static $create_rules = [
@@ -22,5 +23,15 @@ class Attribution extends \Eloquent {
 		'quantity' 		=> 'integer|min:1',
 	];
 	public static $response_field = 'id';
+
+	public function equipment()
+	{
+		return $this->belongsTo('Rockit\Equipment');
+	}
+
+	public function event()
+	{
+		return $this->belongsTo('Rockit\Event');
+	}
 
 }

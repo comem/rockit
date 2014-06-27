@@ -14,7 +14,10 @@ use Rockit\Resource;
  */
 
 App::before(function($request) {
-    //
+    // Check the current locale and set it to the user's locale
+    if (!Auth::guest() && App::getLocale() !== Auth::user()->language->locale) {
+        App::setLocale(Auth::user()->language->locale);
+    }
 });
 
 
@@ -35,7 +38,7 @@ App::after(function($request, $response) {
 
 Route::filter('auth', function() {
     if (Auth::guest()) {
-        return Jsend::fail("badlogin message to be defined");
+        return Jsend::fail(trans('fail.auth'), Jsend::HTTP_FAIL_AUTH);
     }
 });
 
@@ -95,6 +98,6 @@ Route::filter('acl', function() {
     ->where('method', '=', $method)
     ->first();
     if (empty($resource) || !Auth::user()->hasAccess($resource)) {
-        return Jsend::fail("Pas les droits !");
+        return Jsend::fail(trans('fail.acl'), Jsend::HTTP_FAIL_ACL);
     }
 });

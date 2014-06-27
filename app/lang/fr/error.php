@@ -54,17 +54,17 @@ return array(
         'created' => "La catégorie de tickets ':name' n'a pas pu être créé",
         'deleted' => "La catégorie de tickets ':name' n'a pas pu être supprimé",
         'restored' => "La catégorie de tickets  ':name' n'a pas pu être restauré",
-    ), 
+    ),
     'ticket' => array(
         'created' => "Le ticket d'entrée n'a pas pu être créé",
         'deleted' => "Le ticket d'entrée n'a pas pu être supprimé",
         'restored' => "Le ticket d'entrée n'a pas pu être restauré",
-    ), 
+    ),
     'need' => array(
         'created' => "Le besoin n'a pas pu être créé",
         'deleted' => "Le besoin n'a pas pu être supprimé",
         'restored' => "Le besoin n'a pas pu être restauré",
-    ), 
+    ),
     'skill' => array(
         'created' => "La compétence n'a pas pu être créé",
         'deleted' => "La compétence n'a pas pu être supprimé",
@@ -96,5 +96,22 @@ return array(
         'created' => "La liaison n'a pas pu être créée",
         'updated' => "La liaison n'a pas pu être modifiée",
         'deleted' => "La liaison n'a pas pu être supprimée",
+    ),
+    'illustration' => array(
+        'created' => "L'image n'a pas pu être rajoutée à l'artist !",
+        'deleted' => "L'image n'a pas pu être supprimée à l'artist !",
+    ),
+    'symbolization' => array(
+        'created' => "L'image n'a pas pu être rajoutée à l'événement !",
+        'deleted' => "L'image n'a pas pu être supprimée à l'événement !",
+    ),
+    'illustration' => array(
+        'created' => "Le représentant n'a pas pu être rajouté à l'événement !",
+        'deleted' => "Le représentant n'a pas pu être supprimé à l'événement !",
+    ),
+    'inexistant' => "Il n'y aucune relation pour cette image !",
+    'file' => array(
+        'not_deleted' => "Le fichier n'a pas pu être supprimé.",
+        'not_uploaded' => "Le fichier n'a pas pu être téléchargé.",
     ),
 );
