@@ -11,11 +11,6 @@ class LinksTableSeeder extends Seeder {
         DB::table('links')->delete();
 
         $artist = Artist::all();
-
-        Link::create(array('id'=>'0',
-                            'url'=>"www.totensocken.eu",
-                            'name_de'=> 'webseite von die toten Socken',
-                            'artist_id'=> $artist[0]->id,));
         
         Link::create(array('id'=>'1',
                             'url'=>"www.totensocken.at",
@@ -46,7 +41,13 @@ class LinksTableSeeder extends Seeder {
                             'url'=>"www.philippgerber.com",
                             'name_de'=> 'kein komentar',
                             'artist_id'=> $artist[6]->id,));
-
+       
+        Link::create(array('id'=>'7',
+                            'url'=>"www.totensocken.eu",
+                            'name_de'=> 'webseite von die toten Socken',
+                            'artist_id'=> $artist[0]->id,));
+        
+        
     }
 }
 

@@ -8,11 +8,6 @@ class MusiciansTableSeeder extends Seeder {
     public function run() {
         DB::table('musicians')->delete();
 
-        Musician::create(array('id' => '0',
-            'first_name' => 'Karl',
-            'last_name' => 'Legerfeld',
-            'stagename' => 'Bonzai',
-        ));
 
         Musician::create(array('id' => '1',
             'first_name' => 'Paul',
@@ -54,7 +49,13 @@ class MusiciansTableSeeder extends Seeder {
             'first_name' => 'Brigittte',
             'last_name' => 'Geiser',
             'stagename' => 'Brigitte Geiser',
+        ));        
+        Musician::create(array('id' => '9',
+            'first_name' => 'Karl',
+            'last_name' => 'Legerfeld',
+            'stagename' => 'Bonzai',
         ));
+
     }
 
 }

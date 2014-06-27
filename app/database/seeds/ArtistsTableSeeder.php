@@ -10,7 +10,7 @@ class ArtistsTableSeeder extends Seeder {
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         DB::table('artists')->delete();
 
-        Artist::create(array('id'=>'0',
+        Artist::create(array('id'=>'9',
                             'name' => 'Die toten Socken',
                             'short_description_de'=>'Band die nur über kleider singt ',
                             'complete_description_de'=> 'Rock band, die nur über kleider signt und zu populair ist',

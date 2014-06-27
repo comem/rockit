@@ -10,7 +10,7 @@ class InstrumentsTableSeeder extends Seeder {
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         DB::table('instruments')->delete();
 
-        Instrument::create(array('id'=>'0','name_de' => 'Guitar'));
+        Instrument::create(array('id'=>'7','name_de' => 'Guitar'));
         
         Instrument::create(array('id'=>'1','name_de' => 'Vocals'));
         

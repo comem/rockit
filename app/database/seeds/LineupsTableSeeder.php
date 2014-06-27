@@ -49,7 +49,7 @@ class LineupsTableSeeder extends Seeder {
         
         Lineup::create(array('musician_id' => '5',
                                         'artist_id' => '6',
-                                        'instrument_id'=> '0'));
+                                        'instrument_id'=> '7'));
         
         Lineup::create(array('musician_id' => '5',
                                         'artist_id' => '6',

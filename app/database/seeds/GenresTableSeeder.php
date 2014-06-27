@@ -9,8 +9,6 @@ class GenresTableSeeder extends Seeder {
     {
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         DB::table('genres')->delete();
-
-        Genre::create(array('id'=>'0','name_de' => 'Pop- rock'));
         
         Genre::create(array('id'=>'1','name_de' => 'Balkan'));
         
@@ -29,5 +27,7 @@ class GenresTableSeeder extends Seeder {
         Genre::create(array('id'=>'8','name_de' => 'Irish Folk'));
         
         Genre::create(array('id'=>'9','name_de' => 'Latin'));
+        
+        Genre::create(array('id'=>'10','name_de' => 'Pop- rock'));
     }
 }

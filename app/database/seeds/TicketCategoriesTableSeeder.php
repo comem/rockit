@@ -9,9 +9,6 @@ class TicketCategoriesTableSeeder extends Seeder {
     {
         DB::table('ticket_categories')->delete();
 
-        TicketCategory::create(array('id'=>'0',
-            'name_de' => 'frei'));
-        
         TicketCategory::create(array('id'=>'1',
             'name_de' => 'redurziert'));
         
@@ -26,6 +23,9 @@ class TicketCategoriesTableSeeder extends Seeder {
         
         TicketCategory::create(array('id'=>'5',
             'name_de' => 'Inkl pre-Party Workshop'));
+        
+        TicketCategory::create(array('id'=>'6',
+            'name_de' => 'frei'));
     }
 }
 

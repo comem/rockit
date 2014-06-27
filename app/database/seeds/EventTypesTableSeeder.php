@@ -9,7 +9,7 @@ class EventTypesTableSeeder extends Seeder {
     {
         DB::table('event_types')->delete();
 
-        EventType::create(array('id'=> '0','name_de' => 'Concert'));
+        EventType::create(array('id'=> '3','name_de' => 'Concert'));
         
         EventType::create(array('id'=> '1','name_de' => 'Dance lesson'));
         
