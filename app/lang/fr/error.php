@@ -97,4 +97,21 @@ return array(
         'updated' => "La liaison n'a pas pu être modifiée",
         'deleted' => "La liaison n'a pas pu être supprimée",
     ),
+    'illustration' => array(
+        'created' => "L'image n'a pas pu être rajoutée à l'artist !",
+        'deleted' => "L'image n'a pas pu être supprimée à l'artist !",
+    ),
+    'symbolization' => array(
+        'created' => "L'image n'a pas pu être rajoutée à l'événement !",
+        'deleted' => "L'image n'a pas pu être supprimée à l'événement !",
+    ),
+    'illustration' => array(
+        'created' => "Le représentant n'a pas pu être rajouté à l'événement !",
+        'deleted' => "Le représentant n'a pas pu être supprimé à l'événement !",
+    ),
+    'inexistant' => "Il n'y aucune relation pour cette image !",
+    'file' => array(
+        'not_deleted' => "Le fichier n'a pas pu être supprimé.",
+        'not_uploaded' => "Le fichier n'a pas pu être téléchargé.",
+    ),
 );

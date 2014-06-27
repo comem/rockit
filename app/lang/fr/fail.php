@@ -108,4 +108,22 @@ return array(
         'existing' => "Il y a déjà un musician ':name' enregistré !",
         'inexistant' => "Il n'y aucun musician enregistré correspondant !",
     ),
+    'illustration' => array(
+        'existing' => "Il y a déjà une relation pour cette image !",
+        'inexistant' => "Il n'y aucune relation pour cette image !",
+    ),
+    'symbolization' => array(
+        'existing' => "Cet événement à déjà une image de couverture !",
+        'inexistant' => "Cet événement n'a pas d'image de couverture !",
+        'attach_image_not_performer' => "L'image que vous souhaiter attacher n'appartient pas à un group qui joue dand l'événement !",
+    ),
+    'illustration' => array(
+        'existing' => "Il y a déjà un représentant pour cet événement !",
+        'inexistant' => "Il n'y aucun représentant pour cet événement !",
+    ),
+    'file' => array(
+        'invalid' => "Le fichier n'est pas un fichier valide.",
+        'inexistant' => "Le fichier auquel vous tentez d'accéder n'existe pas.",
+        'unsupported' => "Le type du fichier sélectionné n'est pas supporté.",
+    ),
 );

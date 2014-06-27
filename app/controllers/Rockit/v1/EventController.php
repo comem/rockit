@@ -6,7 +6,9 @@ use \Rockit\Controllers\ControllerBSUDTrait;
 use \Jsend,
     \Input,
     \WordExport,
-    \Rockit\Event;
+    \XMLExport;
+use \Rockit\Event;
+
 
 class EventController extends \BaseController {
 
@@ -154,7 +156,13 @@ class EventController extends \BaseController {
     public function exportWord() {
         $from = Input::get('from');
         $to = Input::get('to');
-        WordExport::events($from, $to);
+
+        if(isset($from) && isset($to)) {
+            WordExport::events($from, $to);  
+        } else {
+            $response['fail'] = trans('fail.wordexport.noinput');
+            return Jsend::compile($response);
+        }   
     }
 
     /**
@@ -164,7 +172,14 @@ class EventController extends \BaseController {
      * @return Response
      */
     public function exportXML() {
-        //
+        $from = Input::get('from');
+        $to = Input::get('to');
+        if(isset($from) && isset($to)) {
+            XMLExport::events($from, $to);
+        } else {
+            $response['fail'] = trans('fail.xmlexport.noinput');
+            return Jsend::compile($response);
+        }   
     }
 
 
