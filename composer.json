@@ -5,7 +5,8 @@
     "license": "MIT",
     "require": {
         "laravel/framework": "4.2.*",
-        "phpoffice/phpword": "dev-master"
+        "phpoffice/phpword": "dev-master",
+        "facebook/php-sdk-v4" : "4.0.*"
     },
     "autoload": {
         "classmap": [
