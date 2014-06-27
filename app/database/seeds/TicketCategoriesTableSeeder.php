@@ -9,19 +9,23 @@ class TicketCategoriesTableSeeder extends Seeder {
     {
         DB::table('ticket_categories')->delete();
 
-        TicketCategory::create(array('name_de' => 'freier eintritt'));
+        TicketCategory::create(array('id'=>'0',
+            'name_de' => 'frei'));
         
-        TicketCategory::create(array('name_de' => 'Student eintritt'));
+        TicketCategory::create(array('id'=>'1',
+            'name_de' => 'redurziert'));
         
-        TicketCategory::create(array('name_de' => 'Normales eintritt'));
+        TicketCategory::create(array('id'=>'2',
+            'name_de' => 'normal'));
         
-        TicketCategory::create(array('name_de' => 'Kind eintritt'));
+        TicketCategory::create(array('id'=>'3',
+            'name_de' => 'Kind'));
         
-        TicketCategory::create(array('name_de' => 'AVS eintritt'));
+        TicketCategory::create(array('id'=>'4',
+            'name_de' => 'Tanz & Party ab 18.30 Uhr'));
         
-        TicketCategory::create(array('name_de' => 'Totales hapenning eintritt'));
-        
-        TicketCategory::create(array('name_de' => 'Ohne hapenning eintritt'));
+        TicketCategory::create(array('id'=>'5',
+            'name_de' => 'Inkl pre-Party Workshop'));
     }
 }
 

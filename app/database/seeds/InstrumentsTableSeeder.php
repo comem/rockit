@@ -10,15 +10,19 @@ class InstrumentsTableSeeder extends Seeder {
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         DB::table('instruments')->delete();
 
-        Instrument::create(array('name_de' => 'Flöte'));
+        Instrument::create(array('id'=>'0','name_de' => 'Guitar'));
         
-        Instrument::create(array('name_de' => 'Gitarre'));
+        Instrument::create(array('id'=>'1','name_de' => 'Vocals'));
         
-        Instrument::create(array('name_de' => 'Batterie'));
+        Instrument::create(array('id'=>'2','name_de' => 'Bass'));
         
-        Instrument::create(array('name_de' => 'Singer'));
+        Instrument::create(array('id'=>'3','name_de' => 'Backvocals'));
         
-        Instrument::create(array('name_de' => 'Dreieckspieler'));
+        Instrument::create(array('id'=>'4','name_de' => 'Drum'));
+        
+        Instrument::create(array('id'=>'5','name_de' => 'Organ'));
+        
+        Instrument::create(array('id'=>'6','name_de' => 'Dj'));
         
     }
 }
