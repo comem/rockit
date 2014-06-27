@@ -31,7 +31,7 @@ class MemberController extends \BaseController {
         if (is_object($model)) {
             $response = Jsend::success(['member' => $model]);
         } else {
-            $response = Jsend::fail(trans('fail.member.inexistant'));
+            $response = Jsend::fail(['member' => [trans('fail.member.inexistant')]]);
         }
         return $response;
     }
