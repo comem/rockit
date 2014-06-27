@@ -7,8 +7,6 @@ use \DB,
     Rockit\Models\ModelBCUDTrait,
     Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-use \Validator, \DB, Rockit\Image, \Rockit\Performer, \Rockit\Musician, \Rockit\Lineup;
-
 class Artist extends \Eloquent {
 
     use SoftDeletingTrait,
