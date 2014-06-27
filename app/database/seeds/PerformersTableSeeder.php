@@ -38,7 +38,43 @@ class PerformersTableSeeder extends Seeder {
                                 'order' => '1',
                                 'is_support' => '0',
                                 'artist_hour_of_arrival'=>'2014-09-18 17:00:00'));
-}
+    
+        Performer::create(array('artist_id' => 8,
+                                'event_id'=> 6,
+                                'order' => '1',
+                                'is_support' => '0',
+                                'artist_hour_of_arrival'=>'2014-09-05 16:00:00'));
+        
+        Performer::create(array('artist_id' => 5,
+                                'event_id'=> 7,
+                                'order' => '1',
+                                'is_support' => '0',
+                                'artist_hour_of_arrival'=>'2014-09-05 17:00:00'));
+        
+         Performer::create(array('artist_id' => 6,
+                                'event_id'=> 7,
+                                'order' => '1',
+                                'is_support' => '0',
+                                'artist_hour_of_arrival'=>'2014-09-05 17:00:00'));
+        
+        Performer::create(array('artist_id' => 7,
+                                'event_id'=> 8,
+                                'order' => '1',
+                                'is_support' => '0',
+                                'artist_hour_of_arrival'=>'2014-09-05 17:00:00'));
+        
+        Performer::create(array('artist_id' => 3,
+                                'event_id'=> 4,
+                                'order' => '1',
+                                'is_support' => '0',
+                                'artist_hour_of_arrival'=>'2014-09-05 16:30:00'));
+
+        Performer::create(array('artist_id' => 4,
+                                'event_id'=> 5,
+                                'order' => '1',
+                                'is_support' => '0',
+                                'artist_hour_of_arrival'=>'2014-09-05 17:45:00'));
+    }
 
 }
 

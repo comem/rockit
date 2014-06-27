@@ -182,14 +182,16 @@ class ArtistController extends \BaseController {
             $response['fail'] = trans('fail.artist.nogenre');
         } else {
             $inputs['genres'] = $existingMergedGenres;
-            $existingMergedImages = array();
-            $inputs['images'] = array_unique($inputs['images']);
-            foreach ($inputs['images'] as $image) {
-                if (Image::where('id', '=', $image)->where('artist_id', '=', NULL)->first()) {
-                    $existingMergedImages[] = $image;
+            if (isset($inputs['images'])) {
+                $existingMergedImages = array();
+                $inputs['images'] = array_unique($inputs['images']);
+                foreach ($inputs['images'] as $image) {
+                    if (Image::where('id', '=', $image)->where('artist_id', '=', NULL)->first()) {
+                        $existingMergedImages[] = $image;
+                    }
                 }
+                $inputs['images'] = $existingMergedImages;
             }
-            $inputs['images'] = $existingMergedImages;
             $response = Artist::createOne($inputs);
         }
         return $response;
