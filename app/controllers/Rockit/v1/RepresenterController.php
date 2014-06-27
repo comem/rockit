@@ -13,6 +13,31 @@ class RepresenterController extends BaseController {
     use ControllerBSUDTrait;
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index() {
+        return Jsend::success(Representer::all());
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id) {
+        $model = Representer::with('events')->find($id);
+        if (is_object($model)) {
+            $response = Jsend::success($model);
+        } else {
+            $response = Jsend::fail(trans('fail.representer.inexistant'));
+        }
+        return $response;
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @return Response
@@ -24,47 +49,6 @@ class RepresenterController extends BaseController {
             $response = self::save('Representer', $data);
         }
         return Jsend::compile($response);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id) {
-        return Jsend::compile(self::delete('Representer', $id));
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index() {
-        return Jsend::success(Representer::all());
-    }
-
-    /**
-     * Display the specified resource.
-     * 
-     * @todo with_events doc
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id) {
-        if (Input::has('with_events') && filter_var(Input::get('with_events'), FILTER_VALIDATE_BOOLEAN) === true) {
-            $model = Representer::with('events')->find($id);
-        } else {
-            $model = Representer::find($id);
-        }
-        if (is_object($model)) {
-            $response = Jsend::success($model);
-        } else {
-            $response = Jsend::fail(trans('fail.representer.inexistant'));
-        }
-        return $response;
     }
 
     /**
@@ -80,6 +64,16 @@ class RepresenterController extends BaseController {
             $response = self::modify('Representer', $id, $data);
         }
         return Jsend::compile($response);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id) {
+        return Jsend::compile(self::delete('Representer', $id));
     }
 
 }
