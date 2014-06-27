@@ -14,9 +14,9 @@ use \Rockit\Artist,
 
 /**
  * Contains interaction methods to the Artist model in the database.<br>
- * Base on the Laravel's BaseController.<br>
- * Can : <b>index</b> all the Artists, <b>save</b>, <b>show</b>, <b>delete</b> and <b>update</b> one Artist.<br>
- * Since Artists are required by an event, the <b>delete</b> is actually a <b>softDelete</b>.
+ * Based on the Laravel's BaseController.<br>
+ * Can : <b>index</b> all the Artists, <b>store</b>, <b>show</b>, <b>destroy</b> and <b>update</b> one Artist.<br>
+ * Since Artists can be linked to an event, the <b>delete</b> is actually a <b>softDelete</b>.
  * 
  * @author Joël Gugger <joel.gugger@heig-vd.ch>
  */
@@ -31,14 +31,14 @@ class ArtistController extends \BaseController {
      * These parameters are :<br>
      * <ul>
      * <li><b>name</b>: an artist's name</li>
-     * <li><b>genres</b>: an array of genres id</li>
+     * <li><b>genres</b>: an array of genre ids</li>
      * <li><b>musician_name</b>: a musician's name</li>
      * </ul>
      * Each provided attribute reduces the scope of the results.<br>
-     * If the Collection posesses more than <b>10</b> items, it will be divided into chunck of <b>10</b> items.<br>
-     * This number of returned item can be changed by providing a value to the <b>nb_item</b> attribute.<br>
+     * If the Collection posesses more than <b>10</b> items, it will be divided into chunks of <b>10</b> items.<br>
+     * The number of items to return can be changed by providing a value to the <b>nb_item</b> attribute.<br>
      * This value can not be lower than <b>0</b>.<br>
-     * Each artist is returned with its genres and images. 
+     * Each Artist is returned with its genres and images. 
      * 
      * @return Jsend
      */
@@ -69,8 +69,8 @@ class ArtistController extends \BaseController {
     /**
      * Display the specified resource.
      * 
-     * Return an Artist with all its relationships.<br>
-     * If the provided id does not point to any existing Artist, a <b>Jsend::fail</b> is returned.<br>
+     * Return an Artist with all of its relationships.<br>
+     * If the provided id does not point to an existing Artist, a <b>Jsend::fail</b> is returned.<br>
      *
      * @param int $id The id of the requested Artist
      * @return Jsend
@@ -108,9 +108,9 @@ class ArtistController extends \BaseController {
     /**
      * Store a newly created resource in storage.
      * 
-     * Get the adequate inputs from the client request and test that each of them passes the validation rules.<br>
+     * Get the adequate inputs from the client request and test that each of them pass the validation rules.<br>
      * If any a these inputs fails, a <b>Jsend::fail</b> is returned.<br>
-     * If all the input are valid, the data are then passed to the <b>save()</b> method.<br>
+     * If all the inputs are valid, the data is then passed to the <b>save()</b> method.<br>
      *
      * @return Jsend
      */
@@ -128,10 +128,10 @@ class ArtistController extends \BaseController {
     /**
      * Update the specified resource in storage.
      * 
-     * If the provided id does not point to any existing Artist, a <b>Jsend::fail</b> is returned.<br>
-     * Get the adequate inputs from the client request and test that each of them passes the validation rules.<br>
-     * If any a these inputs fails, a <b>Jsend::fail</b> is returned.<br>
-     * If all the input are valid, the data are then passed to the <b>modify()</b> method.<br>
+     * If the provided id does not point to an existing Artist, a <b>Jsend::fail</b> is returned.<br>
+     * Get the adequate inputs from the client request and test that each of them pass the validation rules.<br>
+     * If any a these inputs fail, a <b>Jsend::fail</b> is returned.<br>
+     * If all the inputs are valid, the data is then passed to the <b>modify()</b> method.<br>
      *
      * @param int $id The id of the requested Artist
      * @return Jsend
@@ -150,8 +150,8 @@ class ArtistController extends \BaseController {
     /**
      * Remove the specified resource from storage.
      *
-     * If the provided id does not point to any existing Artist, a <b>Jsend::fail</b> is returned.<br>
-     * Else this id is then pass to the <b>delete()</b> method that deletes the corresponding model.
+     * If the provided id does not point to an existing Artist, a <b>Jsend::fail</b> is returned.<br>
+     * Or else this id is then passed to the <b>delete()</b> method that deletes the corresponding model.
      * 
      * @param int $id The id of the requested Artist
      * @return Jsend
@@ -163,9 +163,9 @@ class ArtistController extends \BaseController {
     /**
      * Save a new Artist in the database with the given inputs.
      * 
-     * Check that there's not two identical genre ids in the set of provided genres ids and that each of these genres id points to an existing genre.<br>
-     * Check also that there's not two identical image id in the set of provided images ids and that each of these images ids points to an existing image.<br>
-     * If one genre id or image id does not point to an existing resource, a <b>Jsend::fail</b> is returned. Else, the data are passed to the <b>Artist::creatOne()</b> method.<br>
+     * Check that there's not two identical genre ids in the set of provided genres ids and that each of these genre ids point to an existing genre.<br>
+     * Check also that there's not two identical image ids in the set of provided images ids and that each of these images ids point to an existing image.<br>
+     * If one genre id or image id does not point to an existing resource, a <b>Jsend::fail</b> is returned. Or else, the data is passed to the <b>Artist::creatOne()</b> method.<br>
      * 
      * @param array $inputs
      * @return Jsend

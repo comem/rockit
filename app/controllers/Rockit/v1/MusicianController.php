@@ -10,14 +10,24 @@ use \Rockit\Controllers\ControllerBSUDTrait,
     \Input,
     \Jsend;
 
+/**
+ * Contains interaction methods to the Musician model in the database.<br>
+ * Based on the Laravel's BaseController.<br>
+ * Can : <b>index</b> all the Musicians, <b>store</b>, <b>show</b>, <b>destroy</b> and <b>update</b> one Musician.<br>
+ * Since Musicians can be linked to an event, the <b>delete</b> is actually a <b>softDelete</b>.
+ * 
+ * @author Christian Heimann <christian.heimann@heig-vd.ch>
+ */
 class MusicianController extends \BaseController {
 
     use ControllerBSUDTrait;
 
     /**
      * Display a listing of the resource.
-     *
-     * @return Response
+     * 
+     * Each Musician is returned with its artists and its lineup. 
+     * 
+     * @return Jsend
      */
     public function index() {
         $musicians = Musician::with('artists')->get();
@@ -41,9 +51,12 @@ class MusicianController extends \BaseController {
 
     /**
      * Display the specified resource.
+     * 
+     * Return a Musician with all of its relationships.<br>
+     * If the provided id does not point to an existing Musician, a <b>Jsend::fail</b> is returned.<br>
      *
-     * @param  int  $id
-     * @return Response
+     * @param int $id The id of the requested Musician
+     * @return Jsend
      */
     public function show($id) {
         $musician = Musician::with('artists')->find($id);
@@ -70,8 +83,12 @@ class MusicianController extends \BaseController {
 
     /**
      * Store a newly created resource in storage.
+     * 
+     * Get the adequate inputs from the client request and test that each of them pass the validation rules.<br>
+     * If any a these inputs fails, a <b>Jsend::fail</b> is returned.<br>
+     * If all the inputs are valid, the data is then passed to the <b>save()</b> method.<br>
      *
-     * @return Response
+     * @return Jsend
      */
     public function store() {
         $inputs = Input::only('first_name', 'last_name', 'stagename', 'lineups');
@@ -86,9 +103,14 @@ class MusicianController extends \BaseController {
 
     /**
      * Update the specified resource in storage.
+     * 
+     * If the provided id does not point to an existing Musician, a <b>Jsend::fail</b> is returned.<br>
+     * Get the adequate inputs from the client request and test that each of them pass the validation rules.<br>
+     * If any a these inputs fail, a <b>Jsend::fail</b> is returned.<br>
+     * If all the inputs are valid, the data is then passed to the <b>modify()</b> method.<br>
      *
-     * @param  int  $id
-     * @return Response
+     * @param int $id The id of the requested Artist
+     * @return Jsend
      */
     public function update($id) {
         $inputs = Input::only('first_name', 'last_name', 'stagename');
@@ -104,19 +126,25 @@ class MusicianController extends \BaseController {
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return Response
+     * If the provided id does not point to an existing Musician, a <b>Jsend::fail</b> is returned.<br>
+     * Or else this id is then passed to the <b>delete()</b> method that deletes the corresponding model.
+     * 
+     * @param int $id The id of the requested Musician
+     * @return Jsend
      */
     public function destroy($id) {
         return Jsend::compile(self::delete('Musician', $id));
     }
 
     /**
-     * Method checks possibility of an artist and instrument combination,
-     * merge equal combinations to one and reset the input['lineups'] with
-     * the result. Impossible results are ignored.
-     * If there is no valid lineup set, the method returns a 'fail' response
-     * and doesn't start the creation of the musician.
+     * Save a new Musician in the database with the given inputs.
+     * 
+     * Checks if each artist and instrument combination is unique, and merges equal combinations into one.<br>
+     * Then reset the input['lineups'] with the result. Impossible results are ignored.<br>
+     * If there is not atleast one valid lineup set, a <b>Jsend::fail</b> is returned. Or else, the data is passed to the <b>Musician::createOne()</b> method.<br>
+     * 
+     * @param array $inputs
+     * @return Jsend
      */
     public static function save($inputs) {
         $existingLineups = array();

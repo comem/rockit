@@ -8,14 +8,24 @@ use \Input,
     \Rockit\Representer,
     \Rockit\Controllers\ControllerBSUDTrait;
 
+/**
+ * Contains interaction methods to the Representer model in the database.<br>
+ * Based on the Laravel's BaseController.<br>
+ * Can : <b>index</b> all the Representers, <b>show</b>, <b>destroy</b> and <b>update</b> one Representer.<br>
+ * Since Representers can be linked to an event, the <b>delete</b> is actually a <b>softDelete</b>.
+ * 
+ * @author Mathias Oberson <mathias.oberson@heig-vd.ch>
+ */
 class RepresenterController extends BaseController {
 
     use ControllerBSUDTrait;
 
     /**
      * Display a listing of the resource.
-     *
-     * @return Response
+     * 
+     * Each Representer is returned with its own information. 
+     * 
+     * @return Jsend
      */
     public function index() {
         return Jsend::success(Representer::all());
@@ -23,9 +33,12 @@ class RepresenterController extends BaseController {
 
     /**
      * Display the specified resource.
+     * 
+     * Return a Representer with all of its relationships.<br>
+     * If the provided id does not point to an existing Representer, a <b>Jsend::fail</b> is returned.<br>
      *
-     * @param  int  $id
-     * @return Response
+     * @param int $id The id of the requested Representer
+     * @return Jsend
      */
     public function show($id) {
         $model = Representer::with('events')->find($id);
@@ -39,8 +52,12 @@ class RepresenterController extends BaseController {
 
     /**
      * Store a newly created resource in storage.
+     * 
+     * Get the adequate inputs from the client request and test that each of them pass the validation rules.<br>
+     * If any a these inputs fails, a <b>Jsend::fail</b> is returned.<br>
+     * If all the inputs are valid, the data is then passed to the <b>save()</b> method.<br>
      *
-     * @return Response
+     * @return Jsend
      */
     public function store() {
         $data = Input::only('first_name', 'last_name', 'email', 'phone', 'street', 'npa', 'city');
@@ -52,10 +69,15 @@ class RepresenterController extends BaseController {
     }
 
     /**
-     * Update the specified Model in storage.
+     * Update the specified resource in storage.
+     * 
+     * If the provided id does not point to an existing Representer, a <b>Jsend::fail</b> is returned.<br>
+     * Get the adequate inputs from the client request and test that each of them pass the validation rules.<br>
+     * If any a these inputs fail, a <b>Jsend::fail</b> is returned.<br>
+     * If all the inputs are valid, the data is then passed to the <b>modify()</b> method.<br>
      *
-     * @param  int  $id
-     * @return Response
+     * @param int $id The id of the requested Representer
+     * @return Jsend
      */
     public function update($id) {
         $data = Input::only('first_name', 'last_name', 'email', 'phone', 'street', 'npa', 'city');
@@ -69,8 +91,11 @@ class RepresenterController extends BaseController {
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return Response
+     * If the provided id does not point to an existing Representer, a <b>Jsend::fail</b> is returned.<br>
+     * Or else this id is then passed to the <b>delete()</b> method that deletes the corresponding model.
+     * 
+     * @param int $id The id of the requested Representer
+     * @return Jsend
      */
     public function destroy($id) {
         return Jsend::compile(self::delete('Representer', $id));

@@ -9,21 +9,30 @@ use \App,
     \Rockit\Language,
     \User;
 
+/**
+ * Contains interaction methods to the Musician model in the database.<br>
+ * Based on the Laravel's BaseController.<br>
+ * Can : <b>index</b> all the Musicians, <b>store</b>, <b>show</b>, <b>destroy</b> and <b>update</b> one Musician.<br>
+ * Since Musicians can be linked to an event, the <b>delete</b> is actually a <b>softDelete</b>.
+ * 
+ * @author Christian Heimann <christian.heimann@heig-vd.ch>
+ */
 class TranslationController extends \BaseController {
 
     /**
-     * Return the collection of langs possible
+     * Return the collection of possible languages for this application.
      *
-     * @return Response
+     * @return Jsend
      */
     public function index() {
         return Jsend::success(Language::all()->toArray());
     }
 
     /**
-     * Return the translation in the locale
+     * Return the translation for the locale provided.
      *
-     * @return Response
+     * @param $locale
+     * @return Jsend
      */
     public function translate($locale = NULL) {
         if ($locale != NULL) {
@@ -35,7 +44,7 @@ class TranslationController extends \BaseController {
     /**
      * Define the new default locale for the Auth::user()
      *
-     * @return Response
+     * @return Jsend
      */
     public function changeLocale() {
         $inputs = Input::only('locale');
@@ -47,7 +56,12 @@ class TranslationController extends \BaseController {
         }
         return Jsend::compile($response);
     }
-
+    
+    /**
+     * 
+     * @param $locale
+     * @return ??
+     */
     public static function setLocale($locale) {
         $lang = Language::exist($locale);
         if (is_object($lang)) {
