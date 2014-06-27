@@ -5,40 +5,37 @@ namespace Rockit\v1;
 use \Input,
     \Jsend,
     \Rockit\Description,
-	Rockit\Controllers\SimplePivotControllerTrait;
+    Rockit\Controllers\SimplePivotControllerTrait;
 
 class DescriptionController extends \BaseController {
 
-	use SimplePivotControllerTrait;
+    use SimplePivotControllerTrait;
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		$data = Input::only('genre_id', 'artist_id');
-		$response = Description::validate($data, Description::$create_rules);
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return Response
+     */
+    public function store() {
+        $data = Input::only('genre_id', 'artist_id');
+        $response = Description::validate($data, Description::$create_rules);
         if ($response === true) {
             $response = self::save('Description', $data);
         }
         return Jsend::compile($response);
-	}
+    }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id) {
+        return Jsend::compile(self::delete($id));
+    }
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		return Jsend::compile(self::delete($id));
-	}
-
-	/**
+    /**
      * 
      * @param 
      * @param 
@@ -52,13 +49,12 @@ class DescriptionController extends \BaseController {
                 ),
             );
         } else {
-        	$response = Description::isLastGenre($object);
-        	if($response === false){
-        		$response = Description::deleteOne($object);
-        	}
+            $response = Description::isLastGenre($object);
+            if ($response === false) {
+                $response = Description::deleteOne($object);
+            }
         }
         return $response;
     }
-
 
 }

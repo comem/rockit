@@ -2,25 +2,23 @@
 
 namespace Rockit\v1;
 
-use \Rockit\Controllers\ControllerBSUDTrait;
-use \Jsend,
+use \Rockit\Controllers\ControllerBSUDTrait,
+    \Jsend,
     \Input,
     \WordExport,
     \Rockit\Event;
 
 class EventController extends \BaseController {
+    
+    use ControllerBSUDTrait;
 
     /**
      * Display a listing of the resource.
      *
      * @return Response
      */
-    public function index() 
-    {
-        $events = Event::with('representer', 'eventType', 'image', 
-                            'tickets.ticketCategory', 'sharings.platform', 'printings.printingType', 
-                            'performers.artist', 'staffs.member', 'staffs.skill', 'needs.skill', 'offers.gift', 
-                            'attributions.equipment');
+    public function index() {
+        $events = Event::with('representer', 'eventType', 'image', 'tickets.ticketCategory', 'sharings.platform', 'printings.printingType', 'performers.artist', 'staffs.member', 'staffs.skill', 'needs.skill', 'offers.gift', 'attributions.equipment');
         if (Input::has('genres')) {
             $events = $events->artistGenres(Input::get('genres'));
         }
@@ -29,8 +27,11 @@ class EventController extends \BaseController {
         }
         if (Input::has('is_published')) {
             $is_published = Input::get('is_published');
-            if($is_published == '1') $events = $events->isPublished(TRUE);
-            else $events = $events->isPublished(FALSE);
+            if ($is_published == '1') {
+                $events = $events->isPublished(TRUE);
+            } else {
+                $events = $events->isPublished(FALSE);
+            }
         }
         if (Input::has('title')) {
             $events = $events->title(Input::get('title'));
@@ -51,13 +52,19 @@ class EventController extends \BaseController {
         }
         if (Input::has('is_followed_by_private')) {
             $is_followed_by_private = Input::get('is_followed_by_private');
-            if($is_followed_by_private == '1') $events = $events->isFollowedByPrivate(TRUE);
-            else $events = $events->isFollowedByPrivate(FALSE);
+            if ($is_followed_by_private == '1') {
+                $events = $events->isFollowedByPrivate(TRUE);
+            } else {
+                $events = $events->isFollowedByPrivate(FALSE);
+            }
         }
         if (Input::has('has_representer')) {
             $has_representer = Input::get('has_representer');
-            if($has_representer == '1') $events = $events->hasRepresenter(TRUE);
-            else $events = $events->hasRepresenter(FALSE);
+            if ($has_representer == '1') {
+                $events = $events->hasRepresenter(TRUE);
+            } else {
+                $events = $events->hasRepresenter(FALSE);
+            }
         }
         return Jsend::success($events->paginate(10)->toArray());
     }
@@ -69,10 +76,7 @@ class EventController extends \BaseController {
      * @return Response
      */
     public function show($id) {
-        $event = Event::with('representer', 'eventType', 'image', 
-                            'tickets.ticketCategory', 'sharings.platform', 'printings.printingType', 
-                            'performers.artist', 'staffs.member', 'staffs.skill', 'needs.skill', 'offers.gift', 
-                            'attributions.equipment');
+        $event = Event::with('representer', 'eventType', 'image', 'tickets.ticketCategory', 'sharings.platform', 'printings.printingType', 'performers.artist', 'staffs.member', 'staffs.skill', 'needs.skill', 'offers.gift', 'attributions.equipment');
         if (empty($event)) {
             $response = Jsend::fail(['title' => trans('fail.event.inexistant')]);
         } else {
@@ -116,11 +120,10 @@ class EventController extends \BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function publish($id) 
-    {
+    public function publish($id) {
         $response = Event::exist($id);
-        if ( is_object($response) ) {
-            $response = self::sfPublish( $response );
+        if (is_object($response)) {
+            $response = self::sfPublish($response);
         } else {
             $response['fail'] = ['title' => trans('fail.event.inexistant')];
         }
@@ -133,11 +136,10 @@ class EventController extends \BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function unpublish($id)
-    {
+    public function unpublish($id) {
         $response = Event::exist($id);
-        if ( is_object($response) ) {
-            $response = self::sfUnpublish( $response );
+        if (is_object($response)) {
+            $response = self::sfUnpublish($response);
         } else {
             $response['fail'] = ['title' => trans('fail.event.inexistant')];
         }
@@ -166,21 +168,25 @@ class EventController extends \BaseController {
         //
     }
 
-
-    public static function sfUnpublish( $event )
-    {
+    /**
+     * 
+     * @param type $event
+     * @return type
+     */
+    public static function sfUnpublish($event) {
         return Event::updateOne(['published_at' => NULL], $event);
     }
 
-
-    public static function sfPublish( $event )
-    {
-        $response = Event::atLeastOneMainPerformer( $event );
-        if ( $response === true )
-        {
-            $response = Event::isSymbolized( $event );
-            if ( $response === true )
-            {
+    /**
+     * 
+     * @param type $event
+     * @return type
+     */
+    public static function sfPublish($event) {
+        $response = Event::atLeastOneMainPerformer($event);
+        if ($response === true) {
+            $response = Event::isSymbolized($event);
+            if ($response === true) {
                 $response = Event::updateOne(['published_at' => date('Y-m-d H:i:s')], $event);
             }
         }

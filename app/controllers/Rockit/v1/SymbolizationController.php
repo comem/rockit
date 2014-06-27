@@ -18,7 +18,8 @@ class SymbolizationController extends \BaseController {
     public function store() {
         $inputs = Input::only('event_id', 'image_id');
         $v = Validator::make(
-        $inputs, ['event_id' => 'required|exists:events,id',
+        $inputs, [
+            'event_id' => 'required|exists:events,id',
             'image_id' => 'required|exists:images,id']
         );
         if ($v->passes()) {

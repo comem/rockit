@@ -3,7 +3,6 @@
 namespace Rockit\v1;
 
 use \App,
-    \Lang,
     \Input,
     \Auth,
     \Jsend,

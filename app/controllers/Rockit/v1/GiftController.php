@@ -10,7 +10,7 @@ use \Input,
 class GiftController extends \BaseController {
 
     use ControllerBSRDTrait;
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -28,7 +28,6 @@ class GiftController extends \BaseController {
     public function store() {
         $data = Input::only('name_de');
         $response = self::renew('Gift', $data);
-
         if ($response === false) {
             $response = Gift::validate($data, Gift::$create_rules);
             if ($response === true) {

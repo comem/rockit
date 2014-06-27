@@ -48,7 +48,7 @@ class AuthController extends \BaseController {
         }
         return Jsend::success(array('title' => trans('success.auth.logout')));
     }
-    
+
     /**
      * Check wether the current user is logged in the application.
      * @return boolean

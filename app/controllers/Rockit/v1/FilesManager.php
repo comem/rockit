@@ -56,7 +56,7 @@ class FilesManager extends \BaseController {
      * Has to be a <b>.pdf</b> file.
      * Has to weight more than <b>1 byte</b> and less than <b>5 Mb</b>.
      * 
-     * @var type 
+     * @var array 
      */
     public $printing_rules = array(
         'file' => 'ext:pdf|max:5000|min:1',

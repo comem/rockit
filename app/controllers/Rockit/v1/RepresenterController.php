@@ -42,33 +42,29 @@ class RepresenterController extends BaseController {
      * @return Response
      */
     public function index() {
-        $models = Representer::all();
-        if (is_object($models)) {
-            $response = Jsend::success($models);
-        } else {
-            $response = Jsend::fail(trans('fail.representer.none'));
-        }
-        return $response;
-        // OR
-        // return Jsend::success(Representer::all());
+        return Jsend::success(Representer::all());
     }
 
     /**
      * Display the specified resource.
+     * 
+     * @todo with_events doc
      *
      * @param  int  $id
      * @return Response
      */
     public function show($id) {
-        $model = Representer::find($id);
+        if (Input::has('with_events') && filter_var(Input::get('with_events'), FILTER_VALIDATE_BOOLEAN) === true) {
+            $model = Representer::with('events')->find($id);
+        } else {
+            $model = Representer::find($id);
+        }
         if (is_object($model)) {
-            $response = Jsend::success($model->toArray());
+            $response = Jsend::success($model);
         } else {
             $response = Jsend::fail(trans('fail.representer.inexistant'));
         }
         return $response;
-        // OR
-        // return Jsend::success(Representer::find($id));
     }
 
     /**

@@ -17,7 +17,8 @@ class GuaranteeController extends \BaseController {
     public function store() {
         $inputs = Input::only('representer_id', 'event_id');
         $v = Validator::make(
-        $inputs, ['representer_id' => 'required|exists:representers,id',
+        $inputs, [
+            'representer_id' => 'required|exists:representers,id',
             'event_id' => 'required|exists:events,id']
         );
         if ($v->passes()) {
