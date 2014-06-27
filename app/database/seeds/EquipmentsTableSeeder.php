@@ -9,6 +9,7 @@ class EquipmentsTableSeeder extends Seeder {
     {
         DB::table('equipments')->delete();
 
-        Equipment::create(array('name_de' => 'Piano'));
+        Equipment::create(array('id'=>'1',
+                                'name_de' => 'Piano'));
     }
 }

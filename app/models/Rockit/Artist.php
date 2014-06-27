@@ -2,21 +2,50 @@
 
 namespace Rockit;
 
-use Illuminate\Database\Eloquent\SoftDeletingTrait;
+use \DB,
+    Rockit\Image,
+    Rockit\Models\ModelBCUDTrait,
+    Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 use \Validator, \DB, Rockit\Image, \Rockit\Performer, \Rockit\Musician, \Rockit\Lineup;
 
 class Artist extends \Eloquent {
 
-    use Models\ModelBCUDTrait;
+    use SoftDeletingTrait,
+        ModelBCUDTrait;
 
-    protected $table = 'artists';
-    protected $hidden = ['deleted_at'];
-
+    /**
+     * Indicates wether this model uses laravel's timestamps.
+     * @var boolean 
+     */
     public $timestamps = true;
 
-    use SoftDeletingTrait;
+    /**
+     * Indicates which field value should be use in the return messages.
+     * @var string 
+     */
+    public static $response_field = 'id';
 
+    /**
+     * Validation rules for creating a new Artist.
+     * @var array 
+     */
+    public static $create_rules = array(
+        'name' => 'required|min:1|max:100',
+        'short_description_de' => 'max:200',
+        'genres' => 'required',
+    );
+
+    /**
+     * Validation rules for updating a new Artist.
+     * @var array 
+     */
+    public static $update_rules = array(
+        'name' => 'min:1|max:100',
+        'short_description_de' => 'max:200',
+    );
+    protected $table = 'artists';
+    protected $hidden = ['deleted_at'];
     protected $dates = ['deleted_at'];
     public static $response_field = 'id';
     public static $create_rules = array(
@@ -29,90 +58,92 @@ class Artist extends \Eloquent {
         'short_description_de' => 'max:200',
     );
 
+    /**
+     * Get the Links to which an Artist is related.
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public function links() {
         return $this->hasMany('Rockit\Link');
     }
 
+    /**
+     * Get the Genres to which an Artist is related with the id of this relationship.
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public function genres() {
         return $this->belongsToMany('Rockit\Genre', 'descriptions')->withPivot('id');
     }
 
+    /**
+     * Get the Images to which an Artist is related.
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public function images() {
         return $this->hasMany('Rockit\Image');
     }
 
+    /**
+     * Get the relationships between an 
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public function lineups() {
-        return $this->hasMany('Rockit\Lineup');
+        return $this->hasMany('Rockit\Lineup')->groupBy('musician_id');
     }
 
     public function events() {
-        return $this->belongsToMany('Rockit\Event', 'performers')->groupBy('event_id');
-    }
-
-    public function performers() {
-        return $this->hasMany('Rockit\Performer');
+        return $this->belongsToMany('Rockit\Event', 'performers')
+        ->withPivot('id')->groupBy('id');
     }
 
     public function musicians() {
-        return $this->belongsToMany('Rockit\Musician', 'lineups')->groupBy('musician_id');
+        return $this->belongsToMany('Rockit\Musician', 'lineups')->groupBy('id');
     }
 
-    public function instruments() {
-        return $this->belongsToMany('Rockit\Instrument', 'lineups');
+    public function scopeName($query, $string) {
+        return $query->where('name', 'LIKE', '%' . $string . '%');
     }
 
-    public function scopeName($query, $string)
-    {
-        return $query->where('name', 'LIKE', '%'.$string.'%');
-    }
-
-    public function scopeGenres($query, array $genres)
-    {
-        return $query->whereHas('genres', function($q) use ($genres)
-        {
+    public function scopeGenres($query, array $genres) {
+        return $query->whereHas('genres', function($q) use ($genres) {
             $q->whereIn('genres.id', $genres);
         });
     }
 
-    public function scopeMusicianStagename($query, $string)
-    {
-        return $query->whereHas('musicians', function($q) use ($string)
-        {
-            $q->where('stagename', 'LIKE', '%'.$string.'%');
+    public function scopeMusicianStagename($query, $string) {
+        return $query->whereHas('musicians', function($q) use ($string) {
+            $q->where('stagename', 'LIKE', '%' . $string . '%');
         });
     }
 
-    public function scopeMusicianFirstname($query, $string)
-    {
-        return $query->whereHas('musicians', function($q) use ($string)
-        {
-            $q->where('stagename', 'LIKE', '%'.$string.'%');
+    public function scopeMusicianFirstname($query, $string) {
+        return $query->whereHas('musicians', function($q) use ($string) {
+            $q->where('stagename', 'LIKE', '%' . $string . '%');
         });
     }
 
-    public function scopeMusicianLastname($query, $string)
-    {
-        return $query->whereHas('musicians', function($q) use ($string)
-        {
-            $q->where('stagename', 'LIKE', '%'.$string.'%');
+    public function scopeMusicianLastname($query, $string) {
+        return $query->whereHas('musicians', function($q) use ($string) {
+            $q->where('stagename', 'LIKE', '%' . $string . '%');
         });
     }
-
 
     /**
      * Create and save in the database a new Model with the provided data.
      * 
+     * Create the Artist first, and then proceed to create the relationships between this newly created Artist and the given Models ids.
+     * 
      * @param array $data The data for the Model to create
-     * @param array $genres The genres to link with the newly created artist
      * @return array An array containing a key 'success' or 'error' depending on the result
      */
     public static function createOne($data) {
-        $class = self::getClass();
+        $class = class_basename(get_called_class());
         $field = self::$response_field;
         $genres = $data['genres'];
-        $images = $data['images'];
-        unset($data['images']); // delete key/value to prepare data for self::create()
+        if (isset($data['images'])) {
+            $images = $data['images'];
+        }
         unset($data['genres']); // delete key/value to prepare data for self::create()
+        unset($data['images']); // delete key/value to prepare data for self::create()
         DB::beginTransaction();
         self::unguard();
         $object = self::create($data);
@@ -132,10 +163,12 @@ class Artist extends \Eloquent {
             }
             unset($inputs['genre_id']);
             // insert all image associations
-            foreach ($images as $image) {
-                $illustration = Image::find($image);
-                $illustration->artist_id = $inputs['artist_id'];
-                $illustration->save();
+            if (isset($images)) {
+                foreach ($images as $image) {
+                    $illustration = Image::find($image);
+                    $illustration->artist_id = $inputs['artist_id'];
+                    $illustration->save();
+                }
             }
             $response['success'] = array(
                 'title' => trans('success.' . snake_case($class) . '.created', array('name' => $object->$field)),
