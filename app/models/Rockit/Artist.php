@@ -124,7 +124,7 @@ class Artist extends \Eloquent {
      * @return array An array containing a key 'success' or 'error' depending on the result
      */
     public static function createOne($data) {
-        $class = self::getClass();
+        $class = class_basename(get_called_class());
         $field = self::$response_field;
         $genres = $data['genres'];
         $images = $data['images'];
