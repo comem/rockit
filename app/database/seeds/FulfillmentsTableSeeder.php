@@ -34,5 +34,6 @@ class FulfillmentsTableSeeder extends Seeder {
         Fulfillment::create(array('skill_id' => $skill[2]->id,
                                     'member_id'=> $member[1]->id));
         
+        //Member::find(5)->skills->attach(5);
     }
 }
