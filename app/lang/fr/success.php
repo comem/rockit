@@ -11,7 +11,8 @@
 
 return [
     'artist' => [
-        'created' => "Le nouvel artiste a bien été sauvegardé(e).",
+        'created' => "Le nouvel artiste \":name\" a bien été sauvegardé.",
+        'deleted' => "L'artiste \":name\" a bien été supprimé.",
     ],
     'attribution' => [
         'created' => "La nouvelle attribution a bien été sauvegardée.",
