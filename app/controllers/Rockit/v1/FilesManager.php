@@ -34,7 +34,7 @@ class FilesManager extends \BaseController {
      * 
      * @var array 
      */
-    public $image_rules = array(
+    public $images_rules = array(
         'file' => 'image|max:2000|min:1',
     );
 
@@ -46,7 +46,7 @@ class FilesManager extends \BaseController {
      * 
      * @var array
      */
-    public $contract_rules = array(
+    public $contracts_rules = array(
         'file' => 'ext:doc,docx,pdf|max:2000|min:1',
     );
 
@@ -58,7 +58,7 @@ class FilesManager extends \BaseController {
      * 
      * @var array 
      */
-    public $printing_rules = array(
+    public $printings_rules = array(
         'file' => 'ext:pdf|max:5000|min:1',
     );
 
@@ -138,14 +138,14 @@ class FilesManager extends \BaseController {
      * 
      * @return Jsend success: the file has been uploaded | fail: an error occured | error: a server-side error occured
      */
-    public function upload() {
+    public function upload($type) {
         $file = Input::file('file');
         if (is_object($file) && $file->isValid()) {
-            $file_type = $this->validateAndGetType($file);
-            if (is_array($file_type)) {
-                $response = $file_type;
+            $validation = $this->validate($file, $type);
+            if (is_array($validation)) {
+                $response = $validation;
             } else {
-                $call = 'put' . studly_case($file_type);
+                $call = 'put' . studly_case($type);
                 $response = $this->$call($file);
             }
         } else {
@@ -190,21 +190,18 @@ class FilesManager extends \BaseController {
       |-----------------------------------------------------------------
      */
 
-    private function validateAndGetType(UploadedFile $file) {
-        $validate = Validator::make(['file' => $file], $this->image_rules);
-        $type = self::IMAGE_FOLDER;
-        if ($validate->fails()) {
-            $validate = Validator::make(['file' => $file], $this->contract_rules);
-            $type = self::CONTRACT_FOLDER;
-        }
-        if ($validate->fails()) {
-            $validate = Validator::make(['file' => $file], $this->printing_rules);
-            $type = self::PRINTING_FOLDER;
-        }
-        if ($validate->fails()) {
-            $response['fail'] = ['file' => [trans('fail.file.unsupported', ['ext' => $file->getClientOriginalExtension()])]];
+    private function validate(UploadedFile $file, $type) {
+        $supported_type = Validator::make(['type' => $type], ['type' => 'required|in:images,printings,contracts']);
+        if ($supported_type->fails()) {
+            $response['fail'] = ['file_type' => [trans('fail.file_type.unsupported', ['type' => $type])]];
         } else {
-            $response = $type;
+            $rules = $type . '_rules';
+            $response = Validator::make(['file' => $file], $this->$rules);
+            if ($response->fails()) {
+                $response = ['fail' => $response->messages()->getMessages()];
+            } else {
+                $response = true;
+            }
         }
         return $response;
     }
