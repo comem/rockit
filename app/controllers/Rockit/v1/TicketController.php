@@ -60,7 +60,7 @@ class TicketController extends \BaseController {
         if ($object == null) {
             $response = array(
                 'fail' => array(
-                    'title' => trans('fail.ticket.inexistant'),
+                    'ticket' => [trans('fail.ticket.inexistant')],
                 ),
             );
         } else {

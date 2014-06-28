@@ -9,9 +9,8 @@ use \Rockit\Controllers\ControllerBSUDTrait,
     \XMLExport;
 use \Rockit\Event;
 
-
 class EventController extends \BaseController {
-    
+
     use ControllerBSUDTrait;
 
     /**
@@ -127,7 +126,7 @@ class EventController extends \BaseController {
         if (is_object($response)) {
             $response = self::sfPublish($response);
         } else {
-            $response['fail'] = ['title' => trans('fail.event.inexistant')];
+            $response['fail'] = ['event' => [trans('fail.event.inexistant')]];
         }
         return Jsend::compile($response);
     }
@@ -158,12 +157,12 @@ class EventController extends \BaseController {
         $from = Input::get('from');
         $to = Input::get('to');
 
-        if(isset($from) && isset($to)) {
-            WordExport::events($from, $to);  
+        if (isset($from) && isset($to)) {
+            WordExport::events($from, $to);
         } else {
             $response['fail'] = trans('fail.wordexport.noinput');
             return Jsend::compile($response);
-        }   
+        }
     }
 
     /**
@@ -175,12 +174,12 @@ class EventController extends \BaseController {
     public function exportXML() {
         $from = Input::get('from');
         $to = Input::get('to');
-        if(isset($from) && isset($to)) {
+        if (isset($from) && isset($to)) {
             XMLExport::events($from, $to);
         } else {
             $response['fail'] = trans('fail.xmlexport.noinput');
             return Jsend::compile($response);
-        }   
+        }
     }
 
     /**
@@ -189,7 +188,13 @@ class EventController extends \BaseController {
      * @return type
      */
     public static function sfUnpublish($event) {
-        return Event::updateOne(['published_at' => NULL], $event);
+        $event->published_at = null;
+        if ($event->save()) {
+            $response['success'] = ['title' => trans('success.event.unpublished')];
+        } else {
+            $response['error'] = trans('error.event.unpublished');
+        }
+        return $response;
     }
 
     /**
@@ -202,7 +207,12 @@ class EventController extends \BaseController {
         if ($response === true) {
             $response = Event::isSymbolized($event);
             if ($response === true) {
-                $response = Event::updateOne(['published_at' => date('Y-m-d H:i:s')], $event);
+                $publishing = Event::updateOne(['published_at' => date('Y-m-d H:i:s')], $event);
+                if (isset($publishing['success'])) {
+                    $response = ['success' => ['title' => trans('success.event.published')]];
+                } else {
+                    $response = ['error' => trans('error.event.published')];
+                }
             }
         }
         return $response;

@@ -191,7 +191,7 @@ class Event extends \Eloquent {
      */
     public static function checkOpeningDoorsHour($start_date_hour, $opening_doors_hour) {
         $v = Validator::make(
-        array('start_date_hour' => $start_date_hour), array('start_date_hour' => 'required|after:' . $opening_doors_hour)
+        ['start_date_hour' => $start_date_hour], ['start_date_hour' => 'required|after:' . $opening_doors_hour]
         );
         if ($v->fails()) {
             $response['fail'] = $v->messages()->getMessages();
@@ -209,7 +209,7 @@ class Event extends \Eloquent {
      */
     public static function checkDatesChronological($start_date_hour, $ending_date_hour) {
         $v = Validator::make(
-        array('start_date_hour' => $start_date_hour), array('start_date_hour' => 'required|before:' . $ending_date_hour)
+        ['start_date_hour' => $start_date_hour], ['start_date_hour' => 'required|before:' . $ending_date_hour]
         );
         if ($v->fails()) {
             $response['fail'] = $v->messages()->getMessages();
@@ -247,7 +247,7 @@ class Event extends \Eloquent {
         ));
         if ($results != NULL) {
             $response['fail'] = array(
-                'title' => trans('fail.event.overlap'),
+                'event' => [trans('fail.event.overlap')],
             );
         } else {
             $response = true;
@@ -263,7 +263,7 @@ class Event extends \Eloquent {
             $response = true;
         } else {
             $response['fail'] = [
-                'title' => trans('fail.event.at_least_one_main_performer')
+                'event' => [trans('fail.event.at_least_one_main_performer')]
             ];
         }
         return $response;
@@ -272,7 +272,7 @@ class Event extends \Eloquent {
     public static function isSymbolized(Event $event) {
         if (empty($event->image_id)) {
             $response['fail'] = [
-                'title' => trans('fail.event.is_symbolized')
+                'event' => [trans('fail.event.is_symbolized')]
             ];
         } else {
             $response = true;

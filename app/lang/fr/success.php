@@ -30,6 +30,13 @@ return [
     'equipment' => [
         'deleted' => "L'équipement \":name\" a bien été supprimé.",
     ],
+    'event' => [
+        'updated' => "L'événement a bien été mis à jour.",
+        'created' => "Le nouvel événement a bien été sauvegardé.",
+        'deleted' => "L'événement a bien été supprimé.",
+        'published' => "L'événement est maintenant publié.",
+        'unpublished' => "L'événement n'est maintenant plus publié.",
+    ],
     'event_type' => [
         'created' => "Le nouveau type d'événement \":name\" a bien été sauvegardé.",
         'deleted' => "Le type d'événement \":name\" a bien été supprimé.",
