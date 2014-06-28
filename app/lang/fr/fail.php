@@ -37,7 +37,9 @@ return [
     'file' => [
         'invalid' => "Le fichier sélectionné n'est pas un fichier valide.",
         'inexistant' => "Le fichier \":file\" n'existe pas sur ce serveur.",
-        'unsupported' => "Le type du fichier sélectionné (.:ext) n'est pas supporté par l'application.",
+    ],
+    'file_type' => [
+        'unsupported' => "Vous ne pouvez pas sauvegarder de fichier de ce type (:type).",
     ],
     'fulfillment' => [
         'existing' => "Il y a déjà une compétence assignée à ce membre.",

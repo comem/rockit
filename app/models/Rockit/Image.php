@@ -13,13 +13,13 @@ class Image extends \Eloquent {
 
     public static $create_rules = array(
         'source' => 'required|min:1|max:2000|path:images|unique:images',
-        'alt_de' => 'max:100',
-        'caption_de' => 'max:200',
+        'alt_de' => 'max:100|min:1',
+        'caption_de' => 'max:200|min:1',
     );
     public static $update_rules = array(
         'source' => 'min:1|max:2000|path:images|unique:images',
-        'alt_de' => 'max:100',
-        'caption_de' => 'max:200',
+        'alt_de' => 'max:100|min:1',
+        'caption_de' => 'max:200|min:1',
     );
     public $timestamps = true;
     protected $table = 'images';

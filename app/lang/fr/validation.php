@@ -36,6 +36,7 @@ return [
 	"digits_between"       => "L'attribut :attribute doit avoir entre :min et :max chiffre(s).",
 	"email"                => "L'attribut :attribute doit être une adresse e-mail valide.",
 	"exists"               => "L'attribut :attribute sélectionné n'est pas valide.",
+        "ext"                  => "Ce type de fichier n'est pas supporté par l'application",
 	"image"                => "L'attribut :attribute doit être une image.",
 	"in"                   => "L'attribut :attribute sélectionné n'est pas valide.",
 	"integer"              => "L'attribut :attribute doit être de type integer (int).",
