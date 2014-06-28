@@ -30,8 +30,9 @@ class Artist extends \Eloquent {
      */
     public static $create_rules = array(
         'name' => 'required|min:1|max:100',
-        'short_description_de' => 'max:200',
-        'genres' => 'required',
+        'short_description_de' => 'max:200|min:1',
+        'genres' => 'required|array|min:1',
+        'images' => 'array',
     );
 
     /**

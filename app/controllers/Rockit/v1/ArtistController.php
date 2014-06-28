@@ -76,6 +76,7 @@ class ArtistController extends \BaseController {
      * @return Jsend
      */
     public function show($id) {
+        dd(Artist::with('links', 'images', 'genres', 'events', 'musicians')->find($id));
         $artist = Artist::with('links', 'images', 'genres', 'events', 'musicians')
         ->find($id);
         if (empty($artist)) {
@@ -171,7 +172,7 @@ class ArtistController extends \BaseController {
      * @return Jsend
      */
     public static function save($inputs) {
-        $existingMergedGenres = array();
+        $existingMergedGenres = [];
         $inputs['genres'] = array_unique($inputs['genres']);
         foreach ($inputs['genres'] as $genre) {
             if (Genre::exist($genre, 'id')) {
@@ -186,7 +187,7 @@ class ArtistController extends \BaseController {
                 $existingMergedImages = array();
                 $inputs['images'] = array_unique($inputs['images']);
                 foreach ($inputs['images'] as $image) {
-                    if (Image::where('id', '=', $image)->where('artist_id', '=', NULL)->first()) {
+                    if (Image::where('id', '=', $image)->where('artist_id')->first()) {
                         $existingMergedImages[] = $image;
                     }
                 }
