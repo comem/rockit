@@ -79,7 +79,7 @@ class ArtistController extends \BaseController {
         $artist = Artist::with('links', 'images', 'genres', 'events', 'musicians')
         ->find($id);
         if (empty($artist)) {
-            $response = Jsend::fail(array('title' => trans('fail.artist.inexistant')));
+            $response = Jsend::fail(['artist' => [trans('fail.artist.inexistant')]]);
         } else {
             foreach ($artist->events as $event) {
                 $event->performers = Performer::where('artist_id', '=', $event->pivot->artist_id)
@@ -179,7 +179,7 @@ class ArtistController extends \BaseController {
             }
         }
         if (!count($existingMergedGenres) > 0) {
-            $response['fail'] = trans('fail.artist.nogenre');
+            $response['fail'] = ['genres' => [trans('fail.artist.nogenre')]];
         } else {
             $inputs['genres'] = $existingMergedGenres;
             if (isset($inputs['images'])) {
