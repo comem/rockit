@@ -3,11 +3,13 @@
 namespace Rockit\v1;
 
 use \Input,
-    \Validator,
     \Jsend,
-    \Rockit\Image;
+    \Rockit\Image,
+    \Rockit\Controllers\ControllerBSUDTrait;
 
 class ImageController extends \BaseController {
+
+    use ControllerBSUDTrait;
 
     /**
      * Display a listing of the resource.
@@ -19,14 +21,14 @@ class ImageController extends \BaseController {
         if (Input::has('is_illustration')) {
             $illustrates = filter_var(Input::get('is_illustration'), FILTER_VALIDATE_BOOLEAN);
             if ($illustrates) {
-                $response = Image::whereRaw('artist_id IS NOT NULL')->get();
+                $response['success'] = ['images' => Image::whereRaw('artist_id IS NOT NULL')->get()];
             } else {
-                $response = Image::whereRaw('artist_id IS NULL')->get();
+                $response['success'] = ['images' => Image::whereRaw('artist_id IS NULL')->get()];
             }
         } else {
-            $response = Image::all();
+            $response['success'] = ['images' => Image::all()];
         }
-        return $response;
+        return Jsend::compile($response);
     }
 
     /**
@@ -36,7 +38,13 @@ class ImageController extends \BaseController {
      * @return Response
      */
     public function show($id) {
-        //
+        $image = Image::find($id);
+        if (is_object($image)) {
+            $response['success'] = ['images' => $image];
+        } else {
+            $response['fail'] = ['image' => [trans('fail.image.inexistant')]];
+        }
+        return Jsend::compile($response);
     }
 
     /**
@@ -45,11 +53,10 @@ class ImageController extends \BaseController {
      * @return Response
      */
     public function store() {
-        dd(Input::json());
-        if (!$data['source']->isValid()) {
-            $response = array('fail' => trans('fail.file.invalid'));
-        } else {
-            $response = Image::validate($data, Image::$create_rules);
+        $data = Input::only('source', 'alt_de', 'caption_de');
+        $response = Image::validate($data, Image::$create_rules);
+        if ($response === true) {
+            $response = self::save('Image', $data, true, 'source');
         }
         return Jsend::compile($response);
     }
@@ -61,7 +68,12 @@ class ImageController extends \BaseController {
      * @return Response
      */
     public function update($id) {
-        //
+        $data = Input::only('source', 'alt_de', 'caption_de');
+        $response = Image::validate($data, Image::$update_rules);
+        if ($response === true) {
+            $response = self::modify('Image', $id, $data);
+        }
+        return Jsend::compile($response);
     }
 
     /**
@@ -71,7 +83,7 @@ class ImageController extends \BaseController {
      * @return Response
      */
     public function destroy($id) {
-        //
+        return Jsend::compile(self::delete('Image', $id));
     }
 
 }

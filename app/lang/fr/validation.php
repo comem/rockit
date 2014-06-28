@@ -56,6 +56,7 @@ return [
 	"names"                => "L'attribut :attribute ne peut contenir que des lettres, des apostrophes ou des tirets.",
 	"not_in"               => "L'attribut :attribute sélectionné n'est pas valide.",
 	"numeric"              => "L'attribut :attribute doit être un nombre.",
+        'path'                 => "Le format de l'attribut :attribute n'est pas valide.",
 	"phone"                => "Le format de l'attribut :attribute n'est pas valide.",
 	"regex"                => "Le format de l'attribut :attribute n'est pas valide.",
 	"required"             => "L'attribut :attribute est obligatoire.",

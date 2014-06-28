@@ -53,11 +53,16 @@ return [
     ],
     'guarantee' => [
         'created' => "Le représentant \":name\" a bien été lié à l'événement.",
-        'deleted' => "Le représentant \":name\" a bien été supprimé de l'événement.",
+        'deleted' => "Le représentant \":name\" a bien été retiré de l'événement.",
     ],
     'illustration' => [
         'created' => "L'image a bien été ajoutée à l'artiste.",
-        'deleted' => "L'image a bien été supprimée de l'artiste.",
+        'deleted' => "L'image a bien été retirée de l'artiste.",
+    ],
+    'image' => [
+        'created' => "La nouvelle image \":name\" a bien été sauvegardée.",
+        'deleted' => "L'image \":name\" a bien été supprimée.",
+        'updated' => "L'image \":name\" a bien été mise à jour.",
     ],
     'instrument' => [
         'created' => "Le nouvel instrument \":name\" a bien été sauvegardé.",
@@ -68,10 +73,18 @@ return [
         'created' => "La formation a bien été rajoutée",
         'deleted' => "La formation a bien été supprimée",
     ],
+    'link' => [
+        'deleted' => "Le lien a bien été supprimé.",
+        'created' => "Le lien a bien été sauvegardé.",
+        'updated' => "Le lien a bien été mis à jour.",
+    ],
     'member' => [
         'created' => "Le membre \":name\" a bien été sauvegardé ",
         'updated' => "Le membre \":name\" a bien été mis à jour.",
         'deleted' => "Le membre \":name\" a bien été supprimé.",
+    ],
+    'musician' => [
+        'deleted' => "Le musicien \":name\" a bien été supprimé.",
     ],
     'need' => [
         'created' => "Le nouveau besoin de cet événement a bien été sauvegardé.",

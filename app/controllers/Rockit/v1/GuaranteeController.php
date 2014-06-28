@@ -41,7 +41,7 @@ class GuaranteeController extends \BaseController {
             $response = self::delete($event);
         } else {
             $response['fail'] = [
-                'title' => trans('fail.event.inexistant'),
+                'event' => [trans('fail.event.inexistant')],
             ];
         }
         return Jsend::compile($response);
@@ -57,13 +57,11 @@ class GuaranteeController extends \BaseController {
                     'id' => $event->id,
                 ];
             } else {
-                $response['error'] = [
-                    'title' => trans('error.guarantee.created')
-                ];
+                $response['error'] = trans('error.guarantee.created');
             }
         } else {
             $response['fail'] = [
-                'title' => trans('fail.guarantee.existing')
+                'guarantee' => [trans('fail.guarantee.existing')]
             ];
         }
         return $response;
@@ -72,18 +70,17 @@ class GuaranteeController extends \BaseController {
     public static function delete(Event $event) {
         if (empty($event->representer_id)) {
             $response['fail'] = [
-                'title' => trans('fail.guarantee.inexistant')
+                'guarantee' => [trans('fail.guarantee.inexistant')]
             ];
         } else {
+            $field = $event->representer->first_name;
             $event->representer_id = NULL;
             if ($event->save()) {
                 $response['success'] = [
-                    'title' => trans('success.guarantee.deleted'),
+                    'title' => trans('success.guarantee.deleted', ['name' => $field]),
                 ];
             } else {
-                $response['error'] = [
-                    'title' => trans('error.guarantee.deleted')
-                ];
+                $response['error'] = trans('error.guarantee.deleted');
             }
         }
         return $response;

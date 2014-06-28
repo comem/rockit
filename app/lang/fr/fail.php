@@ -60,6 +60,10 @@ return [
         'existing' => "Cette image illustre déjà un autre artiste.",
         'inexistant' => "Cette image n'illustre aucun artiste.",
     ],
+    'image' => [
+        'inexistant' => "Il n'existe aucune image correspondants.",
+        'existing' => "Il y a déjà une image enregistrée pour \":name\".",
+    ],
     'instrument' => [
         'existing' => "Il y a déjà un instrument \":name\" enregistré.",
         'inexistant' => "Il n'existe aucun instrument correspondant.",
@@ -72,6 +76,9 @@ return [
         'existing' => "Ce musicien joue déjà de cet instrument.",
         'inexistant' => "Il n'existe aucune formation correspondante.",
         'last_lineup' => "Cette formation est la dernière pour ce musicien, vous ne pouvez pas la supprimer.",
+    ],
+    'link' => [
+        'inexistant' => "Il n'existe aucun lien correspondant.",
     ],
     'member' => [
         'inexistant' => "Il n'existe aucun membre correspondant.",
