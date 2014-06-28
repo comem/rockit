@@ -38,7 +38,7 @@ App::after(function($request, $response) {
 
 Route::filter('auth', function() {
     if (Auth::guest()) {
-        return Jsend::fail(array('auth' => trans('fail.auth')));
+        return Jsend::fail(['auth' => trans('fail.auth')]);
     }
 });
 

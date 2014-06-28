@@ -1,6 +1,6 @@
 <?php
 /**
- * File containing every strings used in the French HCI
+ * File containing every string used in the French HCI
  */
 return [
     'BtnLogIn' => "Authentification",

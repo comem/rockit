@@ -17,7 +17,7 @@ class RepresenterController extends \BaseController {
      * @return Response
      */
     public function index() {
-        return Jsend::success(Representer::all());
+        return Jsend::success(['response' => Representer::all()]);
     }
 
     /**
@@ -31,7 +31,7 @@ class RepresenterController extends \BaseController {
         if (is_object($model)) {
             $response = Jsend::success($model);
         } else {
-            $response = Jsend::fail(trans('fail.representer.inexistant'));
+            $response = Jsend::fail(['representer' => [trans('fail.representer.inexistant')]]);
         }
         return $response;
     }

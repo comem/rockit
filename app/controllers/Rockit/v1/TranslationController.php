@@ -29,7 +29,7 @@ class TranslationController extends \BaseController {
         if ($locale != NULL) {
             App::setLocale($locale);
         }
-        //return Jsend::success(trans('ihm'));
+        //return Jsend::success(trans('hci'));
         return Jsend::success(['response' => trans('hci')]);
     }
 

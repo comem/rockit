@@ -17,7 +17,7 @@ class MemberController extends \BaseController {
      * @return Response
      */
     public function index() {
-        return Jsend::success(Member::all());
+        return Jsend::success(['response' => Member::all()]);
     }
 
     /**
