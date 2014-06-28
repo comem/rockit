@@ -6,6 +6,9 @@
 
 return [
     'acl' => "Vous n'avez pas le droit d'effectuer cette action",
+    'artist' => [
+        'inexistant' => "Il n'existe aucun artiste correspondant.",
+    ],
     'attribution' => [
         'existing' => "Il y a déjà une attribution de même type enregistrée.",
         'inexistant' => "Il n'existe aucune attribution correspondante.",
@@ -30,10 +33,6 @@ return [
     'event_type' => [
         'existing' => "Il y a déjà un type d'événement \":name\" enregistré.",
         'inexistant' => "Il n'existe aucun type d'événement correspondant.",
-    ],
-    'event_type' => [
-        'existing' => "Il y a déjà une catégorie de tickets \":name\" enregistrée.",
-        'inexistant' => "Il n'existe aucune catégorie de tickets correspondante.",
     ],
     'file' => [
         'invalid' => "Le fichier sélectionné n'est pas un fichier valide.",

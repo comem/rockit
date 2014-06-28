@@ -27,6 +27,9 @@ return [
         'created' => "Le genre a bien été rajouté à l'artiste.",
         'deleted' => "Le genre a bien été supprimé de l'artiste.",
     ],
+    'equipment' => [
+        'deleted' => "L'équipement \":name\" a bien été supprimé.",
+    ],
     'event_type' => [
         'created' => "Le nouveau type d'événement \":name\" a bien été sauvegardé.",
         'deleted' => "Le type d'événement \":name\" a bien été supprimé.",
@@ -39,6 +42,9 @@ return [
     'fulfillment' => [
         'created' => "La compétence a bien été assignée.",
         'deleted' => "L'assigniation de la compétence a bien été supprimée.",
+    ],
+    'genre' => [
+        'deleted' => "Le genre \":name\" a bien été supprimé.",
     ],
     'gift' => [
         'created' => "Le nouveau lot \":name\" a bien été sauvegardé.",

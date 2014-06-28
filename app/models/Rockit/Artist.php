@@ -22,7 +22,7 @@ class Artist extends \Eloquent {
      * Indicates which field value should be use in the return messages.
      * @var string 
      */
-    public static $response_field = 'id';
+    public static $response_field = 'name';
 
     /**
      * Validation rules for creating a new Artist.
