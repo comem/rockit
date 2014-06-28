@@ -113,19 +113,19 @@ return [
     ],
     'representer' => [
         'created' => "Le nouveau représentant a bien été sauvegardé.",
-        'updated' => "Le représentant a bien été mis à jour.",
-        'deleted' => "Le représentant a bien été supprimé.",
-        'restored' => "Le représentant a bien été restauré.",
+        'updated' => "Le représentant \":name\" a bien été mis à jour.",
+        'deleted' => "Le représentant \":name\" a bien été supprimé.",
+        'restored' => "Le représentant \":name\" a bien été restauré.",
     ],
     'skill' => [
-        'deleted' => "La compétence a bien été supprimée.",
+        'deleted' => "La compétence \":name\" a bien été supprimée.",
         'restored' => "La compétence a bien été restaurée.",
         'created' => "La nouvelle compétence a bien été sauvegardée.",
     ],
     'staff' => [
-        'created' => "Le role a correctement été assigné.",
-        'updated' => "Le role du membre a été changer.",
-        'deleted' => "Le role a bien été supprimé ",
+        'created' => "Le rôle a correctement été assigné à ce membre.",
+        'updated' => "Le rôle de ce membre a été mis à jour.",
+        'deleted' => "Le rôle de ce membre a bien été supprimé.",
     ],
     'symbolization' => [
         'created' => "L'image a bien étée ajoutée à l'événement.",

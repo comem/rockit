@@ -148,5 +148,5 @@ Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function()
 
 App::missing(function($exception)
 {
-    return Jsend::fail('fail.routes.missing');
+    return Jsend::fail(['route' => [trans('fail.routes.missing')]]);
 });
