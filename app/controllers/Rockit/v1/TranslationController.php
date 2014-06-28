@@ -17,7 +17,7 @@ class TranslationController extends \BaseController {
      * @return Response
      */
     public function index() {
-        return Jsend::success(Language::all()->toArray());
+        return Jsend::success(['response' => Language::all()]);
     }
 
     /**
@@ -29,7 +29,8 @@ class TranslationController extends \BaseController {
         if ($locale != NULL) {
             App::setLocale($locale);
         }
-        return Jsend::success(trans('ihm'));
+        //return Jsend::success(trans('ihm'));
+        return Jsend::success(['response' => trans('ihm')]);
     }
 
     /**
@@ -49,15 +50,13 @@ class TranslationController extends \BaseController {
     }
 
     public static function setLocale($locale) {
-        $lang = Language::exist($locale);
+        $lang = Language::exist($locale, 'locale');
         if (is_object($lang)) {
-            $response = User::updateOne(
-            array('language_id' => $lang->id), Auth::user()
-            );
+            $response = User::updateOne(['language_id' => $lang->id], Auth::user());
             App::setLocale($lang->locale);
             return $response;
         } else {
-            return $lang;
+            return ['fail' => [trans('fail.language.inexistant')]];
         }
     }
 
