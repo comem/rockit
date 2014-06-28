@@ -1,7 +1,8 @@
 <?php
-
+/**
+ * File containing every strings used in the French HCI
+ */
 return [
-    // Authentication
     'BtnLogIn' => "Authentification",
     'PlaceholderEmail' => "E-mail",
     'PlaceholderPassword' => "Mot de passe",

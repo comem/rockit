@@ -30,7 +30,7 @@ class TranslationController extends \BaseController {
             App::setLocale($locale);
         }
         //return Jsend::success(trans('ihm'));
-        return Jsend::success(['response' => trans('ihm')]);
+        return Jsend::success(['response' => trans('hci')]);
     }
 
     /**
