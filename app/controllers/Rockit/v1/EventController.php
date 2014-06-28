@@ -142,7 +142,7 @@ class EventController extends \BaseController {
         if (is_object($response)) {
             $response = self::sfUnpublish($response);
         } else {
-            $response['fail'] = ['title' => trans('fail.event.inexistant')];
+            $response['fail'] = ['event' => [trans('fail.event.inexistant')]];
         }
         return Jsend::compile($response);
     }
@@ -156,11 +156,10 @@ class EventController extends \BaseController {
     public function exportWord() {
         $from = Input::get('from');
         $to = Input::get('to');
-
         if (isset($from) && isset($to)) {
             WordExport::events($from, $to);
         } else {
-            $response['fail'] = trans('fail.wordexport.noinput');
+            $response['fail'] = ['word' => [trans('fail.wordexport.noinput')]];
             return Jsend::compile($response);
         }
     }
@@ -177,7 +176,7 @@ class EventController extends \BaseController {
         if (isset($from) && isset($to)) {
             XMLExport::events($from, $to);
         } else {
-            $response['fail'] = trans('fail.xmlexport.noinput');
+            $response['fail'] = ['xml' => [trans('fail.xmlexport.noinput')]];
             return Jsend::compile($response);
         }
     }

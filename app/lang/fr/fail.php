@@ -8,6 +8,7 @@ return [
     'acl' => "Vous n'avez pas le droit d'effectuer cette action",
     'artist' => [
         'inexistant' => "Il n'existe aucun artiste correspondant.",
+        'nogenre' => "L'artiste doit être d'un ou plusieurs genres existants.",
     ],
     'attribution' => [
         'existing' => "Il y a déjà une attribution de même type enregistrée.",
@@ -139,5 +140,11 @@ return [
     'ticket_category' => [
         'existing' => "Il y a déjà une catégorie de tickets \":name\" enregistrée.",
         'inexistant' => "Il n'existe aucune catégorie de tickets correspondante.",
+    ],
+    'wordexport' => [
+        'noinput' => "Les dates de début et de fin de la période à exporter sont obligatoires.",
+    ],
+    'xmlexport' => [
+        'noinput' => "Les dates de début et de fin de la période à exporter sont obligatoires.",
     ],
 ];
