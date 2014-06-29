@@ -42,7 +42,7 @@ class IllustrationController extends \BaseController {
     }
 
     /**
-     * Destroys the association between an Image and an Artist, from the provided image id.
+     * Destroy the association between an Image and an Artist, from the provided image id.
      *
      * If the image id does not point to an existing Image, a <b>Jsend::fail</b> is returned.<br>
      * Or else the the Image is passed to the <b>delete()</b> method.<br>

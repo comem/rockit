@@ -109,7 +109,7 @@ class MusicianController extends \BaseController {
      * If any a these inputs fail, a <b>Jsend::fail</b> is returned.<br>
      * If all the inputs are valid, the data is then passed to the <b>modify()</b> method.<br>
      *
-     * @param int $id The id of the requested Artist
+     * @param int $id The id of the requested Musician
      * @return Jsend
      */
     public function update($id) {
@@ -141,7 +141,7 @@ class MusicianController extends \BaseController {
      * 
      * Checks if each artist and instrument combination is unique, and merges equal combinations into one.<br>
      * Then reset the input['lineups'] with the result. Impossible results are ignored.<br>
-     * If there is not atleast one valid lineup set, a <b>Jsend::fail</b> is returned. Or else, the data is passed to the <b>Musician::createOne()</b> method.<br>
+     * If there is not atleast one valid lineup set, a <b>Jsend::fail</b> is returned. Or else, the data is passed to the <b>createOne()</b> method of the Musician model.<br>
      * 
      * @param array $inputs
      * @return Jsend

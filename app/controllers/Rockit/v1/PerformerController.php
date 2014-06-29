@@ -7,14 +7,26 @@ use \Input,
     \Rockit\Performer,
     Rockit\Controllers\CompletePivotControllerTrait;
 
+/**
+ * Contains interaction methods to the Performer model in the database.<br>
+ * A Performer links an Artist to an Event that he performs at.
+ * Based on the Laravel's BaseController.<br>
+ * Can : <b>store</b>, <b>update</b> and <b>destroy</b> a Performer.<br>
+ * 
+ * @author Joël Gugger <joel.gugger@heig-vd.ch>
+ */
 class PerformerController extends \BaseController {
 
     use CompletePivotControllerTrait;
 
     /**
      * Store a newly created resource in storage.
+     * 
+     * Get the adequate inputs from the client request and test that each of them pass the validation rules.<br>
+     * If any a these inputs fails, a <b>Jsend::fail</b> is returned.<br>
+     * If all the inputs are valid, the data is then passed to the <b>save()</b> method.<br>
      *
-     * @return Response
+     * @return Jsend
      */
     public function store() {
         $data = Input::only('order', 'is_support', 'artist_hour_of_arrival', 'event_id', 'artist_id');
@@ -27,9 +39,15 @@ class PerformerController extends \BaseController {
 
     /**
      * Update the specified resource in storage.
+     * 
+     * If the provided id does not point to an existing Performer, a <b>Jsend::fail</b> is returned.<br>
+     * Get the adequate inputs from the client request and test that each of them pass the validation rules.<br>
+     * If any a these inputs fail, a <b>Jsend::fail</b> is returned.<br>
+     * If all the inputs are valid, the data is then passed to the <b>modify()</b> method.<br>
+     * TO REVIEW
      *
-     * @param  int  $id
-     * @return Response
+     * @param int $id The id of ?who?
+     * @return Jsend
      */
     public function update($id) {
         $data = Input::only('order', 'is_support', 'artist_hour_of_arrival');
@@ -43,8 +61,12 @@ class PerformerController extends \BaseController {
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return Response
+     * If the provided id does not point to an existing Performer, a <b>Jsend::fail</b> is returned.<br>
+     * Or else this id is then passed to the <b>delete()</b> method that deletes the corresponding model.
+     * TO REVIEW
+     * 
+     * @param int $id The id of the requested Performer
+     * @return Jsend
      */
     public function destroy($id) {
         return Jsend::compile(self::delete('Performer', $id));

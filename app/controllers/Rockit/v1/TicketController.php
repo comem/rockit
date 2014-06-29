@@ -8,12 +8,11 @@ use \Input,
     Rockit\Controllers\CompletePivotControllerTrait;
 
 /**
- * Contains interaction methods to the TicketCategory model in the database.<br>
  * A Ticket is proposed in an Event and proposes a Ticket Category.<br>
+ * Contains interaction methods to the TicketCategory model in the database.<br>
  * Based on the Laravel's BaseController.<br>
  * Can : <b>store</b>, <b>update</b> and <b>destroy</b> an association between a Ticket Category and an Event.<br>
  * 
- * //////////////////////////////////////// take off from here
  * @author Joël Gugger <joel.gugger@heig-vd.ch>
  */
 class TicketController extends \BaseController {
@@ -21,7 +20,7 @@ class TicketController extends \BaseController {
     use CompletePivotControllerTrait;
 
     /**
-     * Store a new association between a Ticket Category and the Event it illustrates.
+     * Store a new association between a TicketCategory and an Event that it is proposed for.
      * 
      * Get the adequate inputs from the client request and test that each of them pass the validation rules.<br>
      * If any of these inputs fails, a <b>Jsend::fail</b> is returned.<br>
@@ -45,6 +44,7 @@ class TicketController extends \BaseController {
      * If the TicketCategory does not illustrate a performing Artist in the Event, a <b>Jsend::fail</b> is returned.
      * If the TicketCategory provided already symbolizes an Event, a <b>Jsend::fail</b> is returned.<br>
      * Or else the inputs are passed to the <b>updateOne</b> method of the TicketCategory model.<br>
+     * TO REVIEW
      *
      * @param array $inputs An array containing a valid ticket category id and a valid event id 
      * @return Jsend
@@ -63,7 +63,7 @@ class TicketController extends \BaseController {
      *
      * If the ticket category id does not point to an existing TicketCategory, a <b>Jsend::fail</b> is returned.<br>
      * Or else the the TicketCategory is passed to the <b>delete()</b> method.<br>
-     * 
+     * TO REVIEW
      * 
      * @param int $id The id of the TicketCategory that will no longer symbolize an Event
      * @return Jsend
@@ -78,8 +78,9 @@ class TicketController extends \BaseController {
      * If the TicketCategory provided does not symbolize an Event, a <b>Jsend::fail</b> is returned.<br>
      * If the delete was not completed, a <b>Jsend::error</b> is returned.<br>
      * Or else a <b>Jsend::success</b> is returned.<br>
+     * TO REVIEW
      * 
-     * @param TicketCategory $ticket category The TicketCategory that smybolizes an Event, whose association is to be deleted
+     * @param TicketCategory $ticket category The TicketCategory that symbolizes an Event, whose association is to be deleted
      * @return array Contains an array with either a <b>fail</b>, <b>error</b> or <b>success</b> key and its corresponding message
      */
     public static function delete($id) {

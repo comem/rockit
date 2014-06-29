@@ -7,14 +7,26 @@ use \Input,
     \Rockit\Attribution,
     Rockit\Controllers\CompletePivotControllerTrait;
 
+/**
+ * Contains interaction methods to the Attribution model in the database.<br>
+ * Based on the Laravel's BaseController.<br>
+ * Can : <b>store</b>, <b>update</b> and <b>destroy</b> one Attribution<br>
+ * An Attribution is the link between an Event and an Equipment that is reserved for that Event.<br>
+ * 
+ * @author Joël Gugger <joel.gugger@heig-vd.ch>
+ */
 class AttributionController extends \BaseController {
 
     use CompletePivotControllerTrait;
 
     /**
-     * Store a newly created resource in storage.
+     * Store a new association between an Event and an Equipment that is attributed for that Event.
+     * 
+     * Get the adequate inputs from the client request and test that each of them pass the validation rules.<br>
+     * If any of these inputs fails, a <b>Jsend::fail</b> is returned.<br>
+     * If all the inputs are valid, the data is then passed to the <b>save()</b> method, who sends back a response.<br>
      *
-     * @return Response
+     * @return Jsend
      */
     public function store() {
         $data = Input::only('cost', 'quantity', 'event_id', 'equipment_id');
@@ -27,9 +39,11 @@ class AttributionController extends \BaseController {
 
     /**
      * Update the specified resource in storage.
+     * 
+     * TO DO
      *
-     * @param  int  $id
-     * @return Response
+     * @param int $id ?What id?
+     * @return Jsend
      */
     public function update($id) {
         $data = Input::only('cost', 'quantity');
@@ -41,10 +55,12 @@ class AttributionController extends \BaseController {
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Destroys the association between an Event and an Equipment, from the provided .
      *
-     * @param  int  $id
-     * @return Response
+     * TO DO
+     * 
+     * @param int $id ?what id?
+     * @return Jsend
      */
     public function destroy($id) {
         return Jsend::compile(self::delete('Attribution', $id));

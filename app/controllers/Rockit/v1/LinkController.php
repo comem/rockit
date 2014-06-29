@@ -11,7 +11,7 @@ use \Input,
  * Based on the Laravel's BaseController.<br>
  * Can : <b>index</b> all the Links, <b>store</b> and <b>destroy</b> one Link.<br>
  * 
- * @author Robert di Rosa <robert.dirosa@heig-vd.ch>
+ * @author Christian Heimann <christian.heimann@heig-vd.ch>
  */
 class LinkController extends \BaseController {
 
@@ -58,7 +58,7 @@ class LinkController extends \BaseController {
     /**
      * Remove the specified resource from storage.
      *
-     * If the provided id does not point to an existing Linkn, a <b>Jsend::fail</b> is returned.<br>
+     * If the provided id does not point to an existing Link, a <b>Jsend::fail</b> is returned.<br>
      * Or else this id is then passed to the <b>delete()</b> method that deletes the corresponding model.
      * 
      * @param int $id The id of the requested Link

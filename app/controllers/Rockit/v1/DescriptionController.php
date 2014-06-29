@@ -9,9 +9,9 @@ use \Input,
 
 /**
  * Contains interaction methods to the Description model in the database.<br>
+ * A Description is the link between an Artist and a Genre.<br>
  * Based on the Laravel's BaseController.<br>
  * Can : <b>store</b> and <b>destroy</b> one Description<br>
- * A Description is the link between an Artist and a Genre.<br>
  * 
  * @author Joël Gugger <joel.gugger@heig-vd.ch>
  */
@@ -20,7 +20,7 @@ class DescriptionController extends \BaseController {
     use SimplePivotControllerTrait;
 
     /**
-     * Store a newly created resource in storage.
+     * Store a new association between an Artist and a Genre that describes that Artist.
      * 
      * Get the adequate inputs from the client request and test that each of them pass the validation rules.<br>
      * If any of these inputs fails, a <b>Jsend::fail</b> is returned.<br>
@@ -38,12 +38,12 @@ class DescriptionController extends \BaseController {
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Destroy the association between an Artist and a Genre, from the provided ?description id?
      *
      * Destroys the Description that matches the provided id by passing this id to the <b>delete()</b> method, who sends back a response.<br>
      * A <b>Jsend::fail</b> is returned if the id does not point to an existing Description.
      * 
-     * @param int $id The id of the Description to destroy
+     * @param int $id ?The id of the Description to destroy?
      * @return Jsend
      */
     public function destroy($id) {

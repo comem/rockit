@@ -43,7 +43,7 @@ class SymbolizationController extends \BaseController {
     }
 
     /**
-     * Destroys the association between an Image and an Event, from the provided image id.
+     * Destroy the association between an Image and an Event, from the provided image id.
      *
      * If the image id does not point to an existing Image, a <b>Jsend::fail</b> is returned.<br>
      * Or else the the Image is passed to the <b>delete()</b> method.<br>
@@ -111,7 +111,7 @@ class SymbolizationController extends \BaseController {
      * If the delete was not completed, a <b>Jsend::error</b> is returned.<br>
      * Or else a <b>Jsend::success</b> is returned.<br>
      * 
-     * @param Image $image The Image that smybolizes an Event, whose association is to be deleted
+     * @param Image $image The Image that symbolizes an Event, whose association is to be deleted
      * @return array Contains an array with either a <b>fail</b>, <b>error</b> or <b>success</b> key and its corresponding message
      */
     public static function delete(Event $event) {

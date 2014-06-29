@@ -10,12 +10,11 @@ use \App,
     \User;
 
 /**
- * Contains interaction methods to the Musician model in the database.<br>
+ * Contains interaction methods to the Language model in the database.<br>
  * Based on the Laravel's BaseController.<br>
- * Can : <b>index</b> all the Musicians, <b>store</b>, <b>show</b>, <b>destroy</b> and <b>update</b> one Musician.<br>
- * Since Musicians can be linked to an event, the <b>delete</b> is actually a <b>softDelete</b>.
+ * Can : <b>index</b> all the Languages, <b>translate</b> to another Language, and <b>changeLocale</b> of the current user to another Language.<br>
  * 
- * @author Christian Heimann <christian.heimann@heig-vd.ch>
+ * @author Joël Gugger <joel.gugger@heig-vd.ch>
  */
 class TranslationController extends \BaseController {
 
@@ -31,6 +30,8 @@ class TranslationController extends \BaseController {
     /**
      * Return the translation for the locale provided.
      *
+     * If no locale is provided, the default locale is NULL and a <b>Jsend::success</b> is returned.<br>
+     *
      * @param $locale
      * @return Jsend
      */
@@ -43,8 +44,11 @@ class TranslationController extends \BaseController {
     }
 
     /**
-     * Define the new default locale for the Auth::user()
+     * Redefine the current user's new default Language.
      *
+     * Get the adequate inputs from the client request and test that the local provided passes the validation rules.<br>
+     * If this input fails, a <b>Jsend::fail</b> is returned.<br>
+     * If the input is valid, the data is then passed to the <b>setLocale()</b> method.<br>
      * @return Jsend
      */
     public function changeLocale() {
@@ -59,7 +63,11 @@ class TranslationController extends \BaseController {
     }
     
     /**
-     * 
+     * Set the current user's default Language to the locale provided.
+     *
+     * If the locale provided does not exist in this application, a <b>Jsend::fail</b> is returned.<br>
+     * If the locale provided is valid, the current User's information is updated and the application's language is set.<br>
+     *
      * @param $locale
      * @return ??
      */
