@@ -3,6 +3,8 @@
 namespace Rockit;
 
 class Sharing extends \Eloquent {
+    
+    use Models\ModelBCUDTrait;
 
 	public $timestamps = true;
 

@@ -155,7 +155,6 @@ class EventController extends \BaseController {
     public function exportWord() {
         $from = Input::get('from');
         $to = Input::get('to');
-
         if(isset($from) && isset($to)) {
             WordExport::events($from, $to);  
         } else {

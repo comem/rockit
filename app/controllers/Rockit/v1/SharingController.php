@@ -2,10 +2,12 @@
 
 namespace Rockit\v1;
 
-use Facebook\FacebookRedirectLoginHelper,
-    \Config,
+use \Config,
     \Redirect,    
-    \Session;
+    \Session,
+    \Input,
+    \Jsend,
+    Rockit\v1\FacebookController;
 
 //include_once("facebook-php-sdk/src/facebook.php");
 
@@ -22,7 +24,16 @@ class SharingController extends \BaseController {
        * $inputs = Input::only('platform_id', 'event_id');
        * if Facebook so …
        */
-      FacebookController::login();
+       $inputs = Input::only('eventId');
+       $event = Event::find($inputs['eventId']);
+       if(!isset($event)) {
+           return $response = Jsend::fail(array('title' => trans('fail.sharing.eventnotvalid')));
+       }
+       $platform = Platform::where('name', '=', 'facebook')->first();
+       $inputs['platformId'] = $platform->id;
+       Session::set('fbEventId', $inputs['eventId']);
+       Session::set('plattformId', $inputs['platformId']);
+       return FacebookController::login();
         
 //
 //        $inputs = Input::only('name', 'access_token', 'start_time', 'end_time', 'location', 'description');

@@ -142,9 +142,9 @@ Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function()
 
 });
 
-// Development: facebook
+// Development: facebook // sharings will be a post …
 Route::get('v1/sharings', 'Rockit\v1\SharingController@store');
-Route::get('v1/facebook', 'Rockit\v1\FacebookController@facebookRedirect');
+Route::get('v1/facebook/redirect', 'Rockit\v1\FacebookController@redirectCatch');
 
 
 
