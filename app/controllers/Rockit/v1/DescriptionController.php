@@ -12,7 +12,6 @@ use \Input,
  * Based on the Laravel's BaseController.<br>
  * Can : <b>store</b> and <b>destroy</b> one Description<br>
  * A Description is the link between an Artist and a Genre.<br>
- * Since Descriptions can be linked to an event, the <b>delete</b> is actually a <b>softDelete</b>.
  * 
  * @author Joël Gugger <joel.gugger@heig-vd.ch>
  */
@@ -24,8 +23,8 @@ class DescriptionController extends \BaseController {
      * Store a newly created resource in storage.
      * 
      * Get the adequate inputs from the client request and test that each of them pass the validation rules.<br>
-     * If any a these inputs fails, a <b>Jsend::fail</b> is returned.<br>
-     * If all the inputs are valid, the data is then passed to the <b>save()</b> method.<br>
+     * If any of these inputs fails, a <b>Jsend::fail</b> is returned.<br>
+     * If all the inputs are valid, the data is then passed to the <b>save()</b> method, who sends back a response.<br>
      *
      * @return Jsend
      */
@@ -41,7 +40,7 @@ class DescriptionController extends \BaseController {
     /**
      * Remove the specified resource from storage.
      *
-     * Destroys the Description that matches the provided id by passing this id to the <b>delete()</b> method.<br>
+     * Destroys the Description that matches the provided id by passing this id to the <b>delete()</b> method, who sends back a response.<br>
      * A <b>Jsend::fail</b> is returned if the id does not point to an existing Description.
      * 
      * @param int $id The id of the Description to destroy
@@ -52,14 +51,14 @@ class DescriptionController extends \BaseController {
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified resource from the database.
      *
      * If the provided id does not point to an existing Description, a <b>Jsend::fail</b> is returned.<br>
      * If this is an Artist's last existing Description, a <b>Jsend::fail</b> is returned.<br>
-     * Or else the Description is passed to the <b>deleteOne()</br> method to be deleted.
+     * Or else the Description is passed to the <b>deleteOne()</br> method of the Description model to be deleted.
      * 
      * @param int $id The id of the Description to delete
-     * @return ???
+     * @return array Contains an array with either a <b>fail</b>, <b>error</b> or <b>success</b> key and its corresponding message
      */
     public static function delete($id) {
         $object = Description::exist($id);
