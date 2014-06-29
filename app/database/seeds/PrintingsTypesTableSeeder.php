@@ -9,11 +9,17 @@ class PrintingsTypesTableSeeder extends Seeder {
     {
         DB::table('printing_types')->delete();
 
-        PrintingType::create(array('name_de' => 'flyer'));
+        PrintingType::create(array('id'=>'1',
+            'name_de' => 'flyer'));
         
-        PrintingType::create(array('name_de' => 'A4 Blatt'));
+        PrintingType::create(array('id'=>'2',
+            'name_de' => 'Plakart'));
         
-        PrintingType::create(array('name_de' => 'Sticker'));
+        PrintingType::create(array('id'=>'3',
+            'name_de' => 'Postkarte'));
+        
+        PrintingType::create(array('id'=>'4',
+            'name_de' => 'Plakart gross'));
     }
 }
 

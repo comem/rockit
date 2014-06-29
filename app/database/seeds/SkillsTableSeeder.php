@@ -9,15 +9,14 @@ class SkillsTableSeeder extends Seeder {
     {
         DB::table('skills')->delete();
 
-        Skill::create(array('name_de' => 'Barman / Barmaid'));
+        Skill::create(array('name_de' => 'Bar'));
         
-        Skill::create(array('name_de' => 'Ticketverkäufer'));
+        Skill::create(array('name_de' => 'Kasse'));
         
-        Skill::create(array('name_de' => 'Auffräumen'));
+        Skill::create(array('name_de' => 'Abendchef'));
         
-        Skill::create(array('name_de' => 'Empfangsdame'));
+        Skill::create(array('name_de' => 'Technik'));
         
-        Skill::create(array('name_de' => 'Eventorganiser'));
    }
 }
 

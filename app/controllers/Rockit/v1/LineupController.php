@@ -16,8 +16,7 @@ class LineupController extends \BaseController {
      *
      * @return Response
      */
-    public function store()
-    {
+    public function store() {
         $data = Input::only('musician_id', 'instrument_id', 'artist_id');
         $response = Lineup::validate($data, Lineup::$create_rules);
         if ($response === true) {
@@ -32,8 +31,7 @@ class LineupController extends \BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id) 
-    {
+    public function destroy($id) {
         return Jsend::compile(self::delete($id));
     }
 
@@ -45,10 +43,14 @@ class LineupController extends \BaseController {
     public static function delete($id) {
         $object = Lineup::exist($id);
         if ($object == null) {
-            $response['fail'] = array('title' => trans('fail.lineup.inexistant'));
+            $response = array(
+                'fail' => array(
+                    'lineup' => [trans('fail.lineup.inexistant')],
+                ),
+            );
         } else {
             $response = Lineup::isLastLineup($object);
-            if($response === false){
+            if ($response === false) {
                 $response = Lineup::deleteOne($object);
             }
         }

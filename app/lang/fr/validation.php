@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
 	/*
 	|--------------------------------------------------------------------------
@@ -17,16 +17,17 @@ return array(
 	"active_url"           => "L'attribut :attribute n'est pas une URL valide.",
 	"after"                => "L'attribut :attribute doit être une date postérieure à :date.",
 	"alpha"                => "L'attribut :attribute ne peut contenir que des lettres.",
-	"alpha_dash"           => "L'attribut :attribute ne peut contenir que des lettres, des nombres et des tirets ('-' ou '_').",
+	"alpha_dash"           => "L'attribut :attribute ne peut contenir que des lettres, des nombres et des tirets (\"-\" ou \"_\").",
 	"alpha_num"            => "L'attribut :attribute ne peut contenir que des lettres et des nombres.",
 	"array"                => "L'attribut :attribute doit être un tableau (array).",
 	"before"               => "L'attribut :attribute doit être une date antérieure à :date.",
-	"between"              => array(
+	"between"              => [
 		"numeric" => "L'attribut :attribute doit être compris entre :min et :max.",
 		"file"    => "L'attribut :attribute doit avoir un poids compris entre :min et :max Ko (kilo octet).",
 		"string"  => "L'attribut :attribute doit avoir entre :min et :max caractères.",
 		"array"   => "L'attribut :attribute doit avoir entre :min et :max éléments.",
-	),
+	],
+        "boolean"              => "L'attribut :attribute doit être de type \"vrai\" ou \"faux\".",
 	"confirmed"            => "La validation de l'attribut :attribute ne correspond pas.",
 	"date"                 => "L'attribut :attribute n'est pas une date valide.",
 	"date_format"          => "L'attribut :attribute ne correspond pas au :format.",
@@ -35,26 +36,28 @@ return array(
 	"digits_between"       => "L'attribut :attribute doit avoir entre :min et :max chiffre(s).",
 	"email"                => "L'attribut :attribute doit être une adresse e-mail valide.",
 	"exists"               => "L'attribut :attribute sélectionné n'est pas valide.",
+        "ext"                  => "Ce type de fichier n'est pas supporté par l'application",
 	"image"                => "L'attribut :attribute doit être une image.",
 	"in"                   => "L'attribut :attribute sélectionné n'est pas valide.",
 	"integer"              => "L'attribut :attribute doit être de type integer (int).",
 	"ip"                   => "L'attribut :attribute doit être une adresse IP valide.",
-	"max"                  => array(
+	"max"                  => [
 		"numeric" => "L'attribut :attribute ne peut pas être supérieur à :max.",
 		"file"    => "L'attribut :attribute ne peut pas avoir un poids supérieur à :max Ko (kilobytes).",
 		"string"  => "L'attribut :attribute ne peut pas avoir plus que :max caracters.",
 		"array"   => "L'attribut :attribute ne peut pas avoir plus de :max éléments.",
-	),
+	],
 	"mimes"                => "L'attribut :attribute doit être un fichier de type : :values.",
-	"min"                  => array(
+	"min"                  => [
 		"numeric" => "L'attribut :attribute doit être supérieur à :min.",
 		"file"    => "L'attribut :attribute doit avoir un poids minimum de :min kilobytes (Ko).",
 		"string"  => "L'attribut :attribute doit avoir au minimum :min caractères.",
 		"array"   => "L'attribut :attribute doit avoir au minimum :min éléments.",
-	),
-	"names"                => "L'attribut :attribute ne peut contenir que des lettres, des apostrophes ou des tirets bas.",
+	],
+	"names"                => "L'attribut :attribute ne peut contenir que des lettres, des apostrophes ou des tirets.",
 	"not_in"               => "L'attribut :attribute sélectionné n'est pas valide.",
 	"numeric"              => "L'attribut :attribute doit être un nombre.",
+        'path'                 => "Le format de l'attribut :attribute n'est pas valide.",
 	"phone"                => "Le format de l'attribut :attribute n'est pas valide.",
 	"regex"                => "Le format de l'attribut :attribute n'est pas valide.",
 	"required"             => "L'attribut :attribute est obligatoire.",
@@ -64,12 +67,12 @@ return array(
 	"required_without"     => "L'attribut :attribute est obligatoire lorsque :values est absent.",
 	"required_without_all" => "L'attribut :attribute est obligatoire lorsqu'aucun des attributs :values n'est présent.",
 	"same"                 => "Les attributs :attribute et :other doivent être identiques.",
-	"size"                 => array(
+	"size"                 => [
 		"numeric" => "L'attribut :attribute doit être égal à :size.",
 		"file"    => "L'attribut :attribute doit avoir un poids égal à :size kilobytes (Ko).",
 		"string"  => "L'attribut :attribute doit avoir :size caractères.",
 		"array"   => "L'attribut :attribute doit contenir :size éléments.",
-	),
+	],
 	"unique"               => "L'attribut :attribute est déjà utilisé.",
 	"url"                  => "Le format de l'attribut :attribute n'est pas valide.",
 
@@ -84,11 +87,11 @@ return array(
 	|
 	*/
 
-	'custom' => array(
-		'attribute-name' => array(
+	'custom' => [
+		'attribute-name' => [
 			'rule-name' => 'custom-message',
-		),
-	),
+		],
+	],
 
 	/*
 	|--------------------------------------------------------------------------
@@ -101,6 +104,6 @@ return array(
 	|
 	*/
 
-	'attributes' => array(),
+	'attributes' => [],
 
-);
+];

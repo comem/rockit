@@ -1,6 +1,7 @@
 <?php
 
 use Rockit\Resource,
+    Rockit\Models\Functions\UpdateOneTrait,
     Illuminate\Auth\UserTrait,
     Illuminate\Auth\UserInterface,
     Illuminate\Auth\Reminders\RemindableTrait,
@@ -11,27 +12,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     use UserTrait,
         RemindableTrait,
-        SoftDeletingTrait;
+        SoftDeletingTrait,
+        UpdateOneTrait;
 
     public $timestamps = true;
     protected $appends = array('language', 'group');
-    protected static $rules = array(
-        'email' => 'email|max:300|unique:users',
-        'password' => 'min:4|max:2000'
-    );
-
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
     protected $table = 'users';
-
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
     protected $hidden = array(
         'password',
         'remember_token',
@@ -40,6 +26,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 //        'deleted_at',
 //        'created_at',
 //        'updated_at',
+    );
+    public static $response_field = 'first_name';
+    protected static $rules = array(
+        'email' => 'email|max:300|unique:users',
+        'password' => 'min:4|max:2000'
     );
 
     /**
@@ -67,8 +58,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     protected function getLanguageAttribute() {
         return $this->language()->getResults();
     }
-    
+
     protected function getGroupAttribute() {
         return $this->group()->getResults();
     }
+
 }

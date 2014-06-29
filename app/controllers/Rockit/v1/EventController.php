@@ -2,8 +2,8 @@
 
 namespace Rockit\v1;
 
-use \Rockit\Controllers\ControllerBSUDTrait;
-use \Jsend,
+use \Rockit\Controllers\ControllerBSUDTrait,
+    \Jsend,
     \Input,
     \WordExport,
     \XMLExport,
@@ -11,6 +11,8 @@ use \Jsend,
 use \Rockit\Event;
 
 class EventController extends \BaseController {
+
+    use ControllerBSUDTrait;
 
     /**
      * Display a listing of the resource.
@@ -27,10 +29,11 @@ class EventController extends \BaseController {
         }
         if (Input::has('is_published')) {
             $is_published = Input::get('is_published');
-            if ($is_published == '1')
+            if ($is_published == '1') {
                 $events = $events->isPublished(TRUE);
-            else
+            } else {
                 $events = $events->isPublished(FALSE);
+            }
         }
         if (Input::has('title')) {
             $events = $events->title(Input::get('title'));
@@ -51,17 +54,19 @@ class EventController extends \BaseController {
         }
         if (Input::has('is_followed_by_private')) {
             $is_followed_by_private = Input::get('is_followed_by_private');
-            if ($is_followed_by_private == '1')
+            if ($is_followed_by_private == '1') {
                 $events = $events->isFollowedByPrivate(TRUE);
-            else
+            } else {
                 $events = $events->isFollowedByPrivate(FALSE);
+            }
         }
         if (Input::has('has_representer')) {
             $has_representer = Input::get('has_representer');
-            if ($has_representer == '1')
+            if ($has_representer == '1') {
                 $events = $events->hasRepresenter(TRUE);
-            else
+            } else {
                 $events = $events->hasRepresenter(FALSE);
+            }
         }
         return Jsend::success($events->paginate(10)->toArray());
     }
@@ -75,7 +80,7 @@ class EventController extends \BaseController {
     public function show($id) {
         $event = Event::with('representer', 'eventType', 'image', 'tickets.ticketCategory', 'sharings.platform', 'printings.printingType', 'performers.artist', 'staffs.member', 'staffs.skill', 'needs.skill', 'offers.gift', 'attributions.equipment');
         if (empty($event)) {
-            $response = Jsend::fail(array('title' => trans('fail.event.inexistant')));
+            $response = Jsend::fail(['title' => trans('fail.event.inexistant')]);
         } else {
             $response = Jsend::success($event->find($id));
         }
@@ -122,7 +127,7 @@ class EventController extends \BaseController {
         if (is_object($response)) {
             $response = self::sfPublish($response);
         } else {
-            $response['fail'] = ['title' => trans('fail.event.inexistant')];
+            $response['fail'] = ['event' => [trans('fail.event.inexistant')]];
         }
         return Jsend::compile($response);
     }
@@ -138,7 +143,7 @@ class EventController extends \BaseController {
         if (is_object($response)) {
             $response = self::sfUnpublish($response);
         } else {
-            $response['fail'] = ['title' => trans('fail.event.inexistant')];
+            $response['fail'] = ['event' => [trans('fail.event.inexistant')]];
         }
         return Jsend::compile($response);
     }
@@ -198,16 +203,38 @@ class EventController extends \BaseController {
         }
     }
 
+    /**
+     * 
+     * @param type $event
+     * @return type
+     */
     public static function sfUnpublish($event) {
-        return Event::updateOne(['published_at' => NULL], $event);
+        $event->published_at = null;
+        if ($event->save()) {
+            $response['success'] = ['title' => trans('success.event.unpublished')];
+        } else {
+            $response['error'] = trans('error.event.unpublished');
+        }
+        return $response;
     }
 
-    public static function sfPublish($event) {
+    /**
+     * 
+     * @param type $event
+     * @return type
+     */
+
+   public static function sfPublish($event) {
         $response = Event::atLeastOneMainPerformer($event);
         if ($response === true) {
             $response = Event::isSymbolized($event);
             if ($response === true) {
-                $response = Event::updateOne(['published_at' => date('Y-m-d H:i:s')], $event);
+                $publishing = Event::updateOne(['published_at' => date('Y-m-d H:i:s')], $event);
+                if (isset($publishing['success'])) {
+                    $response = ['success' => ['title' => trans('success.event.published')]];
+                } else {
+                    $response = ['error' => trans('error.event.published')];
+                }
             }
         }
         return $response;

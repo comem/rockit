@@ -11,15 +11,14 @@ class EquipmentController extends \BaseController {
 
     use ControllerBSRDTrait;
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index() {
         return Jsend::success(Equipment::all());
-	}
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -47,6 +46,5 @@ class EquipmentController extends \BaseController {
     public function destroy($id) {
         return Jsend::compile(self::delete('Equipment', $id));
     }
-
 
 }

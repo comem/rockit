@@ -12,18 +12,39 @@ use \Rockit\Artist,
     \Jsend,
     \Input;
 
+/**
+ * Contains interaction methods to the Artist model in the database.<br>
+ * Base on the Laravel's BaseController.<br>
+ * Can : <b>index</b> all the Artists, <b>save</b>, <b>show</b>, <b>delete</b> and <b>update</b> one Artist.<br>
+ * Since Artists are required by an event, the <b>delete</b> is actually a <b>softDelete</b>.
+ * 
+ * @author Joël Gugger <joel.gugger@heig-vd.ch>
+ */
 class ArtistController extends \BaseController {
 
     use ControllerBSUDTrait;
 
     /**
      * Display a listing of the resource.
-     *
-     * @return Response
+     * 
+     * It is possible to give extra parameters in order to filter the results.<br>
+     * These parameters are :<br>
+     * <ul>
+     * <li><b>name</b>: an artist's name</li>
+     * <li><b>genres</b>: an array of genres id</li>
+     * <li><b>musician_name</b>: a musician's name</li>
+     * </ul>
+     * Each provided attribute reduces the scope of the results.<br>
+     * If the Collection posesses more than <b>10</b> items, it will be divided into chunck of <b>10</b> items.<br>
+     * This number of returned item can be changed by providing a value to the <b>nb_item</b> attribute.<br>
+     * This value can not be lower than <b>0</b>.<br>
+     * Each artist is returned with its genres and images. 
+     * 
+     * @return Jsend
      */
-    public function index() 
-    {
+    public function index() {
         $artists = Artist::with('images', 'genres');
+        $nb_item = Input::has('nb_item') && Input::get('nb_item') > 0 ? Input::get('nb_item') : 10;
         if (Input::has('name')) {
             $artists = $artists->name(Input::get('name'));
         }
@@ -36,21 +57,30 @@ class ArtistController extends \BaseController {
             $artists = $artists->musicianFirstname($string);
             $artists = $artists->musicianLastname($string);
         }
-        return Jsend::success($artists->paginate(10)->toArray());
+        $paginate = $artists->paginate($nb_item)->toArray();
+        $artist_data = $paginate['data'];
+        unset($paginate['data']);
+        return Jsend::success(array(
+            'artists' => $artist_data,
+            'paginate' => $paginate,
+        ));
     }
 
     /**
      * Display the specified resource.
+     * 
+     * Return an Artist with all its relationships.<br>
+     * If the provided id does not point to any existing Artist, a <b>Jsend::fail</b> is returned.<br>
      *
-     * @param  int  $id
-     * @return Response
+     * @param int $id The id of the requested Artist
+     * @return Jsend
      */
-    public function show($id) 
-    {
+    public function show($id) {
+        dd(Artist::with('links', 'images', 'genres', 'events', 'musicians')->find($id));
         $artist = Artist::with('links', 'images', 'genres', 'events', 'musicians')
-                        ->find($id);
+        ->find($id);
         if (empty($artist)) {
-            $response = Jsend::fail(array('title' => trans('fail.artist.inexistant')));
+            $response = Jsend::fail(['artist' => [trans('fail.artist.inexistant')]]);
         } else {
             foreach ($artist->events as $event) {
                 $event->performers = Performer::where('artist_id', '=', $event->pivot->artist_id)
@@ -78,8 +108,12 @@ class ArtistController extends \BaseController {
 
     /**
      * Store a newly created resource in storage.
+     * 
+     * Get the adequate inputs from the client request and test that each of them passes the validation rules.<br>
+     * If any a these inputs fails, a <b>Jsend::fail</b> is returned.<br>
+     * If all the input are valid, the data are then passed to the <b>save()</b> method.<br>
      *
-     * @return Response
+     * @return Jsend
      */
     public function store() {
         $inputs = Input::only('name', 'short_description_de', 'complete_description_de', 'genres', 'images');
@@ -94,9 +128,14 @@ class ArtistController extends \BaseController {
 
     /**
      * Update the specified resource in storage.
+     * 
+     * If the provided id does not point to any existing Artist, a <b>Jsend::fail</b> is returned.<br>
+     * Get the adequate inputs from the client request and test that each of them passes the validation rules.<br>
+     * If any a these inputs fails, a <b>Jsend::fail</b> is returned.<br>
+     * If all the input are valid, the data are then passed to the <b>modify()</b> method.<br>
      *
-     * @param  int  $id
-     * @return Response
+     * @param int $id The id of the requested Artist
+     * @return Jsend
      */
     public function update($id) {
         $new_data = Input::only('name', 'short_description_de', 'complete_description_de');
@@ -112,23 +151,28 @@ class ArtistController extends \BaseController {
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return Response
+     * If the provided id does not point to any existing Artist, a <b>Jsend::fail</b> is returned.<br>
+     * Else this id is then pass to the <b>delete()</b> method that deletes the corresponding model.
+     * 
+     * @param int $id The id of the requested Artist
+     * @return Jsend
      */
     public function destroy($id) {
         return Jsend::compile(self::delete('Artist', $id));
     }
 
     /**
-     * Method checks genres to be unique and to be existing before 
-     * passing to valid $inputs to createOne method, as well as checking images
-     * to be unique and to be existing and not already illustrating an artist.
-     * If no existing genre is found, so return a fail message
-     * @param type $inputs
-     * @return Message
+     * Save a new Artist in the database with the given inputs.
+     * 
+     * Check that there's not two identical genre ids in the set of provided genres ids and that each of these genres id points to an existing genre.<br>
+     * Check also that there's not two identical image id in the set of provided images ids and that each of these images ids points to an existing image.<br>
+     * If one genre id or image id does not point to an existing resource, a <b>Jsend::fail</b> is returned. Else, the data are passed to the <b>Artist::creatOne()</b> method.<br>
+     * 
+     * @param array $inputs
+     * @return Jsend
      */
     public static function save($inputs) {
-        $existingMergedGenres = array();
+        $existingMergedGenres = [];
         $inputs['genres'] = array_unique($inputs['genres']);
         foreach ($inputs['genres'] as $genre) {
             if (Genre::exist($genre, 'id')) {
@@ -136,17 +180,19 @@ class ArtistController extends \BaseController {
             }
         }
         if (!count($existingMergedGenres) > 0) {
-            $response['fail'] = ['title' => trans('fail.artist.nogenre')];
+            $response['fail'] = ['genres' => [trans('fail.artist.nogenre')]];
         } else {
             $inputs['genres'] = $existingMergedGenres;
-            $existingMergedImages = array();
-            $inputs['images'] = array_unique($inputs['images']);
-            foreach ($inputs['images'] as $image) {
-                if (Image::where('id', '=', $image)->where('artist_id', '=', NULL)->first()) {
-                    $existingMergedImages[] = $image;
+            if (isset($inputs['images'])) {
+                $existingMergedImages = array();
+                $inputs['images'] = array_unique($inputs['images']);
+                foreach ($inputs['images'] as $image) {
+                    if (Image::where('id', '=', $image)->where('artist_id')->first()) {
+                        $existingMergedImages[] = $image;
+                    }
                 }
+                $inputs['images'] = $existingMergedImages;
             }
-            $inputs['images'] = $existingMergedImages;
             $response = Artist::createOne($inputs);
         }
         return $response;

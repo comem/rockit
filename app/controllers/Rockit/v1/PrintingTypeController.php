@@ -8,7 +8,7 @@ use \Input,
     \Rockit\Controllers\ControllerBSRDTrait;
 
 class PrintingTypeController extends \BaseController {
-    
+
     use ControllerBSRDTrait;
 
     /**
