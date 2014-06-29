@@ -34,8 +34,8 @@ class MusicianController extends \BaseController {
         foreach ($musicians as $musician) {
             foreach ($musician->artists as $artist) {
                 $lineups = Lineup::where('artist_id', '=', $artist->pivot->artist_id)
-                ->where('musician_id', '=', $artist->pivot->musician_id)
-                ->get();
+                        ->where('musician_id', '=', $artist->pivot->musician_id)
+                        ->get();
                 foreach ($lineups as $lineup) {
                     $instrument = Instrument::where('id', '=', $lineup->instrument_id)->first();
                     $instrument->lineup_id = $lineup->id;
@@ -65,8 +65,8 @@ class MusicianController extends \BaseController {
         } else {
             foreach ($musician->artists as $artist) {
                 $lineups = Lineup::where('artist_id', '=', $artist->pivot->artist_id)
-                ->where('musician_id', '=', $artist->pivot->musician_id)
-                ->get();
+                        ->where('musician_id', '=', $artist->pivot->musician_id)
+                        ->get();
                 foreach ($lineups as $lineup) {
                     $instrument = Instrument::where('id', '=', $lineup->instrument_id)->first();
                     $instrument->lineup_id = $lineup->id;
@@ -154,7 +154,7 @@ class MusicianController extends \BaseController {
             }
         }
         if (!count($existingLineups) > 0) {
-            $response['fail'] = trans('fail.musician.nolineup');
+            $response['fail'] = ['title' => trans('fail.musician.nolineup')];
         } else {
             $inputs['lineups'] = $existingLineups;
             $response = Musician::createOne($inputs);

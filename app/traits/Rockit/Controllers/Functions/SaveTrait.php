@@ -18,10 +18,11 @@ trait SaveTrait {
      */
     public static function save($model, array $data, $check_existence = false, $column = 'id') {
         $call = self::$namespace . $model;
+        $field = $call::$response_field;
         if ($check_existence === true) {
             $object = $call::exist($data[$column], $column);
             if (is_object($object)) {
-                $response = array('fail' => trans('fail.' . snake_case($model) . '.existing'));
+                $response['fail'] = [snake_case($model) => [trans('fail.' . snake_case($model) . '.existing', ['name' => $object->$field])]];
             }
         }
         if (!isset($response)) {

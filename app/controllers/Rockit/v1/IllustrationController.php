@@ -57,7 +57,7 @@ class IllustrationController extends \BaseController {
             $response = self::delete($image);
         } else {
             $response['fail'] = [
-                'title' => trans('fail.image.inexistant'),
+                'image' => [trans('fail.image.inexistant')],
             ];
         }
         return Jsend::compile($response);
@@ -83,13 +83,11 @@ class IllustrationController extends \BaseController {
                     'id' => $image->id,
                 ];
             } else {
-                $response['error'] = [
-                    'title' => trans('error.illustration.created')
-                ];
+                $response['error'] = trans('error.illustration.created');
             }
         } else {
             $response['fail'] = [
-                'title' => trans('fail.illustration.existing')
+                'illustration' => [trans('fail.illustration.existing')]
             ];
         }
         return $response;
@@ -108,7 +106,7 @@ class IllustrationController extends \BaseController {
     public static function delete($image) {
         if (empty($image->artist_id)) {
             $response['fail'] = [
-                'title' => trans('fail.illustration.inexistant')
+                'illustration' => [trans('fail.illustration.inexistant')]
             ];
         } else {
             $image->artist_id = NULL;
@@ -117,9 +115,7 @@ class IllustrationController extends \BaseController {
                     'title' => trans('success.illustration.deleted'),
                 ];
             } else {
-                $response['error'] = [
-                    'title' => trans('error.illustration.deleted')
-                ];
+                $response['error'] =  trans('error.illustration.deleted');
             }
         }
         return $response;

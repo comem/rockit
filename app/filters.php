@@ -38,7 +38,7 @@ App::after(function($request, $response) {
 
 Route::filter('auth', function() {
     if (Auth::guest()) {
-        return Jsend::fail(array('auth' => trans('fail.auth')));
+        return Jsend::fail(['auth' => [trans('fail.auth')]]);
     }
 });
 
@@ -98,6 +98,6 @@ Route::filter('acl', function() {
     ->where('method', '=', $method)
     ->first();
     if (empty($resource) || !Auth::user()->hasAccess($resource)) {
-        return Jsend::fail(array('acl' => trans('fail.acl')));
+        return Jsend::fail(['acl' => [trans('fail.acl')]]);
     }
 });

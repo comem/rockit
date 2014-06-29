@@ -45,7 +45,7 @@ class LineupController extends \BaseController {
         if ($object == null) {
             $response = array(
                 'fail' => array(
-                    'title' => trans('fail.lineup.inexistant'),
+                    'lineup' => [trans('fail.lineup.inexistant')],
                 ),
             );
         } else {

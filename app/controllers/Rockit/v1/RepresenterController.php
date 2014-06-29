@@ -3,7 +3,6 @@
 namespace Rockit\v1;
 
 use \Input,
-    \BaseController,
     \Jsend,
     \Rockit\Representer,
     \Rockit\Controllers\ControllerBSUDTrait;
@@ -28,7 +27,7 @@ class RepresenterController extends BaseController {
      * @return Jsend
      */
     public function index() {
-        return Jsend::success(Representer::all());
+        return Jsend::success(['response' => Representer::all()]);
     }
 
     /**
@@ -45,7 +44,7 @@ class RepresenterController extends BaseController {
         if (is_object($model)) {
             $response = Jsend::success($model);
         } else {
-            $response = Jsend::fail(trans('fail.representer.inexistant'));
+            $response = Jsend::fail(['representer' => [trans('fail.representer.inexistant')]]);
         }
         return $response;
     }
@@ -60,7 +59,7 @@ class RepresenterController extends BaseController {
      * @return Jsend
      */
     public function store() {
-        $data = Input::only('first_name', 'last_name', 'email', 'phone', 'street', 'npa', 'city');
+        $data = Input::only('first_name', 'last_name', 'email', 'phone', 'street', 'npa', 'city', 'country');
         $response = Representer::validate($data, Representer::$create_rules);
         if ($response === true) {
             $response = self::save('Representer', $data);
@@ -80,7 +79,7 @@ class RepresenterController extends BaseController {
      * @return Jsend
      */
     public function update($id) {
-        $data = Input::only('first_name', 'last_name', 'email', 'phone', 'street', 'npa', 'city');
+        $data = Input::only('first_name', 'last_name', 'email', 'phone', 'street', 'npa', 'city', 'country');
         $response = Representer::validate($data, Representer::$update_rules);
         if ($response === true) {
             $response = self::modify('Representer', $id, $data);

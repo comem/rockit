@@ -43,7 +43,7 @@ Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function()
                         Route::get('files/printings/{source}', 'FilesManager@getPrinting');
                         Route::get('files/contracts/{source}', 'FilesManager@getContract');
                         Route::delete('files/{folder}/{source}', 'FilesManager@destroy');
-                        Route::post('files', 'FilesManager@upload');
+                        Route::post('files/{type}', 'FilesManager@upload');
                 
 			Route::resource('artists', 'ArtistController', 
 				array('only' => array('index', 'show', 'store', 'update', 'destroy')));
@@ -148,5 +148,5 @@ Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function()
 
 App::missing(function($exception)
 {
-    return Jsend::fail('fail.routes.missing');
+    return Jsend::fail(['route' => [trans('fail.routes.missing')]]);
 });

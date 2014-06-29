@@ -22,7 +22,7 @@ class Artist extends \Eloquent {
      * Indicates which field value should be use in the return messages.
      * @var string 
      */
-    public static $response_field = 'id';
+    public static $response_field = 'name';
 
     /**
      * Validation rules for creating a new Artist.
@@ -30,8 +30,9 @@ class Artist extends \Eloquent {
      */
     public static $create_rules = array(
         'name' => 'required|min:1|max:100',
-        'short_description_de' => 'max:200',
-        'genres' => 'required',
+        'short_description_de' => 'max:200|min:1',
+        'genres' => 'required|array|min:1',
+        'images' => 'array',
     );
 
     /**
@@ -124,12 +125,14 @@ class Artist extends \Eloquent {
      * @return array An array containing a key 'success' or 'error' depending on the result
      */
     public static function createOne($data) {
-        $class = self::getClass();
+        $class = class_basename(get_called_class());
         $field = self::$response_field;
         $genres = $data['genres'];
-        $images = $data['images'];
-        unset($data['images']); // delete key/value to prepare data for self::create()
+        if (isset($data['images'])) {
+            $images = $data['images'];
+        }
         unset($data['genres']); // delete key/value to prepare data for self::create()
+        unset($data['images']); // delete key/value to prepare data for self::create()
         DB::beginTransaction();
         self::unguard();
         $object = self::create($data);
@@ -149,10 +152,12 @@ class Artist extends \Eloquent {
             }
             unset($inputs['genre_id']);
             // insert all image associations
-            foreach ($images as $image) {
-                $illustration = Image::find($image);
-                $illustration->artist_id = $inputs['artist_id'];
-                $illustration->save();
+            if (isset($images)) {
+                foreach ($images as $image) {
+                    $illustration = Image::find($image);
+                    $illustration->artist_id = $inputs['artist_id'];
+                    $illustration->save();
+                }
             }
             $response['success'] = array(
                 'title' => trans('success.' . snake_case($class) . '.created', array('name' => $object->$field)),

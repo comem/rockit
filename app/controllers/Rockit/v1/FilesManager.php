@@ -41,7 +41,7 @@ class FilesManager extends \BaseController {
      * 
      * @var array 
      */
-    public $image_rules = array(
+    public $images_rules = array(
         'file' => 'image|max:2000|min:1',
     );
 
@@ -53,8 +53,8 @@ class FilesManager extends \BaseController {
      * 
      * @var array
      */
-    public $contract_rules = array(
-        'file' => 'ext:doc,docx|max:2000|min:1',
+    public $contracts_rules = array(
+        'file' => 'ext:doc,docx,pdf|max:2000|min:1',
     );
 
     /**
@@ -65,7 +65,7 @@ class FilesManager extends \BaseController {
      * 
      * @var array 
      */
-    public $printing_rules = array(
+    public $printings_rules = array(
         'file' => 'ext:pdf|max:5000|min:1',
     );
 
@@ -89,7 +89,7 @@ class FilesManager extends \BaseController {
     public function getImage($source) {
         $complete_path = public_path() . DIRECTORY_SEPARATOR . self::IMAGE_FOLDER . DIRECTORY_SEPARATOR . $source;
         if (File::exists($complete_path)) {
-            $file_name = preg_replace('#^[0-9]*\_#u', '', $source);
+            $file_name = $this->cleanFileName($source);
             return Response::download($complete_path, $file_name);
         }
     }
@@ -108,7 +108,7 @@ class FilesManager extends \BaseController {
     public function getContract($source) {
         $complete_path = storage_path() . DIRECTORY_SEPARATOR . self::CONTRACT_FOLDER . DIRECTORY_SEPARATOR . $source;
         if (File::exists($complete_path)) {
-            $file_name = preg_replace('#^[0-9]*\_#u', '', $source);
+            $file_name = $this->cleanFileName($source);
             return Response::download($complete_path, $file_name);
         }
     }
@@ -127,7 +127,7 @@ class FilesManager extends \BaseController {
     public function getPrinting($source) {
         $complete_path = storage_path() . DIRECTORY_SEPARATOR . self::PRINTING_FOLDER . DIRECTORY_SEPARATOR . $source;
         if (File::exists($complete_path)) {
-            $file_name = preg_replace('#^[0-9]*\_#u', '', $source);
+            $file_name = $this->cleanFileName($source);
             return Response::download($complete_path, $file_name);
         }
     }
@@ -145,18 +145,18 @@ class FilesManager extends \BaseController {
      * 
      * @return Jsend success: the file has been uploaded | fail: an error occurred | error: a server-side error occurred
      */
-    public function upload() {
+    public function upload($type) {
         $file = Input::file('file');
-        if ($file->isValid()) {
-            $file_type = $this->validate($file);
-            if (is_array($file_type)) {
-                $response = array('fail' => $file_type);
+        if (is_object($file) && $file->isValid()) {
+            $validation = $this->validate($file, $type);
+            if (is_array($validation)) {
+                $response = $validation;
             } else {
-                $call = 'put' . studly_case($file_type);
+                $call = 'put' . studly_case($type);
                 $response = $this->$call($file);
             }
         } else {
-            $response = array('fail' => trans('fail.file.invalid'));
+            $response['fail'] = ['file' => trans('fail.file.invalid')];
         }
         return Jsend::compile($response);
     }
@@ -178,14 +178,15 @@ class FilesManager extends \BaseController {
         } else {
             $complete_path = storage_path() . DIRECTORY_SEPARATOR . $directory . DIRECTORY_SEPARATOR . $file_name;
         }
+        $file = $this->cleanFileName($file_name);
         if (File::exists($complete_path)) {
             if (File::delete($complete_path)) {
-                $response = array('success' => array('title' => trans('success.file.deleted')));
+                $response['success'] = ['title' => [trans('success.file.deleted', ['file' => $file])]];
             } else {
-                $response = array('error' => trans('error.file.not_deleted'));
+                $response['error'] = trans('error.file.not_deleted', ['file' => $file]);
             }
         } else {
-            $response = array('fail' => array('title' => trans('fail.file.inexistant')));
+            $response['fail'] = ['file' => [trans('fail.file.inexistant', ['file' => $file])]];
         }
         return Jsend::compile($response);
     }
@@ -196,21 +197,18 @@ class FilesManager extends \BaseController {
       |-----------------------------------------------------------------
      */
 
-    private function validate(UploadedFile $file) {
-        $validate = Validator::make(array('file' => $file), $this->image_rules);
-        $type = self::IMAGE_FOLDER;
-        if ($validate->fails()) {
-            $validate = Validator::make(array('file' => $file), $this->contract_rules);
-            $type = self::CONTRACT_FOLDER;
-        }
-        if ($validate->fails()) {
-            $validate = Validator::make(array('file' => $file), $this->printing_rules);
-            $type = self::PRINTING_FOLDER;
-        }
-        if ($validate->fails()) {
-            $response = array('file' => trans('fail.file.unsupported'));
+    private function validate(UploadedFile $file, $type) {
+        $supported_type = Validator::make(['type' => $type], ['type' => 'required|in:images,printings,contracts']);
+        if ($supported_type->fails()) {
+            $response['fail'] = ['file_type' => [trans('fail.file_type.unsupported', ['type' => $type])]];
         } else {
-            $response = $type;
+            $rules = $type . '_rules';
+            $response = Validator::make(['file' => $file], $this->$rules);
+            if ($response->fails()) {
+                $response = ['fail' => $response->messages()->getMessages()];
+            } else {
+                $response = true;
+            }
         }
         return $response;
     }
@@ -235,12 +233,12 @@ class FilesManager extends \BaseController {
 
     private function move(UploadedFile $file, $path) {
         if ($this->checkOrCreate($path) && $file->move($path, $file->name)) {
-            $response = array('success' => array(
-                    'title' => trans('success.file.uploaded'),
-                    'source' => $file->source,
-            ));
+            $response['success'] = [
+                'title' => trans('success.file.uploaded', ['file' => $file->getClientOriginalName()]),
+                'source' => $file->source,
+            ];
         } else {
-            $response = array('error' => trans('error.file.not_uploaded'));
+            $response['error'] = trans('error.file.not_uploaded', ['file' => $file->getClientOriginalName()]);
         }
         return $response;
     }
@@ -251,6 +249,10 @@ class FilesManager extends \BaseController {
             $ok = File::makeDirectory($directory) ? $ok : !$ok;
         }
         return $ok;
+    }
+
+    private function cleanFileName($source) {
+        return preg_replace('#^[0-9]*\_#u', '', $source);
     }
 
 }

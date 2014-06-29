@@ -6,12 +6,12 @@ use \Rockit\Controllers\ControllerBSUDTrait,
     \Jsend,
     \Input,
     \WordExport,
-    \XMLExport;
+    \XMLExport,
+    \Validator;
 use \Rockit\Event;
 
-
 class EventController extends \BaseController {
-    
+
     use ControllerBSUDTrait;
 
     /**
@@ -127,7 +127,7 @@ class EventController extends \BaseController {
         if (is_object($response)) {
             $response = self::sfPublish($response);
         } else {
-            $response['fail'] = ['title' => trans('fail.event.inexistant')];
+            $response['fail'] = ['event' => [trans('fail.event.inexistant')]];
         }
         return Jsend::compile($response);
     }
@@ -143,31 +143,40 @@ class EventController extends \BaseController {
         if (is_object($response)) {
             $response = self::sfUnpublish($response);
         } else {
-            $response['fail'] = ['title' => trans('fail.event.inexistant')];
+            $response['fail'] = ['event' => [trans('fail.event.inexistant')]];
         }
         return Jsend::compile($response);
     }
 
     /**
-     * Export events to word
-     *
-     * @param
-     * @return Response
+     * Export events between the two dates (including them) to a well formatted
+     * word document with Mahogany Hall headers and footers.
+     * @return Response a Word.docx or a fail.
      */
     public function exportWord() {
         $from = Input::get('from');
         $to = Input::get('to');
-
-        if(isset($from) && isset($to)) {
-            WordExport::events($from, $to);  
+        if (isset($from) && isset($to)) {
+            $v = Validator::make(array('from' => $from, 'to' => $to), array('from' => 'date|required', 'to' => 'date|required'));
+            if ($v->fails()) {
+                $response['fail'] = $v->messages()->getMessages();
+                return Jsend::compile($response);
+            } elseif (Event::checkDatesChronological($from, $to) === true) {
+                WordExport::events($from, $to) === true;
+                // if a WordExport succeeds, there should no answer be returned. If there is a return,
+                // the wordfile gets corrupt. So it's not possible to make $response['success'] = ['title' => trans('success.wordexport.create')];
+            } else {
+                $response['fail'] = ['title' => trans('fail.export.unchronological')];
+                return Jsend::compile($response);
+            }    
         } else {
-            $response['fail'] = trans('fail.wordexport.noinput');
+            $response['fail'] = ['title' => trans('fail.export.noinput')];
             return Jsend::compile($response);
-        }   
+        }
     }
 
     /**
-     * Export events to XML
+     * Export events between the two dates (including them) to a XML document.
      *
      * @param
      * @return Response
@@ -175,12 +184,23 @@ class EventController extends \BaseController {
     public function exportXML() {
         $from = Input::get('from');
         $to = Input::get('to');
-        if(isset($from) && isset($to)) {
-            XMLExport::events($from, $to);
+        if (isset($from) && isset($to)) {
+            $v = Validator::make(array('from' => $from, 'to' => $to), array('from' => 'date|required', 'to' => 'date|required'));
+            if ($v->fails()) {
+                $response['fail'] = $v->messages()->getMessages();
+                return Jsend::compile($response);
+            } elseif (Event::checkDatesChronological($from, $to) === true) {
+                XMLExport::events($from, $to) === true;
+                // if a WordExport succeeds, there should no answer be returned. If there is a return,
+                // the wordfile gets corrupt. So it's not possible to make $response['success'] = ['title' => trans('success.wordexport.create')];
+            } else {
+                $response['fail'] = ['title' => trans('fail.export.unchronological')];
+                return Jsend::compile($response);
+            }    
         } else {
-            $response['fail'] = trans('fail.xmlexport.noinput');
+            $response['fail'] = ['title' => trans('fail.export.noinput')];
             return Jsend::compile($response);
-        }   
+        }
     }
 
     /**
@@ -189,7 +209,13 @@ class EventController extends \BaseController {
      * @return type
      */
     public static function sfUnpublish($event) {
-        return Event::updateOne(['published_at' => NULL], $event);
+        $event->published_at = null;
+        if ($event->save()) {
+            $response['success'] = ['title' => trans('success.event.unpublished')];
+        } else {
+            $response['error'] = trans('error.event.unpublished');
+        }
+        return $response;
     }
 
     /**
@@ -197,12 +223,18 @@ class EventController extends \BaseController {
      * @param type $event
      * @return type
      */
-    public static function sfPublish($event) {
+
+   public static function sfPublish($event) {
         $response = Event::atLeastOneMainPerformer($event);
         if ($response === true) {
             $response = Event::isSymbolized($event);
             if ($response === true) {
-                $response = Event::updateOne(['published_at' => date('Y-m-d H:i:s')], $event);
+                $publishing = Event::updateOne(['published_at' => date('Y-m-d H:i:s')], $event);
+                if (isset($publishing['success'])) {
+                    $response = ['success' => ['title' => trans('success.event.published')]];
+                } else {
+                    $response = ['error' => trans('error.event.published')];
+                }
             }
         }
         return $response;

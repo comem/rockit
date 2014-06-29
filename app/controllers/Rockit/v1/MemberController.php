@@ -2,7 +2,14 @@
 
 namespace Rockit\v1;
 
+use \Jsend,
+    \Input,
+    Rockit\Member,
+    Rockit\Controllers\ControllerBSUDTrait;
+
 class MemberController extends \BaseController {
+
+    use ControllerBSUDTrait;
 
     /**
      * Display a listing of the resource.
@@ -10,7 +17,7 @@ class MemberController extends \BaseController {
      * @return Response
      */
     public function index() {
-        //
+        return Jsend::success(['response' => Member::all()]);
     }
 
     /**
@@ -20,7 +27,13 @@ class MemberController extends \BaseController {
      * @return Response
      */
     public function show($id) {
-        //
+        $model = Member::with('staffs.event', 'staffs.skill', 'fulfillments.skill')->find($id);
+        if (is_object($model)) {
+            $response = Jsend::success(['response' => $model]);
+        } else {
+            $response = Jsend::fail(['member' => [trans('fail.member.inexistant')]]);
+        }
+        return $response;
     }
 
     /**
@@ -29,7 +42,12 @@ class MemberController extends \BaseController {
      * @return Response
      */
     public function store() {
-        //
+        $data = Input::only('first_name', 'last_name', 'email', 'phone', 'is_active', 'street', 'npa', 'city', 'country');
+        $response = Member::validate($data, Member::$create_rules);
+        if ($response === true) {
+            $response = self::save('Member', $data);
+        }
+        return Jsend::compile($response);
     }
 
     /**
@@ -39,7 +57,12 @@ class MemberController extends \BaseController {
      * @return Response
      */
     public function update($id) {
-        //
+        $data = Input::only('first_name', 'last_name', 'email', 'phone', 'is_active', 'street', 'npa', 'city', 'country');
+        $response = Member::validate($data, Member::$update_rules);
+        if ($response === true) {
+            $response = self::modify('Member', $id, $data);
+        }
+        return Jsend::compile($response);
     }
 
     /**
@@ -49,7 +72,7 @@ class MemberController extends \BaseController {
      * @return Response
      */
     public function destroy($id) {
-        //
+        return Jsend::compile(self::delete('Member', $id));
     }
 
 }

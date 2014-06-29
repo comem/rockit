@@ -75,7 +75,7 @@ class WordExport {
 
         //// Set line style definitions
         $lsSimple = array('weight' => 1, 'width' => 460, 'height' => 0); // for seperator between paragraphs
-        $lsColor = array('weight' => 1, 'width' => 460, 'height' => 0, 'color' => '#b2a68b');
+        $lsColor = array('weight' => 1, 'width' => 460, 'height' => 0, 'color' => '#b2a68b'); // for colored seperator line between paragraphs
 
         // 1 = Main title document
         $word->addTitleStyle(1, $fsH1, $psH1);

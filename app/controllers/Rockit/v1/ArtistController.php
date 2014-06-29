@@ -76,10 +76,11 @@ class ArtistController extends \BaseController {
      * @return Jsend
      */
     public function show($id) {
+        dd(Artist::with('links', 'images', 'genres', 'events', 'musicians')->find($id));
         $artist = Artist::with('links', 'images', 'genres', 'events', 'musicians')
         ->find($id);
         if (empty($artist)) {
-            $response = Jsend::fail(array('title' => trans('fail.artist.inexistant')));
+            $response = Jsend::fail(['artist' => [trans('fail.artist.inexistant')]]);
         } else {
             foreach ($artist->events as $event) {
                 $event->performers = Performer::where('artist_id', '=', $event->pivot->artist_id)
@@ -171,7 +172,7 @@ class ArtistController extends \BaseController {
      * @return Jsend
      */
     public static function save($inputs) {
-        $existingMergedGenres = array();
+        $existingMergedGenres = [];
         $inputs['genres'] = array_unique($inputs['genres']);
         foreach ($inputs['genres'] as $genre) {
             if (Genre::exist($genre, 'id')) {
@@ -179,17 +180,19 @@ class ArtistController extends \BaseController {
             }
         }
         if (!count($existingMergedGenres) > 0) {
-            $response['fail'] = trans('fail.artist.nogenre');
+            $response['fail'] = ['genres' => [trans('fail.artist.nogenre')]];
         } else {
             $inputs['genres'] = $existingMergedGenres;
-            $existingMergedImages = array();
-            $inputs['images'] = array_unique($inputs['images']);
-            foreach ($inputs['images'] as $image) {
-                if (Image::where('id', '=', $image)->where('artist_id', '=', NULL)->first()) {
-                    $existingMergedImages[] = $image;
+            if (isset($inputs['images'])) {
+                $existingMergedImages = array();
+                $inputs['images'] = array_unique($inputs['images']);
+                foreach ($inputs['images'] as $image) {
+                    if (Image::where('id', '=', $image)->where('artist_id')->first()) {
+                        $existingMergedImages[] = $image;
+                    }
                 }
+                $inputs['images'] = $existingMergedImages;
             }
-            $inputs['images'] = $existingMergedImages;
             $response = Artist::createOne($inputs);
         }
         return $response;
