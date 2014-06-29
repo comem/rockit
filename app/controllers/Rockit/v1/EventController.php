@@ -6,9 +6,9 @@ use \Rockit\Controllers\ControllerBSUDTrait;
 use \Jsend,
     \Input,
     \WordExport,
-    \XMLExport;
+    \XMLExport,
+    \Validator;
 use \Rockit\Event;
-
 
 class EventController extends \BaseController {
 
@@ -17,12 +17,8 @@ class EventController extends \BaseController {
      *
      * @return Response
      */
-    public function index() 
-    {
-        $events = Event::with('representer', 'eventType', 'image', 
-                            'tickets.ticketCategory', 'sharings.platform', 'printings.printingType', 
-                            'performers.artist', 'staffs.member', 'staffs.skill', 'needs.skill', 'offers.gift', 
-                            'attributions.equipment');
+    public function index() {
+        $events = Event::with('representer', 'eventType', 'image', 'tickets.ticketCategory', 'sharings.platform', 'printings.printingType', 'performers.artist', 'staffs.member', 'staffs.skill', 'needs.skill', 'offers.gift', 'attributions.equipment');
         if (Input::has('genres')) {
             $events = $events->artistGenres(Input::get('genres'));
         }
@@ -31,8 +27,10 @@ class EventController extends \BaseController {
         }
         if (Input::has('is_published')) {
             $is_published = Input::get('is_published');
-            if($is_published == '1') $events = $events->isPublished(TRUE);
-            else $events = $events->isPublished(FALSE);
+            if ($is_published == '1')
+                $events = $events->isPublished(TRUE);
+            else
+                $events = $events->isPublished(FALSE);
         }
         if (Input::has('title')) {
             $events = $events->title(Input::get('title'));
@@ -53,13 +51,17 @@ class EventController extends \BaseController {
         }
         if (Input::has('is_followed_by_private')) {
             $is_followed_by_private = Input::get('is_followed_by_private');
-            if($is_followed_by_private == '1') $events = $events->isFollowedByPrivate(TRUE);
-            else $events = $events->isFollowedByPrivate(FALSE);
+            if ($is_followed_by_private == '1')
+                $events = $events->isFollowedByPrivate(TRUE);
+            else
+                $events = $events->isFollowedByPrivate(FALSE);
         }
         if (Input::has('has_representer')) {
             $has_representer = Input::get('has_representer');
-            if($has_representer == '1') $events = $events->hasRepresenter(TRUE);
-            else $events = $events->hasRepresenter(FALSE);
+            if ($has_representer == '1')
+                $events = $events->hasRepresenter(TRUE);
+            else
+                $events = $events->hasRepresenter(FALSE);
         }
         return Jsend::success($events->paginate(10)->toArray());
     }
@@ -71,10 +73,7 @@ class EventController extends \BaseController {
      * @return Response
      */
     public function show($id) {
-        $event = Event::with('representer', 'eventType', 'image', 
-                            'tickets.ticketCategory', 'sharings.platform', 'printings.printingType', 
-                            'performers.artist', 'staffs.member', 'staffs.skill', 'needs.skill', 'offers.gift', 
-                            'attributions.equipment');
+        $event = Event::with('representer', 'eventType', 'image', 'tickets.ticketCategory', 'sharings.platform', 'printings.printingType', 'performers.artist', 'staffs.member', 'staffs.skill', 'needs.skill', 'offers.gift', 'attributions.equipment');
         if (empty($event)) {
             $response = Jsend::fail(array('title' => trans('fail.event.inexistant')));
         } else {
@@ -118,11 +117,10 @@ class EventController extends \BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function publish($id) 
-    {
+    public function publish($id) {
         $response = Event::exist($id);
-        if ( is_object($response) ) {
-            $response = self::sfPublish( $response );
+        if (is_object($response)) {
+            $response = self::sfPublish($response);
         } else {
             $response['fail'] = ['title' => trans('fail.event.inexistant')];
         }
@@ -135,11 +133,10 @@ class EventController extends \BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function unpublish($id)
-    {
+    public function unpublish($id) {
         $response = Event::exist($id);
-        if ( is_object($response) ) {
-            $response = self::sfUnpublish( $response );
+        if (is_object($response)) {
+            $response = self::sfUnpublish($response);
         } else {
             $response['fail'] = ['title' => trans('fail.event.inexistant')];
         }
@@ -147,24 +144,34 @@ class EventController extends \BaseController {
     }
 
     /**
-     * Export events to word
-     *
-     * @param
-     * @return Response
+     * Export events between the two dates (including them) to a well formatted
+     * word document with Mahogany Hall headers and footers.
+     * @return Response a Word.docx or a fail.
      */
     public function exportWord() {
         $from = Input::get('from');
         $to = Input::get('to');
-        if(isset($from) && isset($to)) {
-            WordExport::events($from, $to);  
+        if (isset($from) && isset($to)) {
+            $v = Validator::make(array('from' => $from, 'to' => $to), array('from' => 'date|required', 'to' => 'date|required'));
+            if ($v->fails()) {
+                $response['fail'] = $v->messages()->getMessages();
+                return Jsend::compile($response);
+            } elseif (Event::checkDatesChronological($from, $to) === true) {
+                WordExport::events($from, $to) === true;
+                // if a WordExport succeeds, there should no answer be returned. If there is a return,
+                // the wordfile gets corrupt. So it's not possible to make $response['success'] = ['title' => trans('success.wordexport.create')];
+            } else {
+                $response['fail'] = ['title' => trans('fail.export.unchronological')];
+                return Jsend::compile($response);
+            }    
         } else {
-        $response['fail'] = ['title' => trans('fail.wordexport.noinput')];
+            $response['fail'] = ['title' => trans('fail.export.noinput')];
             return Jsend::compile($response);
-        }   
+        }
     }
 
     /**
-     * Export events to XML
+     * Export events between the two dates (including them) to a XML document.
      *
      * @param
      * @return Response
@@ -172,29 +179,34 @@ class EventController extends \BaseController {
     public function exportXML() {
         $from = Input::get('from');
         $to = Input::get('to');
-        if(isset($from) && isset($to)) {
-            XMLExport::events($from, $to);
+        if (isset($from) && isset($to)) {
+            $v = Validator::make(array('from' => $from, 'to' => $to), array('from' => 'date|required', 'to' => 'date|required'));
+            if ($v->fails()) {
+                $response['fail'] = $v->messages()->getMessages();
+                return Jsend::compile($response);
+            } elseif (Event::checkDatesChronological($from, $to) === true) {
+                XMLExport::events($from, $to) === true;
+                // if a WordExport succeeds, there should no answer be returned. If there is a return,
+                // the wordfile gets corrupt. So it's not possible to make $response['success'] = ['title' => trans('success.wordexport.create')];
+            } else {
+                $response['fail'] = ['title' => trans('fail.export.unchronological')];
+                return Jsend::compile($response);
+            }    
         } else {
-            $response['fail'] = ['title' => trans('fail.xmlexport.noinput')];
+            $response['fail'] = ['title' => trans('fail.export.noinput')];
             return Jsend::compile($response);
-        }   
+        }
     }
 
-
-    public static function sfUnpublish( $event )
-    {
+    public static function sfUnpublish($event) {
         return Event::updateOne(['published_at' => NULL], $event);
     }
 
-
-    public static function sfPublish( $event )
-    {
-        $response = Event::atLeastOneMainPerformer( $event );
-        if ( $response === true )
-        {
-            $response = Event::isSymbolized( $event );
-            if ( $response === true )
-            {
+    public static function sfPublish($event) {
+        $response = Event::atLeastOneMainPerformer($event);
+        if ($response === true) {
+            $response = Event::isSymbolized($event);
+            if ($response === true) {
                 $response = Event::updateOne(['published_at' => date('Y-m-d H:i:s')], $event);
             }
         }
