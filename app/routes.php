@@ -55,9 +55,9 @@ Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function()
 			Route::resource('artists', 'ArtistController', 
 				array('only' => array('index', 'show', 'store', 'update', 'destroy')));
 
-			Route::post('events/{id}/image', 'EventController@storeSymbolization')
+			Route::post('events/{id}/image', 'EventController@symbolize')
 				->where('id', '[0-9]+');
-			Route::delete('events/{id}/image', 'EventController@destroySymbolization')
+			Route::delete('events/{id}/image', 'EventController@desymbolize')
 				->where('id', '[0-9]+');
 
 			Route::put('events/{id}/publish', 'EventController@publish')->where('id', '[0-9]+');
