@@ -35,7 +35,7 @@ class Sharing extends \Eloquent {
         
         public static function message($event) {
             setlocale(LC_ALL, 'de_DE@euro', 'de_DE', 'de', 'ge'); // $locale = Config::get('app.locale');
-            $date = strftime("%A, %e. %B %Y  |  %H.%M Uhr", strtotime($event->start_date_hour));
+            $date = strftime("Am %A, %e. %B %Y um %H.%M Uhr", strtotime($event->start_date_hour));
             $date = WordExport::deleteDoubleWhitspace($date);
             $additionalText = Session::get('additional_text');
             if(isset($additionalText)) {
@@ -44,20 +44,28 @@ class Sharing extends \Eloquent {
                 $message = "";
             }
             $inXDays = self::countDaysUntil(strtotime($event->start_date_hour));
+            if($inXDays > 1) {
+                $inXDaysText = "In " . $inXDays . " Tagen ist es soweit! " . $date; 
+            } elseif($inXDays == 1) {
+                $inXDaysText = "Morgen ist es soweit!";
+            } elseif($inXDays == 0) {
+                $inXDaysText = "Nicht verpassen: Heute ist es soweit!";
+            } else {
+                $inXDaysText = "Schön war's!";
+            }
             $performerString = "";
             $artists = $event->artists;
             foreach($artists as $artist) {
                 $performerString = $performerString . $artist->name . "\r\n";
             }
-            $message = $message . $inXDays . "Nicht verpassen: " . $date . "\r\n". $performerString . "in der Mahogany Hall.";
+            $message = $message . "\r\n" . $inXDaysText . "\r\n". $performerString . "in der Mahogany Hall.";
             return $message;
         }
         
         public static function countDaysUntil($time) {
-            $today = time();
-            $difference = $time - $today;
-            $daysUntil = floor($difference/60/60/24);
-            return $daysUntil;
+            $today = floor(time()/60/60/24);
+            $difference = floor($time/60/60/24) - $today;
+            return $difference;
         }
 
 }

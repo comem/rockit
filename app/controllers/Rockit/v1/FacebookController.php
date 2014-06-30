@@ -83,7 +83,7 @@ class FacebookController extends \BaseController {
                         $session, 'GET', '/me'
                         ))->execute()->getGraphObject(GraphUser::className());
             } catch (FacebookRequestException $e) {
-                $response['error'] = [trans('error.facebook.userprofile')];
+                $response['error'] = trans('error.facebook.userprofile');
             }
         }
         // check if it is the correct user – cause everyone can log itself,
@@ -99,7 +99,7 @@ class FacebookController extends \BaseController {
                             )
                             ))->execute()->getGraphObject();
                 } catch (FacebookRequestException $e) {
-                    $response['error'] = ["Exception occured, code: " . $e->getCode() . " with message: " . $e->getMessage()];
+                    $response['error'] = "Exception occured, code: " . $e->getCode() . " with message: " . $e->getMessage();
                 }
                 // if no error occured, set inputs for creation of a new sharing
                 if (!isset($response['error'])) {
@@ -111,7 +111,7 @@ class FacebookController extends \BaseController {
                 }
             }
         } elseif (!isset($response['error'])) {
-            $response = Jsend::error([trans('error.facebook.wronguser')]);
+            $response['error'] = trans('error.facebook.wronguser');
         }
         return $response;
 //// EVENT CREATION IS FORBIDDEN BY FACEBOOK – in v1.0 OF GRAPH API THE METHOD EXISTED, in v2.0 not any more

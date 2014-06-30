@@ -218,9 +218,9 @@ class EventController extends \BaseController {
     public static function sfUnpublish($event) {
         $event->published_at = null;
         if ($event->save()) {
-            $response['success'] = ['title' => trans('success.event.unpublished')];
+        $response = ['success' => ['title' => trans('success.event.unpublished')]];
         } else {
-            $response['error'] = trans('error.event.unpublished');
+        $response = ['error' => trans('error.event.unpublished')];
         }
         return $response;
     }

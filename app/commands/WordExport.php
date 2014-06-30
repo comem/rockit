@@ -2,7 +2,9 @@
 
 use PhpOffice\PhpWord\PhpWord,
     PhpOffice\PhpWord\IOFactory,
-    \Rockit\Event;
+    \Rockit\Event,
+    \RockitHelper;
+    
 
 /**
  * This class is used to export an interval of selected Event into a well-formatted Word file.
@@ -127,7 +129,7 @@ class WordExport {
             $section->addTitle("Konzerte im " . strftime("%B %Y", $timeFrom), 2);
         } else {
             $dates = "Konzerte vom " . strftime("%e. %B %Y", $timeFrom) . " bis " . strftime("%e. %B %Y", $timeTo);
-            $dates = self::deleteDoubleWhitspace($dates);
+            $dates = RockitHelper::deleteDoubleWhitspace($dates);
             $section->addTitle($dates, 2);
         }
         $section->addLine($lsColor);
@@ -500,11 +502,6 @@ class WordExport {
             }
         }
         return $contact;
-    }
-
-    public static function deleteDoubleWhitspace($date) {
-        $date = preg_replace("/\s\s(\d\.)/", " $1", $date);
-        return $date;
     }
 
 }
