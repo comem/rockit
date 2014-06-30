@@ -16,7 +16,13 @@ class Sharing extends \Eloquent {
 	protected $table = 'sharings';
 	protected $hidden = ['external_id', 'external_infos', 'platform_id', 'event_id'];
         protected static $response_field = 'id';
+        public static $create_rules = [
+            'external_id' => 'required',
+            'platform_id' => 'required|exists:platforms',
+            'event_id' => 'required|exists:events'
+        ];
 
+        
 	public function platform()
 	{
 		return $this->belongsTo('Rockit\Platform');
