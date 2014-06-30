@@ -43,13 +43,21 @@ class Sharing extends \Eloquent {
             } else {
                 $message = "";
             }
+            $inXDays = self::countDaysUntil(strtotime($event->start_date_hour));
             $performerString = "";
             $artists = $event->artists;
             foreach($artists as $artist) {
                 $performerString = $performerString . $artist->name . "\r\n";
             }
-            $message = $message . "Nicht verpassen: " . $date . "\r\n". $performerString . "in der Mahogany Hall.";
+            $message = $message . $inXDays . "Nicht verpassen: " . $date . "\r\n". $performerString . "in der Mahogany Hall.";
             return $message;
+        }
+        
+        public static function countDaysUntil($time) {
+            $today = time();
+            $difference = $time - $today;
+            $daysUntil = floor($difference/60/60/24);
+            return $daysUntil;
         }
 
 }
