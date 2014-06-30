@@ -61,7 +61,7 @@ class Ticket extends \Eloquent {
 				$newTab[] = $ticket_category['ticket_category_id'];
 			}
 		}
-		return count( $ticket_category ) === count( $newTab );
+		return count( $ticket_categories ) === count( $newTab );
 	}
 
 }

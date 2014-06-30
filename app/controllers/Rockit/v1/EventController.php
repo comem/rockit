@@ -337,10 +337,10 @@ class EventController extends \BaseController {
                 }
             }
             if( !isset( $response['fail'] ) ){
-                if( $inputs['opening_doors'] != NULL ){
+                if( isset($inputs['opening_doors']) && $inputs['opening_doors'] != NULL ){
                     $response = Event::checkOpeningDoorsHour( $inputs['start_date_hour'], $inputs['opening_doors'] );
                 }
-                if($response === true){
+                if( !isset( $response ) || $response === true ){
                     $response = Event::checkDatesChronological( $inputs['start_date_hour'], $inputs['ending_date_hour'] );
                     if($response === true){
                         $response = Event::checkDatesDontOverlap( $inputs['start_date_hour'], $inputs['ending_date_hour'] );

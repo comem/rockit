@@ -296,14 +296,12 @@ class Event extends \Eloquent {
         DB::beginTransaction();
         self::unguard();
         $object = self::create($data);
-        // check if object was created correctly
         if ($object != null) {
             foreach($tickets as  $ticket){
                 $inputs = $ticket;
                 $inputs['event_id'] = $object->id;
                 $objcetTicket = Ticket::create($inputs);
-                dd($objcetTicket);
-                if($objcetTicket){
+                if(!is_object($objcetTicket)){
                     $response['error'] = trans('error.ticket.created');
                     DB::rollback();
                     return $response;
