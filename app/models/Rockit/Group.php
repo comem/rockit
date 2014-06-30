@@ -28,7 +28,7 @@ class Group extends \Eloquent {
 
     /**
      * Get the Group from which this Group inherits
-     * @return ??
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function groupParent() {
         return $this->hasOne('Rockit\Group', 'id', 'group_id');
@@ -52,7 +52,7 @@ class Group extends \Eloquent {
 
     /**
      * Check if the current Group has access to the provided Resource.
-     * @return ??
+     * @return boolean
      */
     public function hasAccess(Resource $resource) {
         $access = $this->resources->contains($resource->id);

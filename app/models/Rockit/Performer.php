@@ -71,7 +71,7 @@ class Performer extends \Eloquent {
     /**
      * Check if a Performer exists, with the provided artist id, event id and order.
      *
-     * @return ?Null or a Performer object?
+     * @return Null or a Performer object
      */
     public static function existByIds($data) {
         return self::where('artist_id', '=', $data['artist_id'])
@@ -80,30 +80,31 @@ class Performer extends \Eloquent {
         ->first();
     }
 
-    /**
-     * Check if a specific order position is available for a Performer, with the provided order, event id and Performer.
-     *
-     * @return ?return Performer object or null?
-     */
-    public static function checkOrderAvailability(array $data, Performer $performer = null) {
-        if (isset($data['order'])) {
-            if (!empty($performer)) {
-                $exist = Performer::where('event_id', '=', $performer->event_id)
-                ->where('order', '=', $data['order'])
-                ->first();
-            } else {
-                $exist = Performer::where('event_id', '=', $data['event_id'])
-                ->where('order', '=', $data['order'])
-                ->first();
-            }
-        }
-        return empty($exist);
-    }
+    // /**
+    //  * Check if a specific order position is available for a Performer, with the provided order, event id and Performer.
+    //  * TO DO
+    //  *
+    //  * @return ?return Performer object or null?
+    //  */
+    // public static function checkOrderAvailability(array $data, Performer $performer = null) {
+    //     if (isset($data['order'])) {
+    //         if (!empty($performer)) {
+    //             $exist = Performer::where('event_id', '=', $performer->event_id)
+    //             ->where('order', '=', $data['order'])
+    //             ->first();
+    //         } else {
+    //             $exist = Performer::where('event_id', '=', $data['event_id'])
+    //             ->where('order', '=', $data['order'])
+    //             ->first();
+    //         }
+    //     }
+    //     return empty($exist);
+    // }
 
     /**
-     * ???
-     *
-     * @return ??
+     * Get the next available order value for a Performer of an Event.
+     * If the parameter "order" is provided and has a value, this order value will be checked if it is already in use by an Artist.<br>
+     * In this case, the order value will be incremented to an integer value that is not in use.
      */
     public static function getOrderAvailable(array &$data, Performer $performer = null) {
         if (isset($data['order'])) {

@@ -102,6 +102,7 @@ class StaffController extends \BaseController {
      * TO DO
      * blablabla...
      * remember to add to ControllerComments at the top.
+     * check exists and checks extra validations before updating
      * 
      * @param type $id
      * @param type $new_data

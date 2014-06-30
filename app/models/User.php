@@ -82,17 +82,28 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return $this->belongsTo('Rockit\Language');
     }
 
-
+    /**
+    * Check if the current User has access to the provided Resource.
+    * returns boolean
+    */
     public function hasAccess(Resource $resource) {
         return $this->group->hasAccess($resource);
     }
 
-
+    /**
+    * Describes how the appended language attribute is set.
+    *
+    * @return
+    */
     protected function getLanguageAttribute() {
         return $this->language()->getResults();
     }
 
-
+    /**
+    * Describes how the appended group attribute is set.
+    *
+    * @return
+    */
     protected function getGroupAttribute() {
         return $this->group()->getResults();
     }

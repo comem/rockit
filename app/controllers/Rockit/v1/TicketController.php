@@ -75,10 +75,9 @@ class TicketController extends \BaseController {
     /**
      * Remove a relationship between an existing TicketCategory and an existing Event, from the provided TicketCategory.
      *
-     * If the TicketCategory provided does not symbolize an Event, a <b>Jsend::fail</b> is returned.<br>
+     * If the TicketCategory provided is not proposed in an Event, a <b>Jsend::fail</b> is returned.<br>
      * If the delete was not completed, a <b>Jsend::error</b> is returned.<br>
      * Or else a <b>Jsend::success</b> is returned.<br>
-     * TO REVIEW
      * 
      * @param TicketCategory $ticket category The TicketCategory that symbolizes an Event, whose association is to be deleted
      * @return array Contains an array with either a <b>fail</b>, <b>error</b> or <b>success</b> key and its corresponding message

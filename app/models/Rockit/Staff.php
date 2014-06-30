@@ -119,7 +119,7 @@ class Staff extends \Eloquent {
     /**
      * Check if a Staff exists, with the provided member id and event id.
      *
-     * @return ?Null or a Staff object?
+     * @return Null or a Staff object
      */
     public static function existByIds($data) {
         return self::where('member_id', '=', $data['member_id'])->where('event_id', '=', $data['event_id'])->first();

@@ -25,7 +25,8 @@ class ImageController extends \BaseController {
      * Display a listing of the resource.
      * 
      * Each Image is returned with its own information.
-     * TO REVIEW line 33-35 
+     * The Images returned can be filtered with the parameter "is_illustration", if it is provided having its value set to 'true', the Images that illustrate an Artist are returned.
+     * Or else, all Images are returned.  
      * 
      * @return Jsend
      */

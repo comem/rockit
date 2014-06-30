@@ -63,7 +63,10 @@ class Musician extends \Eloquent {
         return $this->hasMany('Rockit\Lineup');
     }
     
-
+    /**
+     * Get the Instruments that a Musician plays for a specific Artist, corresponding to the provided artist id.
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public function instrumentsFor($artist_id) {
         return $this->belongsToMany('Rockit\Instrument', 'lineups')->where('artist_id', '=', $artist_id);
     }
