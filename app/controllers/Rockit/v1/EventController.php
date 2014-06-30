@@ -102,7 +102,7 @@ class EventController extends \BaseController {
      */
     public function store() {
         $inputs = Input::only('start_date_hour', 'ending_date_hour', 'title_de', 
-            'nb_meal', 'nb_vegans_meal', 'opening_doors_hour', 'meal_notes_de', 
+            'nb_meal', 'nb_vegans_meal', 'opening_doors', 'meal_notes_de', 
             'nb_places', 'followed_by_private', 'contract_src', 'notes_de', 
             // simple association
             'event_type_id', 'image_id', 'representer_id', 
@@ -333,8 +333,8 @@ class EventController extends \BaseController {
                 }
             }
             if( !isset( $response['fail'] ) ){
-                if( $inputs['opening_doors_hour'] != NULL ){
-                    $response = Event::checkOpeningDoorsHour( $inputs['start_date_hour'], $inputs['opening_doors_hour'] );
+                if( $inputs['opening_doors'] != NULL ){
+                    $response = Event::checkOpeningDoorsHour( $inputs['start_date_hour'], $inputs['opening_doors'] );
                 }
                 if($response === true){
                     $response = Event::checkDatesChronological( $inputs['start_date_hour'], $inputs['ending_date_hour'] );
