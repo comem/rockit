@@ -13,23 +13,23 @@ class ImagesTableSeeder extends Seeder {
             'artist_id' => 2,
         ));
 
-        Image::create(array('id'=>'2','source' => '/img2.jpg'));
+        Image::create(array('id'=>'2','source' => 'images/img2.jpg'));
 
-        Image::create(array('id'=>'3','source' => '/img3.jpg'));
+        Image::create(array('id'=>'3','source' => 'images/img3.jpg'));
 
         Image::create(array('id'=>'4',
-            'source' => '/dsc_7642.jpg',
+            'source' => 'images/dsc_7642.jpg',
             'artist_id' => '1',
         ));
 
-        Image::create(array('id'=>'5','source' => '/dsc_7687.jpg'));
+        Image::create(array('id'=>'5','source' => 'images/dsc_7687.jpg'));
 
         Image::create(array('id'=>'7',
-            'source' => '/img_542.jpg',
+            'source' => 'images/img_542.jpg',
             'artist_id' => '3',
         ));
 
-        Image::create(array('id'=>'6','source' => '/img_547.jpg'));
+        Image::create(array('id'=>'6','source' => 'images/img_547.jpg'));
     }
 
 }

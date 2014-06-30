@@ -16,11 +16,7 @@ trait ModifyTrait {
         $call = self::$namespace . $model;
         $object = $call::exist($id);
         if ($object == null) {
-            $response = array(
-                'fail' => array(
-                    'title' => trans('fail.' . snake_case($model) . '.inexistant'),
-                ),
-            );
+            $response['fail'] = [snake_case($model) => [trans('fail.' . snake_case($model) . '.inexistant')]];
         } else {
             $response = $call::updateOne($new_data, $object);
         }

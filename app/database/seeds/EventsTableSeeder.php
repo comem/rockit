@@ -29,7 +29,6 @@ class EventsTableSeeder extends Seeder {
                             'nb_vegan_meal'=>'0',
                             'nb_places'=>'180',
                             'followed_by_private'=>'0',
-                            'contract_src'=>'',
                             'notes_de'=>'',
                             'description_de'=> '17.30 - 18.30 Pre-Party Workshop /n 18.30 - 22.00 Party-Time mit DJ Que rico',
                             ));
@@ -74,7 +73,6 @@ class EventsTableSeeder extends Seeder {
                             'nb_vegan_meal'=>'2',
                             'nb_places'=>'180',
                             'followed_by_private'=>'0',
-                            'contract_src'=>'',
                             'notes_de'=>'Brauchen 3 Taschenlampen',
                             ));
         
@@ -89,7 +87,6 @@ class EventsTableSeeder extends Seeder {
                             'nb_vegan_meal'=>'2',
                             'nb_places'=>'180',
                             'followed_by_private'=>'0',
-                            'contract_src'=>'',
                             'notes_de'=>'',
                             ));
         
@@ -104,7 +101,6 @@ class EventsTableSeeder extends Seeder {
                             'nb_vegan_meal'=>'1',
                             'nb_places'=>'180',
                             'followed_by_private'=>'0',
-                            'contract_src'=>'',
                             'notes_de'=>'',
                             ));
         
@@ -119,7 +115,6 @@ class EventsTableSeeder extends Seeder {
                             'nb_vegan_meal'=>'1',
                             'nb_places'=>'180',
                             'followed_by_private'=>'0',
-                            'contract_src'=>'',
                             'notes_de'=>'',
                             ));
     }

@@ -9,32 +9,39 @@ use \Input,
     \Response,
     \Symfony\Component\HttpFoundation\File\UploadedFile;
 
+/**
+ * Contains interaction methods that are used when uploading a file to the database.<br>
+ * Based on the Laravel's BaseController.<br>
+ * Can : <b>upload</b> a file, <b>getImage</b>, <b>getContract</b>, <b>getPrinting</b> and <b>destroy</b> a file.<br>
+ * 
+ * @author Mathias Oberson <mathias.oberson@heig-vd.ch>
+ */
 class FilesManager extends \BaseController {
 
     /**
-     * The folder that will contains the artists' and events' images.
+     * The folder that will contain the artists' and events' images.
      */
     const IMAGE_FOLDER = 'images';
 
     /**
-     * The folder that will contains the events' contracts.
+     * The folder that will contain the events' contracts.
      */
     const CONTRACT_FOLDER = 'contracts';
 
     /**
-     * The folder that will contains the events' printings.
+     * The folder that will contain the events' printings.
      */
     const PRINTING_FOLDER = 'printings';
 
     /**
-     * The validation rules for a image file.
+     * The validation rules for an image file.
      * 
      * Has to be either a <b>.jpeg</b>, <b>.png</b> or <b>.gif</b> file.<br>
-     * Has to weight more than <b>1 byte</b> and less than <b>2 Mb</b>.<br>
+     * Has to weigh more than <b>1 byte</b> and less than <b>2 Mb</b>.<br>
      * 
      * @var array 
      */
-    public $image_rules = array(
+    public $images_rules = array(
         'file' => 'image|max:2000|min:1',
     );
 
@@ -42,11 +49,11 @@ class FilesManager extends \BaseController {
      * The validation rules for a contract file.
      * 
      * Has to be either a <b>.doc</b> or <b>.docx</b> file.<br>
-     * Has to weight more than <b>1 byte</b> and less than <b>2 Mb</b>.
+     * Has to weigh more than <b>1 byte</b> and less than <b>2 Mb</b>.
      * 
      * @var array
      */
-    public $contract_rules = array(
+    public $contracts_rules = array(
         'file' => 'ext:doc,docx,pdf|max:2000|min:1',
     );
 
@@ -54,11 +61,11 @@ class FilesManager extends \BaseController {
      * The validation rules for a printing file.
      * 
      * Has to be a <b>.pdf</b> file.
-     * Has to weight more than <b>1 byte</b> and less than <b>5 Mb</b>.
+     * Has to weigh more than <b>1 byte</b> and less than <b>5 Mb</b>.
      * 
-     * @var type 
+     * @var array 
      */
-    public $printing_rules = array(
+    public $printings_rules = array(
         'file' => 'ext:pdf|max:5000|min:1',
     );
 
@@ -69,7 +76,7 @@ class FilesManager extends \BaseController {
      */
 
     /**
-     * Get from the server an existing image file designated by its source.
+     * Get an existing image file from the server, designated by its source.
      * 
      * The source is the server-side name of the file, available via the source attribute of an Image model.<br>
      * The full path for this file is composed of :<br>
@@ -82,17 +89,17 @@ class FilesManager extends \BaseController {
     public function getImage($source) {
         $complete_path = public_path() . DIRECTORY_SEPARATOR . self::IMAGE_FOLDER . DIRECTORY_SEPARATOR . $source;
         if (File::exists($complete_path)) {
-            $file_name = preg_replace('#^[0-9]*\_#u', '', $source);
+            $file_name = $this->cleanFileName($source);
             return Response::download($complete_path, $file_name);
         }
     }
 
     /**
-     * Get from the server an existing contract file designated by its source.
+     * Get an existing contract file from the server, designated by its source.
      * 
-     * The source is the server-side name of the file, available via the source attribute of an Image model.<br>
+     * The source is the server-side name of the file, available via the contract_src attribute of an Event model.<br>
      * The full path for this file is composed of :<br>
-     * <i>storage_path() result + CONTRACT_VALUE value + source value.</i><br>
+     * <i>storage_path() result + CONTRACT_FOLDER value + source value.</i><br>
      * The returned file is named after the original file name.<br>
      * 
      * @param string $source The server-side name of the file.
@@ -101,15 +108,15 @@ class FilesManager extends \BaseController {
     public function getContract($source) {
         $complete_path = storage_path() . DIRECTORY_SEPARATOR . self::CONTRACT_FOLDER . DIRECTORY_SEPARATOR . $source;
         if (File::exists($complete_path)) {
-            $file_name = preg_replace('#^[0-9]*\_#u', '', $source);
+            $file_name = $this->cleanFileName($source);
             return Response::download($complete_path, $file_name);
         }
     }
 
     /**
-     * Get from the server an existing printing file designated by its source.
+     * Get an existing printing file from the server, designated by its source.
      * 
-     * The source is server-side name of the file, available via the source attribute of an Image model.<br>
+     * The source is the server-side name of the file, available via the source attribute of a Printing model.<br>
      * The full path for this file is composed of :<br>
      * <i>storage_path() result + PRINTING_FOLDER value + source value.</i><br>
      * The returned file is named after the original file name.<br>
@@ -120,7 +127,7 @@ class FilesManager extends \BaseController {
     public function getPrinting($source) {
         $complete_path = storage_path() . DIRECTORY_SEPARATOR . self::PRINTING_FOLDER . DIRECTORY_SEPARATOR . $source;
         if (File::exists($complete_path)) {
-            $file_name = preg_replace('#^[0-9]*\_#u', '', $source);
+            $file_name = $this->cleanFileName($source);
             return Response::download($complete_path, $file_name);
         }
     }
@@ -131,37 +138,37 @@ class FilesManager extends \BaseController {
      * The file is retrieved by an input field named 'file'.<br>
      * The type of the file is automatically guessed using its extension. The correct methods are then called depending on the guessed type.<br>
      * If the file is not valid a <b>Jsend::fail</b> is returned.<br>
-     * If the file does not respect any of the declared statis rules a <b>Jsend::fail</b> is returned.<br>
-     * If the file is valid, its name is prefixed by the current timestamp, and the file is moved to its correct directory.<br>
-     * If the move is a success, a <b>Jsend::success</b> is returned containing the path used to download the file (or access it if it's an image).<br> 
+     * If the file does not respect any of the declared status rules a <b>Jsend::fail</b> is returned.<br>
+     * If the file is valid, its name is prefixed by the current timestamp, and the file is moved to the correct directory.<br>
+     * If the move is a success, a <b>Jsend::success</b> is returned containing the path used to download the file (or the path to access it if it's an image).<br> 
      * If anything goes wrong throughout the process, a <b>Jsend::error</b> is returned.<br>
      * 
-     * @return Jsend success: the file has been uploaded | fail: an error occured | error: a server-side error occured
+     * @return Jsend success: the file has been uploaded | fail: an error occurred | error: a server-side error occurred
      */
-    public function upload() {
+    public function upload($type) {
         $file = Input::file('file');
-        if ($file->isValid()) {
-            $file_type = $this->validate($file);
-            if (is_array($file_type)) {
-                $response = array('fail' => $file_type);
+        if (is_object($file) && $file->isValid()) {
+            $validation = $this->validate($file, $type);
+            if (is_array($validation)) {
+                $response = $validation;
             } else {
-                $call = 'put' . studly_case($file_type);
+                $call = 'put' . studly_case($type);
                 $response = $this->$call($file);
             }
         } else {
-            $response = array('fail' => trans('fail.file.invalid'));
+            $response['fail'] = ['file' => [trans('fail.file.invalid')]];
         }
         return Jsend::compile($response);
     }
 
     /**
-     * Delete from the server an existing file designated by its directory and its filename.<br>
+     * Delete an existing file from the server, designated by its directory and its filename.<br>
      * 
-     * The directory values are limited to the three folders in which files can be uploaded.<br>
-     * These folders are : <b>images</b>, <b>contracts</b>, <b>printings</b>.<br>
-     * If any other value is used, a <b>Jsend::fail</b> is returned.<br>
+     * The directory in which files can be uploaded are limited to the folders declared in the FilesManager class.<br>
+     * These folders are by default : <b>images</b>, <b>contracts</b>, <b>printings</b>.<br>
+     * If an invalid value is used, a <b>Jsend::fail</b> is returned.<br>
      * 
-     * @param string $directory The directory in whitch the file is located
+     * @param string $directory The directory in which the file is located
      * @param string $file_name The name of the file
      * @return Jsend success: the file has been deleted | fail: the file doesn't exist | error: the file hasn't been deleted
      */
@@ -171,39 +178,37 @@ class FilesManager extends \BaseController {
         } else {
             $complete_path = storage_path() . DIRECTORY_SEPARATOR . $directory . DIRECTORY_SEPARATOR . $file_name;
         }
+        $file = $this->cleanFileName($file_name);
         if (File::exists($complete_path)) {
             if (File::delete($complete_path)) {
-                $response = array('success' => array('title' => trans('success.file.deleted')));
+                $response['success'] = ['title' => trans('success.file.deleted', ['file' => $file])];
             } else {
-                $response = array('error' => trans('error.file.not_deleted'));
+                $response['error'] = trans('error.file.deleted', ['file' => $file]);
             }
         } else {
-            $response = array('fail' => array('title' => trans('fail.file.inexistant')));
+            $response['fail'] = ['file' => [trans('fail.file.inexistant', ['file' => $file])]];
         }
         return Jsend::compile($response);
     }
 
     /*
       |-----------------------------------------------------------------
-      | INTERNALS FUNCTIONS
+      | INTERNAL FUNCTIONS
       |-----------------------------------------------------------------
      */
 
-    private function validate(UploadedFile $file) {
-        $validate = Validator::make(array('file' => $file), $this->image_rules);
-        $type = self::IMAGE_FOLDER;
-        if ($validate->fails()) {
-            $validate = Validator::make(array('file' => $file), $this->contract_rules);
-            $type = self::CONTRACT_FOLDER;
-        }
-        if ($validate->fails()) {
-            $validate = Validator::make(array('file' => $file), $this->printing_rules);
-            $type = self::PRINTING_FOLDER;
-        }
-        if ($validate->fails()) {
-            $response = array('file' => trans('fail.file.unsupported'));
+    private function validate(UploadedFile $file, $type) {
+        $supported_type = Validator::make(['type' => $type], ['type' => 'required|in:images,printings,contracts']);
+        if ($supported_type->fails()) {
+            $response['fail'] = ['file_type' => [trans('fail.file_type.unsupported', ['type' => $type])]];
         } else {
-            $response = $type;
+            $rules = $type . '_rules';
+            $response = Validator::make(['file' => $file], $this->$rules);
+            if ($response->fails()) {
+                $response = ['fail' => $response->messages()->getMessages()];
+            } else {
+                $response = true;
+            }
         }
         return $response;
     }
@@ -228,12 +233,12 @@ class FilesManager extends \BaseController {
 
     private function move(UploadedFile $file, $path) {
         if ($this->checkOrCreate($path) && $file->move($path, $file->name)) {
-            $response = array('success' => array(
-                    'title' => trans('success.file.uploaded'),
-                    'source' => $file->source,
-            ));
+            $response['success'] = [
+                'title' => trans('success.file.uploaded', ['file' => $file->getClientOriginalName()]),
+                'source' => $file->source,
+            ];
         } else {
-            $response = array('error' => trans('error.file.not_uploaded'));
+            $response['error'] = trans('error.file.uploaded', ['file' => $file->getClientOriginalName()]);
         }
         return $response;
     }
@@ -244,6 +249,10 @@ class FilesManager extends \BaseController {
             $ok = File::makeDirectory($directory) ? $ok : !$ok;
         }
         return $ok;
+    }
+
+    private function cleanFileName($source) {
+        return preg_replace('#^[0-9]*\_#u', '', $source);
     }
 
 }

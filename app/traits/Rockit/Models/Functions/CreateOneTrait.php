@@ -16,10 +16,10 @@ trait CreateOneTrait {
         self::unguard();
         $object = self::create($data);
         if ($object != null) {
-            $response['success'] = array(
-                'title' => trans('success.' . snake_case($class) . '.created', array('name' => $object->$field)),
+            $response['success'] = ['response' => [
+                'title' => trans('success.' . snake_case($class) . '.created', ['name' => $object->$field]),
                 'id' => $object->id,
-            );
+            ]];
         } else {
             $response['error'] = trans('error.' . snake_case($class) . '.created', array('name' => $object->$field));
         }
