@@ -325,30 +325,31 @@ class EventController extends \BaseController {
     }
 
     public static function save($inputs) {
-        //$existingTickets = array();
-        //$fails = ['tickets' => null];
         if( Ticket::isTicketCategoryUnicity( $inputs['tickets'] ) ) {
-            foreach ( $inputs['tickets'] as $key => $ticket) {
-                $ticket_category = Ticket::validate($ticket);
-                if( $ticket_category === true ){
-
-                } else {
-                    $fails['tickets'][] = $ticket_category;
+            foreach ( $inputs['tickets'] as $ticket) {
+                $v = Ticket::validate($ticket);
+                if( $v !== true ){
+                    $response['fail']['tickets'][] = $v;
+                }
+            }
+            if( !isset( $response['fail'] ) ){
+                if( $inputs['opening_doors_hour'] != NULL ){
+                    $response = Event::checkOpeningDoorsHour( $inputs['start_date_hour'], $inputs['opening_doors_hour'] );
+                    if($response){
+                        $response = Event::checkDatesChronological( $inputs['start_date_hour'], $inputs['ending_date_hour'] );
+                        if($response){
+                            $response = Event::checkDatesDontOverlap( $inputs['start_date_hour'], $inputs['ending_date_hour'] );
+                        }
+                    }
                 }
             }
         } else {
             $response['fail'] = [
-                'tickets' => [trans('fail.tickets.not_unique')]
+                'tickets' => [trans('fail.ticket_category.not_unique')]
             ];
         }
-        if (!empty($fails['lineups'])) {
-            $response['fail'] = $fails;
-            if (!count($existingLineups) > 0) {
-                $response['fail']['lineups'][] = trans('fail.musician.nolineup');
-            }
-        } else {
-            $inputs['lineups'] = $existingLineups;
-            $response = Musician::createOne($inputs);
+        if ( !isset( $response['fail'] ) ) {
+            $response = Event::createOne($inputs);
         }
         return $response;
     }

@@ -289,4 +289,8 @@ class Event extends \Eloquent {
         return $response;
     }
 
+    public static function createOne( $inputs ){
+        return 'created';
+    }
+
 }
