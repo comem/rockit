@@ -179,8 +179,16 @@ class ArtistController extends \BaseController {
         return Jsend::compile($response);
     }
 
-    public function desillutrate($artist_id, $image_id){
-        
+    public function desillustrate($artist_id, $image_id){
+        $image = Image::exist($image_id);
+        if (is_object($image)) {
+            $response = IllustrationController::delete($image);
+        } else {
+            $response['fail'] = [
+                'image' => [trans('fail.image.inexistant')],
+            ];
+        }
+        return Jsend::compile($response);
     }
 
     /**

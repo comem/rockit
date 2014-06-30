@@ -48,7 +48,7 @@ Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function()
 
 			Route::post('artists/{id}/image', 'ArtistController@illustrate')
 				->where('id', '[0-9]+');
-			Route::delete('artists/{artist_id}/image/{image_id}', 'ArtistController@desillutrate')
+			Route::delete('artists/{artist_id}/image/{image_id}', 'ArtistController@desillustrate')
 				->where('artist_id', '[0-9]+')
 				->where('image_id', '[0-9]+');
                 
