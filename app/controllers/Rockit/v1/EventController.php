@@ -326,10 +326,10 @@ class EventController extends \BaseController {
 
     public static function save($inputs) {
         if( Ticket::isTicketCategoryUnicity( $inputs['tickets'] ) ) {
-            foreach ( $inputs['tickets'] as $ticket) {
+            foreach ( $inputs['tickets'] as $key => $ticket) {
                 $v = Ticket::validate($ticket, Ticket::$create_event_rules);
                 if( $v !== true ){
-                    $response['fail']['tickets'][] = $v;
+                    $response['fail']['tickets'][$key] = $v['fail'];
                 }
             }
             if( !isset( $response['fail'] ) ){

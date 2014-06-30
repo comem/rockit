@@ -290,7 +290,8 @@ class Event extends \Eloquent {
     }
 
     public static function createOne( $inputs ){
-        return 'created';
+        $response['success'] = [];
+        return $response;
     }
 
 }
