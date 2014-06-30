@@ -13,9 +13,9 @@ class Event extends \Eloquent {
     public static $response_field = 'title';
     public $timestamps = true;
     public static $create_rules = array(
-        'start_date_hour' => 'date|required',
-        'ending_date_hour' => 'date|required',
-        'opening_doors' => 'date',
+        'start_date_hour' => 'required',
+        'ending_date_hour' => 'required',
+        'opening_doors' => '',
         'title_de' => 'required|min:2',
         'nb_meal' => 'integer|required',
         'nb_vegans_meal' => 'integer|required',

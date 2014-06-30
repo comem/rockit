@@ -4,6 +4,7 @@ namespace Rockit\v1;
 
 use \Rockit\Controllers\ControllerBSUDTrait,
     \Jsend,
+    \DB,
     \Input,
     \WordExport,
     \XMLExport,
@@ -100,7 +101,7 @@ class EventController extends \BaseController {
      * @return Response
      */
     public function store() {
-        $inputsEvent = Input::only('start_date_hour', 'ending_date_hour', 'title_de', 
+        $inputs = Input::only('start_date_hour', 'ending_date_hour', 'title_de', 
             'nb_meal', 'nb_vegans_meal', 'opening_doors_hour', 'meal_notes_de', 
             'nb_places', 'followed_by_private', 'contract_src', 'notes_de', 
             // simple association
@@ -108,6 +109,15 @@ class EventController extends \BaseController {
             // * * association
             'tickets', 'needs', 'offers', 'performers', 'attributions', 'staffs');
 
+        $validate = Event::validate($inputs, Event::$create_rules);
+        if ($validate === true) {
+            DB::beginTransaction();
+            $respsonse = self::save($inputs);
+            DB::commit();
+        } else {
+            $response = $validate;
+        }
+        return Jsend::compile($response);
     }
 
     /**
@@ -310,6 +320,29 @@ class EventController extends \BaseController {
                     $response = ['error' => trans('error.event.published')];
                 }
             }
+        }
+        return $response;
+    }
+
+    public static function save($inputs) {
+        $existingTickets = array();
+        $fails = ['tickets' => null];
+        foreach ($inputs['tickets'] as $key => $ticket) {
+            $ticket_category = Ticket::validate($ticket);
+            if( $ticket_category === true ){
+
+            } else {
+                $fails['tickets'][] = $ticket_category;
+            }
+        }
+        if (!empty($fails['lineups'])) {
+            $response['fail'] = $fails;
+            if (!count($existingLineups) > 0) {
+                $response['fail']['lineups'][] = trans('fail.musician.nolineup');
+            }
+        } else {
+            $inputs['lineups'] = $existingLineups;
+            $response = Musician::createOne($inputs);
         }
         return $response;
     }
