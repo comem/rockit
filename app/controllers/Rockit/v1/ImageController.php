@@ -15,7 +15,7 @@ use \Input,
  * Can : <b>index</b> all the Images, <b>show</b>, <b>destroy</b> and <b>update</b> one Image.<br>
  * Since Images can be linked to an event, the <b>delete</b> is actually a <b>softDelete</b>.
  * 
- * @author ??
+ * @author Mathias Oberson <mathias.oberson@heig-vd.ch>
  */
 class ImageController extends \BaseController {
  
