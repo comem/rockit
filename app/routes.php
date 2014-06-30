@@ -60,6 +60,11 @@ Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function()
 			Route::delete('events/{id}/image', 'EventController@desymbolize')
 				->where('id', '[0-9]+');
 
+			Route::post('events/{id}/representer', 'EventController@setRepresenter')
+				->where('id', '[0-9]+');
+			Route::delete('events/{id}/representer', 'EventController@unsetRepresenter')
+				->where('id', '[0-9]+');
+
 			Route::put('events/{id}/publish', 'EventController@publish')->where('id', '[0-9]+');
 			Route::put('events/{id}/unpublish', 'EventController@unpublish')->where('id', '[0-9]+');
 			Route::get('events/export/word', 'EventController@exportWord');
