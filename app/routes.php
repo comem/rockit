@@ -27,7 +27,7 @@ Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function()
 
 	Route::post('login', 'AuthController@login');
 	Route::get('logout', 'AuthController@logout');
-        Route::get('auth-check', 'AuthController@authCheck');
+    Route::get('auth-check', 'AuthController@authCheck');
 
 	Route::group(array('before' => 'auth'), function()
 	{
@@ -39,11 +39,11 @@ Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function()
 		{
 			// before acl
                                 
-                        Route::get('files/images/{source}', 'FilesManager@getImage');
-                        Route::get('files/printings/{source}', 'FilesManager@getPrinting');
-                        Route::get('files/contracts/{source}', 'FilesManager@getContract');
-                        Route::delete('files/{folder}/{source}', 'FilesManager@destroy');
-                        Route::post('files/{type}', 'FilesManager@upload');
+            Route::get('files/images/{source}', 'FilesManager@getImage');
+            Route::get('files/printings/{source}', 'FilesManager@getPrinting');
+            Route::get('files/contracts/{source}', 'FilesManager@getContract');
+            Route::delete('files/{folder}/{source}', 'FilesManager@destroy');
+            Route::post('files/{type}', 'FilesManager@upload');
                 
 			Route::resource('artists', 'ArtistController', 
 				array('only' => array('index', 'show', 'store', 'update', 'destroy')));
@@ -96,6 +96,11 @@ Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function()
 
 			Route::resource('illustrations', 'IllustrationController', 
 				array('only' => array('store', 'destroy')));
+			Route::post('artists/{id}/image', 'ArtistController@storeIllustration')
+				->where('id', '[0-9]+');
+			Route::delete('artists/{artist_id}/image/{image_id}', 'ArtistController@destroyIllustration')
+				->where('artist_id', '[0-9]+')
+				->where('image_id', '[0-9]+');
 
 			Route::resource('images', 'ImageController', 
 				array('only' => array('index', 'show', 'store', 'update', 'destroy')));
