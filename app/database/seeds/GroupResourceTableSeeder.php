@@ -28,7 +28,7 @@ class GroupResourceTableSeeder extends Seeder {
             // update accesses
             84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97,
             // other accesses
-            98, 99, 102, 105, 106,
+            98, 99, 102, 105, 106, 107, 108, 109, 110
         ));
     }
 
