@@ -149,6 +149,7 @@ return [
     'ticket_category' => [
         'existing' => "Il y a déjà une catégorie de tickets \":name\" enregistrée.",
         'inexistant' => "Il n'existe aucune catégorie de tickets correspondante.",
+        'not_unique' => "...doublon...",
     ],
     'wordexport' => [
         'noinput' => "Les dates de début et de fin de la période à exporter sont obligatoires.",
