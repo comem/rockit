@@ -48,7 +48,7 @@ class Ticket extends \Eloquent {
 		return $this->belongsTo('Rockit\Event');
 	}
 
-	public static function verifyTicketCategoryUnicity( array $ticket_category ){
+	public static function isTicketCategoryUnicity( array $ticket_category ){
 		return count( $ticket_category ) !== count( array_unique( $ticket_category ) );
 	}
 

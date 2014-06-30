@@ -325,15 +325,21 @@ class EventController extends \BaseController {
     }
 
     public static function save($inputs) {
-        $existingTickets = array();
-        $fails = ['tickets' => null];
-        foreach ($inputs['tickets'] as $key => $ticket) {
-            $ticket_category = Ticket::validate($ticket);
-            if( $ticket_category === true ){
+        //$existingTickets = array();
+        //$fails = ['tickets' => null];
+        if( Ticket::isTicketCategoryUnicity( $inputs['tickets'] ) ) {
+            foreach ( $inputs['tickets'] as $key => $ticket) {
+                $ticket_category = Ticket::validate($ticket);
+                if( $ticket_category === true ){
 
-            } else {
-                $fails['tickets'][] = $ticket_category;
+                } else {
+                    $fails['tickets'][] = $ticket_category;
+                }
             }
+        } else {
+            $response['fail'] = [
+                'tickets' => [trans('fail.tickets.not_unique')]
+            ];
         }
         if (!empty($fails['lineups'])) {
             $response['fail'] = $fails;
