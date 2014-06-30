@@ -20,7 +20,7 @@ class EventController extends \BaseController {
      * @return Response
      */
     public function index() {
-        $events = Event::with('representer', 'eventType', 'image', 'tickets.ticketCategory', 'sharings.platform', 'printings.printingType', 'performers.artist', 'staffs.member', 'staffs.skill', 'needs.skill', 'offers.gift', 'attributions.equipment');
+        $events = Event::with('genres', 'representer', 'eventType', 'image', 'tickets.ticketCategory', 'sharings.platform', 'printings.printingType', 'performers.artist.genres', 'staffs.member', 'staffs.skill', 'needs.skill', 'offers.gift', 'attributions.equipment');
         $nb_item = Input::has('nb_item') && Input::get('nb_item') > 0 ? Input::get('nb_item') : 10;
         if (Input::has('genres')) {
             $events = $events->artistGenres(Input::get('genres'));
@@ -110,7 +110,7 @@ class EventController extends \BaseController {
      * @return Response
      */
     public function update($id) {
-        //
+        return Jsend::success(Event::with('genres')->find($id));
     }
 
     /**

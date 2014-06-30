@@ -10,15 +10,15 @@ class Event extends \Eloquent {
     use Models\ModelBCUDTrait;
 
     protected $table = 'events';
-    public static $response_field = 'title';
     public $timestamps = true;
+    public static $response_field = 'title';
     public static $create_rules = array(
         'start_date_hour' => 'date|required',
         'ending_date_hour' => 'date|required',
         'opening_doors' => 'date',
         'title_de' => 'required|min:2',
-        'nb_meal' => 'integer|required',
-        'nb_vegans_meal' => 'integer|required',
+        'nb_meal' => 'integer|required|min:0',
+        'nb_vegans_meal' => 'integer|required|min:0',
         'meal_notes_de' => '',
         'nb_places' => 'integer|min:0',
         'followed_by_private' => 'boolean',
@@ -29,8 +29,8 @@ class Event extends \Eloquent {
         'ending_date_hour' => 'date',
         'opening_doors' => 'date',
         'title_de' => 'min:2',
-        'nb_meal' => 'integer',
-        'nb_vegans_meal' => 'integer',
+        'nb_meal' => 'integer|min:0',
+        'nb_vegans_meal' => 'integer|min:0',
         'meal_notes_de' => '',
         'nb_places' => 'integer|min:0',
         'followed_by_private' => 'boolean',
@@ -181,6 +181,10 @@ class Event extends \Eloquent {
         } else {
             return $query->has('representer', '<', 1);
         }
+    }
+    
+    public function genres() {
+        return $this->belongsToMany('Rockit\Genre', 'event_genre');
     }
 
     /**
