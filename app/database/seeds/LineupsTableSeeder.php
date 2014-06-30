@@ -70,6 +70,119 @@ class LineupsTableSeeder extends Seeder {
         Lineup::create(array('musician_id' => '8',
                                         'artist_id' => '6',
                                         'instrument_id'=> '5'));
+        
+        Lineup::create(array('musician_id' => '23',
+                                        'artist_id' => '7',
+                                        'instrument_id'=> '7'));
+        
+        Lineup::create(array('musician_id' => '23',
+                                        'artist_id' => '7',
+                                        'instrument_id'=> '8'));
+        
+        Lineup::create(array('musician_id' => '23',
+                                        'artist_id' => '7',
+                                        'instrument_id'=> '9'));
+        
+        Lineup::create(array('musician_id' => '24',
+                                        'artist_id' => '7',
+                                        'instrument_id'=> '7'));
+        
+        Lineup::create(array('musician_id' => '24',
+                                        'artist_id' => '7',
+                                        'instrument_id'=> '10'));
+        
+        Lineup::create(array('musician_id' => '24',
+                                        'artist_id' => '7',
+                                        'instrument_id'=> '11'));
+        
+        Lineup::create(array('musician_id' => '24',
+                                        'artist_id' => '7',
+                                        'instrument_id'=> '9'));
+        
+        Lineup::create(array('musician_id' => '25',
+                                        'artist_id' => '7',
+                                        'instrument_id'=> '12'));
+        
+        Lineup::create(array('musician_id' => '25',
+                                        'artist_id' => '7',
+                                        'instrument_id'=> '13'));
+        
+        Lineup::create(array('musician_id' => '26',
+                                        'artist_id' => '7',
+                                        'instrument_id'=> '2'));
+        
+        Lineup::create(array('musician_id' => '26',
+                                        'artist_id' => '7',
+                                        'instrument_id'=> '13'));
+        
+        Lineup::create(array('musician_id' => '27',
+                                        'artist_id' => '7',
+                                        'instrument_id'=> '4'));
+        
+        Lineup::create(array('musician_id' => '27',
+                                        'artist_id' => '7',
+                                        'instrument_id'=> '14'));
+        
+        Lineup::create(array('musician_id' => '28',
+                                        'artist_id' => '9',
+                                        'instrument_id'=> '15'));
+        
+        Lineup::create(array('musician_id' => '28',
+                                        'artist_id' => '9',
+                                        'instrument_id'=> '16'));
+        
+        Lineup::create(array('musician_id' => '28',
+                                        'artist_id' => '9',
+                                        'instrument_id'=> '1'));
+        
+        Lineup::create(array('musician_id' => '29',
+                                        'artist_id' => '9',
+                                        'instrument_id'=> '17'));
+        
+        Lineup::create(array('musician_id' => '29',
+                                        'artist_id' => '9',
+                                        'instrument_id'=> '18'));
+        
+        Lineup::create(array('musician_id' => '30',
+                                        'artist_id' => '9',
+                                        'instrument_id'=> '19'));
+        
+        Lineup::create(array('musician_id' => '31',
+                                        'artist_id' => '9',
+                                        'instrument_id'=> '20'));
+        
+        Lineup::create(array('musician_id' => '32',
+                                        'artist_id' => '9',
+                                        'instrument_id'=> '21'));
+        
+        Lineup::create(array('musician_id' => '33',
+                                        'artist_id' => '9',
+                                        'instrument_id'=> '4'));
+        
+        Lineup::create(array('musician_id' => '34',
+                                        'artist_id' => '10',
+                                        'instrument_id'=> '1'));
+        
+        Lineup::create(array('musician_id' => '35',
+                                        'artist_id' => '10',
+                                        'instrument_id'=> '4'));
+        
+        Lineup::create(array('musician_id' => '38',
+                                        'artist_id' => '10',
+                                        'instrument_id'=> '22'));
+        
+        Lineup::create(array('musician_id' => '38',
+                                        'artist_id' => '10',
+                                        'instrument_id'=> '20'));
+        
+        Lineup::create(array('musician_id' => '36',
+                                        'artist_id' => '10',
+                                        'instrument_id'=> '2'));
+        
+        Lineup::create(array('musician_id' => '37',
+                                        'artist_id' => '10',
+                                        'instrument_id'=> '7'));
+        
     }
 }
 
