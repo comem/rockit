@@ -211,11 +211,33 @@ class EventController extends \BaseController {
     }
 
     public function symbolize($id){
-        //
+        $inputs = [
+            'event_id' => $id,
+            'image_id' => Input::get('image_id'),
+        ];
+        $v = Validator::make(
+        $inputs, [
+            'event_id' => 'required|exists:events,id',
+            'image_id' => 'required|exists:images,id']
+        );
+        if ($v->passes()) {
+            $response = SymbolizationController::save($inputs);
+        } else {
+            $response['fail'] = $v->messages()->getMessages();
+        }
+        return Jsend::compile($response);
     }
 
     public function desymbolize($id){
-        //
+        $event = Event::exist($id);
+        if (is_object($event)) {
+            $response = SymbolizationController::delete($event);
+        } else {
+            $response['fail'] = [
+                'title' => trans('fail.event.inexistant'),
+            ];
+        }
+        return Jsend::compile($response);
     }
 
     /**
