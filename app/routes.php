@@ -44,9 +44,21 @@ Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function()
             Route::get('files/contracts/{source}', 'FilesManager@getContract');
             Route::delete('files/{folder}/{source}', 'FilesManager@destroy');
             Route::post('files/{type}', 'FilesManager@upload');
+
+
+			Route::post('artists/{id}/image', 'ArtistController@storeIllustration')
+				->where('id', '[0-9]+');
+			Route::delete('artists/{artist_id}/image/{image_id}', 'ArtistController@destroyIllustration')
+				->where('artist_id', '[0-9]+')
+				->where('image_id', '[0-9]+');
                 
 			Route::resource('artists', 'ArtistController', 
 				array('only' => array('index', 'show', 'store', 'update', 'destroy')));
+
+			Route::post('events/{id}/image', 'EventController@storeSymbolization')
+				->where('id', '[0-9]+');
+			Route::delete('events/{id}/image', 'EventController@destroySymbolization')
+				->where('id', '[0-9]+');
 
 			Route::put('events/{id}/publish', 'EventController@publish')->where('id', '[0-9]+');
 			Route::put('events/{id}/unpublish', 'EventController@unpublish')->where('id', '[0-9]+');
@@ -96,11 +108,6 @@ Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function()
 
 			Route::resource('illustrations', 'IllustrationController', 
 				array('only' => array('store', 'destroy')));
-			Route::post('artists/{id}/image', 'ArtistController@storeIllustration')
-				->where('id', '[0-9]+');
-			Route::delete('artists/{artist_id}/image/{image_id}', 'ArtistController@destroyIllustration')
-				->where('artist_id', '[0-9]+')
-				->where('image_id', '[0-9]+');
 
 			Route::resource('images', 'ImageController', 
 				array('only' => array('index', 'show', 'store', 'update', 'destroy')));
