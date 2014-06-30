@@ -38,7 +38,8 @@ class MusiciansTableSeeder extends Seeder {
             'stagename' => 'Bluedög',
         ));
         Musician::create(array('id' => '6',
-            'stagename' => 'J.C. Wirth',
+            'first_name' => 'J.C.',
+            'stagename' => 'Wirth',
         ));
 
         Musician::create(array('id' => '7',

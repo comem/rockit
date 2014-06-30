@@ -21,7 +21,7 @@ Validator::extend('phone', function($field, $value, $parameters) {
  *  - dashes
  */
 Validator::extend('names', function($field, $value, $parameters) {
-    return preg_match("#^[\p{L}'\- ]+$#u", $value);
+    return preg_match("#^[\p{L}'\- \.]+$#u", $value);
 });
 
 /**
