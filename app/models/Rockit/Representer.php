@@ -5,15 +5,32 @@ namespace Rockit;
 use Rockit\Models\ModelBCUDTrait,
     Illuminate\Database\Eloquent\SoftDeletingTrait;
 
+/**
+ * Contains the attributes and methods of a Representer model in the database.<br>
+ * A Representer can guarantee an Event and plays an administrative role in the organisation.<br>
+ * Based on the Laravel's Eloquent.<br>
+ * 
+ * @author ??
+ */
 class Representer extends \Eloquent {
 
     use SoftDeletingTrait,
         ModelBCUDTrait;
 
-    public $timestamps = true;
     protected $table = 'representers';
     protected $hidden = array('deleted_at', 'created_at', 'updated_at');
     protected $dates = array('deleted_at');
+
+    /**
+     * Indicates whether this model uses laravel's timestamps.
+     * @var boolean 
+     */
+    public $timestamps = true;
+
+    /**
+     * Indicates which field value should be used in the return messages.
+     * @var string 
+     */
     public static $response_field = 'first_name';
 
     /**
@@ -45,7 +62,7 @@ class Representer extends \Eloquent {
     );
 
     /**
-     * Get all the events that this Representer represents.
+     * Get the Events to which a Representer is related.
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function events() {

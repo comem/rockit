@@ -7,19 +7,26 @@ use \DB,
     Rockit\Models\ModelBCUDTrait,
     Illuminate\Database\Eloquent\SoftDeletingTrait;
 
+/**
+ * Contains the attributes and methods of an Artist model in the database.<br>
+ * An Artist performs in an Event, and is composed of atleast one Musician with their Instrument.<br>
+ * Based on the Laravel's Eloquent.<br>
+ * 
+ * @author ??
+ */
 class Artist extends \Eloquent {
 
     use SoftDeletingTrait,
         ModelBCUDTrait;
 
     /**
-     * Indicates wether this model uses laravel's timestamps.
+     * Indicates whether this model uses laravel's timestamps.
      * @var boolean 
      */
     public $timestamps = true;
 
     /**
-     * Indicates which field value should be use in the return messages.
+     * Indicates which field value should be used in the return messages.
      * @var string 
      */
     public static $response_field = 'name';
@@ -36,7 +43,7 @@ class Artist extends \Eloquent {
     );
 
     /**
-     * Validation rules for updating a new Artist.
+     * Validation rules for updating an existing Artist.
      * @var array 
      */
     public static $update_rules = array(
@@ -72,25 +79,35 @@ class Artist extends \Eloquent {
     }
 
     /**
-     * Get the relationships between an 
+     * Get the relationships between the Artist, the Musicians and the Instruments played.
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function lineups() {
         return $this->hasMany('Rockit\Lineup')->groupBy('musician_id');
     }
 
+    /**
+     * Get the Events to which an Artist is related.
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public function events() {
         return $this->belongsToMany('Rockit\Event', 'performers')
         ->withPivot('id')->groupBy('id');
     }
 
+    /**
+     * Get the Musicians to which an Artist is related.
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public function musicians() {
         return $this->belongsToMany('Rockit\Musician', 'lineups')->groupBy('id');
     }
 
+
     public function scopeName($query, $string) {
         return $query->where('name', 'LIKE', '%' . $string . '%');
     }
+
 
     public function scopeGenres($query, array $genres) {
         return $query->whereHas('genres', function($q) use ($genres) {
@@ -98,17 +115,20 @@ class Artist extends \Eloquent {
         });
     }
 
+
     public function scopeMusicianStagename($query, $string) {
         return $query->whereHas('musicians', function($q) use ($string) {
             $q->where('stagename', 'LIKE', '%' . $string . '%');
         });
     }
 
+
     public function scopeMusicianFirstname($query, $string) {
         return $query->whereHas('musicians', function($q) use ($string) {
             $q->where('stagename', 'LIKE', '%' . $string . '%');
         });
     }
+
 
     public function scopeMusicianLastname($query, $string) {
         return $query->whereHas('musicians', function($q) use ($string) {
