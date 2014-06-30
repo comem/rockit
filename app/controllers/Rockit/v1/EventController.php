@@ -100,16 +100,14 @@ class EventController extends \BaseController {
      * @return Response
      */
     public function store() {
-        $inputsEvent = Input::only('start_date_hour', 'ending_date_hour', 'title_de', 'nb_meal', 'nb_vegans_meal', 'opening_doors_hour', 'meal_notes_de', 'nb_places', 'followed_by_private', 'contract_src', 'notes_de');
-        $inputImage = Input::get('image_id');
-        $inputEventType = Input::get('event_type_id');
-        $inputRepresenter = Input::get('representer_id');
-        $inputsPerfomers = Input::get('performers');
-        $inputsOffers = Input::get('offers');
-        $inputsAttributions = Input::get('attributions');
-        $inputsTickets = Input::get('tickets');
-        $inputsNeeds = Input::get('needs');
-        $inputsStaffs = Input::get('staffs');
+        $inputsEvent = Input::only('start_date_hour', 'ending_date_hour', 'title_de', 
+            'nb_meal', 'nb_vegans_meal', 'opening_doors_hour', 'meal_notes_de', 
+            'nb_places', 'followed_by_private', 'contract_src', 'notes_de', 
+            // simple association
+            'event_type_id', 'image_id', 'representer_id', 
+            // * * association
+            'tickets', 'needs', 'offers', 'performers', 'attributions', 'staffs');
+
     }
 
     /**

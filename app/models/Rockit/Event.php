@@ -23,6 +23,15 @@ class Event extends \Eloquent {
         'nb_places' => 'integer|min:0',
         'followed_by_private' => 'boolean',
         'notes_de' => '',
+        'event_type_id' => 'required|exists:event_types,id',
+        'image_id' => 'integer|exists:images,id',
+        'representer_id' => 'integer|exists:images,id',
+        'tickets' => 'required|array|min:1',
+        'needs' => 'array',
+        'offers' => 'array',
+        'performers' => 'array',
+        'attributions' => 'array',
+        'staffs' => 'array',
     );
     public static $update_rules = array(
         'start_date_hour' => 'date',
