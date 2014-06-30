@@ -210,6 +210,66 @@ class EventController extends \BaseController {
         }
     }
 
+    public function symbolize($id){
+        $inputs = [
+            'event_id' => $id,
+            'image_id' => Input::get('image_id'),
+        ];
+        $v = Validator::make(
+        $inputs, [
+            'event_id' => 'required|exists:events,id',
+            'image_id' => 'required|exists:images,id']
+        );
+        if ($v->passes()) {
+            $response = SymbolizationController::save($inputs);
+        } else {
+            $response['fail'] = $v->messages()->getMessages();
+        }
+        return Jsend::compile($response);
+    }
+
+    public function desymbolize($id){
+        $event = Event::exist($id);
+        if (is_object($event)) {
+            $response = SymbolizationController::delete($event);
+        } else {
+            $response['fail'] = [
+                'title' => trans('fail.event.inexistant'),
+            ];
+        }
+        return Jsend::compile($response);
+    }
+
+    public function setRepresenter($id){
+        $inputs = [
+            'event_id' => $id,
+            'representer_id' => Input::get('representer_id'),
+        ];
+        $v = Validator::make(
+        $inputs, [
+            'representer_id' => 'required|exists:representers,id',
+            'event_id' => 'required|exists:events,id']
+        );
+        if ($v->passes()) {
+            $response = GuaranteeController::save($inputs);
+        } else {
+            $response['fail'] = $v->messages()->getMessages();
+        }
+        return Jsend::compile($response);
+    }
+
+    public function unsetRepresenter($id){
+        $event = Event::exist($id);
+        if (is_object($event)) {
+            $response = GuaranteeController::delete($event);
+        } else {
+            $response['fail'] = [
+                'event' => [trans('fail.event.inexistant')],
+            ];
+        }
+        return Jsend::compile($response);
+    }
+
     /**
      * 
      * @param type $event

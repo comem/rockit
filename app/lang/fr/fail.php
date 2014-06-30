@@ -65,6 +65,7 @@ return [
     'illustration' => [
         'existing' => "Cette image illustre déjà un autre artiste.",
         'inexistant' => "Cette image n'illustre aucun artiste.",
+        'inadequate' => "Cette image n'illustre pas cet artiste.",
     ],
     'image' => [
         'inexistant' => "Il n'existe aucune image correspondants.",

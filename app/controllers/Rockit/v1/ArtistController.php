@@ -10,6 +10,7 @@ use \Rockit\Artist,
     \Rockit\Instrument,
     \Rockit\Controllers\ControllerBSUDTrait,
     \Jsend,
+    \Validator,
     \Input;
 
 /**
@@ -160,6 +161,40 @@ class ArtistController extends \BaseController {
      */
     public function destroy($id) {
         return Jsend::compile(self::delete('Artist', $id));
+    }
+
+    public function illustrate($id){
+        $inputs['artist_id'] = (int) $id;
+        $inputs['image_id'] = Input::get('image_id');
+        $v = Validator::make(
+        $inputs, [
+            'artist_id' => 'required|exists:artists,id',
+            'image_id' => 'required|exists:images,id']
+        );
+        if ($v->passes()) {
+            $response = IllustrationController::save($inputs);
+        } else {
+            $response['fail'] = $v->messages()->getMessages();
+        }
+        return Jsend::compile($response);
+    }
+
+    public function desillustrate($artist_id, $image_id){
+        $image = Image::exist($image_id);
+        if (is_object($image)) {
+            if($image->artist_id == $artist_id OR $image->artist_id == NULL){
+                $response = IllustrationController::delete($image);
+            } else {
+                $response['fail'] = [
+                    'image' => [trans('fail.illustration.inadequate')]
+                ];
+            }
+        } else {
+            $response['fail'] = [
+                'image' => [trans('fail.image.inexistant')],
+            ];
+        }
+        return Jsend::compile($response);
     }
 
     /**
