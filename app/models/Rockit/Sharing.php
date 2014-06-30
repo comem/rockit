@@ -5,7 +5,9 @@ namespace Rockit;
 use Auth,
     App,
     Config,
+    \Session,
     \Rockit\Event,
+    \RockitHelper,
     \WordExport;
 
 class Sharing extends \Eloquent {
@@ -22,23 +24,38 @@ class Sharing extends \Eloquent {
             'event_id' => 'required|exists:events'
         ];
 
-        
+        /**
+         * Returns the platform to which the sharing belongs to.
+         * @return Platform the platform element which belongs to the sharing.
+         * @author Christian Heimann <christian.heimann@heig-vd.ch>
+         */
 	public function platform()
 	{
 		return $this->belongsTo('Rockit\Platform');
 	}
-
+        /**
+         * Returns the event to which the sharing belongs to.
+         * @return Event the event element which belongs to the sharing.
+         * @author Christian Heimann <christian.heimann@heig-vd.ch>
+         */
 	public function event()
 	{
 		return $this->belongsTo('Rockit\Event');
 	}
         
-        public static function message($event) {
+        /**
+         * Function creates a message for sharing with the Date and the Artists playing
+         * on the given event. The message is different 
+         * @param Event $event complete Event object
+         * @param string $additionalText a supplementary text which is added at the start of the message.
+         * @return string a message for sharings
+         * @author Christian Heimann <christian.heimann@heig-vd.ch>
+         */
+        public static function message($event, $additionalText) {
             setlocale(LC_ALL, 'de_DE@euro', 'de_DE', 'de', 'ge'); // $locale = Config::get('app.locale');
             $date = strftime("Am %A, %e. %B %Y um %H.%M Uhr", strtotime($event->start_date_hour));
-            $date = WordExport::deleteDoubleWhitspace($date);
-            $additionalText = Session::get('additional_text');
-            if(isset($additionalText)) {
+            $date = RockitHelper::deleteDoubleWhitspace($date);
+            if(!is_null($additionalText)) {
                 $message = $additionalText . "\r\n";
             } else {
                 $message = "";
@@ -62,10 +79,5 @@ class Sharing extends \Eloquent {
             return $message;
         }
         
-        public static function countDaysUntil($time) {
-            $today = floor(time()/60/60/24);
-            $difference = floor($time/60/60/24) - $today;
-            return $difference;
-        }
 
 }
