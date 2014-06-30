@@ -10,7 +10,7 @@ class Event extends \Eloquent {
     use Models\ModelBCUDTrait;
 
     protected $table = 'events';
-    public static $response_field = 'title';
+    public static $response_field = 'start_date_hour';
     public $timestamps = true;
     public static $create_rules = array(
         'start_date_hour' => 'required',
@@ -289,8 +289,34 @@ class Event extends \Eloquent {
         return $response;
     }
 
-    public static function createOne( $inputs ){
-        $response['success'] = [];
+    public static function createOne( $data ){
+        $field = self::$response_field;
+        $tickets = $data['tickets'];
+        unset($data['tickets']);
+        DB::beginTransaction();
+        self::unguard();
+        $object = self::create($data);
+        // check if object was created correctly
+        if ($object != null) {
+            foreach($tickets as  $ticket){
+                $inputs = $ticket;
+                $inputs['event_id'] = $object->id;
+                $objcetTicket = Ticket::createOne($inputs);
+                if(!isset($objectTicket['success'])){
+                    $response['error'] = trans('error.ticket.created');
+                    DB::rollback();
+                    return $response;
+                }
+            }
+            $response['success'] = array(
+                'title' => trans('success.event.created', array('name' => $object->$field)),
+                'id' => $object->id,
+            );
+            DB::commit();
+        } else {
+            $response['error'] = trans('error.event.created', array('name' => $data[$field]));
+            DB::rollback();
+        }
         return $response;
     }
 
