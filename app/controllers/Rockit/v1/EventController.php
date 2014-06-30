@@ -114,6 +114,19 @@ class EventController extends \BaseController {
             DB::beginTransaction();
             $response = self::save($inputs);
             if(isset($response['success'])){
+                /*
+                if(isset($inputs['performers'])){
+                    foreach($inputs['performers'] as $key => $performer){
+                        $performer['event_id'] = $response['success']['id'];
+                        dd($performer);
+                        $v = Performer::validate($performer, Performer::$create_event_rules);
+                        if( $v !== true ){
+                            $response['fail']['performers'][$key] = $v['fail'];
+                        }
+                    }
+                }
+                dd($response);
+*/
                 DB::commit();
             } else {
                 DB::rollback();

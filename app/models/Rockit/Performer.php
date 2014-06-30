@@ -18,6 +18,12 @@ class Performer extends \Eloquent {
         'event_id' => 'integer|required|min:1|exists:events,id',
         'artist_id' => 'integer|required|min:1|exists:artists,id',
     ];
+    public static $create_event_rules = [
+        'order' => 'integer|required|min:0',
+        'is_support' => 'boolean',
+        'artist_hour_of_arival' => 'date',
+        'artist_id' => 'integer|required|min:1|exists:artists,id',
+    ];
     public static $update_rules = [
         'order' => 'integer|min:0',
         'is_support' => 'boolean',
