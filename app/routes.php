@@ -29,17 +29,22 @@ Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function()
 	Route::get('logout', 'AuthController@logout');
         Route::get('auth-check', 'AuthController@authCheck');
 
-
 	Route::group(array('before' => 'auth'), function()
 	{
 		// before auth
 
 		Route::put('langs', 'TranslationController@changeLocale');
-
+                
 		Route::group(array('before' => 'acl'), function()
 		{
 			// before acl
-
+                                
+                        Route::get('files/images/{source}', 'FilesManager@getImage');
+                        Route::get('files/printings/{source}', 'FilesManager@getPrinting');
+                        Route::get('files/contracts/{source}', 'FilesManager@getContract');
+                        Route::delete('files/{folder}/{source}', 'FilesManager@destroy');
+                        Route::post('files/{type}', 'FilesManager@upload');
+                
 			Route::resource('artists', 'ArtistController', 
 				array('only' => array('index', 'show', 'store', 'update', 'destroy')));
 
@@ -113,7 +118,7 @@ Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function()
 			Route::resource('printings', 'PrintingController', 
 				array('only' => array('store', 'update', 'destroy')));
 
-			Route::resource('sharings', 'ScharingController', 
+			Route::resource('sharings', 'SharingController', 
 				array('only' => array('store', 'destroy')));
 
 			Route::resource('staffs', 'StaffController', 
@@ -137,9 +142,11 @@ Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function()
 
 });
 
+
+
 // catching 404 error
 
 App::missing(function($exception)
 {
-    return Jsend::fail('fail.routes.missing');
+    return Jsend::fail(['route' => [trans('fail.routes.missing')]]);
 });

@@ -16,22 +16,30 @@ class Musician extends \Eloquent {
     protected $hidden = ['deleted_at'];
 
     public $timestamps = true;
-    public static $response_field = 'id';
+    public static $response_field = 'first_name';
 
     public static $create_rules = array(
-        'first_name' => 'required|min:1|max:100',
-        'last_name' => 'max:100',
+        'first_name' => 'required|min:1|max:100|names',
+        'last_name' => 'max:100|names',
         'stagename' => 'max:100',
-        'lineups' => 'required',
+        'lineups' => 'required|array|min:1',
     );
     public static $update_rules = array(
-        'first_name' => 'min:1|max:100',
-        'last_name' => 'max:100',
+        'first_name' => 'min:1|max:100|names',
+        'last_name' => 'max:100|names',
         'stagename' => 'max:100',
     );
 
     public function lineups() {
         return $this->hasMany('Rockit\Lineup');
+    }
+    
+    public function instrumentsFor($artist_id) {
+        return $this->belongsToMany('Rockit\Instrument', 'lineups')->where('artist_id', '=', $artist_id);
+    }
+    
+    public function instruments() {
+        return $this->belongsToMany('Rockit\Instrument', 'lineups');
     }
 
     public function artists() {
@@ -39,7 +47,6 @@ class Musician extends \Eloquent {
     }
 
     public static function createOne($data) {
-        $class = self::getClass();
         $field = self::$response_field;
         self::unguard();
         DB::beginTransaction();
@@ -58,12 +65,12 @@ class Musician extends \Eloquent {
                 }
             }
             $response['success'] = array(
-                'title' => trans('success.' . snake_case($class) . '.created', array('name' => $object->$field)),
+                'title' => trans('success.musician.created', array('name' => $object->$field)),
                 'id' => $object->id,
             );
             DB::commit();
         } else {
-            $response['error'] = trans('error.' . snake_case($class) . '.created', array('name' => $object->$field));
+            $response['error'] = trans('error.musician.created', array('name' => $object->$field));
             DB::rollback();
         }
         return $response;

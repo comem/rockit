@@ -32,6 +32,18 @@ class OffersTableSeeder extends Seeder {
                             'quantity' => 4,
                             'cost' => 0,
                             'comment_de' => 'Bitte nicht überall kleeeeeeeeben !' ));
+        
+        Offer::create(array('gift_id' => 2,
+                            'event_id' => 7,
+                            'quantity' => 10,
+                            'cost' => 0,
+                            'comment_de' => 'Aber keine Kinder mitnehmen' ));
+                
+        Offer::create(array('gift_id' => 1,
+                            'event_id' => '5',
+                            'quantity' => 6,
+                            'cost' => 0,
+                            'comment_de' => '' ));
     }
 }
 

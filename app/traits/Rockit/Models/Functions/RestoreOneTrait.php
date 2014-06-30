@@ -11,7 +11,7 @@ trait RestoreOneTrait {
      * @return 
      */
     public static function restoreOne($object) {
-        $class_name = self::getClass();
+        $class_name = class_basename(get_called_class());
         $field = self::$response_field;
         if ($object->restore()) {
             $response['success'] = array(

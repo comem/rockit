@@ -2,24 +2,19 @@
 
 namespace Rockit;
 
-use Illuminate\Database\Eloquent\SoftDeletingTrait;
+use Rockit\Models\ModelBCUDTrait,
+    Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class Representer extends \Eloquent {
-    
+
     use SoftDeletingTrait,
-        Models\ModelBCUDTrait;
+        ModelBCUDTrait;
 
     public $timestamps = true;
     protected $table = 'representers';
-    protected $dates = ['deleted_at'];
-
-    /**
-     * Get all the events that this Representer represents.
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    public function events() {
-        return $this->hasMany('Rockit\Event');
-    }
+    protected $hidden = array('deleted_at', 'created_at', 'updated_at');
+    protected $dates = array('deleted_at');
+    public static $response_field = 'first_name';
 
     /**
      * Validations rules for creating a new Representer.
@@ -50,12 +45,11 @@ class Representer extends \Eloquent {
     );
 
     /**
-     * Check if there is a persistant Representer matching the provided id.
-     * @param integer $id The numeric identifier for the requester Representer
-     * @return Representer : The provided id matches an existing Representer. null : The provided id does not match any existing Representer.
+     * Get all the events that this Representer represents.
+     * @return \Illuminate\Database\Eloquent\Collection
      */
-    public static function exist($id) {
-        return self::find($id);
+    public function events() {
+        return $this->hasMany('Rockit\Event');
     }
 
 }

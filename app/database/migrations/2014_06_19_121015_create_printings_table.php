@@ -11,7 +11,7 @@ class CreatePrintingsTable extends Migration {
 			$table->increments('id');
 			$table->integer('printing_type_id')->unsigned();
 			$table->integer('event_id')->unsigned();
-			$table->string('source', 100);
+			$table->string('source', 100)->unique();
 			$table->integer('nb_copies');
 			$table->integer('nb_copies_surplus')->default(0);
                         $table->unique(array('printing_type_id', 'event_id'));

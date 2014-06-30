@@ -6,11 +6,6 @@ use \Validator;
 
 trait BaseModelTrait {
 
-    private static function getClass() {
-        $class = explode('\\', get_called_class());
-        return end($class);
-    }
-
     /**
      * Check that the provided datas are valid according to the choosed set of rules.
      * 
@@ -18,7 +13,10 @@ trait BaseModelTrait {
      * @param array $rules The rules to apply to the data
      * @return mixed true : the data are valids. array : an array containing the fail messages 
      */
-    public static function validate(array $data, array $rules) {
+    public static function validate(array &$data, array $rules) {
+        $data = array_filter($data, function($item) {
+            return $item !== null;
+        });
         $v = Validator::make($data, $rules);
         if ($v->fails()) {
             $response['fail'] = $v->messages()->getMessages();
@@ -39,5 +37,5 @@ trait BaseModelTrait {
     public static function exist($value, $column = 'id') {
         return self::where($column, '=', $value)->first();
     }
-
+    
 }

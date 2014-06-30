@@ -10,13 +10,17 @@ use Illuminate\Support\Facades\Input,
 class AuthController extends \BaseController {
 
     /**
-     * Login the current user. Checks if email and password are set, if they are valid
-     * following User Model, then try to log in.
+     * Login the current user if he provides valid credentials. 
+     *
+     * Get the adequate inputs from the client request and attempt a login.<br>
+     * If an email and password were not provided, a <b>Jsend::error</b> is returned.<br>
+     * If the email and/or password aren't in the valid forms, the same <b>Jsend::error</b> is returned.<br>
+     * If the email and/or password provided were not valid credentials, the same <b>Jsend::error</b> is returned.<br>
+     * TO REVIEW
      *
      * @return Jsend success or Jsend fail
      */
     public function login() {
-        // test if remember is set true
         $remember = Input::get('remember');
         if (!empty($remember)) {
             $remember = $remember == 'true' ? true : false;
@@ -33,12 +37,18 @@ class AuthController extends \BaseController {
                 'user' => Auth::user(),
             ));
         }
-        return Jsend::error(array('title' => trans('error.auth.login')));
+        return Jsend::error(trans('error.auth.login'));
     }
 
     /**
-     * Logout the current user.
-     * @return Jsend success or Jsend fail
+     * Login the current user if he provides valid credentials. 
+     *
+     * Get the adequate inputs from the client request and attempt a login.<br>
+     * If an email and password were not provided, a <b>Jsend::error</b> is returned.<br>
+     * If the email and/or password aren't in the valid forms, the same <b>Jsend::error</b> is returned.<br>
+     * If the email and/or password provided were not valid credentials, the same <b>Jsend::error</b> is returned.<br>
+     * TO REVIEW
+     * @return array Contains an array with either a <b>fail</b>, <b>error</b> or <b>success</b> key and its corresponding message
      */
     public function logout() {
         try {
@@ -46,12 +56,12 @@ class AuthController extends \BaseController {
         } catch (Exception $e) {
             Jsend::error(trans('error.auth.logout'));
         }
-        return Jsend::success(trans('success.auth.logout'));
+        return Jsend::success(array('title' => trans('success.auth.logout')));
     }
-    
+
     /**
-     * Check wether the current user is logged in the application.
-     * @return boolean
+     * Check whether the current user is logged in to the application.
+     * @return boolean <b>Jsend::fail</b> or <b>Jsend::success</b>
      */
     public function authCheck() {
         return Auth::guest() ? Jsend::fail(null) : Jsend::success();

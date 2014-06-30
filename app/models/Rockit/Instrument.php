@@ -5,19 +5,17 @@ namespace Rockit;
 class Instrument extends \Eloquent {
 
     use \Illuminate\Database\Eloquent\SoftDeletingTrait,
-    Models\ModelBCRDTrait;
+        Models\ModelBCRDTrait;
 
+    public $timestamps = false;
     protected $table = 'instruments';
-    protected $hidden = ['deleted_at'];
-    
-	public $timestamps = false;
-        
+    public static $response_field = 'name_de';
     public static $create_rules = array(
-        'name_de' => 'required',
+        'name_de' => 'required|min:1',
     );
-    
-	public function lineups()
-	{
-		return $this->hasMany('Rockit\Lineup');
-	}
+
+    public function lineups() {
+        return $this->hasMany('Rockit\Lineup');
+    }
+
 }

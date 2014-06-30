@@ -2,64 +2,145 @@
 
 namespace Rockit\v1;
 
+use \Input,
+    \Jsend,
+    \Route,
+    \Request,
+    \Rockit\Image,
+    \Rockit\Controllers\ControllerBSUDTrait;
+
+/**
+ * Contains interaction methods to the Image model in the database.<br>
+ * Based on the Laravel's BaseController.<br>
+ * Can : <b>index</b> all the Images, <b>show</b>, <b>destroy</b> and <b>update</b> one Image.<br>
+ * Since Images can be linked to an event, the <b>delete</b> is actually a <b>softDelete</b>.
+ * 
+ * @author ??
+ */
 class ImageController extends \BaseController {
+ 
+    use ControllerBSUDTrait;
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		//
-	}
+    /**
+     * Display a listing of the resource.
+     * 
+     * Each Image is returned with its own information.
+     * TO REVIEW line 33-35 
+     * 
+     * @return Jsend
+     */
+    public function index() {
+        if (Input::has('is_illustration')) {
+            $illustrates = filter_var(Input::get('is_illustration'), FILTER_VALIDATE_BOOLEAN);
+            if ($illustrates) {
+                $response['success'] = ['response' => Image::whereRaw('artist_id IS NOT NULL')->get()];
+            } else {
+                $response['success'] = ['response' => Image::whereRaw('artist_id IS NULL')->get()];
+            }
+        } else {
+            $response['success'] = ['response' => Image::all()];
+        }
+        return Jsend::compile($response);
+    }
 
+    /**
+     * Display the specified resource.
+     * 
+     * Return an Image with all of its relationships.<br>
+     * If the provided id does not point to an existing Image, a <b>Jsend::fail</b> is returned.<br>
+     *
+     * @param int $id The id of the requested Image
+     * @return Jsend
+     */
+    public function show($id) {
+        $image = Image::find($id);
+        if (is_object($image)) {
+            $response['success'] = ['response' => $image];
+        } else {
+            $response['fail'] = ['image' => [trans('fail.image.inexistant')]];
+        }
+        return Jsend::compile($response);
+    }
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
+    /**
+     * Store a newly created resource in storage.
+     * 
+     * Get the adequate inputs from the client request and test that each of them pass the validation rules.<br>
+     * If any a these inputs fails, a <b>Jsend::fail</b> is returned.<br>
+     * If all the inputs are valid, the data is then passed to the <b>save()</b> method.<br>
+     *
+     * @return Jsend
+     */
+    public function store() {
+        $data = Input::only('source', 'alt_de', 'caption_de');
+        $response = Image::validate($data, Image::$create_rules);
+        if ($response === true) {
+            $response = self::save('Image', $data, true, 'source');
+        }
+        return Jsend::compile($response);
+    }
 
+    /**
+     * Update the specified resource in storage.
+     * 
+     * If the provided id does not point to an existing Image, a <b>Jsend::fail</b> is returned.<br>
+     * Get the adequate inputs from the client request and test that each of them pass the validation rules.<br>
+     * If any a these inputs fail, a <b>Jsend::fail</b> is returned.<br>
+     * If all the inputs are valid, the data is then passed to the <b>modify()</b> method.<br>
+     *
+     * @param int $id The id of the requested Image
+     * @return Jsend
+     */
+    public function update($id) {
+        $data = Input::only('source', 'alt_de', 'caption_de');
+        $response = Image::validate($data, Image::$update_rules);
+        if ($response === true) {
+            $response = self::modify($id, $data);
+        }
+        return Jsend::compile($response);
+    }
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		//
-	}
+    /**
+     * Remove the specified resource from storage.
+     *
+     * If the provided id does not point to an existing Image, a <b>Jsend::fail</b> is returned.<br>
+     * Or else this id is then passed to the <b>delete()</b> method that deletes the corresponding model.
+     * 
+     * @param int $id The id of the requested Image
+     * @return Jsend
+     */
+    public function destroy($id) {
+        return Jsend::compile(self::delete('Image', $id));
+    }
 
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
-
+    /**
+     * Modify the Image's informations on the database.
+     * 
+     * blablabla...
+     * If the Image's source is successfully modified, the file referenced by the old source value is deleted.
+     * blablabla...
+     * 
+     * @param type $id
+     * @param type $new_data
+     * @return type
+     */
+    public function modify($id, $new_data) {
+        $object = Image::exist($id);
+        if ($object == null) {
+            $response['fail'] = ['image' => [trans('fail.image.inexistant')]];
+        } else {
+            // Get the old source
+            $path = explode('/', $object->source);
+            // Create an url to delete the old source
+            $url = 'v1/files/' . $path[0] . '/' . $path[1];
+            $response = Image::updateOne($new_data, $object);
+            if (isset($response['success'])) {
+                // Delete the old source if the update is a success
+                $request = Request::create($url, 'DELETE');
+                Route::dispatch($request);
+            }
+        }
+        return $response;
+    }
 
 }
