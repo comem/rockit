@@ -487,7 +487,7 @@ class WordExport {
         return $contact;
     }
 
-    private static function deleteDoubleWhitspace($date) {
+    public static function deleteDoubleWhitspace($date) {
         $date = preg_replace("/\s\s(\d\.)/", " $1", $date);
         return $date;
     }
