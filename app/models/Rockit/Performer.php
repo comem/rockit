@@ -4,13 +4,36 @@ namespace Rockit;
 
 use Rockit\Models\CompletePivotModelTrait;
 
+/**
+ * Contains the attributes and methods of a Performer model in the database.<br>
+ * A Performer performs at an Event and is composed of an Artist.<br>
+ * Based on the Laravel's Eloquent.<br>
+ * 
+ * @author ??
+ */
 class Performer extends \Eloquent {
 
     use CompletePivotModelTrait;
 
     protected $table = 'performers';
     protected $hidden = ['artist_id', 'event_id'];
+
+    /**
+     * Indicates whether this model uses laravel's timestamps.
+     * @var boolean 
+     */
     public $timestamps = false;
+
+    /**
+     * Indicates which field value should be used in the return messages.
+     * @var string 
+     */
+    public static $response_field = 'id';
+
+    /**
+     * Validation rules for creating a new Performer.
+     * @var array 
+     */
     public static $create_rules = [
         'order' => 'integer|required|min:0',
         'is_support' => 'boolean',
@@ -18,17 +41,37 @@ class Performer extends \Eloquent {
         'event_id' => 'integer|required|min:1|exists:events,id',
         'artist_id' => 'integer|required|min:1|exists:artists,id',
     ];
+
+    /**
+     * Validation rules for updating an existing Performer.
+     * @var array 
+     */
     public static $update_rules = [
         'order' => 'integer|min:0',
         'is_support' => 'boolean',
         'artist_hour_of_arival' => 'date',
     ];
-    public static $response_field = 'id';
 
     /**
-     * 
-     * @param type $data
-     * @return type
+     * Get the Artist to which a Performer is related.
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function artist() {
+        return $this->belongsTo('Rockit\Artist');
+    }
+
+    /**
+     * Get the Event to which a Performer is related.
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function event() {
+        return $this->belongsTo('Rockit\Event');
+    }
+
+    /**
+     * Check if a Performer exists, with the provided artist id, event id and order.
+     *
+     * @return ?Null or a Performer object?
      */
     public static function existByIds($data) {
         return self::where('artist_id', '=', $data['artist_id'])
@@ -37,14 +80,11 @@ class Performer extends \Eloquent {
         ->first();
     }
 
-    public function artist() {
-        return $this->belongsTo('Rockit\Artist');
-    }
-
-    public function event() {
-        return $this->belongsTo('Rockit\Event');
-    }
-
+    /**
+     * Check if a specific order position is available for a Performer, with the provided order, event id and Performer.
+     *
+     * @return ?return Performer object or null?
+     */
     public static function checkOrderAvailability(array $data, Performer $performer = null) {
         if (isset($data['order'])) {
             if (!empty($performer)) {
@@ -60,6 +100,11 @@ class Performer extends \Eloquent {
         return empty($exist);
     }
 
+    /**
+     * ???
+     *
+     * @return ??
+     */
     public static function getOrderAvailable(array &$data, Performer $performer = null) {
         if (isset($data['order'])) {
             if (!empty($performer)) {
