@@ -9,7 +9,7 @@ use \Rockit\Controllers\ControllerBSUDTrait,
     \WordExport,
     \XMLExport,
     \Validator;
-use \Rockit\Event;
+use \Rockit\Ticket, \Rockit\Event;
 
 class EventController extends \BaseController {
 
