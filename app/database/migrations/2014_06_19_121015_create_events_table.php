@@ -19,7 +19,7 @@ class CreateEventsTable extends Migration {
                         $table->string('description_de', 500)->nullable();
 			$table->integer('nb_meal');
 			$table->integer('nb_vegans_meal');
-			$table->text('meal_notes')->nullable();
+			$table->text('meal_notes_de')->nullable();
 			$table->string('nb_places')->default(180);
 			$table->boolean('followed_by_private')->default(false);
 			$table->string('contract_src', 100)->nullable()->unique();

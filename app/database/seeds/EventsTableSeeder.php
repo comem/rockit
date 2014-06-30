@@ -31,7 +31,7 @@ class EventsTableSeeder extends Seeder {
                             'nb_places'=>'180',
                             'followed_by_private'=>'0',
                             'notes_de'=>'',
-                            'meal_notes'=>'Sandwiches zum verkauf vorbereiten',
+                            'meal_notes_de'=>'Sandwiches zum verkauf vorbereiten',
                             'description_de'=> '17.30 - 18.30 Pre-Party Workshop /n 18.30 - 22.00 Party-Time mit DJ Que rico',
                             ));
         
@@ -92,7 +92,7 @@ class EventsTableSeeder extends Seeder {
                             'title_de'=> 'Philipp Bluedög Gerber Band',
                             'nb_meal'=>'14',
                             'nb_vegans_meal'=>'2',
-                            'meal_notes' => 'Würden gern eine Fondue oder raclette essen, vermissen Schweizer essen',
+                            'meal_notes_de' => 'Würden gern eine Fondue oder raclette essen, vermissen Schweizer essen',
                             'nb_places'=>'180',
                             'followed_by_private'=>'0',
                             'notes_de'=>'',
@@ -125,7 +125,7 @@ class EventsTableSeeder extends Seeder {
                             'nb_vegans_meal'=>'1',
                             'nb_places'=>'180',
                             'followed_by_private'=>'0',
-                            'meal_notes'=>'2 mahl ohne fish, un ein mais alergisch',
+                            'meal_notes_de'=>'2 mahl ohne fish, un ein mais alergisch',
                             'notes_de'=>'',
                             ));
         
@@ -156,7 +156,7 @@ class EventsTableSeeder extends Seeder {
                             'nb_vegans_meal'=>'5',
                             'nb_places'=>'180',
                             'followed_by_private'=>'1',
-                            'meal_notes' => 'Möchten kein brocoli, und kein geflügel aus Asia, und kein pfeffer, lieber auch ohne salz, und nicht zu hart zu kauhen',
+                            'meal_notes_de' => 'Möchten kein brocoli, und kein geflügel aus Asia, und kein pfeffer, lieber auch ohne salz, und nicht zu hart zu kauhen',
 //                            'contract_src'=>'',
                             'notes_de'=>'',
                             ));
@@ -208,7 +208,7 @@ class EventsTableSeeder extends Seeder {
                             'followed_by_private'=>'0',
 //                            'contract_src'=>'',
                             'notes_de'=>'',
-                            'meal_notes'=>'Sandwiches zum verkauf vorbereiten',
+                            'meal_notes_de'=>'Sandwiches zum verkauf vorbereiten',
                             'description_de' => '17.30 - 18.30 Pre-Party Workshop /n 18.30 - 22.00 Party-Time mit DJ Que rico',
                             ));
         
