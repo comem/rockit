@@ -18,6 +18,12 @@ class Ticket extends \Eloquent {
 		'event_id' 				=> 'integer|required|min:1|exists:events,id',
 		'ticket_category_id'	=> 'integer|required|min:1|exists:ticket_categories,id',
 	];
+	public static $create_event_rules = [
+		'amount' 				=> 'integer|required|min:0',
+		'quantity_sold'			=> 'integer|min:0',
+		'comment_de' 			=> 'min:1',
+		'ticket_category_id'	=> 'integer|required|min:1|exists:ticket_categories,id',
+	];
 	public static $update_rules = [
 		'amount' 			=> 'integer|min:0',
 		'quantity_sold'		=> 'integer|min:0',
@@ -52,10 +58,10 @@ class Ticket extends \Eloquent {
 		$newTab = [];
 		foreach( $ticket_categories as $ticket_category ){
 			if( !in_array($ticket_category['ticket_category_id'], $newTab) ){
-				$newTab[] = $ticket_category;
+				$newTab[] = $ticket_category['ticket_category_id'];
 			}
 		}
-		return count( $ticket_category ) !== count( $newTab );
+		return count( $ticket_category ) === count( $newTab );
 	}
 
 }

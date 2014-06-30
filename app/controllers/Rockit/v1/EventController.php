@@ -112,7 +112,7 @@ class EventController extends \BaseController {
         $validate = Event::validate($inputs, Event::$create_rules);
         if ($validate === true) {
             DB::beginTransaction();
-            $respsonse = self::save($inputs);
+            $response = self::save($inputs);
             DB::commit();
         } else {
             $response = $validate;
@@ -327,7 +327,7 @@ class EventController extends \BaseController {
     public static function save($inputs) {
         if( Ticket::isTicketCategoryUnicity( $inputs['tickets'] ) ) {
             foreach ( $inputs['tickets'] as $ticket) {
-                $v = Ticket::validate($ticket);
+                $v = Ticket::validate($ticket, Ticket::$create_event_rules);
                 if( $v !== true ){
                     $response['fail']['tickets'][] = $v;
                 }
