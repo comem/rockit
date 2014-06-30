@@ -31,8 +31,8 @@ class Fulfillment extends \Eloquent {
     public static $response_field = 'id';
 
     /**
-     * Indicates which field value should be used in the return messages.
-     * @var string 
+     * Validations rules for creating a new Fulfillment.
+     * @var array 
      */
     public static $create_rules = [
         'member_id' => 'integer|required|min:1|exists:members,id',

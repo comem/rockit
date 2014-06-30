@@ -30,8 +30,8 @@ class Description extends \Eloquent {
     public static $response_field = 'id';
 
     /**
-     * Indicates which field value should be used in the return messages.
-     * @var string 
+     * Validations rules for creating a new Description.
+     * @var array 
      */
     public static $create_rules = [
         'genre_id' => 'integer|required|min:1|exists:genres,id',

@@ -31,8 +31,8 @@ class Attribution extends \Eloquent {
     public static $response_field = 'id';
 
     /**
-     * Indicates which field value should be used in the return messages.
-     * @var string 
+     * Validations rules for creating a new Attribution.
+     * @var array 
      */
     public static $create_rules = [
         'cost' => 'integer|min:0',
@@ -42,7 +42,7 @@ class Attribution extends \Eloquent {
     ];
 
     /**
-     * Validation rules for updating an existing Language.
+     * Validation rules for updating an existing Attribution.
      * @var array 
      */
     public static $update_rules = [

@@ -34,7 +34,7 @@ class TicketCategory extends \Eloquent {
     public static $response_field = 'name_de';
 
     /**
-     * Validations rules for creating a new Member.
+     * Validations rules for creating a new TicketCategory.
      * @var array 
      */
     public static $create_rules = array(

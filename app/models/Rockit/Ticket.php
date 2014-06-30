@@ -30,7 +30,7 @@ class Ticket extends \Eloquent {
 	public static $response_field = 'id';
 
 	/**
-     * Validations rules for creating a new Language.
+     * Validations rules for creating a new Ticket.
      * @var array 
      */
 	public static $create_rules = [
@@ -42,7 +42,7 @@ class Ticket extends \Eloquent {
 	];
 
 	/**
-     * Validation rules for updating an existing Language.
+     * Validation rules for updating an existing Ticket.
      * @var array 
      */
 	public static $update_rules = [
@@ -72,7 +72,9 @@ class Ticket extends \Eloquent {
 	/**
 	 * Check if the Event corresponding to the provided event id proposes only one, last Ticket.
 	 *
-	 * If this is the last Ticket for the Event corresponding to the provided event id, a <b>Jsend:fail</b> is returned.<br> 
+	 * If this is the last Ticket for the Event corresponding to the provided event id, a <b>Jsend:fail</b> is returned.<br>
+     * Or else a boolean 'false' is returned.<br>
+     * 
 	 * @return a boolean 'false' or a Jsend:fail message
 	 */
 	public static function isLastTicket($object){
