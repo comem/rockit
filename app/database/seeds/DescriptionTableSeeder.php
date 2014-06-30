@@ -47,6 +47,39 @@ class DescriptionTableSeeder extends Seeder {
         
         Description::create(array('artist_id' => '7',
                                     'genre_id'=> '8'));
+        
+        Description::create(array('artist_id' => '9',
+                                    'genre_id'=> '13'));
+        
+        Description::create(array('artist_id' => '10',
+                                    'genre_id'=> '20'));
+        
+        Description::create(array('artist_id' => '10',
+                                    'genre_id'=> '21'));
+        
+        Description::create(array('artist_id' => '10',
+                                    'genre_id'=> '22'));
+        
+        Description::create(array('artist_id' => '11',
+                                    'genre_id'=> '23'));
+        
+        Description::create(array('artist_id' => '11',
+                                    'genre_id'=> '24'));
+        
+        Description::create(array('artist_id' => '12',
+                                    'genre_id'=> '25'));
+        
+        Description::create(array('artist_id' => '13',
+                                    'genre_id'=> '22'));
+        
+        Description::create(array('artist_id' => '14',
+                                    'genre_id'=> '26'));
+        
+        Description::create(array('artist_id' => '14',
+                                    'genre_id'=> '27'));
+        
+        
+        
 
     }
 }
