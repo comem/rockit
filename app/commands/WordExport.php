@@ -4,8 +4,23 @@ use PhpOffice\PhpWord\PhpWord,
     PhpOffice\PhpWord\IOFactory,
     \Rockit\Event;
 
+/**
+ * This class is used to export an interval of selected Event into a well-formatted Word file.
+ * 
+ * @author Christian Heimann <christian.heimann@heig-vd.ch>
+ */
 class WordExport {
 
+    /**
+     * Return a Word file containing data from the events filtered by the <b>from</b> and <b>to</b> attribute.<br>
+     * 
+     * The <b>from</b> and <b>to</b> attribute must be UTC datetime formatted with the 'YYYY-mm-DD hh:mm:ss' format.<br>
+     * They are mandatory and will set a time interval from which the events will be retrieved and returned.<br>
+     * 
+     * @param DateTime $from The interval beginning time
+     * @param DateTime $to The interval end time
+     * @return Word An output to download the created Word file
+     */
     public static function events($from, $to) {
         setlocale(LC_ALL, 'de_DE@euro', 'de_DE', 'de', 'ge');
         header('Content-Type: text/html; charset=utf-8');
@@ -60,7 +75,7 @@ class WordExport {
 
         //// Set line style definitions
         $lsSimple = array('weight' => 1, 'width' => 460, 'height' => 0); // for seperator between paragraphs
-        $lsColor = array('weight' => 1, 'width' => 460, 'height' => 0, 'color' => '#b2a68b');
+        $lsColor = array('weight' => 1, 'width' => 460, 'height' => 0, 'color' => '#b2a68b'); // for colored seperator line between paragraphs
 
         // 1 = Main title document
         $word->addTitleStyle(1, $fsH1, $psH1);
@@ -98,8 +113,8 @@ class WordExport {
         $section->addText("Benutzer: presse@mahog_werb", $fsStandard, $psStandard);
         $section->addText("Passwort: pressemahog11", $fsStandard, $psStandardSpaceAfter);
         $section->addText("Es können ohne Rückfrage jeweils 1x2 Tickets verlost werden. "
-                . "Für mehr Tickets bitte kurze Anfrage an konzerte@mahogany.ch. "
-                . "Gewinnermeldungen von Ticketverlosungen bitte direkt an reservationen@mahogany.ch.", $fsShortDesc, $psStandardSpaceAfter);
+        . "Für mehr Tickets bitte kurze Anfrage an konzerte@mahogany.ch. "
+        . "Gewinnermeldungen von Ticketverlosungen bitte direkt an reservationen@mahogany.ch.", $fsShortDesc, $psStandardSpaceAfter);
 
         $section->addLine($lsColor);
 

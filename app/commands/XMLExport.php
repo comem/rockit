@@ -3,6 +3,9 @@
 use \Rockit\Event;
 
 class XMLExport {
+    
+    // http://www.sagetree.com/sage-advice/richard-yumul/phps-simplexml-escaping-ampersand
+    // Resolution du bug "unterminated entity reference"
 
     public static function events($from, $to) {
         $filename = "events.xml";
@@ -21,7 +24,8 @@ class XMLExport {
                 $xEvent->addChild('opening_doors', $event->opening_doors);
             }
             if ($event->title_de != NULL) {
-                $xEvent->addChild('title_de', $event->title_de);
+//                $xEvent->addChild('title_de', $event->title_de);
+                $xEvent->title_de = $event->title_de;
             }
             if ($event->description_de != NULL) {
                 $xEvent->addChild('description_de', $event->description_de);
@@ -99,11 +103,12 @@ class XMLExport {
             }
 
             //// TICKETS
-            $ticketCategories = $event->ticketCategories;
+            $ticketCategories = $event->ticket_categories;
             $xTickets = $xEvent->addChild('tickets');
             foreach ($ticketCategories as $ticketCategory) {
                 $xTicket = $xTickets->addChild('ticket');
-                $xTicket->addChild('ticket_category', $ticketCategory->name_de);
+//                $xTicket->addChild('ticket_category', $ticketCategory->name_de);
+                $xTicket->ticket_category = $ticketCategory->name_de;
                 $xTicket->addChild('amount', $ticketCategory->pivot->amount);
                 if ($ticketCategory->pivot->comment_de) {
                     $xTicket->addChild('comment_de', $ticketCategory->pivot->comment_de);

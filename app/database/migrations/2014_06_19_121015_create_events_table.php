@@ -22,7 +22,7 @@ class CreateEventsTable extends Migration {
 			$table->text('meal_notes')->nullable();
 			$table->string('nb_places')->default(180);
 			$table->boolean('followed_by_private')->default(false);
-			$table->string('contract_src')->nullable();
+			$table->string('contract_src', 100)->nullable()->unique();
 			$table->text('notes_de')->nullable();
 			$table->timestamps();
 			$table->timestamp('published_at')->nullable();

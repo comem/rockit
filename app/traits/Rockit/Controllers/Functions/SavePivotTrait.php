@@ -18,7 +18,7 @@ trait SavePivotTrait {
         $call = self::$namespace . $pivot_model;
         $object = $call::existByIds($data);
         if (is_object($object)) {
-            $response = array('fail' => trans('fail.' . snake_case($pivot_model) . '.existing'));
+            $response['fail'] = [snake_case($pivot_model) => [trans('fail.' . snake_case($pivot_model) . '.existing')]];
         }
         if (!isset($response)) {
             $response = $call::createOne($data);
