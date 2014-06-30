@@ -4,6 +4,8 @@ namespace Rockit\v1;
 
 use \Input,
     \Jsend,
+    \Route,
+    \Request,
     \Rockit\Image,
     \Rockit\Controllers\ControllerBSUDTrait;
 
@@ -31,12 +33,12 @@ class ImageController extends \BaseController {
         if (Input::has('is_illustration')) {
             $illustrates = filter_var(Input::get('is_illustration'), FILTER_VALIDATE_BOOLEAN);
             if ($illustrates) {
-                $response['success'] = ['images' => Image::whereRaw('artist_id IS NOT NULL')->get()];
+                $response['success'] = ['response' => Image::whereRaw('artist_id IS NOT NULL')->get()];
             } else {
-                $response['success'] = ['images' => Image::whereRaw('artist_id IS NULL')->get()];
+                $response['success'] = ['response' => Image::whereRaw('artist_id IS NULL')->get()];
             }
         } else {
-            $response['success'] = ['images' => Image::all()];
+            $response['success'] = ['response' => Image::all()];
         }
         return Jsend::compile($response);
     }
@@ -53,7 +55,7 @@ class ImageController extends \BaseController {
     public function show($id) {
         $image = Image::find($id);
         if (is_object($image)) {
-            $response['success'] = ['images' => $image];
+            $response['success'] = ['response' => $image];
         } else {
             $response['fail'] = ['image' => [trans('fail.image.inexistant')]];
         }
@@ -93,7 +95,7 @@ class ImageController extends \BaseController {
         $data = Input::only('source', 'alt_de', 'caption_de');
         $response = Image::validate($data, Image::$update_rules);
         if ($response === true) {
-            $response = self::modify('Image', $id, $data);
+            $response = self::modify($id, $data);
         }
         return Jsend::compile($response);
     }
@@ -109,6 +111,36 @@ class ImageController extends \BaseController {
      */
     public function destroy($id) {
         return Jsend::compile(self::delete('Image', $id));
+    }
+
+    /**
+     * Modify the Image's informations on the database.
+     * 
+     * blablabla...
+     * If the Image's source is successfully modified, the file referenced by the old source value is deleted.
+     * blablabla...
+     * 
+     * @param type $id
+     * @param type $new_data
+     * @return type
+     */
+    public function modify($id, $new_data) {
+        $object = Image::exist($id);
+        if ($object == null) {
+            $response['fail'] = ['image' => [trans('fail.image.inexistant')]];
+        } else {
+            // Get the old source
+            $path = explode('/', $object->source);
+            // Create an url to delete the old source
+            $url = 'v1/files/' . $path[0] . '/' . $path[1];
+            $response = Image::updateOne($new_data, $object);
+            if (isset($response['success'])) {
+                // Delete the old source if the update is a success
+                $request = Request::create($url, 'DELETE');
+                Route::dispatch($request);
+            }
+        }
+        return $response;
     }
 
 }

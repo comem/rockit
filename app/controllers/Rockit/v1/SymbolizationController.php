@@ -92,9 +92,7 @@ class SymbolizationController extends \BaseController {
                     'id' => $event->id,
                 ];
             } else {
-                $response['error'] = [
-                    'title' => trans('error.symbolization.created')
-                ];
+                $response['error'] = trans('error.symbolization.created');
             }
         } else {
             $response['fail'] = [
@@ -126,9 +124,7 @@ class SymbolizationController extends \BaseController {
                     'title' => trans('success.symbolization.deleted'),
                 ];
             } else {
-                $response['error'] = [
-                    'title' => trans('error.symbolization.deleted')
-                ];
+                $response['error'] = trans('error.symbolization.deleted');
             }
         }
         return $response;

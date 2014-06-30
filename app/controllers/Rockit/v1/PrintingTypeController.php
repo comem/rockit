@@ -27,7 +27,7 @@ class PrintingTypeController extends \BaseController {
      * @return Jsend
      */
     public function index() {
-        return Jsend::success(PrintingType::all()->toArray());
+        return Jsend::success(['response' => PrintingType::all()->toArray()]);
     }
 
     /**

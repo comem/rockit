@@ -14,7 +14,7 @@ class Representer extends \Eloquent {
     protected $table = 'representers';
     protected $hidden = array('deleted_at', 'created_at', 'updated_at');
     protected $dates = array('deleted_at');
-    protected static $response_field = 'first_name';
+    public static $response_field = 'first_name';
 
     /**
      * Validations rules for creating a new Representer.

@@ -4,8 +4,7 @@ namespace Rockit;
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait,
     \DB,    
-    Rockit\Lineup,
-    Rockit\Instrument;
+    Rockit\Lineup;
 
 class Musician extends \Eloquent {
     
@@ -20,14 +19,14 @@ class Musician extends \Eloquent {
     public static $response_field = 'first_name';
 
     public static $create_rules = array(
-        'first_name' => 'required|min:1|max:100',
-        'last_name' => 'max:100',
+        'first_name' => 'required|min:1|max:100|names',
+        'last_name' => 'max:100|names',
         'stagename' => 'max:100',
-        'lineups' => 'required',
+        'lineups' => 'required|array|min:1',
     );
     public static $update_rules = array(
-        'first_name' => 'min:1|max:100',
-        'last_name' => 'max:100',
+        'first_name' => 'min:1|max:100|names',
+        'last_name' => 'max:100|names',
         'stagename' => 'max:100',
     );
 
@@ -48,7 +47,6 @@ class Musician extends \Eloquent {
     }
 
     public static function createOne($data) {
-        $class = class_basename(get_called_class());
         $field = self::$response_field;
         self::unguard();
         DB::beginTransaction();
@@ -67,12 +65,12 @@ class Musician extends \Eloquent {
                 }
             }
             $response['success'] = array(
-                'title' => trans('success.' . snake_case($class) . '.created', array('name' => $object->$field)),
+                'title' => trans('success.musician.created', array('name' => $object->$field)),
                 'id' => $object->id,
             );
             DB::commit();
         } else {
-            $response['error'] = trans('error.' . snake_case($class) . '.created', array('name' => $object->$field));
+            $response['error'] = trans('error.musician.created', array('name' => $object->$field));
             DB::rollback();
         }
         return $response;

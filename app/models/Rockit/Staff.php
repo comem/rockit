@@ -17,7 +17,7 @@ class Staff extends \Eloquent {
         'skill_id' => 'integer|required|min:1|exists:skills,id',
     ];
     public static $update_rules = [
-        'skill_id' => 'integer|required|min:1|exists:skills,id',
+        'skill_id' => 'integer|min:1|exists:skills,id',
     ];
     public static $response_field = 'id';
 

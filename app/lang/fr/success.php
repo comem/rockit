@@ -13,6 +13,7 @@ return [
     'artist' => [
         'created' => "Le nouvel artiste \":name\" a bien été sauvegardé.",
         'deleted' => "L'artiste \":name\" a bien été supprimé.",
+        'updated' => "L'artiste \":name\" a bien été mis à jour.",
     ],
     'attribution' => [
         'created' => "La nouvelle attribution a bien été sauvegardée.",
@@ -29,6 +30,8 @@ return [
     ],
     'equipment' => [
         'deleted' => "L'équipement \":name\" a bien été supprimé.",
+        'restored' => "L'équipement \":name\" a bien été restauré.",
+        'created' => "L'équipement \":name\" a bien été sauvegardé.",
     ],
     'event' => [
         'updated' => "L'événement a bien été mis à jour.",
@@ -52,6 +55,8 @@ return [
     ],
     'genre' => [
         'deleted' => "Le genre \":name\" a bien été supprimé.",
+        'created' => "Le genre \":name\" a bien été sauvegardé.",
+        'restored' => "Le genre \":name\" a bien été restauré.",
     ],
     'gift' => [
         'created' => "Le nouveau lot \":name\" a bien été sauvegardé.",
@@ -67,14 +72,14 @@ return [
         'deleted' => "L'image a bien été retirée de l'artiste.",
     ],
     'image' => [
-        'created' => "La nouvelle image \":name\" a bien été sauvegardée.",
-        'deleted' => "L'image \":name\" a bien été supprimée.",
-        'updated' => "L'image \":name\" a bien été mise à jour.",
+        'created' => "La nouvelle image a bien été sauvegardée.",
+        'deleted' => "L'image a bien été supprimée.",
+        'updated' => "L'image a bien été mise à jour.",
     ],
     'instrument' => [
         'created' => "Le nouvel instrument \":name\" a bien été sauvegardé.",
-        'deleted' => "L instrument \":name\" a bien été supprimé.",
-        'restored' => "L instrument \":name\" a bien été restauré.",
+        'deleted' => "L'instrument \":name\" a bien été supprimé.",
+        'restored' => "L'instrument \":name\" a bien été restauré.",
     ],
     'lineup' => [
         'created' => "La formation a bien été rajoutée",
@@ -92,6 +97,8 @@ return [
     ],
     'musician' => [
         'deleted' => "Le musicien \":name\" a bien été supprimé.",
+        'created' => "Le musicien \":name\" a bien été sauvegardé.",
+        'updated' => "Le musicien \":name\" a bien été mis à jour.",
     ],
     'need' => [
         'created' => "Le nouveau besoin de cet événement a bien été sauvegardé.",
@@ -105,7 +112,7 @@ return [
     ],
     'performer' => [
         'created' => "L'artiste a bien été rajouté à l'événement.",
-        'updated' => "La liaison entre l'artiste et l'événement a bien été modifiée.",
+        'updated' => "La performance de l'artiste a bien été modifiée.",
         'deleted' => "L'artiste a bien été supprimé de l'événement.",
     ],
     'printing' => [
@@ -119,15 +126,15 @@ return [
         'restored' => "Le type d'imprimé \":name\" a bien été restauré.",
     ],
     'representer' => [
-        'created' => "Le nouveau représentant a bien été sauvegardé.",
+        'created' => "Le nouveau représentant \":name\" a bien été sauvegardé.",
         'updated' => "Le représentant \":name\" a bien été mis à jour.",
         'deleted' => "Le représentant \":name\" a bien été supprimé.",
         'restored' => "Le représentant \":name\" a bien été restauré.",
     ],
     'skill' => [
         'deleted' => "La compétence \":name\" a bien été supprimée.",
-        'restored' => "La compétence a bien été restaurée.",
-        'created' => "La nouvelle compétence a bien été sauvegardée.",
+        'restored' => "La compétence \":name\" a bien été restaurée.",
+        'created' => "La nouvelle compétence \":name\" a bien été sauvegardée.",
     ],
     'staff' => [
         'created' => "Le rôle a correctement été assigné à ce membre.",

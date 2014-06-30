@@ -84,7 +84,7 @@ class StaffController extends \BaseController {
     public static function save(array $data) {
         $object = Staff::existByIds($data);
         if (is_object($object)) {
-            $response = array('fail' => trans('fail.staff.existing'));
+            $response = array('fail' => ['staff' => [trans('fail.staff.existing')]]);
         } else {
             $response = Staff::checkMemberFulfillment($data['member_id'], $data['skill_id']);
             if ($response === true) {

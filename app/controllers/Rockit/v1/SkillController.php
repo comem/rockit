@@ -27,7 +27,7 @@ class SkillController extends \BaseController {
      * @return Jsend
      */
     public function index() {
-        return Jsend::success(Skill::all());
+        return Jsend::success(['response' => Skill::all()]);
     }
 
     /**

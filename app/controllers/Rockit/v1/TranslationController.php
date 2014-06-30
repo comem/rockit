@@ -78,7 +78,7 @@ class TranslationController extends \BaseController {
             App::setLocale($lang->locale);
             return $response;
         } else {
-            return ['fail' => [trans('fail.language.inexistant')]];
+            return ['fail' => ['locale' => [trans('fail.language.inexistant')]]];
         }
     }
 

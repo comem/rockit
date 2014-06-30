@@ -42,7 +42,7 @@ class RepresenterController extends BaseController {
     public function show($id) {
         $model = Representer::with('events')->find($id);
         if (is_object($model)) {
-            $response = Jsend::success($model);
+            $response = Jsend::success(['response' => $model]);
         } else {
             $response = Jsend::fail(['representer' => [trans('fail.representer.inexistant')]]);
         }

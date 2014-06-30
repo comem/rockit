@@ -156,7 +156,7 @@ class FilesManager extends \BaseController {
                 $response = $this->$call($file);
             }
         } else {
-            $response['fail'] = ['file' => trans('fail.file.invalid')];
+            $response['fail'] = ['file' => [trans('fail.file.invalid')]];
         }
         return Jsend::compile($response);
     }
@@ -181,9 +181,9 @@ class FilesManager extends \BaseController {
         $file = $this->cleanFileName($file_name);
         if (File::exists($complete_path)) {
             if (File::delete($complete_path)) {
-                $response['success'] = ['title' => [trans('success.file.deleted', ['file' => $file])]];
+                $response['success'] = ['title' => trans('success.file.deleted', ['file' => $file])];
             } else {
-                $response['error'] = trans('error.file.not_deleted', ['file' => $file]);
+                $response['error'] = trans('error.file.deleted', ['file' => $file]);
             }
         } else {
             $response['fail'] = ['file' => [trans('fail.file.inexistant', ['file' => $file])]];
@@ -238,7 +238,7 @@ class FilesManager extends \BaseController {
                 'source' => $file->source,
             ];
         } else {
-            $response['error'] = trans('error.file.not_uploaded', ['file' => $file->getClientOriginalName()]);
+            $response['error'] = trans('error.file.uploaded', ['file' => $file->getClientOriginalName()]);
         }
         return $response;
     }

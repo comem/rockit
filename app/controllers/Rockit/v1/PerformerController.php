@@ -5,7 +5,7 @@ namespace Rockit\v1;
 use \Input,
     \Jsend,
     \Rockit\Performer,
-    Rockit\Controllers\CompletePivotControllerTrait;
+    \Rockit\Controllers\CompletePivotControllerTrait;
 
 /**
  * Contains interaction methods to the Performer model in the database.<br>
@@ -32,7 +32,7 @@ class PerformerController extends \BaseController {
         $data = Input::only('order', 'is_support', 'artist_hour_of_arrival', 'event_id', 'artist_id');
         $response = Performer::validate($data, Performer::$create_rules);
         if ($response === true) {
-            $response = self::save('Performer', $data);
+            $response = self::save($data);
         }
         return Jsend::compile($response);
     }
@@ -53,7 +53,7 @@ class PerformerController extends \BaseController {
         $data = Input::only('order', 'is_support', 'artist_hour_of_arrival');
         $response = Performer::validate($data, Performer::$update_rules);
         if ($response === true) {
-            $response = self::modify('Performer', $id, $data);
+            $response = self::modify($id, $data);
         }
         return Jsend::compile($response);
     }
@@ -70,6 +70,29 @@ class PerformerController extends \BaseController {
      */
     public function destroy($id) {
         return Jsend::compile(self::delete('Performer', $id));
+    }
+
+    public static function save(array $data) {
+        $object = Performer::existByIds($data);
+        if (is_object($object)) {
+            $response['fail'] = ['performer' => [trans('fail.performer.existing')]];
+        }
+        if (!isset($response)) {
+            Performer::getOrderAvailable($data);
+            $response = Performer::createOne($data);
+        }
+        return $response;
+    }
+
+    public static function modify($id, $new_data) {
+        $object = Performer::exist($id);
+        if ($object == null) {
+            $response['fail'] = ['perfomer' => [trans('fail.performer.inexistant')]];
+        } else {
+            Performer::getOrderAvailable($new_data, $object);
+            $response = Performer::updateOne($new_data, $object);
+        }
+        return $response;
     }
 
 }

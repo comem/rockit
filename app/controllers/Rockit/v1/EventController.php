@@ -21,6 +21,7 @@ class EventController extends \BaseController {
      */
     public function index() {
         $events = Event::with('representer', 'eventType', 'image', 'tickets.ticketCategory', 'sharings.platform', 'printings.printingType', 'performers.artist', 'staffs.member', 'staffs.skill', 'needs.skill', 'offers.gift', 'attributions.equipment');
+        $nb_item = Input::has('nb_item') && Input::get('nb_item') > 0 ? Input::get('nb_item') : 10;
         if (Input::has('genres')) {
             $events = $events->artistGenres(Input::get('genres'));
         }
@@ -68,7 +69,13 @@ class EventController extends \BaseController {
                 $events = $events->hasRepresenter(FALSE);
             }
         }
-        return Jsend::success($events->paginate(10)->toArray());
+        $paginate = $events->paginate($nb_item)->toArray();
+        $events_data = $paginate['data'];
+        unset($paginate['data']);
+        return Jsend::success(array(
+            'response' => $events_data,
+            'paginate' => $paginate,
+        ));
     }
 
     /**
@@ -78,11 +85,11 @@ class EventController extends \BaseController {
      * @return Response
      */
     public function show($id) {
-        $event = Event::with('representer', 'eventType', 'image', 'tickets.ticketCategory', 'sharings.platform', 'printings.printingType', 'performers.artist', 'staffs.member', 'staffs.skill', 'needs.skill', 'offers.gift', 'attributions.equipment');
+        $event = Event::with('representer', 'eventType', 'image', 'tickets.ticketCategory', 'sharings.platform', 'printings.printingType', 'performers.artist', 'staffs.member', 'staffs.skill', 'needs.skill', 'offers.gift', 'attributions.equipment')->find($id);
         if (empty($event)) {
             $response = Jsend::fail(['title' => trans('fail.event.inexistant')]);
         } else {
-            $response = Jsend::success($event->find($id));
+            $response = Jsend::success(['response' => $event]);
         }
         return $response;
     }
@@ -170,7 +177,7 @@ class EventController extends \BaseController {
                 return Jsend::compile($response);
             }    
         } else {
-            $response['fail'] = ['title' => trans('fail.export.noinput')];
+            $response['fail'] = ['word' => [trans('fail.wordexport.noinput')]];
             return Jsend::compile($response);
         }
     }
@@ -198,7 +205,7 @@ class EventController extends \BaseController {
                 return Jsend::compile($response);
             }    
         } else {
-            $response['fail'] = ['title' => trans('fail.export.noinput')];
+            $response['fail'] = ['xml' => [trans('fail.xmlexport.noinput')]];
             return Jsend::compile($response);
         }
     }

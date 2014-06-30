@@ -35,8 +35,10 @@ class ArtistController extends \BaseController {
      * <li><b>musician_name</b>: a musician's name</li>
      * </ul>
      * Each provided attribute reduces the scope of the results.<br>
-     * If the Collection posesses more than <b>10</b> items, it will be divided into chunks of <b>10</b> items.<br>
-     * The number of items to return can be changed by providing a value to the <b>nb_item</b> attribute.<br>
+     * If the Collection posesses more than <b>10</b> items, it will be divided into pages of <b>10</b> items.<br>
+     * This number of returned item can be changed by providing a value to the <b>nb_item</b> attribute.<br>
+     * The page number requested can be specified by passing an <b>integer</b> value via the <b>page</b> attribute.<br>
+     * If the <b>page</b>'s value is not an integer or point to an inexistant page, the first page will be returned.<br>
      * This value can not be lower than <b>0</b>.<br>
      * Each Artist is returned with its genres and images. 
      * 
@@ -61,7 +63,7 @@ class ArtistController extends \BaseController {
         $artist_data = $paginate['data'];
         unset($paginate['data']);
         return Jsend::success(array(
-            'artists' => $artist_data,
+            'response' => $artist_data,
             'paginate' => $paginate,
         ));
     }
@@ -76,7 +78,6 @@ class ArtistController extends \BaseController {
      * @return Jsend
      */
     public function show($id) {
-        dd(Artist::with('links', 'images', 'genres', 'events', 'musicians')->find($id));
         $artist = Artist::with('links', 'images', 'genres', 'events', 'musicians')
         ->find($id);
         if (empty($artist)) {
@@ -101,7 +102,7 @@ class ArtistController extends \BaseController {
                 unset($musician->pivot);
                 unset($instruments);
             }
-            $response = Jsend::success($artist);
+            $response = Jsend::success(['response' => $artist]);
         }
         return $response;
     }
@@ -174,25 +175,34 @@ class ArtistController extends \BaseController {
     public static function save($inputs) {
         $existingMergedGenres = [];
         $inputs['genres'] = array_unique($inputs['genres']);
-        foreach ($inputs['genres'] as $genre) {
+        //$fails['genres'] = [];
+        foreach ($inputs['genres'] as $key => $genre) {
             if (Genre::exist($genre, 'id')) {
                 $existingMergedGenres[] = $genre;
+            } else {
+                $fails['genres'][] = trans('fail.artist.genre', ['key' => ++$key]);
             }
         }
-        if (!count($existingMergedGenres) > 0) {
-            $response['fail'] = ['genres' => [trans('fail.artist.nogenre')]];
-        } else {
-            $inputs['genres'] = $existingMergedGenres;
-            if (isset($inputs['images'])) {
-                $existingMergedImages = array();
-                $inputs['images'] = array_unique($inputs['images']);
-                foreach ($inputs['images'] as $image) {
-                    if (Image::where('id', '=', $image)->where('artist_id')->first()) {
-                        $existingMergedImages[] = $image;
-                    }
+        $inputs['genres'] = $existingMergedGenres;
+        if (isset($inputs['images'])) {
+            $existingMergedImages = array();
+            $inputs['images'] = array_unique($inputs['images']);
+            //$fails['images'] = [];
+            foreach ($inputs['images'] as $key => $image) {
+                if (Image::where('id', '=', $image)->where('artist_id')->first()) {
+                    $existingMergedImages[] = $image;
+                } else {
+                    $fails['images'][] = trans('fail.artist.image', ['key' => ++$key]);
                 }
-                $inputs['images'] = $existingMergedImages;
             }
+            $inputs['images'] = $existingMergedImages;
+        }
+        if (isset($fails['genres']) || isset($fails['images'])) {
+            if (!count($existingMergedGenres) > 0) {
+                $fails['genres'][] = trans('fail.artist.nogenre');
+            }
+            $response['fail'] = $fails;
+        } else {
             $response = Artist::createOne($inputs);
         }
         return $response;

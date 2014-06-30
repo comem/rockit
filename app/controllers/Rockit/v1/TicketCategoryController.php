@@ -27,7 +27,7 @@ class TicketCategoryController extends \BaseController {
      * @return Jsend
      */
     public function index() {
-        return Jsend::success(TicketCategory::all()->toArray());
+        return Jsend::success(['response' => TicketCategory::all()->toArray()]);
     }
 
     /**

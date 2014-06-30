@@ -46,7 +46,7 @@ class MusicianController extends \BaseController {
                 unset($instruments);
             }
         }
-        return Jsend::success($musicians->toArray());
+        return Jsend::success(['response' => $musicians->toArray()]);
     }
 
     /**
@@ -76,7 +76,7 @@ class MusicianController extends \BaseController {
                 unset($artist->pivot);
                 unset($instruments);
             }
-            $response = Jsend::success($musician);
+            $response = Jsend::success(['response' => $musician]);
         }
         return $response;
     }
@@ -148,13 +148,25 @@ class MusicianController extends \BaseController {
      */
     public static function save($inputs) {
         $existingLineups = array();
-        foreach ($inputs['lineups'] as $lineup) {
-            if (Instrument::exist($lineup['instrument_id']) && Artist::exist($lineup['artist_id']) && !in_array($lineup, $existingLineups)) {
+        $fails = ['lineups' => null];
+        foreach ($inputs['lineups'] as $key => $lineup) {
+            $instrument = Instrument::exist($lineup['instrument_id']);
+            $artist = Artist::exist($lineup['artist_id']);
+            if (empty($instrument) && empty($artist)) {
+                $fails['lineups'][] = trans('fail.musician.no_instrument_artist', ['key' => ++$key]);
+            } elseif (empty($instrument)) {
+                $fails['lineups'][] = trans('fail.musician.no_instrument', ['key' => ++$key]);
+            } elseif (empty($artist)) {
+                $fails['lineups'][] = trans('fail.musician.no_artist', ['key' => ++$key]);
+            } elseif (!in_array($lineup, $existingLineups)) {
                 $existingLineups[] = $lineup;
             }
         }
-        if (!count($existingLineups) > 0) {
-            $response['fail'] = ['title' => trans('fail.musician.nolineup')];
+        if (!empty($fails['lineups'])) {
+            $response['fail'] = $fails;
+            if (!count($existingLineups) > 0) {
+                $response['fail']['lineups'][] = trans('fail.musician.nolineup');
+            }
         } else {
             $inputs['lineups'] = $existingLineups;
             $response = Musician::createOne($inputs);

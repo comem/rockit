@@ -53,7 +53,7 @@ class PerformersTableSeeder extends Seeder {
         
          Performer::create(array('artist_id' => 6,
                                 'event_id'=> 7,
-                                'order' => '1',
+                                'order' => '2',
                                 'is_support' => '0',
                                 'artist_hour_of_arrival'=>'2014-09-05 17:00:00'));
         

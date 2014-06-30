@@ -26,7 +26,7 @@ class InstrumentController extends \BaseController {
      * @return Jsend
      */
     public function index() {
-        return Jsend::success(Instrument::all());
+        return Jsend::success(['response' => Instrument::all()]);
     }
 
     /**

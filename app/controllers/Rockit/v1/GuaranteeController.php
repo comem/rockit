@@ -5,7 +5,8 @@ namespace Rockit\v1;
 use \Input,
     \Validator,
     \Jsend,
-    \Rockit\Event;
+    \Rockit\Event,
+    \Rockit\Representer;
 
 /**
  * A Guarantee is the link between an Event and a Representer that guarantees that Event.<br>
@@ -79,8 +80,9 @@ class GuaranteeController extends \BaseController {
         if (empty($event->representer_id)) {
             $update = Event::updateOne(['representer_id' => $inputs['representer_id']], $event);
             if (isset($update['success'])) {
+                $representer_name = Representer::find($inputs['representer_id'])->first_name;
                 $response['success'] = [
-                    'title' => trans('success.guarantee.created'),
+                    'title' => trans('success.guarantee.created', ['name' => $representer_name]),
                     'id' => $event->id,
                 ];
             } else {

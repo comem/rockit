@@ -25,6 +25,11 @@ class Performer extends \Eloquent {
     ];
     public static $response_field = 'id';
 
+    /**
+     * 
+     * @param type $data
+     * @return type
+     */
     public static function existByIds($data) {
         return self::where('artist_id', '=', $data['artist_id'])
         ->where('event_id', '=', $data['event_id'])
@@ -38,6 +43,37 @@ class Performer extends \Eloquent {
 
     public function event() {
         return $this->belongsTo('Rockit\Event');
+    }
+
+    public static function checkOrderAvailability(array $data, Performer $performer = null) {
+        if (isset($data['order'])) {
+            if (!empty($performer)) {
+                $exist = Performer::where('event_id', '=', $performer->event_id)
+                ->where('order', '=', $data['order'])
+                ->first();
+            } else {
+                $exist = Performer::where('event_id', '=', $data['event_id'])
+                ->where('order', '=', $data['order'])
+                ->first();
+            }
+        }
+        return empty($exist);
+    }
+
+    public static function getOrderAvailable(array &$data, Performer $performer = null) {
+        if (isset($data['order'])) {
+            if (!empty($performer)) {
+                $orders = array_flatten(Performer::select('order')->where('event_id', '=', $performer->event_id)->get()->toArray());
+                while (in_array($data['order'], $orders)) {
+                    ++$data['order'];
+                }
+            } else {
+                $orders = array_flatten(Performer::select('order')->where('event_id', '=', $data['event_id'])->get()->toArray());
+                while (in_array($data['order'], $orders)) {
+                    ++$data['order'];
+                }
+            }
+        }
     }
 
 }

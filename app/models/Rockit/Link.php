@@ -14,11 +14,11 @@ class Link extends \Eloquent {
         'url' => 'required|url|max:400|unique:links',
         'name_de' => 'required|max:200',
         'title_de' => 'max:50',
-        'artist_id' => 'required|integer|max:10|exists:artists,id',
+        'artist_id' => 'required|integer|exists:artists,id',
     );
     public static $update_rules = array(
-        'url' => 'url|required|max:400',
-        'name_de' => 'required|max:200',
+        'url' => 'url|max:400|unique:links',
+        'name_de' => 'max:200',
         'title_de' => 'max:50',
     );
 

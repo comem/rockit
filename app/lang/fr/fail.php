@@ -8,7 +8,9 @@ return [
     'acl' => "Vous n'avez pas le droit d'effectuer cette action",
     'artist' => [
         'inexistant' => "Il n'existe aucun artiste correspondant.",
-        'nogenre' => "L'artiste doit être d'un ou plusieurs genres existants.",
+        'nogenre' => "Aucun genre valide pour cet artiste.",
+        'genre' => "Le genre :key n'existe pas.",
+        'image' => "L'image :key n'existe pas ou n'est pas disponible.",
     ],
     'attribution' => [
         'existing' => "Il y a déjà une attribution de même type enregistrée.",
@@ -20,6 +22,7 @@ return [
         'inexistant' => "Il n'existe aucune description correspondante.",
         'last_genre' => "Ce genre est le dernier pour cet artiste, vous ne pouvez pas le supprimer.",
     ],
+    'empty_data' => "Il n'y a rien à mettre à jour.",
     'equipment' => [
         'existing' => "Il y a déjà un équipement \":name\" enregistré.",
         'inexistant' => "Il n'existe aucun équipement correspondant.",
@@ -29,7 +32,7 @@ return [
         'existing' => "Il y a déjà un événement \":name\" enregistré.",
         'inexistant' => "Il n'existe aucun événement correspondant.",
         'at_least_one_main_performer' => "L'événement doit accueillir au moins un groupe principal.",
-        'is_symbolized' => "L'événement doit avoir une image de couverture pour être publié.",
+        'is_symbolized' => "L'événement doit avoir une image de couverture.",
     ],
     'event_type' => [
         'existing' => "Il y a déjà un type d'événement \":name\" enregistré.",
@@ -43,7 +46,7 @@ return [
         'unsupported' => "Vous ne pouvez pas sauvegarder de fichier de ce type (:type).",
     ],
     'fulfillment' => [
-        'existing' => "Il y a déjà une compétence assignée à ce membre.",
+        'existing' => "Cette compétence est déjà assignée à ce membre.",
         'inexistant' => "Il n'existe aucune compétence correspondante assignée à ce membre.",
         'non_assigned' => "Cette compétence ne peut pas être remplie par ce membre.",
     ],
@@ -76,7 +79,7 @@ return [
         'missing' => "L'attribut \"locale\" est manquant",
     ],
     'lineup' => [
-        'existing' => "Ce musicien joue déjà de cet instrument.",
+        'existing' => "Ce musicien joue déjà de cet instrument pour cet artiste.",
         'inexistant' => "Il n'existe aucune formation correspondante.",
         'last_lineup' => "Cette formation est la dernière pour ce musicien, vous ne pouvez pas la supprimer.",
     ],
@@ -90,6 +93,10 @@ return [
     'musician' => [
         'existing' => "Il y a déjà un musician \":name\" enregistré.",
         'inexistant' => "Il n'existe aucun musician correspondant.",
+        'nolineup' => "Aucune formation valide pour ce musicien.",
+        'no_instrument_artist' => "L'instrument et l'artiste n'existent pas pour la formation :key.",
+        'no_instrument' => "L'instrument n'existe pas pour la formation :key.",
+        'no_artist' => "L'artiste n'existe pas pour la formation :key.",
     ],
     'need' => [
         'existing' => "Il y a déjà un besoin de même type enregistré.",
@@ -103,6 +110,7 @@ return [
     'performer' => [
         'existing' => "Ce groupe joue déjà dans cet événement à cette position.",
         'inexistant' => "Il n'existe aucun performeur correspondant.",
+        'order_not_available' => "Cette position de passage est déjà occupée par un autre artiste.",
     ],
     'printing' => [
         'existing' => "Ce type d'imprimé est déjà lié à cet événement.",
@@ -124,7 +132,7 @@ return [
         'inexistant' => "Il n'existe aucune compétence correspondante.",
     ],
     'staff' => [
-        'existing' => "Il y a déjà un role assignée à ce membre.",
+        'existing' => "Ce membre effectue déjà un autre rôle pour cet événement.",
         'inexistant' => "Il n'existe aucun staff correspondant.",
     ],
     'symbolization' => [

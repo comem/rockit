@@ -27,7 +27,7 @@ class GiftController extends \BaseController {
      * @return Jsend
      */
     public function index() {
-        return Jsend::success(Gift::all()->toArray());
+        return Jsend::success(['response' => Gift::all()->toArray()]);
     }
 
     /**

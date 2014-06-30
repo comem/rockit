@@ -125,7 +125,6 @@ class Artist extends \Eloquent {
      * @return array An array containing a key 'success' or 'error' depending on the result
      */
     public static function createOne($data) {
-        $class = class_basename(get_called_class());
         $field = self::$response_field;
         $genres = $data['genres'];
         if (isset($data['images'])) {
@@ -145,7 +144,7 @@ class Artist extends \Eloquent {
                 $objectDescription = Description::create($inputs);
                 // if an objectDescription was not created correctly, return response error message
                 if ($objectDescription == null) {
-                    $response['error'] = trans('error.genre.created');
+                    $response['error'] = trans('error.description.created');
                     DB::rollback();
                     return $response;
                 }
@@ -160,12 +159,12 @@ class Artist extends \Eloquent {
                 }
             }
             $response['success'] = array(
-                'title' => trans('success.' . snake_case($class) . '.created', array('name' => $object->$field)),
+                'title' => trans('success.artist.created', array('name' => $object->$field)),
                 'id' => $object->id,
             );
             DB::commit();
         } else {
-            $response['error'] = trans('error.' . snake_case($class) . '.created', array('name' => $object->$field));
+            $response['error'] = trans('error.artist.created', array('name' => $object->$field));
             DB::rollback();
         }
         return $response;
