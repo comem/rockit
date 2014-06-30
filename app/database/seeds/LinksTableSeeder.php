@@ -30,7 +30,7 @@ class LinksTableSeeder extends Seeder {
         Link::create(array('id'=>'4',
                             'url'=>"www.salsanama.ch",
                             'name_de'=> 'kein komentar',
-                            'artist_id'=> $artist[3]->id,));
+                            'artist_id'=> 3,));
         
        Link::create(array('id'=>'5',
                             'url'=>"www.ninos-jugando.ch",
@@ -46,6 +46,26 @@ class LinksTableSeeder extends Seeder {
                             'url'=>"www.totensocken.eu",
                             'name_de'=> 'webseite von die toten Socken',
                             'artist_id'=> $artist[0]->id,));
+        
+        Link::create(array('id'=>'8',
+                            'url'=>"www.pigeononthegate.com",
+                            'name_de'=> 'Pigeon on the gate webseite',
+                            'artist_id'=> 7,));
+        
+        Link::create(array('id'=>'9',
+                            'url'=>"www.m3x.ch/artist/manuhartmanband",
+                            'name_de'=> 'Manu webseite',
+                            'artist_id'=> 10,));
+        
+        Link::create(array('id'=>10,
+                            'url'=>"www.spanonline.ch",
+                            'name_de'=> 'Span div tr',
+                            'artist_id'=> 12,));
+        
+        Link::create(array('id'=>'11',
+                            'url'=>"www.sarahchaksad.ch",
+                            'name_de'=> 'Sarah goes online',
+                            'artist_id'=> 13,));
         
         
     }

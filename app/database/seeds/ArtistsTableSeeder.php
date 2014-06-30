@@ -64,24 +64,50 @@ class ArtistsTableSeeder extends Seeder {
                             'complete_description_de'=> 'Der Solothurner Blues-Hexenmeister Philipp „Bluedög“ Gerber  genehmigt sich einen Trip in die Untiefen der wilden Siebziger und taucht gemeinsam mit dem Bassisten J.C. Wirth und dem legendären Krokus Drummer Freddy Steady  in die Freuden und Leiden des klassischen Powertrios ein. Nach unzähligen Gigs mit der Hardcore Bluesband im In- und Ausland  präsentiert sich  die Philipp Bluedög Gerber Band mit neuen eigenen Songs und einigen ausgewählten Interpreta-tionen. ',
                             ));
        
-//       Artist::create(array('id'=>'6',
-//                            'name' => 'Junior Big Band',
-//                            'short_description_de'=>'',
-//                            'complete_description_de'=> '',
-//                            ));
+       
   
-//       Artist::create(array('id'=>'6',
-//                            'name' => 'Junior Big Band',
-//                            'short_description_de'=>'',
-//                            'complete_description_de'=> '',
-//                            ));
+       Artist::create(array('id'=>'10',
+                            'name' => 'Manu Hartmann Band',
+                            'short_description_de'=>'',
+                            'complete_description_de'=> '„…nichts für Schubladendenker und Stubenhocker….!“ Die Manu Hartmann Band sprengt musikalische Grenhzen und wagt sich mit einem Mix aus psychedelischem Soul, rotzigem Funk & schillerndem Jazz ins bunte Treiben der Ch-Musikszene. Voran steht die ausdrucksstarke Stimme der Sängerin Manu Hartmann, die den Songs mal sanft, mal rauh, ihren eigenwilligen Stempel aufsetzt. ',
+                            ));
 
-//       Artist::create(array('id'=>'6',
-//                            'name' => 'Junior Big Band',
+       Artist::create(array('id'=>11,
+                            'name' => 'Andy Trinkler & Border Affair',
+                            'short_description_de'=>'',
+                            'complete_description_de'=> '',
+                            ));       
+        
+       Artist::create(array('id'=>'12',
+                            'name' => 'SPAN',
+                            'short_description_de'=>'Die Gallionsfiguren des Bärner Mundartrock im traditionsreichsten Musicclub Berns!',
+                            'complete_description_de'=> 'Letztes Jahr kehrten Span zurück und überraschten mit ihrem kraftvollen neuen Studio-Album „Rock&Roll Härz“. Wohlverstanden: Sie waren nie weg. Als einzige Schweizer Rock Band blieben Span vier Dekaden lang mit nur wenigen Personalwechseln zusammen und eine Alternative zum Rock’n’Roll ihrer Band gab es für sie nie. Und so tun die vier Berner auch nach Tausenden von Gigs immer noch das, was sie am liebsten tun und am besten können: Spielen, spielen, spielen und nach wie vor ihre Anhänger begeistern!',
+                            ));       
+       
+       Artist::create(array('id'=>13,
+                            'name' => 'Sarah Chaksad Orchestra',
+                            'short_description_de'=>'Sarah Chaksad beweist ihre Virtuosität, Vielseitigkeit und Kreativität mit ihrem Orchestra!',
+                            'complete_description_de'=> 'Anfang November 2012 begannen die ersten Proben mit Sarah Chaksads neustem Projekt, einem 13-köpfigen Jazz Orchestra. Im Zentrum der Musik stehen die Solisten und Solistinnen, die immer Teil des Gesamtablauf eines Stückes sind und mit ihrem Spiel die Kompositionen massgeblich mitgestalten. Häufig verarbeitet Sarah Chaksad in ihren Stücken autobiographische Erlebnisse, mit einem feinen Gespür für Harmonie und einem kreativen Umgang mit Rhythmen. In der Mahogany ist sie regelmässig zu Gast mit ihrer Band „Neighbourhood“, wo sie mit ihren Eigenkompositionen RnB-, Hip Hop- und Soul–Anhänger zu begeistern weiss. Hier zeigt uns diese aussergewöhnliche und engagierte junge Künstlerin weitere Facetten ihres Wirkens. ',
+                            ));       
+       
+       Artist::create(array('id'=>'14',
+                            'name' => 'Naked Soul',
+                            'short_description_de'=>'Das Powerquartett Naked Soul zeigt, dass eine Akustikband nicht unbedingt leise sein muss.',
+                            'complete_description_de'=> 'Ihr sehr abwechslungsreiches Programm beinhaltet Hits der letzten 50 Jahre, aber auch Eigenkompositionen. Ob Rock, Pop, Funk, Balladen, Reggae oder Rock n’ Roll; es ist von allem etwas dabei. Mit mehrstimmigem Gesang, virtuosen Gitarrensolos und auch mal einer Tanzeinlage wird Unterhaltung pur geboten.',
+                            ));       
+       
+       Artist::create(array('id'=>'15',
+                            'name' => 'Chicago Hot Six',
+                            'short_description_de'=>'Die Renaissance des Chicago Jazz!',
+                            'complete_description_de'=> 'Hier wird die Renaissance des Chicago Jazz virtuos zelebriert – ein Muss für alle Fans dieser Stilrichtung ! ',
+                            ));
+       
+//       Artist::create(array('id'=>'',
+//                            'name' => '',
 //                            'short_description_de'=>'',
 //                            'complete_description_de'=> '',
 //                            ));       
-        
+       
     }
 }
 

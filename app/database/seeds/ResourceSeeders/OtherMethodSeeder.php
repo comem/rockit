@@ -52,6 +52,26 @@ class OtherMethodSeeder {
             'controller' => 'FilesManager',
             'method' => 'destroy',
         ));
+        Resource::create(array(
+            'id' => 107,
+            'controller' => 'ArtistController',
+            'method' => 'illustrate',
+        ));
+        Resource::create(array(
+            'id' => 108,
+            'controller' => 'ArtistController',
+            'method' => 'desillustrate',
+        ));
+        Resource::create(array(
+            'id' => 109,
+            'controller' => 'EventController',
+            'method' => 'symbolize',
+        ));
+        Resource::create(array(
+            'id' => 110,
+            'controller' => 'EventController',
+            'method' => 'desymbolize',
+        ));
     }
     
 }

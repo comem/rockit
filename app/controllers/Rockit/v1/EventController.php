@@ -210,6 +210,14 @@ class EventController extends \BaseController {
         }
     }
 
+    public function symbolize($id){
+        //
+    }
+
+    public function desymbolize($id){
+        //
+    }
+
     /**
      * 
      * @param type $event
