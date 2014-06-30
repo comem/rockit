@@ -162,6 +162,15 @@ class ArtistController extends \BaseController {
         return Jsend::compile(self::delete('Artist', $id));
     }
 
+    public function illustrate($id){
+        $request = Request::create('v1/illustrations', 'POST', [$id, Input::get('image_id')]);
+        return Route::dispatch($request)->getContent();
+    }
+
+    public function desillutrate($artist_id, $image_id){
+        
+    }
+
     /**
      * Save a new Artist in the database with the given inputs.
      * 
