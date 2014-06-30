@@ -4,6 +4,13 @@ namespace Rockit;
 
 use Rockit\Models\CompletePivotModelTrait;
 
+/**
+ * Contains the attributes and methods of a Ticket model.<br>
+ * A Ticket is the relationship between an Event and a PrintingType that is printed for that Event.<br>
+ * Based on the Laravel's Eloquent.<br>
+ * 
+ * @author ??
+ */
 class Ticket extends \Eloquent {
 
 	use CompletePivotModelTrait;
