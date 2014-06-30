@@ -335,11 +335,11 @@ class EventController extends \BaseController {
             if( !isset( $response['fail'] ) ){
                 if( $inputs['opening_doors_hour'] != NULL ){
                     $response = Event::checkOpeningDoorsHour( $inputs['start_date_hour'], $inputs['opening_doors_hour'] );
-                    if($response){
-                        $response = Event::checkDatesChronological( $inputs['start_date_hour'], $inputs['ending_date_hour'] );
-                        if($response){
-                            $response = Event::checkDatesDontOverlap( $inputs['start_date_hour'], $inputs['ending_date_hour'] );
-                        }
+                }
+                if($response === true){
+                    $response = Event::checkDatesChronological( $inputs['start_date_hour'], $inputs['ending_date_hour'] );
+                    if($response === true){
+                        $response = Event::checkDatesDontOverlap( $inputs['start_date_hour'], $inputs['ending_date_hour'] );
                     }
                 }
             }
