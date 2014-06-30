@@ -30,6 +30,16 @@ class ImagesTableSeeder extends Seeder {
         ));
 
         Image::create(array('id'=>'6','source' => 'images/img_547.jpg'));
+        
+        Image::create(array('id'=>'8','source' => 'images/img_548.jpg'));
+        
+        Image::create(array('id'=>'9','source' => 'images/img_549.jpg'));
+        
+        Image::create(array('id'=>'10','source' => 'images/img_550.jpg'));
+        
+        Image::create(array('id'=>'11','source' => 'images/img_551.jpg'));
+        
+        Image::create(array('id'=>'12','source' => 'images/img_552.jpg'));
     }
 
 }
