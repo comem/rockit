@@ -182,7 +182,13 @@ class ArtistController extends \BaseController {
     public function desillustrate($artist_id, $image_id){
         $image = Image::exist($image_id);
         if (is_object($image)) {
-            $response = IllustrationController::delete($image);
+            if($image->artist_id == $artist_id){
+                $response = IllustrationController::delete($image);
+            } else {
+                $response['fail'] = [
+                    'image' => [trans('fail.illustration.inadequate')]
+                ];
+            }
         } else {
             $response['fail'] = [
                 'image' => [trans('fail.image.inexistant')],
