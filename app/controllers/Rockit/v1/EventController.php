@@ -113,7 +113,11 @@ class EventController extends \BaseController {
         if ($validate === true) {
             DB::beginTransaction();
             $response = self::save($inputs);
-            DB::commit();
+            if(isset($response['success'])){
+                DB::commit();
+            } else {
+                DB::rollback();
+            }
         } else {
             $response = $validate;
         }

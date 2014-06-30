@@ -16,7 +16,7 @@ class CreateEventsTable extends Migration {
 			$table->timestamp('ending_date_hour');
 			$table->time('opening_doors')->nullable();
 			$table->string('title_de', 200)->nullable();
-                        $table->string('description_de', 500)->nullable();
+            $table->string('description_de')->nullable();
 			$table->integer('nb_meal');
 			$table->integer('nb_vegans_meal');
 			$table->text('meal_notes_de')->nullable();

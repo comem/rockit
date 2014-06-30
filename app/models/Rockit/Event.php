@@ -301,8 +301,9 @@ class Event extends \Eloquent {
             foreach($tickets as  $ticket){
                 $inputs = $ticket;
                 $inputs['event_id'] = $object->id;
-                $objcetTicket = Ticket::createOne($inputs);
-                if(!isset($objectTicket['success'])){
+                $objcetTicket = Ticket::create($inputs);
+                dd($objcetTicket);
+                if($objcetTicket){
                     $response['error'] = trans('error.ticket.created');
                     DB::rollback();
                     return $response;
