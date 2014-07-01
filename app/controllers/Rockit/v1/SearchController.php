@@ -2,7 +2,7 @@
 
 namespace Rockit\v1;
 
-use \Jsend;
+use \Jsend, \Input;
 
 use \Rockit\Event, \Rockit\Artist, \Rockit\Representer;
 
@@ -22,14 +22,14 @@ class SearchController extends \BaseController {
      * @return Jsend
      */
     public function index() {
-        $events = Event::select();
-        $artists = Artist::select();
-        $representers = Representer::select();
+        $events = Event::select(['id', 'title_de']);
+        $artists = Artist::select(['id', 'name']);
+        $representers = Representer::select(['id', 'first_name', 'last_name']);
         if (Input::has('query')) {
             $query = Input::get('query');
             $res_events = $events->title($query)->get();
-            $res_artists = $events->name($query)->get();
-            $res_representers = $events->name($query)->get();
+            $res_artists = $artists->name($query)->get();
+            $res_representers = $representers->name($query)->get();
             $res = [];
             foreach($res_events as $event){
                 $event['type'] = trans('hci.DropdownEvent');
