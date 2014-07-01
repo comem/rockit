@@ -112,6 +112,7 @@ return [
         'existing' => "Ce groupe joue déjà dans cet événement à cette position.",
         'inexistant' => "Il n'existe aucun performeur correspondant.",
         'order_not_available' => "Cette position de passage est déjà occupée par un autre artiste.",
+        'not_unique' => "Les performeurs ont des doublons !",
     ],
     'printing' => [
         'existing' => "Ce type d'imprimé est déjà lié à cet événement.",

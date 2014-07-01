@@ -122,21 +122,36 @@ class EventController extends \BaseController {
             if(isset($response['success'])){
                 
                 if(isset($inputs_associations['performers'])){
-                    foreach($inputs_associations['performers'] as $key => $performer){
-                        $performer['event_id'] = $event_id;
-                        $v = Performer::validate($performer, Performer::$create_event_rules);
-                        if( $v !== true ){
-                            $response['fail']['performers'][$key] = $v['fail'];
-                        } else {
-                            $response_perf = PerformerController::save($performer);
-                            if(isset($response_perf['fail'])){
-                                $response['fail']['performers'] = $response_perf['fail']['response'];
-                            } elseif(isset($response_perf['error'])) {
-                                $response['error']['performers'] = $response_perf['error']['response'];
-                            }
-                        }
-                    }
+                    $response = self::saveAssociations('Performer', $event_id, $inputs_associations['performers']);
                 }
+                if(isset($inputs_associations['needs'])){
+                    $response = self::saveAssociations('Need', $event_id, $inputs_associations['needs']);
+                }
+
+                    /*
+                    if( Performer::isUnique( $inputs_associations['performers'] ) ){
+                        foreach($inputs_associations['performers'] as $key => $performer){
+                            
+
+                            $performer['event_id'] = $event_id;
+                            $v = Performer::validate($performer, Performer::$create_event_rules);
+                            if( $v !== true ){
+                                $response['fail']['performers'][$key] = $v['fail'];
+                            } else {
+                                $response_perf = PerformerController::save($performer);
+                                if(isset($response_perf['fail'])){
+                                    $response['fail']['performers'] = $response_perf['fail']['response'];
+                                } elseif(isset($response_perf['error'])) {
+                                    $response['error']['performers'] = $response_perf['error']['response'];
+                                }
+                            }
+
+
+                        }
+                    } else {
+                        $response['fail']['performers'] = trans('fail.performer.not_unique');
+                    }
+                    */
                 /*
                 if(isset($inputs_associations['needs'])){
                     foreach($inputs_associations['needs'] as $key => $need){
@@ -410,6 +425,31 @@ class EventController extends \BaseController {
         }
         if ( !isset( $response['fail'] ) ) {
             $response = Event::createOne($inputs);
+        }
+        return $response;
+    }
+
+    public static function saveAssociations( $class, $event_id, array $data ){
+        $classNamespaced = 'Rockit\\'.$class;
+        $controller = $class.'Controller';
+        $plural = snake_case( str_plural( $class ) );
+        if( $classNamespaced::isUnique( $data ) ){
+            foreach($data as $key => $performer){
+                $performer['event_id'] = $event_id;
+                $v = $classNamespaced::validate($performer, $classNamespaced::$create_event_rules);
+                if( $v !== true ){
+                    $response['fail'][$plural][$key] = $v['fail'];
+                } else {
+                    $resp_save = $controller::save($performer);
+                    if(isset($resp_save['fail'])){
+                        $response['fail'][$plural] = $resp_save['fail']['response'];
+                    } elseif(isset($resp_save['error'])) {
+                        $response['error'][$plural] = $resp_save['error']['response'];
+                    }
+                }
+            }
+        } else {
+            $response['fail'][$plural] = trans('fail.'.strtolower($class).'.not_unique');
         }
         return $response;
     }
