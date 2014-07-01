@@ -53,17 +53,17 @@ class Event extends \Eloquent {
         'representer_id' => 'exists:representers,id',
         'image_id' => 'exists:images,id',
     );
-    
+
     public function getEventTypeAttribute() {
         return $this->genres()->getResults();
     }
 
     public function genres() {
-        return $this->belongsToMany('Rockit\Genre', 'event_genre');
+        return $this->belongsToMany('Rockit\Genre', 'event_genre')->withTrashed();
     }
 
     public function gifts() {
-        return $this->belongsToMany('Rockit\Gift', 'offers')
+        return $this->belongsToMany('Rockit\Gift', 'offers')->withTrashed()
         ->withPivot('quantity', 'cost', 'comment_de');
     }
 
@@ -72,7 +72,7 @@ class Event extends \Eloquent {
     }
 
     public function ticketCategories() {
-        return $this->belongsToMany('Rockit\TicketCategory', 'Tickets')
+        return $this->belongsToMany('Rockit\TicketCategory', 'Tickets')->withTrashed()
         ->withPivot('amount', 'comment_de', 'quantity_sold')
         ->orderBy('amount', 'desc');
     }
@@ -83,7 +83,7 @@ class Event extends \Eloquent {
     }
 
     public function equipments() {
-        return $this->belongsToMany('Rockit\Equipment', 'attributions')
+        return $this->belongsToMany('Rockit\Equipment', 'attributions')->withTrashed()
         ->withPivot('quantity', 'cost');
     }
 
@@ -92,7 +92,7 @@ class Event extends \Eloquent {
     }
 
     public function platforms() {
-        return $this->belongsToMany('Rockit\Platform', 'sharings')
+        return $this->belongsToMany('Rockit\Platform', 'sharings')->withTrashed()
         ->withPivot('url');
     }
 
@@ -101,7 +101,7 @@ class Event extends \Eloquent {
     }
 
     public function printingTypes() {
-        return $this->belongsToMany('Rockit\PrintingType', 'printings')
+        return $this->belongsToMany('Rockit\PrintingType', 'printings')->withTrashed()
         ->withPivot('source', 'nb_copies', 'nb_copies_surplus');
     }
 
@@ -110,11 +110,11 @@ class Event extends \Eloquent {
     }
 
     public function eventType() {
-        return $this->belongsTo('Rockit\EventType');
+        return $this->belongsTo('Rockit\EventType')->withTrashed();
     }
 
     public function image() {
-        return $this->belongsTo('Rockit\Image');
+        return $this->belongsTo('Rockit\Image')->withTrashed();
     }
 
     public function artists() {
@@ -310,7 +310,7 @@ class Event extends \Eloquent {
         return $response;
     }
 
-    public static function createOne( $data ){
+    public static function createOne($data) {
         $field = self::$response_field;
         $tickets = $data['tickets'];
         unset($data['tickets']);
@@ -318,11 +318,11 @@ class Event extends \Eloquent {
         self::unguard();
         $object = self::create($data);
         if ($object != null) {
-            foreach($tickets as  $ticket){
+            foreach ($tickets as $ticket) {
                 $inputs = $ticket;
                 $inputs['event_id'] = $object->id;
                 $objcetTicket = Ticket::create($inputs);
-                if(!is_object($objcetTicket)){
+                if (!is_object($objcetTicket)) {
                     $response['error'] = trans('error.ticket.created');
                     DB::rollback();
                     return $response;
@@ -342,7 +342,7 @@ class Event extends \Eloquent {
         return $response;
     }
 
-    public static function deleteOne( $event ){
+    public static function deleteOne($event) {
         $field = self::$response_field;
         try {
             DB::beginTransaction();
@@ -352,22 +352,22 @@ class Event extends \Eloquent {
             $event->staffs()->delete();
             $event->tickets()->delete();
             $event->performers()->delete();
-            foreach( $event->sharings as $sharing ){
-                Sharing::deleteOne( $sharing );
+            foreach ($event->sharings as $sharing) {
+                Sharing::deleteOne($sharing);
             }
-            foreach( $event->printings as $printing ){
-                Printing::deleteOne( $printing );
+            foreach ($event->printings as $printing) {
+                Printing::deleteOne($printing);
             }
-            if( $event->delete() ){
-                if( isset($event->contract_src) && $event->contract_src != NULL ){
-                    $url = 'v1/files/'.$event->contract_src;
+            if ($event->delete()) {
+                if (isset($event->contract_src) && $event->contract_src != NULL) {
+                    $url = 'v1/files/' . $event->contract_src;
                     $route = Request::create($url, 'DELETE');
                     Route::dispatch($route);
                 }
                 $response['success'] = [
                     'response' => [
-                    'title' =>  trans('success.event.deleted', array('name' => $event->$field)),
-                ]]; 
+                        'title' => trans('success.event.deleted', array('name' => $event->$field)),
+                ]];
                 DB::commit();
             } else {
                 DB::rollback();

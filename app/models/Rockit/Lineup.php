@@ -45,7 +45,7 @@ class Lineup extends \Eloquent {
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function instrument() {
-        return $this->belongsTo('Rockit\Instrument');
+        return $this->belongsTo('Rockit\Instrument')->withTrashed();
     }
 
     /**
@@ -53,7 +53,7 @@ class Lineup extends \Eloquent {
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function artist() {
-        return $this->belongsTo('Rockit\Artist');
+        return $this->belongsTo('Rockit\Artist')->withTrashed();
     }
 
     /**
@@ -61,7 +61,7 @@ class Lineup extends \Eloquent {
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function musician() {
-        return $this->belongsTo('Rockit\Musician');
+        return $this->belongsTo('Rockit\Musician')->withTrashed();
     }
 
     /**

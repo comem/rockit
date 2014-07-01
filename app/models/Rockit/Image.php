@@ -60,7 +60,7 @@ class Image extends \Eloquent {
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function artist() {
-        return $this->belongsTo('Rockit\Artist');
+        return $this->belongsTo('Rockit\Artist')->withTrashed();
     }
 
     /**

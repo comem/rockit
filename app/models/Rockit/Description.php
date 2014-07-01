@@ -40,6 +40,22 @@ class Description extends \Eloquent {
     ];
 
     /**
+     * Get the Artist to which a Description is related.
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function artist() {
+        return $this->belongsTo('Rockit\Artist')->withTrashed();
+    }
+
+    /**
+     * Get the Genre to which a Description is related.
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function genre() {
+        return $this->belongsTo('Rockit\Genre')->withTrashed();
+    }
+
+    /**
      * Check if the Artist corresponding to the provided artist id is described by only one, last Genre.
      *
      * If this is the last Genre for the Artist corresponding to the provided artist id, a <b>Jsend:fail</b> is returned.<br> 

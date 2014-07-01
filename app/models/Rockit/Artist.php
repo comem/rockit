@@ -101,7 +101,7 @@ class Artist extends \Eloquent {
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function musicians() {
-        return $this->belongsToMany('Rockit\Musician', 'lineups')->groupBy('id');
+        return $this->belongsToMany('Rockit\Musician', 'lineups')->withTrashed()->groupBy('id');
     }
 
     /**
@@ -135,8 +135,8 @@ class Artist extends \Eloquent {
     public function scopeMusicianName($query, $string) {
         return $query->whereHas('musicians', function($q) use ($string) {
             $q->withTrashed()->where('stagename', 'LIKE', '%' . $string . '%')
-                ->orWhere('first_name', 'LIKE', '%' . $string . '%')
-                ->orWhere('last_name', 'LIKE', '%' . $string . '%');
+            ->orWhere('first_name', 'LIKE', '%' . $string . '%')
+            ->orWhere('last_name', 'LIKE', '%' . $string . '%');
         });
     }
 
