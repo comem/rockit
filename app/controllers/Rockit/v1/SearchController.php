@@ -33,14 +33,24 @@ class SearchController extends \BaseController {
             $res = [];
             foreach($res_events as $event){
                 $event['type'] = trans('hci.DropdownEvent');
+                $event['class'] = 'Event';
+                $event['value'] = $event['title_de'];
+                unset($event['title_de']);
                 $res[] = $event;
             }
             foreach($res_artists as $artist){
                 $artist['type'] = trans('hci.DropdownArtist');
+                $event['class'] = 'Artist';
+                $event['value'] = $event['name'];
+                unset($event['name']);
                 $res[] = $artist;
             }
             foreach($res_representers as $representer){
                 $representer['type'] = trans('hci.DropdownRepresenter');
+                $event['class'] = 'Representer';
+                $event['value'] = $event['first_name'].' '.$event['last_name'];
+                unset($event['first_name']);
+                unset($event['last_name']);
                 $res[] = $representer;
             }
             $response['success'] = ['response' => $res];
