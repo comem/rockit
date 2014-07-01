@@ -98,15 +98,17 @@ class StaffController extends \BaseController {
     }
 
     /**
-     * Modify the Staff's informations on the database.
-     * TO DO
-     * blablabla...
-     * remember to add to ControllerComments at the top.
-     * check exists and checks extra validations before updating
+     * Modify an existing association between a Member and a Skill that he executes, from the provided staff id and the data to update to.
      * 
-     * @param type $id
-     * @param type $new_data
-     * @return type
+     * If the provided staff id does not point to an existing Staff, a <b>Jsend::fail</b> is returned.<br>
+     * The member id, skill id and event id provided will be used to verify the validity of the update <b>before</b> modifying the Staff.<br> 
+     * If the Member provided cannot fulfill the provided Skill, a <b>Jsend::fail</b> is returned.<br> 
+     * If the provided Skill is not needed in the provided Event, a <b>Jsend::fail</b> is returned.<br>
+     * Or else, the Staff to modify and the data to update to is passed to the <b>updateOne</b> method.<br>
+     * 
+     * @param id $id The id of the Staff to modify
+     * @param array $new_data The data to update in the specified Staff 
+     * @return Jsend
      */
     public static function modify($id, $data) {
         $object = Staff::exist($id);
