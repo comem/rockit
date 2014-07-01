@@ -52,7 +52,7 @@ class Artist extends \Eloquent {
         'short_description_de' => 'max:200',
     );
     protected $table = 'artists';
-    protected $hidden = ['deleted_at'];
+    protected $hidden = ['created_at', 'updated_at'];
     protected $dates = ['deleted_at'];
 
     /**

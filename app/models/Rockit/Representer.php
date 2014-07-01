@@ -18,8 +18,8 @@ class Representer extends \Eloquent {
         ModelBCUDTrait;
 
     protected $table = 'representers';
-    protected $hidden = array('deleted_at', 'created_at', 'updated_at');
-    protected $dates = array('deleted_at');
+    protected $hidden = ['created_at', 'updated_at'];
+    protected $dates = ['deleted_at'];
 
     /**
      * Indicates whether this model uses laravel's timestamps.
