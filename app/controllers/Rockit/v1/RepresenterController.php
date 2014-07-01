@@ -15,7 +15,7 @@ use \Input,
  * 
  * @author Mathias Oberson <mathias.oberson@heig-vd.ch>
  */
-class RepresenterController extends BaseController {
+class RepresenterController extends \BaseController {
 
     use ControllerBSUDTrait;
 
@@ -27,7 +27,11 @@ class RepresenterController extends BaseController {
      * @return Jsend
      */
     public function index() {
-        return Jsend::success(['response' => Representer::all()]);
+        $representers = Representer::select();
+        if (Input::has('name')) {
+            $representers = $representers->name(Input::get('name'));
+        }
+        return Jsend::success(['response' => Representer::get()]);
     }
 
     /**
