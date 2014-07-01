@@ -15,6 +15,7 @@ return [
     'attribution' => [
         'existing' => "Il y a déjà une attribution de même type enregistrée.",
         'inexistant' => "Il n'existe aucune attribution correspondante.",
+        'not_unique' => "doublons !",
     ],
     'auth' => "Vous devez être authentifié pour effectuer cette action",
     'description' => [
@@ -108,6 +109,7 @@ return [
     'offer' => [
         'existing' => "Il y a déjà une offre de même type enregistrée.",
         'inexistant' => "Il n'existe aucune offre correspondante.",
+        'not_unique' => "doublons !",
     ],
     'performer' => [
         'existing' => "Ce groupe joue déjà dans cet événement à cette position.",
@@ -137,6 +139,7 @@ return [
     'staff' => [
         'existing' => "Ce membre effectue déjà un autre rôle pour cet événement.",
         'inexistant' => "Il n'existe aucun staff correspondant.",
+        'not_unique' => "doublons !",
     ],
     'symbolization' => [
         'existing' => "Cet événement à déjà une image de couverture.",
