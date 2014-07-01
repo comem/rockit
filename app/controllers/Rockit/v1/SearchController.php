@@ -8,7 +8,7 @@ use \Jsend;
  * 
  * @author Joël Gugger <joel.gugger@heig-vd.ch>
  */
-class ArtistController extends \BaseController {
+class SearchController extends \BaseController {
 
 
 
