@@ -47,5 +47,5 @@ trait BaseModelTrait {
     public static function exist($value, $column = 'id') {
         return self::where($column, '=', $value)->first();
     }
-    
+
 }

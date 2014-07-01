@@ -182,10 +182,10 @@ class Artist extends \Eloquent {
                     $illustration->save();
                 }
             }
-            $response['success'] = array(
+            $response['success'] = ['response' => [
                 'title' => trans('success.artist.created', array('name' => $object->$field)),
                 'id' => $object->id,
-            );
+            ]];
             DB::commit();
         } else {
             $response['error'] = trans('error.artist.created', array('name' => $data[$field]));

@@ -2,13 +2,8 @@
 
 namespace Rockit;
 
-use Auth,
-    App,
-    Config,
-    \Session,
-    \Rockit\Event,
-    \RockitHelper,
-    \WordExport;
+use \Rockit\Event,
+    \RockitHelper;
 
 /**
  * Contains the attributes and methods of a Sharing model in the database.<br>
@@ -21,10 +16,8 @@ class Sharing extends \Eloquent {
 
     use Models\ModelBCUDTrait;
 
-
-	protected $table = 'sharings';
-	protected $hidden = ['external_id', 'external_infos', 'platform_id', 'event_id', 'updated_at'];
-
+    protected $table = 'sharings';
+    protected $hidden = ['external_id', 'external_infos', 'platform_id', 'event_id', 'updated_at'];
     protected static $response_field = 'id';
 
     /**

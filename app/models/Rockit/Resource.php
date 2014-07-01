@@ -11,10 +11,18 @@ namespace Rockit;
  */
 class Resource extends \Eloquent {
 
+    /**
+     * Indicates whether this model uses laravel's timestamps.
+     * @var boolean 
+     */
     public $timestamps = true;
     protected $table = 'resources';
     protected $dates = ['deleted_at'];
 
+    /**
+     * Get the Groups to which a Resource is related.
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public function groups() {
         return $this->belongsToMany('Group');
     }

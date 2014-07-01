@@ -26,10 +26,10 @@ trait RestoreOneTrait {
         $class_name = class_basename(get_called_class());
         $field = self::$response_field;
         if ($object->restore()) {
-            $response['success'] = array(
-                'title' => trans('success.' . snake_case($class_name) . '.restored', array('name' => $object->$field)),
-                'id' => $object->id,
-            );
+            $response['success'] = ['response' => [
+                    'title' => trans('success.' . snake_case($class_name) . '.restored', array('name' => $object->$field)),
+                    'id' => $object->id,
+            ]];
         } else {
             $response['error'] = trans('error.' . snake_case($class_name) . '.restored', array('name' => $object->$field));
         }

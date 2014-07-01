@@ -8,7 +8,7 @@ namespace Rockit\Models\Functions;
  * @author Mathias Oberson <mathias.oberson@heig-vd.ch>
  */
 trait DeleteOneTrait {
-    
+
     /**
      * Delete a persistant Model from the database that matches the provided Model.
      *
@@ -27,7 +27,7 @@ trait DeleteOneTrait {
         $field = self::$response_field;
         if ($object->delete()) {
             $response['success'] = ['response' => [
-                'title' => trans('success.' . snake_case($class_name) . '.deleted', ['name' => $object->$field]),
+                    'title' => trans('success.' . snake_case($class_name) . '.deleted', ['name' => $object->$field]),
             ]];
         } else {
             $response['error'] = trans('error.' . snake_case($class_name) . '.deleted', ['name' => $object->$field]);

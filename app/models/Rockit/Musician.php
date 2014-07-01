@@ -114,10 +114,10 @@ class Musician extends \Eloquent {
                     return $response;
                 }
             }
-            $response['success'] = array(
+            $response['success'] = ['response' => [
                 'title' => trans('success.musician.created', array('name' => $object->$field)),
                 'id' => $object->id,
-            );
+            ]];
             DB::commit();
         } else {
             $response['error'] = trans('error.musician.created', array('name' => $object->$field));

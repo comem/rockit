@@ -28,8 +28,8 @@ trait CreateOneTrait {
         $object = self::create($data);
         if ($object != null) {
             $response['success'] = ['response' => [
-                'title' => trans('success.' . snake_case($class) . '.created', ['name' => $object->$field]),
-                'id' => $object->id,
+                    'title' => trans('success.' . snake_case($class) . '.created', ['name' => $object->$field]),
+                    'id' => $object->id,
             ]];
         } else {
             $response['error'] = trans('error.' . snake_case($class) . '.created', ['name' => $object->$field]);

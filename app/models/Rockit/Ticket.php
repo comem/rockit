@@ -92,15 +92,23 @@ class Ticket extends \Eloquent {
         $response = false;
         $tickets = Ticket::where('event_id', '=', $object->event_id)->count();
         if ($tickets < 2) {
-            $response = array(
-                'fail' => array(
+            $response = [
+                'fail' => [
                     'title' => trans('fail.ticket.last_ticket'),
-                ),
-            );
+                ],
+            ];
         }
         return $response;
     }
 
+    /**
+     * Check <b>ticket_category_id</b>'s unicity.
+     * 
+     * Check that there is not two identical <b>ticket_category_id</b> in the given array.
+     * 
+     * @param array $ticket_categories
+     * @return boolean true|false
+     */
     public static function isTicketCategoryUnicity(array $ticket_categories) {
         $newTab = [];
         foreach ($ticket_categories as $ticket_category) {

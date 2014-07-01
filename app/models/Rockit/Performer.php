@@ -92,27 +92,6 @@ class Performer extends \Eloquent {
         ->first();
     }
 
-    // /**
-    //  * Check if a specific order position is available for a Performer, with the provided order, event id and Performer.
-    //  * TO DO
-    //  *
-    //  * @return ?return Performer object or null?
-    //  */
-    // public static function checkOrderAvailability(array $data, Performer $performer = null) {
-    //     if (isset($data['order'])) {
-    //         if (!empty($performer)) {
-    //             $exist = Performer::where('event_id', '=', $performer->event_id)
-    //             ->where('order', '=', $data['order'])
-    //             ->first();
-    //         } else {
-    //             $exist = Performer::where('event_id', '=', $data['event_id'])
-    //             ->where('order', '=', $data['order'])
-    //             ->first();
-    //         }
-    //     }
-    //     return empty($exist);
-    // }
-
     /**
      * Get the next available order value for a Performer of an Event.
      * If the parameter "order" is provided and has a value, this order value will be checked if it is already in use by an Artist.<br>
