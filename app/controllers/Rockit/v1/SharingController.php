@@ -21,7 +21,7 @@ class SharingController extends \BaseController {
     /**
      * Store a newly created resource in storage, and creates automatically
      * the asked post.
-
+     *
      *
      * @return Response
      */
