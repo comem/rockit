@@ -28,10 +28,17 @@ class RepresenterController extends \BaseController {
      */
     public function index() {
         $representers = Representer::select();
+        $nb_item = Input::has('nb_item') && Input::get('nb_item') > 0 ? Input::get('nb_item') : 10;
         if (Input::has('name')) {
             $representers = $representers->name(Input::get('name'));
         }
-        return Jsend::success(['response' => $representers->get()]);
+        $paginate = $representers->paginate($nb_item)->toArray();
+        $representers_data = $paginate['data'];
+        unset($paginate['data']);
+        return Jsend::success(array(
+            'response' => $representers_data,
+            'paginate' => $paginate,
+        ));
     }
 
     /**
