@@ -449,13 +449,20 @@ class EventController extends \BaseController {
         $controller = 'Rockit\\v1\\'.$class.'Controller';
         $plural = snake_case( str_plural( $class ) );
         if( $classNamespaced::isUnique( $data ) ){
-            foreach($data as $key => $performer){
-                $performer['event_id'] = $event_id;
-                $v = $classNamespaced::validate($performer, $classNamespaced::$create_event_rules);
+            foreach($data as $key => $array){
+                $array['event_id'] = $event_id;
+                $v = $classNamespaced::validate($array, $classNamespaced::$create_event_rules);
                 if( $v !== true ){
                     $response['fail'][$key] = $v['fail'];
                 } else {
-                    $response = $controller::saveAsAssociation($performer);
+                    $rep = $controller::saveAsAssociation($array);
+                    if(isset($rep['fail'])){
+                        $response['fail'][$key] = $rep['fail'];
+                    } elseif(isset($rep['error'])) {
+                        $response['error'][$key] = $rep['error'];
+                    } else {
+                        $response['success'] = [];
+                    }
                 }
             }
         } else {

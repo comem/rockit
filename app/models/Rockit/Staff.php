@@ -16,6 +16,10 @@ class Staff extends \Eloquent {
         'event_id' => 'integer|required|min:1|exists:events,id',
         'skill_id' => 'integer|required|min:1|exists:skills,id',
     ];
+    public static $create_event_rules = [
+        'member_id' => 'integer|required|min:1|exists:members,id',
+        'skill_id' => 'integer|required|min:1|exists:skills,id',
+    ];
     public static $update_rules = [
         'skill_id' => 'integer|min:1|exists:skills,id',
     ];

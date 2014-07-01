@@ -17,6 +17,11 @@ class Attribution extends \Eloquent {
         'event_id' => 'integer|required|min:1|exists:events,id',
         'equipment_id' => 'integer|required|min:1|exists:equipments,id',
     ];
+    public static $create_event_rules = [
+        'cost' => 'integer|min:0',
+        'quantity' => 'integer|min:1',
+        'equipment_id' => 'integer|required|min:1|exists:equipments,id',
+    ];
     public static $update_rules = [
         'cost' => 'integer|min:0',
         'quantity' => 'integer|min:1',
