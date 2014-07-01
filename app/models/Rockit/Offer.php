@@ -36,4 +36,14 @@ class Offer extends \Eloquent {
 		return $this->belongsTo('Rockit\Event');
 	}
 
+    public static function isUnique( array $array ){
+        $newTab = [];
+        foreach( $array as $object ){
+            if( !in_array($object['gift_id'], $newTab) ){
+                $newTab[] = $object['gift_id'];
+            }
+        }
+        return count( $array ) === count( $newTab );
+    }
+
 }
