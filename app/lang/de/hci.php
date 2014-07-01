@@ -87,4 +87,7 @@ return [
     'PlaceholderNone' => "nichts",
     'PlaceholderSearch' => "Suchen",
     'LabelSortBy' => "Sortiert nach",
+    'DropdownEvent' => "!!!!! a traduire !!!!!",
+    'DropdownArtist' => "!!!!! a traduire !!!!!",
+    'DropdownRepresenter' => "!!!!! a traduire !!!!!",
 ];
