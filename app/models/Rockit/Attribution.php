@@ -9,7 +9,8 @@ use Rockit\Models\CompletePivotModelTrait;
  * An Attribution is the relationship between an Event and an Equipment that is reserved for that Event.<br>
  * Based on the Laravel's Eloquent.<br>
  * 
- * @author ??
+ * @author generated with Laravel Schema Designer <laravelsd.com>
+ * @author Joël Gugger <joel.gugger@heig-vd.ch>
  */
 class Attribution extends \Eloquent {
 

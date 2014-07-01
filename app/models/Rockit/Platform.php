@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletingTrait;
  * An Event can be published on a Platform.<br>
  * Based on the Laravel's Eloquent.<br>
  * 
- * @author ??
+ * @author generated with Laravel Schema Designer <laravelsd.com>
  */
 class Platform extends \Eloquent {
 

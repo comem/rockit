@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletingTrait,
  * This is used for promotional reasons by the organisation.<br>
  * Based on the Laravel's Eloquent.<br>
  * 
- * @author ??
+ * @author generated with Laravel Schema Designer <laravelsd.com>	
  */
 class PrintingType extends \Eloquent {
 

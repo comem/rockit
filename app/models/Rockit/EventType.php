@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletingTrait,
  * An EventType categorizes an Event. An Event must be categorized by one, and only one EventType.<br>
  * Based on the Laravel's Eloquent.<br>
  * 
- * @author ??
+ * @author generated with Laravel Schema Designer <laravelsd.com>
  */
 class EventType extends \Eloquent {
 

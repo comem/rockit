@@ -11,7 +11,7 @@ use Rockit\Models\ModelBCUDTrait,
  * This is possibile if certain conditions are respected. The conditions concern the Needs of an Event. Alos the Member can only execute a Skill that he can Fulfill.<br>
  * Based on the Laravel's Eloquent.<br>
  * 
- * @author ??
+ * @author generated with Laravel Schema Designer <laravelsd.com>
  */
 class Member extends \Eloquent {
 

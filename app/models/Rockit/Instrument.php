@@ -7,7 +7,7 @@ namespace Rockit;
  * An Instrument is played in a Lineup by a Musician.<br>
  * Based on the Laravel's Eloquent.<br>
  * 
- * @author ??
+ * @author generated with Laravel Schema Designer <laravelsd.com>
  */
 class Instrument extends \Eloquent {
 

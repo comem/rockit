@@ -10,7 +10,7 @@ use Rockit\Models\ModelBCRDTrait,
  * An Equipment can be attributed to an Event as a Reserved piece of equipment.<br>
  * Based on the Laravel's Eloquent.<br>
  * 
- * @author ??
+ * @author generated with Laravel Schema Designer <laravelsd.com>
  */
 class Equipment extends \Eloquent {
 

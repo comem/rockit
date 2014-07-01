@@ -10,7 +10,7 @@ use Rockit\Models\ModelBCUDTrait,
  * A Language can be the default language of a User.<br>
  * Based on the Laravel's Eloquent.<br>
  * 
- * @author ??
+ * @author generated with Laravel Schema Designer <laravelsd.com>
  */
 class Language extends \Eloquent {
 

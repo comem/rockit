@@ -9,7 +9,7 @@ use Rockit\Models\CompletePivotModelTrait;
  * A Printing is the relationship between an Event and a PrintingType that is printed for that Event.<br>
  * Based on the Laravel's Eloquent.<br>
  * 
- * @author ??
+ * @author generated with Laravel Schema Designer <laravelsd.com>
  */
 class Printing extends \Eloquent {
 

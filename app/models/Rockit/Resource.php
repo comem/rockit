@@ -2,6 +2,9 @@
 
 namespace Rockit;
 
+/**
+ * @author generated with Laravel Schema Designer <laravelsd.com>
+ */
 class Resource extends \Eloquent {
 
     public $timestamps = true;

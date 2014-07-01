@@ -9,7 +9,7 @@ use Rockit\Models\CompletePivotModelTrait;
  * A Need is the relationship between an Event and a Skill that is needed for that Event.<br>
  * Based on the Laravel's Eloquent.<br>
  * 
- * @author ??
+ * @author generated with Laravel Schema Designer <laravelsd.com>
  */
 class Need extends \Eloquent {
 

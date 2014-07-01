@@ -7,7 +7,7 @@ namespace Rockit;
  * A Sharing is the relationship between a Platform and an Event that is published on that Platform.<br>
  * Based on the Laravel's Eloquent.<br>
  * 
- * @author ??
+ * @author generated with Laravel Schema Designer <laravelsd.com>
  */
 class Sharing extends \Eloquent {
 

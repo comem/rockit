@@ -11,7 +11,8 @@ use Rockit\Models\ModelBCUDTrait,
  * An Image can illustrate an Artist and/or symbolize an Event.<br>
  * Based on the Laravel's Eloquent.<br>
  * 
- * @author ??
+ * @author generated with Laravel Schema Designer <laravelsd.com>
+ * @author Mathias Oberson <mathias.oberson@heig-vd.ch>
  */
 class Image extends \Eloquent {
 

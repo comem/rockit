@@ -9,7 +9,7 @@ use Rockit\Models\SimplePivotModelTrait;
  * A Fulfillment is the relationship between a Skill and a Member that fulfills that Skill.<br>
  * Based on the Laravel's Eloquent.<br>
  * 
- * @author ??
+ * @author generated with Laravel Schema Designer <laravelsd.com>
  */
 class Fulfillment extends \Eloquent {
 

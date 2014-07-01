@@ -9,7 +9,8 @@ use Rockit\Models\SimplePivotModelTrait;
  * A Description is the relationship between an Artist and a Genre that describes that Artist.<br>
  * Based on the Laravel's Eloquent.<br>
  * 
- * @author ??
+ * @author generated with Laravel Schema Designer <laravelsd.com>
+ * @author Joël Gugger <joel.gugger@heig-vd.ch>
  */
 class Description extends \Eloquent {
 

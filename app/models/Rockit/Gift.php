@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletingTrait,
  * A Gift is offered in an Event, but an Event is not obliged to offer a Gift.<br>
  * Based on the Laravel's Eloquent.<br>
  * 
- * @author ??
+ * @author generated with Laravel Schema Designer <laravelsd.com>
  */
 class Gift extends \Eloquent {
     

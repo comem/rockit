@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletingTrait,
  * The Member must be considered Staff to execute a Skill in an Event that needs that Skill.<br>
  * Based on the Laravel's Eloquent.<br>
  * 
- * @author ??
+ * @author generated with Laravel Schema Designer <laravelsd.com>
  */
 class Skill extends \Eloquent {
 

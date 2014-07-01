@@ -9,7 +9,8 @@ use Rockit\Models\CompletePivotModelTrait;
  * A Staff is the relationship between an Event, a Member employed for that Event and a Skill that this Member can execute.<br>
  * Based on the Laravel's Eloquent.<br>
  * 
- * @author ??
+ * @author generated with Laravel Schema Designer <laravelsd.com>
+ * @author Joël Gugger <joel.gugger@heig-vd.ch>
  */
 class Staff extends \Eloquent {
 

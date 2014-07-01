@@ -6,7 +6,7 @@ namespace Rockit;
  * Contains the attributes of the relationship between a Group and a Resource that it can act on.<br>
  * Based on the Laravel's Eloquent.<br>
  * 
- * @author ??
+ * @author generated with Laravel Schema Designer <laravelsd.com>
  */
 class GroupResource extends \Eloquent {
 

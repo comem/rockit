@@ -9,7 +9,8 @@ use Rockit\Models\SimplePivotModelTrait;
  * A Lineup is the relationship between an Artist, a Musician that composes that Artist and the Instruments played by that Musician for that Artist.<br>
  * Based on the Laravel's Eloquent.<br>
  * 
- * @author ??
+ * @author generated with Laravel Schema Designer <laravelsd.com>
+ * @author Joël Gugger <joel.gugger@heig-vd.ch>
  */
 class Lineup extends \Eloquent {
 

@@ -11,7 +11,8 @@ use Illuminate\Database\Eloquent\SoftDeletingTrait,
  * A Musician composes atleast one Artist. A Musician cannot perform in an Event. Only an Artist can become a Performer for an Event.<br>
  * Based on the Laravel's Eloquent.<br>
  * 
- * @author ??
+ * @author generated with Laravel Schema Designer <laravelsd.com>
+ * @author Christian Heimann <christian.heimann@heig-vd.ch>
  */
 class Musician extends \Eloquent {
     

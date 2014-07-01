@@ -13,7 +13,8 @@ use Rockit\Resource,
  * A User us contained in a Group that can act on Resources. Users form part of the application's Access Control Layer.<br>
  * Based on the Laravel's Eloquent.<br>
  * 
- * @author ??
+ * @author generated with Laravel Schema Designer <laravelsd.com>
+ * @author Christian Heimann <christian.heimann@heig-vd.ch>
  */
 class User extends Eloquent implements UserInterface, RemindableInterface {
 

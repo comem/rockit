@@ -8,7 +8,7 @@ namespace Rockit;
  * A Link is used to register information concerning a weblink to the Artist's media.<br>
  * Based on the Laravel's Eloquent.<br>
  * 
- * @author ??
+ * @author generated with Laravel Schema Designer <laravelsd.com>
  */
 class Link extends \Eloquent {
 

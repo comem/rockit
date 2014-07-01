@@ -9,7 +9,8 @@ use Rockit\Models\CompletePivotModelTrait;
  * A Ticket is the relationship between an Event and a PrintingType that is printed for that Event.<br>
  * Based on the Laravel's Eloquent.<br>
  * 
- * @author ??
+ * @author generated with Laravel Schema Designer <laravelsd.com>
+ * @author Joël Gugger <joel.gugger@heig-vd.ch>
  */
 class Ticket extends \Eloquent {
 

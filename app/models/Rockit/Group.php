@@ -9,7 +9,8 @@ use Illuminate\Database\Eloquent\SoftDeletingTrait;
  * A Group can act on Resources, and a Group can contain Users. Groups form part of the application's Access Control Layer.<br>
  * Based on the Laravel's Eloquent.<br>
  * 
- * @author ??
+ * @author generated with Laravel Schema Designer <laravelsd.com>
+ * @author Mathias Oberson <mathias.oberson@heig-vd.ch>
  */
 class Group extends \Eloquent {
 

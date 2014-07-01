@@ -12,7 +12,8 @@ use \DB,
  * An Artist performs in an Event, and is composed of atleast one Musician with their Instrument.<br>
  * Based on the Laravel's Eloquent.<br>
  * 
- * @author ??
+ * @author generated with Laravel Schema Designer <laravelsd.com>
+ * @author Joël Gugger <joel.gugger@heig-vd.ch>
  */
 class Artist extends \Eloquent {
 

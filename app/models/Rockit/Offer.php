@@ -9,7 +9,7 @@ use Rockit\Models\CompletePivotModelTrait;
  * An Offer is the relationship between a Gift and an Event that offers that Gift.<br>
  * Based on the Laravel's Eloquent.<br>
  * 
- * @author ??
+ * @author generated with Laravel Schema Designer <laravelsd.com>
  */
 class Offer extends \Eloquent {
 

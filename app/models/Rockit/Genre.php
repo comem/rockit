@@ -10,7 +10,8 @@ use Illuminate\Database\Eloquent\SoftDeletingTrait,
  * A Genre describes an Artist, and each Artist is described by atleast one Genre.<br>
  * Based on the Laravel's Eloquent.<br>
  * 
- * @author ??
+ * @author generated with Laravel Schema Designer <laravelsd.com>
+ * @author Christopher de Guzman <christopher.deguzman@heig-vd.ch>
  */
 class Genre extends \Eloquent {
     

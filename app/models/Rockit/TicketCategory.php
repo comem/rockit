@@ -10,8 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletingTrait,
  * A TicketCategory is proposed in an Event, and each TicketCategory must be proposed in atleast one Event.<br>
  * Based on the Laravel's Eloquent.<br>
  * 
- * @author ??
- * @author generated with Laravel Schema Designer, <laravelsd.com>
+ * @author generated with Laravel Schema Designer <laravelsd.com>
  */
 class TicketCategory extends \Eloquent {
 

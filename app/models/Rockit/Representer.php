@@ -10,7 +10,7 @@ use Rockit\Models\ModelBCUDTrait,
  * A Representer can guarantee an Event and plays an administrative role in the organisation.<br>
  * Based on the Laravel's Eloquent.<br>
  * 
- * @author ??
+ * @author generated with Laravel Schema Designer <laravelsd.com>
  */
 class Representer extends \Eloquent {
 
