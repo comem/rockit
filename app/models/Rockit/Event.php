@@ -3,7 +3,9 @@
 namespace Rockit;
 
 use \Validator,
-    \DB;
+    \DB,
+    \Request,
+    \Route;
 
 class Event extends \Eloquent {
 
@@ -341,6 +343,9 @@ class Event extends \Eloquent {
             foreach( $event->printings as $printing ){
                 Printing::deleteOne( $printing );
             }
+            $url = 'v1/files/'.$event->contract_src;
+            $route = Request::create($url, 'DELETE');
+            Route::dispatch($route);
             $event->delete();
             $response['success'] = [
                 'response' => [
