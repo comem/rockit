@@ -572,6 +572,19 @@ class EventController extends \BaseController {
         return $response;
     }
 
+    /**
+     * Modify an existing Event, from the provided event id and the data to update to.
+     * 
+     * If the provided event id does not point to an existing Event, a <b>Jsend::fail</b> is returned.<br>
+     * If an 'opening_doors' attribute is provided, then check that this takes place before the event starts.<br>
+     * If the Event's 'start_date_hour' is before the 'opening_doors' attribute, a <b>Jsend::fail</b> is returned.<br>
+     * If the Event's 'start_date_hour' and 'ending_date_hour' are not in chronological order, a <b>Jsend::fail</b> is returned.<br>
+     * Or else the provided Event and the new data to update to are passed to the <b>updateOne</b> method of the Event model, which returns a response.<br>
+     *
+     * @param id $id The id of the Event to modify
+     * @param array $new_data The data to update in the specified Event
+     * @return Jsend
+     */
     public static function modify( $id, $new_data ) {
         $event = Event::exist($id);
         if( is_object( $event ) ){
@@ -594,6 +607,19 @@ class EventController extends \BaseController {
         return $response;
     }
 
+    /**
+     * Save a new association between a specified class and an Event, from the provided class name, event id and data to save.
+     * 
+     * If the provided staff id does not point to an existing Staff, a <b>Jsend::fail</b> is returned.<br>
+     * The member id, skill id and event id provided will be used to verify the validity of the update <b>before</b> modifying the Staff.<br> 
+     * If the Member provided cannot fulfill the provided Skill, a <b>Jsend::fail</b> is returned.<br> 
+     * If the provided Skill is not needed in the provided Event, a <b>Jsend::fail</b> is returned.<br>
+     * Or else, the Staff to modify and the data to update to is passed to the <b>updateOne</b> method.<br>
+     * 
+     * @param id $id The id of the Staff to modify
+     * @param array $new_data The data to update in the specified Staff 
+     * @return Jsend
+     */
     public static function saveAssociations( $class, $event_id, array $data ){
         $classNamespaced = 'Rockit\\'.$class;
         $controller = 'Rockit\\v1\\'.$class.'Controller';
