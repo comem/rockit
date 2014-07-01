@@ -137,7 +137,7 @@ class EventController extends \BaseController {
                         }
                     }
                 }
-                
+                /*
                 if(isset($inputs_associations['needs'])){
                     foreach($inputs_associations['needs'] as $key => $need){
                         $need['event_id'] = $event_id;
@@ -145,16 +145,16 @@ class EventController extends \BaseController {
                         if( $v !== true ){
                             $response['fail']['needs'][$key] = $v['fail'];
                         } else {
-                            $response_perf = NeedController::save($need);
-                            if(isset($response_perf['fail'])){
-                                $response['fail']['needs'] = $response_perf['fail']['response'];
-                            } elseif(isset($response_perf['error'])) {
-                                $response['error']['needs'] = $response_perf['error']['response'];
+                            $response_need = NeedController::save('Need', $need);
+                            if(isset($response_need['fail'])){
+                                $response['fail']['needs'] = $response_need['fail']['response'];
+                            } elseif(isset($response_need['error'])) {
+                                $response['error']['needs'] = $response_need['error']['response'];
                             }
                         }
                     }
                 }
-                /*                
+                               
                 if(isset($inputs_associations['offers'])){
                     foreach($inputs_associations['offers'] as $key => $offer){
                         $offer['event_id'] = $response['success']['id'];
@@ -176,6 +176,7 @@ class EventController extends \BaseController {
         } else {
             dd('renvoi erreur');//$response = $validate_associations;
         }
+        dd($response);
         return Jsend::compile($response);
     }
 
