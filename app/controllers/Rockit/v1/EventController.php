@@ -430,6 +430,30 @@ class EventController extends \BaseController {
         return $response;
     }
 
+    public static function modify( $inputs ) {
+        $event = Event::exist($id);
+        if( is_object( $event ) ){
+            if(isset($inputs['opening_doors']) && $inputs['opening_doors'] != NULL ){
+                $response = Event::checkOpeningDoorsHour( $inputs['start_date_hour'], $inputs['opening_doors'] );
+            }
+            if( !isset( $response ) || $response === true ){
+                $response = Event::checkDatesChronological( $inputs['start_date_hour'], $inputs['ending_date_hour'] );
+                if($response === true){
+                    $response = Event::checkDatesDontOverlap( $inputs['start_date_hour'], $inputs['ending_date_hour'] );
+                }
+            }
+        } else {
+            $response['fail'] = [
+                
+            ];
+        }
+
+        if ( !isset( $response['fail'] ) ) {
+            $response = Event::updateOne($inputs, $event);
+        }
+        return $response;
+    }
+
     public static function saveAssociations( $class, $event_id, array $data ){
         $classNamespaced = 'Rockit\\'.$class;
         $controller = 'Rockit\\v1\\'.$class.'Controller';
