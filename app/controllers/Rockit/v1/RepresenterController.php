@@ -15,7 +15,7 @@ use \Input,
  * 
  * @author Mathias Oberson <mathias.oberson@heig-vd.ch>
  */
-class RepresenterController extends BaseController {
+class RepresenterController extends \BaseController {
 
     use ControllerBSUDTrait;
 
@@ -27,7 +27,18 @@ class RepresenterController extends BaseController {
      * @return Jsend
      */
     public function index() {
-        return Jsend::success(['response' => Representer::all()]);
+        $representers = Representer::select();
+        $nb_item = Input::has('nb_item') && Input::get('nb_item') > 0 ? Input::get('nb_item') : 10;
+        if (Input::has('name')) {
+            $representers = $representers->name(Input::get('name'));
+        }
+        $paginate = $representers->paginate($nb_item)->toArray();
+        $representers_data = $paginate['data'];
+        unset($paginate['data']);
+        return Jsend::success(array(
+            'response' => $representers_data,
+            'paginate' => $paginate,
+        ));
     }
 
     /**

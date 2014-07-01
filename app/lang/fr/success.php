@@ -34,9 +34,9 @@ return [
         'created' => "L'équipement \":name\" a bien été sauvegardé.",
     ],
     'event' => [
-        'updated' => "L'événement a bien été mis à jour.",
-        'created' => "Le nouvel événement a bien été sauvegardé.",
-        'deleted' => "L'événement a bien été supprimé.",
+        'updated' => "L'événement \":name\" a bien été mis à jour.",
+        'created' => "Le nouvel événement \":name\" a bien été sauvegardé.",
+        'deleted' => "L'événement \":name\" a bien été supprimé.",
         'published' => "L'événement est maintenant publié.",
         'unpublished' => "L'événement n'est maintenant plus publié.",
     ],
@@ -130,6 +130,10 @@ return [
         'updated' => "Le représentant \":name\" a bien été mis à jour.",
         'deleted' => "Le représentant \":name\" a bien été supprimé.",
         'restored' => "Le représentant \":name\" a bien été restauré.",
+    ],
+    'sharing' => [
+       'created' => "Le post a correctement été crée.",
+       'deleted' => "Le post \":name\" a bien été supprimée.",
     ],
     'skill' => [
         'deleted' => "La compétence \":name\" a bien été supprimée.",

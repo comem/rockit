@@ -15,7 +15,7 @@ use \Input,
  * Can : <b>index</b> all the Images, <b>show</b>, <b>destroy</b> and <b>update</b> one Image.<br>
  * Since Images can be linked to an event, the <b>delete</b> is actually a <b>softDelete</b>.
  * 
- * @author ??
+ * @author Mathias Oberson <mathias.oberson@heig-vd.ch>
  */
 class ImageController extends \BaseController {
  
@@ -25,7 +25,8 @@ class ImageController extends \BaseController {
      * Display a listing of the resource.
      * 
      * Each Image is returned with its own information.
-     * TO REVIEW line 33-35 
+     * The Images returned can be filtered with the parameter "is_illustration", if it is provided having its value set to 'true', the Images that illustrate an Artist are returned.
+     * Or else, all Images are returned.  
      * 
      * @return Jsend
      */

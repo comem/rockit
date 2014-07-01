@@ -38,15 +38,12 @@ class PerformerController extends \BaseController {
     }
 
     /**
-     * Update the specified resource in storage.
-     * 
-     * If the provided id does not point to an existing Performer, a <b>Jsend::fail</b> is returned.<br>
-     * Get the adequate inputs from the client request and test that each of them pass the validation rules.<br>
-     * If any a these inputs fail, a <b>Jsend::fail</b> is returned.<br>
-     * If all the inputs are valid, the data is then passed to the <b>modify()</b> method.<br>
-     * TO REVIEW
+     * Update the association between an Event and a Performer that corresponds to the provided performer id, with the provided inputs.
      *
-     * @param int $id The id of ?who?
+     * Get the adequate inputs from the client request and test that each of them pass the update validation rules.<br>
+     * Modifies the Performer that matches the provided id by passing this id to the <b>modify()</b> method, who sends back a response.<br>
+     * 
+     * @param int $id The id of the requested Performer
      * @return Jsend
      */
     public function update($id) {
@@ -59,11 +56,9 @@ class PerformerController extends \BaseController {
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Destroy the association between an Event and an Artist that performs in that Event, corresponding to the provided performer id.
      *
-     * If the provided id does not point to an existing Performer, a <b>Jsend::fail</b> is returned.<br>
-     * Or else this id is then passed to the <b>delete()</b> method that deletes the corresponding model.
-     * TO REVIEW
+     * Destroys the Performer that matches the provided id by passing this id to the <b>delete()</b> method, who sends back a response.<br>
      * 
      * @param int $id The id of the requested Performer
      * @return Jsend
@@ -93,6 +88,10 @@ class PerformerController extends \BaseController {
             $response = Performer::updateOne($new_data, $object);
         }
         return $response;
+    }
+
+    public static function saveAsAssociation( array $data ){
+        return self::save( $data );
     }
 
 }

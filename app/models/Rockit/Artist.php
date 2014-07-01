@@ -7,19 +7,27 @@ use \DB,
     Rockit\Models\ModelBCUDTrait,
     Illuminate\Database\Eloquent\SoftDeletingTrait;
 
+/**
+ * Contains the attributes and methods of an Artist model in the database.<br>
+ * An Artist performs in an Event, and is composed of atleast one Musician with their Instrument.<br>
+ * Based on the Laravel's Eloquent.<br>
+ * 
+ * @author generated with Laravel Schema Designer <laravelsd.com>
+ * @author Joël Gugger <joel.gugger@heig-vd.ch>
+ */
 class Artist extends \Eloquent {
 
     use SoftDeletingTrait,
         ModelBCUDTrait;
 
     /**
-     * Indicates wether this model uses laravel's timestamps.
+     * Indicates whether this model uses laravel's timestamps.
      * @var boolean 
      */
     public $timestamps = true;
 
     /**
-     * Indicates which field value should be use in the return messages.
+     * Indicates which field value should be used in the return messages.
      * @var string 
      */
     public static $response_field = 'name';
@@ -36,7 +44,7 @@ class Artist extends \Eloquent {
     );
 
     /**
-     * Validation rules for updating a new Artist.
+     * Validation rules for updating an existing Artist.
      * @var array 
      */
     public static $update_rules = array(
@@ -44,7 +52,7 @@ class Artist extends \Eloquent {
         'short_description_de' => 'max:200',
     );
     protected $table = 'artists';
-    protected $hidden = ['deleted_at'];
+    protected $hidden = ['created_at', 'updated_at'];
     protected $dates = ['deleted_at'];
 
     /**
@@ -60,7 +68,7 @@ class Artist extends \Eloquent {
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function genres() {
-        return $this->belongsToMany('Rockit\Genre', 'descriptions')->withPivot('id');
+        return $this->belongsToMany('Rockit\Genre', 'descriptions')->withTrashed()->withPivot('id');
     }
 
     /**
@@ -72,47 +80,63 @@ class Artist extends \Eloquent {
     }
 
     /**
-     * Get the relationships between an 
+     * Get the relationships between the Artist, the Musicians and the Instruments played.
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function lineups() {
         return $this->hasMany('Rockit\Lineup')->groupBy('musician_id');
     }
 
+    /**
+     * Get the Events to which an Artist is related.
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public function events() {
         return $this->belongsToMany('Rockit\Event', 'performers')
         ->withPivot('id')->groupBy('id');
     }
 
+    /**
+     * Get the Musicians to which an Artist is related.
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public function musicians() {
         return $this->belongsToMany('Rockit\Musician', 'lineups')->groupBy('id');
     }
 
-    public function scopeName($query, $string) {
-        return $query->where('name', 'LIKE', '%' . $string . '%');
+    /**
+     * Reduce the scope of the provided list of results, using a 'name' search filter.
+     * @param \Illuminate\Database\Query\Builder $query The query on which the scope will be applied
+     * @param string $name A string that must be contained in the name attribute
+     * @return ?\Illuminate\Database\Eloquent\Collection?
+     */
+    public function scopeName($query, $name) {
+        return $query->where('name', 'LIKE', '%' . $name . '%');
     }
 
+    /**
+     * Reduce the scope of the provided list of results, using a list of genres as a 'genre' search filter.
+     * @param \Illuminate\Database\Query\Builder $query The query on which the scope will be applied
+     * @param array $genres A list of Genres that must be contained in the genre id attribute of an Artist
+     * @return ?Artists?
+     */
     public function scopeGenres($query, array $genres) {
         return $query->whereHas('genres', function($q) use ($genres) {
-            $q->whereIn('genres.id', $genres);
+            $q->withTrashed()->whereIn('genres.id', $genres);
         });
     }
 
-    public function scopeMusicianStagename($query, $string) {
+    /**
+     * Reduce the scope of the provided list of results, using a 'global name' search filter.
+     * @param \Illuminate\Database\Query\Builder $query The query on which the scope will be applied
+     * @param string $string A string that must be contained in a Musician's stagename attribute
+     * @return ?Musicians?
+     */
+    public function scopeMusicianName($query, $string) {
         return $query->whereHas('musicians', function($q) use ($string) {
-            $q->where('stagename', 'LIKE', '%' . $string . '%');
-        });
-    }
-
-    public function scopeMusicianFirstname($query, $string) {
-        return $query->whereHas('musicians', function($q) use ($string) {
-            $q->where('stagename', 'LIKE', '%' . $string . '%');
-        });
-    }
-
-    public function scopeMusicianLastname($query, $string) {
-        return $query->whereHas('musicians', function($q) use ($string) {
-            $q->where('stagename', 'LIKE', '%' . $string . '%');
+            $q->withTrashed()->where('stagename', 'LIKE', '%' . $string . '%')
+                ->orWhere('first_name', 'LIKE', '%' . $string . '%')
+                ->orWhere('last_name', 'LIKE', '%' . $string . '%');
         });
     }
 
@@ -164,7 +188,7 @@ class Artist extends \Eloquent {
             );
             DB::commit();
         } else {
-            $response['error'] = trans('error.artist.created', array('name' => $object->$field));
+            $response['error'] = trans('error.artist.created', array('name' => $data[$field]));
             DB::rollback();
         }
         return $response;

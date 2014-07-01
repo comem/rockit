@@ -2,13 +2,25 @@
 
 namespace Rockit\Models\Functions;
 
+/**
+ * A trait that contains a generic <b>restoreOne</b> method to be used by a Model Trait.
+ *
+ * @author Mathias Oberson <mathias.oberson@heig-vd.ch>
+ */
 trait RestoreOneTrait {
 
     /**
-     * Restore a previsouly soft deleted Model
-     * 
-     * @param Object $object The trashed Model to restore
-     * @return 
+     * Restore a previously soft-deleted Model in the database.
+     *
+     * The class of model to restore corresponds to the class of model that called this function.<br>
+     * The response field defined in that same model will be included in any return messages.<br>
+     *
+     * The data is passed to the <b>restore</b> method of the class model to restore, which returns a response.<br>
+     * If that response is 'false', a <b>Jsend::error</b> is returned.
+     * Or else, a <b>Jsend::success</b> is returned.
+     *
+     * @param Object $object The soft-deleted Model to restore
+     * @return array An array containing a 'success' or 'error' key with its message.
      */
     public static function restoreOne($object) {
         $class_name = class_basename(get_called_class());

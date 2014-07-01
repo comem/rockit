@@ -5,15 +5,32 @@ namespace Rockit;
 use Rockit\Models\ModelBCUDTrait,
     Illuminate\Database\Eloquent\SoftDeletingTrait;
 
+/**
+ * Contains the attributes and methods of a Representer model in the database.<br>
+ * A Representer can guarantee an Event and plays an administrative role in the organisation.<br>
+ * Based on the Laravel's Eloquent.<br>
+ * 
+ * @author generated with Laravel Schema Designer <laravelsd.com>
+ */
 class Representer extends \Eloquent {
 
     use SoftDeletingTrait,
         ModelBCUDTrait;
 
-    public $timestamps = true;
     protected $table = 'representers';
-    protected $hidden = array('deleted_at', 'created_at', 'updated_at');
-    protected $dates = array('deleted_at');
+    protected $hidden = ['created_at', 'updated_at'];
+    protected $dates = ['deleted_at'];
+
+    /**
+     * Indicates whether this model uses laravel's timestamps.
+     * @var boolean 
+     */
+    public $timestamps = true;
+
+    /**
+     * Indicates which field value should be used in the return messages.
+     * @var string 
+     */
     public static $response_field = 'first_name';
 
     /**
@@ -45,11 +62,22 @@ class Representer extends \Eloquent {
     );
 
     /**
-     * Get all the events that this Representer represents.
+     * Get the Events to which a Representer is related.
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function events() {
         return $this->hasMany('Rockit\Event');
+    }
+
+    /**
+     * Reduce the scope of the provided list of results, using a 'name' search filter.
+     * @param \Illuminate\Database\Query\Builder $query The query on which the scope will be applied
+     * @param string $name A string that must be contained in the name attribute
+     * @return ?\Illuminate\Database\Eloquent\Collection?
+     */
+    public function scopeName($query, $name) {
+        return $query->where('first_name', 'LIKE', '%' . $name . '%')
+                ->orWhere('last_name', 'LIKE', '%' . $name . '%');
     }
 
 }

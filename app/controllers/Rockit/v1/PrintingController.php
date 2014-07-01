@@ -4,8 +4,6 @@ namespace Rockit\v1;
 
 use \Input,
     \Jsend,
-    \Route,
-    \Request,
     \Rockit\Printing,
     Rockit\Controllers\CompletePivotControllerTrait;
 
@@ -40,9 +38,12 @@ class PrintingController extends \BaseController {
     }
 
     /**
-     * TO DO
+     * Update the association between an Event and a PrintingType that corresponds to the provided printing id, with the provided inputs.
      *
-     * @param  int  ?$id?
+     * Get the adequate inputs from the client request and test that each of them pass the update validation rules.<br>
+     * Modifies the Printing that matches the provided id by passing this id to the <b>modify()</b> method, who sends back a response.<br>
+     * 
+     * @param int $id The id of the requested Printing
      * @return Jsend
      */
     public function update($id) {
@@ -55,47 +56,15 @@ class PrintingController extends \BaseController {
     }
 
     /**
-     * Destroy the association between a PrintingType and an Event that it is printed for.
+     * Destroy the association between a PrintingType and an Event that it is printed for, corresponding to the provided printing id.
      *
-     * TO DO
+     * Destroys the Printing that matches the provided id by passing this id to the <b>delete()</b> method, who sends back a response.<br>
      * 
-     * 
-     * @param int $id ?what id?
+     * @param int $id The id of the requested Printing
      * @return Jsend
      */
     public function destroy($id) {
         return Jsend::compile(self::delete('Printing', $id));
-    }
-
-    /**
-     * Modify the Printing's informations on the database.
-     * TO DO
-     * blablabla...
-     * If the Printing's source is successfully modified, the file referenced by the old source value is deleted.
-     * blablabla...
-     * remember to add to ControllerComments at the top.
-     * 
-     * @param type $id
-     * @param type $new_data
-     * @return type
-     */
-    public function modify($id, $new_data) {
-        $object = Printing::exist($id);
-        if ($object == null) {
-            $response['fail'] = ['printing' => [trans('fail.printing.inexistant')]];
-        } else {
-            // Get the old source
-            $path = explode('/', $object->source);
-            // Create an url to delete the old source
-            $url = 'v1/files/' . $path[0] . '/' . $path[1];
-            $response = Printing::updateOne($new_data, $object);
-            if (isset($response['success'])) {
-                // Delete the old source if the update is a success
-                $request = Request::create($url, 'DELETE');
-                Route::dispatch($request);
-            }
-        }
-        return $response;
     }
 
 }

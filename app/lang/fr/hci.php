@@ -43,7 +43,7 @@ return [
     'LabelArtistName' => "Nom de l'artiste",
     'LabelGenre' => "Genre",
     'LabelHourOfArrival' => "Heure d'arrivée",
-    'LabelMainPerformer' => "Artiste principal",
+    'LabelSupporter' => "Support",
     'LabelShortDescription' => "Description courte",
     'LabelCompleteDescription' => "Description complète",
     'TitleMusicians' => "Musiciens",

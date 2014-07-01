@@ -15,6 +15,7 @@ return [
     'attribution' => [
         'existing' => "Il y a déjà une attribution de même type enregistrée.",
         'inexistant' => "Il n'existe aucune attribution correspondante.",
+        'not_unique' => "doublons !",
     ],
     'auth' => "Vous devez être authentifié pour effectuer cette action",
     'description' => [
@@ -33,10 +34,15 @@ return [
         'inexistant' => "Il n'existe aucun événement correspondant.",
         'at_least_one_main_performer' => "L'événement doit accueillir au moins un groupe principal.",
         'is_symbolized' => "L'événement doit avoir une image de couverture.",
+        'is_not_published' => "L'événement doit être publié pour que un post peut être crée.",
     ],
     'event_type' => [
         'existing' => "Il y a déjà un type d'événement \":name\" enregistré.",
         'inexistant' => "Il n'existe aucun type d'événement correspondant.",
+    ],
+    'export' => [
+        'no_input' => "Des dates de/à n'ont pas été trouvés.",
+        'unchronological' => "Les dates données ne sont pas chronologiquement correcte.",
     ],
     'file' => [
         'invalid' => "Le fichier sélectionné n'est pas un fichier valide.",
@@ -103,15 +109,18 @@ return [
         'existing' => "Il y a déjà un besoin de même type enregistré.",
         'inexistant' => "Il n'existe aucun besoin correspondant.",
         'non_needed' => "Cette compétence n'est pas demandée lors de cet événement.",
+        'not_unique' => "Les besoins ont des doublons !",
     ],
     'offer' => [
         'existing' => "Il y a déjà une offre de même type enregistrée.",
         'inexistant' => "Il n'existe aucune offre correspondante.",
+        'not_unique' => "doublons !",
     ],
     'performer' => [
         'existing' => "Ce groupe joue déjà dans cet événement à cette position.",
         'inexistant' => "Il n'existe aucun performeur correspondant.",
         'order_not_available' => "Cette position de passage est déjà occupée par un autre artiste.",
+        'not_unique' => "Les performeurs ont des doublons !",
     ],
     'printing' => [
         'existing' => "Ce type d'imprimé est déjà lié à cet événement.",
@@ -128,6 +137,9 @@ return [
     'routes' => [
         'missing' => "Oups! Cette url n'existe pas",
     ],
+    'sharing' => [
+        'inexistant' => "Il n'existe aucun sharing correspondant.",
+    ],
     'skill' => [
         'existing' => "Il y a déjà une compétence \":name\" enregistrée.",
         'inexistant' => "Il n'existe aucune compétence correspondante.",
@@ -135,6 +147,7 @@ return [
     'staff' => [
         'existing' => "Ce membre effectue déjà un autre rôle pour cet événement.",
         'inexistant' => "Il n'existe aucun staff correspondant.",
+        'not_unique' => "Un membre ne peut pas remplire plusieurs fonctions dans la meme soirée !",
     ],
     'symbolization' => [
         'existing' => "Cet événement à déjà une image de couverture.",
@@ -149,6 +162,7 @@ return [
     'ticket_category' => [
         'existing' => "Il y a déjà une catégorie de tickets \":name\" enregistrée.",
         'inexistant' => "Il n'existe aucune catégorie de tickets correspondante.",
+        'not_unique' => "...doublon...",
     ],
     'wordexport' => [
         'noinput' => "Les dates de début et de fin de la période à exporter sont obligatoires.",
