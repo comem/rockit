@@ -47,7 +47,7 @@ class Skill extends \Eloquent {
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function members() {
-        return $this->belongsToMany('Rockit\Member', 'fulfillments');
+        return $this->belongsToMany('Rockit\Member', 'fulfillments')->withTrashed();
     }
 
     /**

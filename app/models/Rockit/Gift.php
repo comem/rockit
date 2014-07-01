@@ -3,7 +3,7 @@
 namespace Rockit;
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait,
-        Rockit\Models\ModelBCRDTrait;
+    Rockit\Models\ModelBCRDTrait;
 
 /**
  * Contains the attributes and methods of a Gift model in the database.<br>
@@ -13,19 +13,20 @@ use Illuminate\Database\Eloquent\SoftDeletingTrait,
  * @author generated with Laravel Schema Designer <laravelsd.com>
  */
 class Gift extends \Eloquent {
-    
-    use SoftDeletingTrait,
-		ModelBCRDTrait;
 
-	protected $table = 'gifts';
+    use SoftDeletingTrait,
+        ModelBCRDTrait;
+
+    protected $table = 'gifts';
     protected $dates = ['deleted_at'];
+    protected $hidden = ['deleted_at'];
 
     /**
      * Indicates whether this model uses laravel's timestamps.
      * @var boolean 
      */
-	public $timestamps = false;
-    
+    public $timestamps = false;
+
     /**
      * Indicates which field value should be used in the return messages.
      * @var string 
@@ -37,16 +38,15 @@ class Gift extends \Eloquent {
      * @var array 
      */
     public static $create_rules = array(
-		'name_de' => 'required',
-	);
+        'name_de' => 'required',
+    );
 
     /**
      * Get the Events to which a Gift is related.
      * @return \Illuminate\Database\Eloquent\Collection
      */
-	public function events()
-	{
-		return $this->belongsToMany('Rockit\Event')->withPivot('quantity','cost','comment_de');
-	}
+    public function events() {
+        return $this->belongsToMany('Rockit\Event')->withPivot('quantity', 'cost', 'comment_de');
+    }
 
 }

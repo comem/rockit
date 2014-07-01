@@ -53,7 +53,7 @@ class EventController extends \BaseController {
      * @return Jsend
      */
     public function index() {
-        $events = Event::with('genres', 'representer', 'eventType', 'image', 'tickets.ticketCategory', 'sharings.platform', 'printings.printingType', 'performers.artist.genres', 'staffs.member', 'staffs.skill', 'needs.skill', 'offers.gift', 'attributions.equipment');
+        $events = Event::with('genres');
         $nb_item = Input::has('nb_item') && Input::get('nb_item') > 0 ? Input::get('nb_item') : 10;
         if (Input::has('genres')) {
             $events = $events->artistGenres(Input::get('genres'));
@@ -344,7 +344,7 @@ class EventController extends \BaseController {
                 return Jsend::compile($response);
             }    
         } else {
-            $response['fail'] = ['word' => [trans('fail.wordexport.noinput')]];
+            $response['fail'] = ['word' => [trans('fail.export.no_input')]];
             return Jsend::compile($response);
         }
     }
@@ -377,7 +377,7 @@ class EventController extends \BaseController {
                 return Jsend::compile($response);
             }    
         } else {
-            $response['fail'] = ['xml' => [trans('fail.xmlexport.noinput')]];
+            $response['fail'] = ['xml' => [trans('fail.export.noinput')]];
             return Jsend::compile($response);
         }
     }

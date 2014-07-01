@@ -131,6 +131,10 @@ return [
         'deleted' => "Le représentant \":name\" a bien été supprimé.",
         'restored' => "Le représentant \":name\" a bien été restauré.",
     ],
+    'sharing' => [
+       'created' => "Le post a correctement été crée.",
+       'deleted' => "Le post \":name\" a bien été supprimée.",
+    ],
     'skill' => [
         'deleted' => "La compétence \":name\" a bien été supprimée.",
         'restored' => "La compétence \":name\" a bien été restaurée.",

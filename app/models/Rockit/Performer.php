@@ -52,7 +52,7 @@ class Performer extends \Eloquent {
         'is_support' => 'boolean',
         'artist_hour_of_arival' => 'date',
     ];
-        
+
     /**
      * Validations rules for creating a new Event with a new Performer.
      * @var array 
@@ -64,13 +64,12 @@ class Performer extends \Eloquent {
         'artist_id' => 'integer|required|min:1|exists:artists,id',
     ];
 
-
     /**
      * Get the Artist to which a Performer is related.
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function artist() {
-        return $this->belongsTo('Rockit\Artist');
+        return $this->belongsTo('Rockit\Artist')->withTrashed();
     }
 
     /**
@@ -135,14 +134,22 @@ class Performer extends \Eloquent {
         }
     }
 
-    public static function isUnique( array $array ){
+    /**
+     * Check <b>artist_id</b>'s unicity.
+     * 
+     * Check that there is not two identical <b>artist_id</b> in the given array.
+     * 
+     * @param array $array
+     * @return boolean true|false
+     */
+    public static function isUnique(array $array) {
         $newTab = [];
-        foreach( $array as $object ){
-            if( !in_array($object['artist_id'], $newTab) ){
+        foreach ($array as $object) {
+            if (!in_array($object['artist_id'], $newTab)) {
                 $newTab[] = $object['artist_id'];
             }
         }
-        return count( $array ) === count( $newTab );
+        return count($array) === count($newTab);
     }
 
 }

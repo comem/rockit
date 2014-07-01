@@ -10,12 +10,12 @@ namespace Rockit;
  */
 class GroupResource extends \Eloquent {
 
-	protected $table = 'group_resource';
+    protected $table = 'group_resource';
 
-	/**
+    /**
      * Indicates whether this model uses laravel's timestamps.
      * @var boolean 
      */
-	public $timestamps = false;
+    public $timestamps = false;
 
 }

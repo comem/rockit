@@ -34,10 +34,15 @@ return [
         'inexistant' => "Il n'existe aucun événement correspondant.",
         'at_least_one_main_performer' => "L'événement doit accueillir au moins un groupe principal.",
         'is_symbolized' => "L'événement doit avoir une image de couverture.",
+        'is_not_published' => "L'événement doit être publié pour que un post peut être crée.",
     ],
     'event_type' => [
         'existing' => "Il y a déjà un type d'événement \":name\" enregistré.",
         'inexistant' => "Il n'existe aucun type d'événement correspondant.",
+    ],
+    'export' => [
+        'no_input' => "Des dates de/à n'ont pas été trouvés.",
+        'unchronological' => "Les dates données ne sont pas chronologiquement correcte.",
     ],
     'file' => [
         'invalid' => "Le fichier sélectionné n'est pas un fichier valide.",
@@ -131,6 +136,9 @@ return [
     ],
     'routes' => [
         'missing' => "Oups! Cette url n'existe pas",
+    ],
+    'sharing' => [
+        'inexistant' => "Il n'existe aucun sharing correspondant.",
     ],
     'skill' => [
         'existing' => "Il y a déjà une compétence \":name\" enregistrée.",

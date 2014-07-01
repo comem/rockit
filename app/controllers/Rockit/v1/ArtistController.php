@@ -55,10 +55,7 @@ class ArtistController extends \BaseController {
             $artists = $artists->genres(Input::get('genres'));
         }
         if (Input::has('musician_name')) {
-            $string = Input::get('musician_name');
-            $artists = $artists->musicianStagename($string);
-            $artists = $artists->musicianFirstname($string);
-            $artists = $artists->musicianLastname($string);
+            $artists = $artists->musicianName(Input::get('musician_name'));
         }
         $paginate = $artists->paginate($nb_item)->toArray();
         $artist_data = $paginate['data'];
