@@ -321,9 +321,11 @@ class EventController extends \BaseController {
      * Export the information related to Events that take place between the two dates provided to a well formatted word document.
      *
      * 
-     * Get the adequate inputs from the client request and test that each of them pass the validation rules.<br>
-     * If any of these inputs fail, a <b>Jsend::fail</b> is returned.<br>
-     * If all the inputs are valid, the data is then passed to the <b>modify()</b> method.<br>
+     * Get the adequate inputs from the client request and test that each of them are in a valid date format.<br>
+     * If the 'from' or 'to' input is not set, a <b>Jsend::fail</b> is returned.<br>
+     * If any of these inputs fail the validation, a <b>Jsend::fail</b> is returned.<br>
+     * If the provided dates are not in chronological order, a <b>Jsend::fail</b> is returned.<br>
+     * Or else, the data is then passed to the <b>events()</b> method of the WordExport model.<br>
      *
      * @return Jsend 'fail' or a Word.docx
      */
