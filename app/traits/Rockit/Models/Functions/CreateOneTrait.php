@@ -21,7 +21,7 @@ trait CreateOneTrait {
                 'id' => $object->id,
             ]];
         } else {
-            $response['error'] = trans('error.' . snake_case($class) . '.created', array('name' => $object->$field));
+            $response['error'] = trans('error.' . snake_case($class) . '.created', ['name' => $object->$field]);
         }
         return $response;
     }
