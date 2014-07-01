@@ -301,7 +301,6 @@ class EventController extends \BaseController {
      * Publish the specified ressource.
      *
      * If the provided id does not point to an existing Event, a <b>Jsend::fail</b> is returned.<br>
-     * If the Event does not exist, a <b>Jsend::fail</b> is returned.<br>
      * Or else, the Event is passed to the <b>sfUnpublish</b> method, which returns a response.<br> 
      * 
      * @param  int  $id The id of the Event to unpublish
@@ -319,7 +318,6 @@ class EventController extends \BaseController {
 
     /**
      * Export the information related to Events that take place between the two dates provided to a well formatted word document.
-     *
      * 
      * Get the adequate inputs from the client request and test that each of them are in a valid date format.<br>
      * If the 'from' or 'to' input is not set, a <b>Jsend::fail</b> is returned.<br>
@@ -352,10 +350,15 @@ class EventController extends \BaseController {
     }
 
     /**
-     * Export events between the two dates (including them) to a XML document.
+     * Export the information related to Events that take place between the two dates provided to a well formatted XML file.
+     * 
+     * Get the adequate inputs from the client request and test that each of them are in a valid date format.<br>
+     * If the 'from' or 'to' input is not set, a <b>Jsend::fail</b> is returned.<br>
+     * If any of these inputs fail the validation, a <b>Jsend::fail</b> is returned.<br>
+     * If the provided dates are not in chronological order, a <b>Jsend::fail</b> is returned.<br>
+     * Or else, the data is then passed to the <b>events()</b> method of the WordExport model.<br>
      *
-     * @param
-     * @return Response
+     * @return Jsend 'fail' or a Word.docx
      */
     public function exportXML() {
         $from = Input::get('from');
@@ -367,8 +370,8 @@ class EventController extends \BaseController {
                 return Jsend::compile($response);
             } elseif (Event::checkDatesChronological($from, $to) === true) {
                 XMLExport::events($from, $to) === true;
-                // if a WordExport succeeds, there should no answer be returned. If there is a return,
-                // the wordfile gets corrupt. So it's not possible to make $response['success'] = ['title' => trans('success.wordexport.create')];
+                // if a XMLExport succeeds, there should no answer be returned. If there is a return,
+                // the XMLfile gets corrupt. So it's not possible to make $response['success'] = ['title' => trans('success.xmlexport.create')];
             } else {
                 $response['fail'] = ['title' => trans('fail.export.unchronological')];
                 return Jsend::compile($response);
@@ -379,6 +382,16 @@ class EventController extends \BaseController {
         }
     }
 
+    /**
+     * Save a new association between an Event and an Image that corresponds to the provided image id.
+     *
+     * Get the adequate inputs from the client request and test that each of them pass the validation rules.<br>
+     * If any of these inputs fail, a <b>Jsend::fail</b> is returned.<br>
+     * Or else, the provided event id and image id is passed to the <b>save</b> method of the SymbolizationController, which returns a response.<br> 
+     * 
+     * @param  int  $id The id of the Event to associate to an Image
+     * @return Jsend
+     */
     public function symbolize($id){
         $inputs = [
             'event_id' => $id,
@@ -397,6 +410,15 @@ class EventController extends \BaseController {
         return Jsend::compile($response);
     }
 
+    /**
+     * Delete an existing association between an Event and the Image that symbolizes that Event.
+     *
+     * If the provided id does not point to an existing Event, a <b>Jsend::fail</b> is returned.<br>
+     * Or else, the provided event id is passed to the <b>delete</b> method of the SymbolizationController, which returns a response.<br> 
+     * 
+     * @param  int  $id The id of the Event to no longer be associated to an Image
+     * @return Jsend
+     */
     public function desymbolize($id){
         $event = Event::exist($id);
         if (is_object($event)) {
@@ -409,6 +431,16 @@ class EventController extends \BaseController {
         return Jsend::compile($response);
     }
 
+    /**
+     * Save a new association between an Event and a Representer that corresponds to the provided representer id.
+     *
+     * Get the adequate inputs from the client request and test that each of them pass the validation rules.<br>
+     * If any of these inputs fail, a <b>Jsend::fail</b> is returned.<br>
+     * Or else, the provided event id and representer id is passed to the <b>save</b> method of the GuaranteeController, which returns a response.<br> 
+     * 
+     * @param  int  $id The id of the Event to associate to a Representer
+     * @return Jsend
+     */
     public function setRepresenter($id){
         $inputs = [
             'event_id' => $id,
@@ -427,6 +459,15 @@ class EventController extends \BaseController {
         return Jsend::compile($response);
     }
 
+    /**
+     * Delete an existing association between an Event and the Representer that guarantees that Event.
+     *
+     * If the provided id does not point to an existing Event, a <b>Jsend::fail</b> is returned.<br>
+     * Or else, the provided event id is passed to the <b>delete</b> method of the GuaranteeController, which returns a response.<br> 
+     * 
+     * @param  int  $id The id of the Event to no longer be associated to a Representer
+     * @return Jsend
+     */
     public function unsetRepresenter($id){
         $event = Event::exist($id);
         if (is_object($event)) {
