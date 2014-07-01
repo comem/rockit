@@ -69,4 +69,14 @@ class Representer extends \Eloquent {
         return $this->hasMany('Rockit\Event');
     }
 
+    /**
+     * Reduce the scope of the provided list of results, using a 'name' search filter.
+     * @param \Illuminate\Database\Query\Builder $query The query on which the scope will be applied
+     * @param string $name A string that must be contained in the name attribute
+     * @return ?\Illuminate\Database\Eloquent\Collection?
+     */
+    public function scopeName($query, $name) {
+        return $query->where('name', 'LIKE', '%' . $name . '%');
+    }
+
 }
