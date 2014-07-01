@@ -79,6 +79,17 @@ class PerformerController extends \BaseController {
         return $response;
     }
 
+    /**
+     * Modify an existing Performer, from the provided performer id and the data to update to.
+     * 
+     * If the provided performer id does not point to an existing Performer, a <b>Jsend::fail</b> is returned.<br>
+     * If an 'order' is already in use, that 'order' value is incremented till a number that is not in use is reached.<br>
+     * Then the provided Performer and the new data to update to are passed to the <b>updateOne</b> method of the Performer model, which returns a response.<br>
+     *
+     * @param id $id The id of the Performer to modify
+     * @param array $new_data The data to update to for the specified Performer
+     * @return Jsend
+     */
     public static function modify($id, $new_data) {
         $object = Performer::exist($id);
         if ($object == null) {

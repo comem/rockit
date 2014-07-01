@@ -582,7 +582,7 @@ class EventController extends \BaseController {
      * Or else the provided Event and the new data to update to are passed to the <b>updateOne</b> method of the Event model, which returns a response.<br>
      *
      * @param id $id The id of the Event to modify
-     * @param array $new_data The data to update in the specified Event
+     * @param array $new_data The data to update to for the specified Event
      * @return Jsend
      */
     public static function modify( $id, $new_data ) {
