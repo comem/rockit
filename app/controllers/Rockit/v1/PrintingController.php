@@ -50,7 +50,7 @@ class PrintingController extends \BaseController {
         $data = Input::only('nb_copies', 'nb_copies_surplus', 'source');
         $response = Printing::validate($data, Printing::$update_rules);
         if ($response === true) {
-            $response = self::modify($id, $data);
+            $response = self::modify('Printing', $id, $data);
         }
         return Jsend::compile($response);
     }

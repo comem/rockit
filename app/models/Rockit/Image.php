@@ -4,6 +4,8 @@ namespace Rockit;
 
 use Rockit\Models\ModelBCUDTrait,
     Rockit\Event,
+    \Route,
+    \Request,
     Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 /**
@@ -50,7 +52,7 @@ class Image extends \Eloquent {
      * @var array 
      */
     public static $update_rules = array(
-        'source' => 'min:1|max:2000|path:images|unique:images',
+        'source' => 'min:1|max:2000|path:images',
         'alt_de' => 'max:100|min:1',
         'caption_de' => 'max:200|min:1',
     );
@@ -71,6 +73,47 @@ class Image extends \Eloquent {
         return $this->hasMany('Rockit\Event');
     }
 
+    /**
+     * Updates a persistant image, based on the difference between new values
+     * and existing values.
+     * 
+     * If the sourcefile is changed, delete the old file and add the new one.
+     * 
+     * @param array $new_values
+     * @param \Rockit\Image $object
+     * @return type
+     */
+    public static function updateOne(array $new_values, Image $object) {
+        $field = self::$response_field;
+        if (array_key_exists('source', $new_values)) {
+            if($new_values['source'] != $object->source) {
+                // Create an url to delete the old source
+                $url = 'v1/files/' . $object->source;
+            }    
+        }
+        foreach ($new_values as $key => $value) {
+            if ($value != null) {
+                $object->$key = $value;
+            }
+        }
+        $result = $object->save();
+        if ($result === true) {
+            if (isset($url)) {
+                Route::dispatch(Request::create($url, 'DELETE'));
+            }
+            $response['success'] = ['response' => [
+                    'title' => trans('success.image.updated', array('name' => $object->$field)),
+            ]];
+        } else if (empty($result) || empty($new_values)) {
+            $response['fail'] = ['image' => [trans('fail.empty_data')]];
+        } else {
+            $response['error'] = trans('error.image.updated', array('name' => $object->$field));
+        }
+        return $response;
+    }
+    
+   
+    
     /**
      * Check that an Image illustrates an Artist is a Performer at the specified Event, with the provided Image and Event.
      *
