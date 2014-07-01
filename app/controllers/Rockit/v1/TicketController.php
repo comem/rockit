@@ -38,15 +38,12 @@ class TicketController extends \BaseController {
     }
 
     /**
-     * Save a new relationship between an existing TicketCategory and an existing Event with the given inputs.
-     * 
-     * The TicketCategory provided in the inputs must illustrate an Artist that performs in the Event provided.<br>
-     * If the TicketCategory does not illustrate a performing Artist in the Event, a <b>Jsend::fail</b> is returned.
-     * If the TicketCategory provided already symbolizes an Event, a <b>Jsend::fail</b> is returned.<br>
-     * Or else the inputs are passed to the <b>updateOne</b> method of the TicketCategory model.<br>
-     * TO REVIEW
+     * Update the association between an Event and a proposed TicketCategory that corresponds to the provided ticket id, with the provided inputs.
      *
-     * @param array $inputs An array containing a valid ticket category id and a valid event id 
+     * Get the adequate inputs from the client request and test that each of them pass the update validation rules.<br>
+     * Modifies the Ticket that matches the provided id by passing this id to the <b>modify()</b> method, who sends back a response.<br>
+     * 
+     * @param int $id The id of the requested Ticket
      * @return Jsend
      */
     public function update($id) {
@@ -59,13 +56,11 @@ class TicketController extends \BaseController {
     }
 
     /**
-     * Destroys the association between a Ticket Category and an Event, from the provided ticket category id.
+     * Destroy the association between a TicketCategory and an Event that proposes that TicketCategory, corresponding to the provided ticket category id.
      *
-     * If the ticket category id does not point to an existing TicketCategory, a <b>Jsend::fail</b> is returned.<br>
-     * Or else the the TicketCategory is passed to the <b>delete()</b> method.<br>
-     * TO REVIEW
+     * Destroys the TicketCategory that matches the provided id by passing this id to the <b>delete()</b> method, who sends back a response.<br>
      * 
-     * @param int $id The id of the TicketCategory that will no longer symbolize an Event
+     * @param int $id The id of the requested TicketCategory
      * @return Jsend
      */
     public function destroy($id) {

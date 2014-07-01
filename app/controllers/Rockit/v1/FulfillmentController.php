@@ -38,10 +38,10 @@ class FulfillmentController extends \BaseController {
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Destroys the association between a Member and a Skill that he fulfills, corresponding to the provided fulfillment id.
      *
      * If the provided id does not point to an existing Fulfillment, a <b>Jsend::fail</b> is returned.<br>
-     * Or else this id is then passed to the <b>delete()</b> method that deletes the corresponding model.
+     * Or else this id is then passed to the <b>delete()</b> method, who sends back a response..
      * 
      * @param int $id The id of the requested Fulfillment
      * @return Jsend

@@ -38,13 +38,11 @@ class StaffController extends \BaseController {
     }
 
     /**
-     * Update the specified resource in storage.
-     * 
-     * If the provided id does not point to an existing Staff, a <b>Jsend::fail</b> is returned.<br>
-     * Get the adequate inputs from the client request and test that each of them pass the validation rules.<br>
-     * If any a these inputs fail, a <b>Jsend::fail</b> is returned.<br>
-     * If all the inputs are valid, the data is then passed to the <b>modify()</b> method.<br>
+     * Update the association between an Event, a Member and a Skill that corresponds to the provided staff id, with the provided inputs.
      *
+     * Get the adequate inputs from the client request and test that each of them pass the update validation rules.<br>
+     * Modifies the Staff that matches the provided id by passing this id to the <b>modify()</b> method, who sends back a response.<br>
+     * 
      * @param int $id The id of the requested Staff
      * @return Jsend
      */

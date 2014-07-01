@@ -40,9 +40,12 @@ class PrintingController extends \BaseController {
     }
 
     /**
-     * TO DO
+     * Update the association between an Event and a PrintingType that corresponds to the provided printing id, with the provided inputs.
      *
-     * @param  int  ?$id?
+     * Get the adequate inputs from the client request and test that each of them pass the update validation rules.<br>
+     * Modifies the Printing that matches the provided id by passing this id to the <b>modify()</b> method, who sends back a response.<br>
+     * 
+     * @param int $id The id of the requested Printing
      * @return Jsend
      */
     public function update($id) {
@@ -55,12 +58,11 @@ class PrintingController extends \BaseController {
     }
 
     /**
-     * Destroy the association between a PrintingType and an Event that it is printed for.
+     * Destroy the association between a PrintingType and an Event that it is printed for, corresponding to the provided printing id.
      *
-     * TO DO
+     * Destroys the Printing that matches the provided id by passing this id to the <b>delete()</b> method, who sends back a response.<br>
      * 
-     * 
-     * @param int $id ?what id?
+     * @param int $id The id of the requested Printing
      * @return Jsend
      */
     public function destroy($id) {

@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletingTrait,
  * Based on the Laravel's Eloquent.<br>
  * 
  * @author ??
+ * @author generated with Laravel Schema Designer, <laravelsd.com>
  */
 class TicketCategory extends \Eloquent {
 

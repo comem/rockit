@@ -38,13 +38,11 @@ class NeedController extends \BaseController {
     }
 
     /**
-     * Update the specified resource in storage.
-     * 
-     * //?If the provided id does not point to an existing Need, a <b>Jsend::fail</b> is returned.<br>
-     * Get the adequate inputs from the client request and test that each of them pass the validation rules.<br>
-     * If any a these inputs fail, a <b>Jsend::fail</b> is returned.<br>
-     * If all the inputs are valid, the data is then passed to the <b>modify()</b> method.<br>
+     * Update the association between an Event and a needed Skill that corresponds to the provided need id, with the provided inputs.
      *
+     * Get the adequate inputs from the client request and test that each of them pass the update validation rules.<br>
+     * Modifies the Need that matches the provided id by passing this id to the <b>modify()</b> method, who sends back a response.<br>
+     * 
      * @param int $id The id of the requested Need
      * @return Jsend
      */
@@ -58,13 +56,12 @@ class NeedController extends \BaseController {
     }
 
     /**
-     * Remove the specified resource from the database.
+     * Destroy the association between an Event and a Skill that is needed for that Event, corresponding to the provided need id.
      *
-     * //?If the provided id does not point to an existing Need, a <b>Jsend::fail</b> is returned.<br>
-     * TO REVIEW
+     * Destroys the Need that matches the provided id by passing this id to the <b>delete()</b> method, who sends back a response.<br>
      * 
-     * @param int $id The id of the Need to delete
-     * @return array Contains an array with either a <b>fail</b>, <b>error</b> or <b>success</b> key and its corresponding message
+     * @param int $id The id of the requested Need
+     * @return Jsend
      */
     public function destroy($id) {
         return Jsend::compile(self::delete('Need', $id));
