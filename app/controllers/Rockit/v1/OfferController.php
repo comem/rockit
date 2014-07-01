@@ -67,6 +67,12 @@ class OfferController extends \BaseController {
         return Jsend::compile(self::delete('Offer', $id));
     }
 
+    /**
+     * Save a new Offer as an association between an Event and a Gift from the provided inputs.
+     * 
+     * @param array $data The data to save in the specified Offer 
+     * @return Jsend
+     */
     public static function saveAsAssociation( array $data ){
         return self::save( 'Offer', $data );
     }

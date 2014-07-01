@@ -67,6 +67,12 @@ class AttributionController extends \BaseController {
         return Jsend::compile(self::delete('Attribution', $id));
     }
 
+    /**
+     * Save a new Attribution as an association between an Event and an Equipment from the provided inputs.
+     * 
+     * @param array $data The data to save in the specified Attribution 
+     * @return Jsend
+     */
     public static function saveAsAssociation( array $data ){
         return self::save( 'Attribution', $data );
     }

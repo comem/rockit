@@ -15,16 +15,26 @@ use \Config,
 
 //include_once("facebook-php-sdk/src/facebook.php");
 
-
+/**
+ * A Sharing is the link between an Event and a Platform.<br>
+ * Contains interaction methods for the relationship between a Platform and the Event it shares.<br>
+ * Based on the Laravel's BaseController.<br>
+ * Can : <b>store</b> and <b>destroy</b> an association between a Platform and an Event.<br>
+ * 
+ * @author Christian Heimann <christian.heimann@heig-vd.ch>
+ */
 class SharingController extends \BaseController {
 
     /**
-     * Store a newly created resource in storage, and creates automatically
-     * the asked post/entry on the indicated platform. Needs a platform_id, an event_id and
-     * can have an additional_text.
-     * @return Response a fail if given data is not valid or redirect on facebook login if platform_id
-     * describes facebook. No other platformes implemented yet.
-     * @author Christian Heimann <christian.heimann@heig-vd.ch>
+     * Store a new association between a Platform and the Event it shares. Currently facebook is the only Platform implemented.
+     * 
+     * Get the adequate inputs from the client request and test that each of them pass the validation rules.<br>
+     * If any of these inputs fails, a <b>Jsend::fail</b> is returned.<br>
+     * If the Event provided is not published, a <b>Jsend::fail</b> is returned.<br>
+     * If the Platform provided is not recognized, a <b>Jsend::error</b> is returned.<br>
+     * If the association between the Event and the Platform was created, then return a redirection to the Platform's login page.<br>
+     *
+     * @return Jsend or a redirect to the Platform's login
      */
     public function store() {
         $inputs = Input::only('platform_id', 'event_id', 'additional_text');
@@ -54,10 +64,15 @@ class SharingController extends \BaseController {
     }
 
     /**
-     * Remove the specified resource from storage and removes also the
-     * linked post if possible.
-     * @param  int  $id is the id of the sharing to delete.
-     * @return Response
+     * Destroy the association between a Platform and an Event, from the provided Sharing id.
+     *
+     * If the sharing id does not point to an existing Sharing, a <b>Jsend::fail</b> is returned.<br>
+     * If the Platform provided is not recognized, a <b>Jsend::error</b> is returned.<br>
+     * If the Sharing was deleted, then return a redirection to the Platform's login page.<br>
+     * Also removes the linked post if it is possible.
+     * 
+     * @param int $id The id of the Sharing that will no longer share the Event
+     * @return Jsend
      */
     public function destroy($id) {
         $sharing = Sharing::find($id);
