@@ -17,6 +17,10 @@ class Need extends \Eloquent {
 		'event_id' 		=> 'integer|required|min:1|exists:events,id',
 		'skill_id' 		=> 'integer|required|min:1|exists:skills,id',
 	];
+	public static $create_event_rules = [
+		'nb_people' 	=> 'integer|required|min:1',
+		'skill_id' 		=> 'integer|required|min:1|exists:skills,id',
+	];
 	public static $update_rules = [
 		'nb_people' 	=> 'integer|min:1',
 	];
