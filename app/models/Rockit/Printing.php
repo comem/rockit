@@ -51,7 +51,7 @@ class Printing extends \Eloquent {
     public static $update_rules = [
         'nb_copies' => 'integer|min:0',
         'nb_copies_surplus' => 'integer|min:0',
-        'source' => 'path:printings|max:100|min:1|unique:printings',
+        'source' => 'path:printings|max:100|min:1',
     ];
 
     /**
@@ -83,8 +83,10 @@ class Printing extends \Eloquent {
     public static function updateOne(array $new_values, Printing $printing) {
         $field = self::$response_field;
         if (array_key_exists('source', $new_values)) {
-            // Create an url to delete the old source
-            $url = 'v1/files/' . $printing->source;
+            if($new_values['source'] != $printing->source) {
+                // Create an url to delete the old source
+                $url = 'v1/files/' . $printing->source;
+            }    
         }
         foreach ($new_values as $key => $value) {
             if ($value != null) {
