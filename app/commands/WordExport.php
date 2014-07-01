@@ -2,16 +2,19 @@
 
 use PhpOffice\PhpWord\PhpWord,
     PhpOffice\PhpWord\IOFactory,
-    \Rockit\Event;
+    \Rockit\Event,
+    \RockitHelper;
+    
 
 /**
- * This class is used to export an interval of selected Event into a well-formatted Word file.
- * 
+ * This class offers functions to export data into well-formatted Word files.
+ * PHPWord library is needed.
  * @author Christian Heimann <christian.heimann@heig-vd.ch>
  */
 class WordExport {
 
     /**
+     * This Function is used to export an interval of selected Events into a well-formatted Word file.
      * Return a Word file containing data from the events filtered by the <b>from</b> and <b>to</b> attribute.<br>
      * 
      * The <b>from</b> and <b>to</b> attribute must be UTC datetime formatted with the 'YYYY-mm-DD hh:mm:ss' format.<br>
@@ -20,6 +23,7 @@ class WordExport {
      * @param DateTime $from The interval beginning time
      * @param DateTime $to The interval end time
      * @return Word An output to download the created Word file
+     * @author Mathias Oberson <mathias.oberson@heig-vd.ch>
      */
     public static function events($from, $to) {
         setlocale(LC_ALL, 'de_DE@euro', 'de_DE', 'de', 'ge');
@@ -127,7 +131,7 @@ class WordExport {
             $section->addTitle("Konzerte im " . strftime("%B %Y", $timeFrom), 2);
         } else {
             $dates = "Konzerte vom " . strftime("%e. %B %Y", $timeFrom) . " bis " . strftime("%e. %B %Y", $timeTo);
-            $dates = self::deleteDoubleWhitspace($dates);
+            $dates = RockitHelper::deleteDoubleWhitspace($dates);
             $section->addTitle($dates, 2);
         }
         $section->addLine($lsColor);
@@ -500,11 +504,6 @@ class WordExport {
             }
         }
         return $contact;
-    }
-
-    private static function deleteDoubleWhitspace($date) {
-        $date = preg_replace("/\s\s(\d\.)/", " $1", $date);
-        return $date;
     }
 
 }
