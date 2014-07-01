@@ -615,8 +615,8 @@ class EventController extends \BaseController {
      * @return Jsend
      */
     public static function saveAssociations($class, $event_id, array $data) {
-        $classNamespaced = 'Rockit\\' . $class;
-        $controller = 'Rockit\\v1\\' . $class . 'Controller';
+        $classNamespaced = 'Rockit\\Models\\' . $class;
+        $controller = 'Rockit\\Controllers\\v1\\' . $class . 'Controller';
         $plural = snake_case(str_plural($class));
         if ($classNamespaced::isUnique($data)) {
             foreach ($data as $key => $array) {
