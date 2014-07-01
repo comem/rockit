@@ -128,6 +128,12 @@ class StaffController extends \BaseController {
         return $response;
     }
 
+    /**
+     * Save a new Staff as an association between an Event and a Member from the provided inputs.
+     * 
+     * @param array $data The data to save in the specified Staff 
+     * @return Jsend
+     */
     public static function saveAsAssociation( array $data ){
         return self::save( $data );
     }

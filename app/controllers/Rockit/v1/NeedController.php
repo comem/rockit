@@ -67,6 +67,12 @@ class NeedController extends \BaseController {
         return Jsend::compile(self::delete('Need', $id));
     }
 
+    /**
+     * Save a new Need as an association between an Event and a Skill from the provided inputs.
+     * 
+     * @param array $data The data to save in the specified Need 
+     * @return Jsend
+     */
     public static function saveAsAssociation( array $data ){
         return self::save( 'Need', $data );
     }

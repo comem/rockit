@@ -90,6 +90,12 @@ class PerformerController extends \BaseController {
         return $response;
     }
 
+    /**
+     * Save a new Performer as an association between an Event and an Artist from the provided inputs.
+     * 
+     * @param array $data The data to save in the specified Performer 
+     * @return Jsend
+     */
     public static function saveAsAssociation( array $data ){
         return self::save( $data );
     }
