@@ -19,6 +19,7 @@ class Gift extends \Eloquent {
 
 	protected $table = 'gifts';
     protected $dates = ['deleted_at'];
+    protected $hidden = ['deleted_at'];
 
     /**
      * Indicates whether this model uses laravel's timestamps.

@@ -15,6 +15,8 @@ class Instrument extends \Eloquent {
         Models\ModelBCRDTrait;
 
     protected $table = 'instruments';
+    protected $dates = ['deleted_at'];
+    protected $hidden = ['deleted_at'];
 
     /**
      * Indicates whether this model uses laravel's timestamps.
