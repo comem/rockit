@@ -82,6 +82,11 @@ class OtherMethodSeeder {
             'controller' => 'EventController',
             'method' => 'unsetRepresenter',
         ));
+        Resource::create(array(
+           'id' => 113,
+            'controller' => 'FacebookController',
+            'method' => 'redirectCatch',
+        ));
     }
     
 }

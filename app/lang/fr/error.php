@@ -146,6 +146,7 @@ return [
         'updated' => "La mise à jour du partage a échoué.",
         'deleted' => "La suppression du partage a échoué.",
         'no_platform' => "Aucune plateforme a été trouvé.",
+        'no_input' => "Aucun sharing a été trouvé.",
     ],
     'skill' => [
         'created' => "La création de la compétence a échoué.",

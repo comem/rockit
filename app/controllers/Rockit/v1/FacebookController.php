@@ -87,11 +87,10 @@ class FacebookController extends \BaseController {
      * Function to create a Facebook Post to share the data of a given event with an automatically
      * created message. If the creation of a post succeeds, the Sharing entry is made
      * into database.
-     * @param int $event_id the id of the event to share
      * @return $response with success or error
      * @author Christian Heimann <christian.heimann@heig-vd.ch>
      */
-    public static function shareEvent() {
+    private static function shareEvent() {
         $session = Session::get('facebookSession');
         $event_id = Session::get('event_id');
         $platform = Platform::where('name', '=', 'facebook')->first();
@@ -101,7 +100,8 @@ class FacebookController extends \BaseController {
         if (is_null($additional_text)) {
             $additional_text = "";
         }
-        if (Event::exist($event_id)) {
+        $event = Event::find($event_id);
+        if (!is_null($event)) {
             $message = Sharing::message($event, $additional_text);
             if ($session) {
                 try {
@@ -134,7 +134,7 @@ class FacebookController extends \BaseController {
                         $inputs['url'] = "www.facebook.com";
                         $inputs['platform_id'] = Session::get('platform_id');
                         $inputs['event_id'] = Session::get('event_id');
-                        $inputs['external_infos'] = json_encode(['additional_text' => $additionalText]);
+                        $inputs['external_infos'] = json_encode(['additional_text' => $additional_text]);
                         $response = Sharing::createOne($inputs);
                     }
                 }
@@ -149,13 +149,20 @@ class FacebookController extends \BaseController {
         return $response;
     }
 
-    public static function deleteEvent() {
+    /**
+     * Function to delete a post of an event. Facebook session and the sharing object
+     * must already be set as Session variable. If a post cannot be found on facebook,
+     * the database entry is deleted anyway.
+     * @return Response
+     * @author Christian Heimann <christian.heimann@heig-vd.ch>
+     */
+    private static function deleteEvent() {
         $session = Session::get('facebookSession');
-        $external_id = Session::get('external_id');
+        $sharing = Session::get('sharing');
         $platform = Platform::where('name', '=', 'facebook')->first();
         $api_infos = json_decode($platform->api_infos);
 
-        if (Sharing::exist($external_id)) {
+        if (!is_null($sharing)) {
             if ($session) {
                 try {
                     $user_profile = (new FacebookRequest(
@@ -170,16 +177,19 @@ class FacebookController extends \BaseController {
                 if ($session) {
                     try {
                         $fbResponse = (new FacebookRequest(
-                                $session, 'DELETE', '/' . $external_id))->execute()->getGraphObject();
+                                $session, 'DELETE', '/' . $sharing->external_id))->execute()->getGraphObject();
                     } catch (FacebookRequestException $e) {
                         $response['error'] = "Exception occured, code: " . $e->getCode() . " with message: " . $e->getMessage();
                     }
-                    if (!isset($response['error'])) {
-                        $sharing = Session::get('sharing');
-                        $response = Sharing::deleteOne($sharing);
+                    $sharing = Session::get('sharing');
+                    $response = Sharing::deleteOne($sharing);
+                    if(isset($response['success'])) {
+                        unset($response['error']);
                     }
                 }
             }
+        } else {
+            $response['error'] = ['sharing' => [trans('error.sharing.no_input')]];
         }
         return $response;
     }

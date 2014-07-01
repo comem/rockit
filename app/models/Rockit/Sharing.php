@@ -20,8 +20,8 @@ class Sharing extends \Eloquent {
         protected static $response_field = 'id';
         public static $create_rules = [
             'external_id' => '',
-            'platform_id' => 'required|exists:platforms,id',
-            'event_id' => 'required|exists:events,id'
+            'platform_id' => 'required|integer|exists:platforms,id',
+            'event_id' => 'required|integer|exists:events,id'
         ];
 
         /**
