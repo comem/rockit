@@ -47,7 +47,7 @@ class Sharing extends \Eloquent {
      * @author Christian Heimann <christian.heimann@heig-vd.ch>
      */
     public function platform() {
-        return $this->belongsTo('Rockit\Platform');
+        return $this->belongsTo('Rockit\Platform')->withTrashed();
     }
 
     /**

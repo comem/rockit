@@ -20,7 +20,7 @@ class TicketCategory extends \Eloquent {
     protected $table = 'ticket_categories';
     protected $dates = ['deleted_at'];
     protected $hidden = ['deleted_at'];
-    
+
     /**
      * Indicates whether this model uses laravel's timestamps.
      * @var boolean 
