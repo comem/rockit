@@ -40,17 +40,17 @@ class SearchController extends \BaseController {
             }
             foreach($res_artists as $artist){
                 $artist['type'] = trans('hci.DropdownArtist');
-                $event['class'] = 'Artist';
-                $event['value'] = $event['name'];
-                unset($event['name']);
+                $artist['class'] = 'Artist';
+                $artist['value'] = $artist['name'];
+                unset($artist['name']);
                 $res[] = $artist;
             }
             foreach($res_representers as $representer){
                 $representer['type'] = trans('hci.DropdownRepresenter');
-                $event['class'] = 'Representer';
-                $event['value'] = $event['first_name'].' '.$event['last_name'];
-                unset($event['first_name']);
-                unset($event['last_name']);
+                $representer['class'] = 'Representer';
+                $representer['value'] = $representer['first_name'].' '.$representer['last_name'];
+                unset($representer['first_name']);
+                unset($representer['last_name']);
                 $res[] = $representer;
             }
             $response['success'] = ['response' => $res];
