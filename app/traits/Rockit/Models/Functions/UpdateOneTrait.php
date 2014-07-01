@@ -12,9 +12,9 @@ trait UpdateOneTrait {
     /**
      * Update a persistant Model in the database, using the differences between a set of new values provided and the old, existing values of the provided Model.
      *
-     * The class of model to update corresponds to the class of model that calls this function.<br>
+     * The class of model to update corresponds to the class of model that called this function.<br>
      * The response field defined in that same model will be included in any return messages.<br>
-     * The values are compared and the differences are passed to the <b>save</b> method of the class model to update, which will return a response.<br>
+     * The values are compared and the differences are passed to the <b>save</b> method of the class model to update, which returns a response.<br>
      * If that response was empty or there were no new values to update to, a <b>Jsend::fail</b> is returned.<br>
      * If the update was not executed correctly, a <b>Jsend::error</b> is returned.<br>
      * Or else, a <b>Jsend::success</b> is returned. 

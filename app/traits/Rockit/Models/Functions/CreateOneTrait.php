@@ -12,9 +12,9 @@ trait CreateOneTrait {
     /**
      * Create and save a new Model in the database with the provided data.
      *
-     * The class of model to create corresponds to the class of model that calls this function.<br>
+     * The class of model to create corresponds to the class of model that called this function.<br>
      * The response field defined in that same model will be included in any return messages.<br>
-     * The data is passed to the <b>create</b> method of the class model to create, which will return a response.<br>
+     * The data is passed to the <b>create</b> method of the class model to create, which returns a response.<br>
      * If that response is 'null', a <b>Jsend::error</b> is returned.
      * Or else, a <b>Jsend::success</b> is returned.
      * 

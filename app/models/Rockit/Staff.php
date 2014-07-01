@@ -120,6 +120,7 @@ class Staff extends \Eloquent {
     /**
      * Check if a Staff exists, with the provided member id and event id.
      *
+     * @param array $data Data that contains a member_id and an event_id
      * @return Null or a Staff object
      */
     public static function existByIds($data) {

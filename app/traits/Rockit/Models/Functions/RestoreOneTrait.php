@@ -8,16 +8,16 @@ namespace Rockit\Models\Functions;
  * @author Mathias Oberson <mathias.oberson@heig-vd.ch>
  */
 trait RestoreOneTrait {
-    
+
     /**
      * Restore a previously soft-deleted Model in the database.
      *
-     * The class of model to update corresponds to the class of model that calls this function.<br>
+     * The class of model to restore corresponds to the class of model that called this function.<br>
      * The response field defined in that same model will be included in any return messages.<br>
-     * The values are compared and the differences are passed to the <b>save</b> method of the class model to update, which will return a response.<br>
-     * If that response was empty or there were no new values to update to, a <b>Jsend::fail</b> is returned.<br>
-     * If the update was not executed correctly, a <b>Jsend::error</b> is returned.<br>
-     * Or else, a <b>Jsend::success</b> is returned. 
+     *
+     * The data is passed to the <b>restore</b> method of the class model to restore, which returns a response.<br>
+     * If that response is 'false', a <b>Jsend::error</b> is returned.
+     * Or else, a <b>Jsend::success</b> is returned.
      *
      * @param Object $object The soft-deleted Model to restore
      * @return array An array containing a 'success' or 'error' key with its message.

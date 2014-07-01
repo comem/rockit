@@ -12,9 +12,9 @@ trait DeleteOneTrait {
     /**
      * Delete a persistant Model from the database that matches the provided Model.
      *
-     * The class of model to delete corresponds to the class of model that calls this function.<br>
+     * The class of model to delete corresponds to the class of model that called this function.<br>
      * The response field defined in that same model will be included in any return messages.<br>
-     * The data is passed to the <b>delete</b> method of the class model to delete, which will return a response.<br>
+     * The data is passed to the <b>delete</b> method of the class model to delete, which returns a response.<br>
      * If the provided Model was not deleted, a <b>Jsend::error</b> is returned.
      * Or else, a <b>Jsend::success</b> is returned.
      *
