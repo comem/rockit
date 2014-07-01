@@ -112,7 +112,7 @@ class StaffController extends \BaseController {
         if ($object == null) {
             $response = [
                 'fail' => [
-                    'title' => trans('fail.event.inexistant'),
+                    'title' => trans('fail.staff.inexistant'),
                 ],
             ];
         } else {

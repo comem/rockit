@@ -199,7 +199,7 @@ class EventController extends \BaseController {
             'representer_id');
         $validate = Event::validate($new_data, Event::$update_rules);
         if ($validate === true) {
-            $response = self::modify('Event', $id, $new_data);
+            $response = self::modify($id, $new_data);
         } else {
             $response = $validate;
         }
@@ -430,26 +430,25 @@ class EventController extends \BaseController {
         return $response;
     }
 
-    public static function modify( $inputs ) {
+    public static function modify( $id, $new_data ) {
         $event = Event::exist($id);
         if( is_object( $event ) ){
-            if(isset($inputs['opening_doors']) && $inputs['opening_doors'] != NULL ){
-                $response = Event::checkOpeningDoorsHour( $inputs['start_date_hour'], $inputs['opening_doors'] );
+            if(isset($new_data['opening_doors']) && $new_data['opening_doors'] != NULL ){
+                $response = Event::checkOpeningDoorsHour( $event->start_date_hour, $new_data['opening_doors'] );
             }
             if( !isset( $response ) || $response === true ){
-                $response = Event::checkDatesChronological( $inputs['start_date_hour'], $inputs['ending_date_hour'] );
+                $response = Event::checkDatesChronological( $event->start_date_hour, $new_data['ending_date_hour'] );
                 if($response === true){
-                    $response = Event::checkDatesDontOverlap( $inputs['start_date_hour'], $inputs['ending_date_hour'] );
+                    $response = Event::checkDatesDontOverlap( $event->start_date_hour, $new_data['ending_date_hour'] );
                 }
             }
         } else {
             $response['fail'] = [
                 'fail' => [
-                    'title' => trans('fail.staff.inexistant'),
+                    'title' => trans('fail.event.inexistant'),
                 ],
             ];
         }
-
         if ( !isset( $response['fail'] ) ) {
             $response = Event::updateOne($inputs, $event);
         }

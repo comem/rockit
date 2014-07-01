@@ -36,7 +36,6 @@ class Event extends \Eloquent {
         'staffs' => 'array',
     );
     public static $update_rules = array(
-        'start_date_hour' => 'date',
         'ending_date_hour' => 'date',
         'opening_doors' => 'date',
         'title_de' => 'min:2',
