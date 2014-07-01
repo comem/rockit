@@ -438,9 +438,6 @@ class EventController extends \BaseController {
             }
             if( (!isset( $response ) || $response === true) && (isset($new_data['ending_date_hour']) && $new_data['ending_date_hour'] != NULL) ){
                 $response = Event::checkDatesChronological( $event->start_date_hour, $new_data['ending_date_hour'] );
-                if($response === true){
-                    $response = Event::checkDatesDontOverlap( $event->start_date_hour, $new_data['ending_date_hour'] );
-                }
             }
         } else {
             $response['fail'] = [
@@ -450,7 +447,7 @@ class EventController extends \BaseController {
             ];
         }
         if ( !isset( $response['fail'] ) ) {
-            $response = Event::updateOne($inputs, $event);
+            $response = Event::updateOne($new_data, $event);
         }
         return $response;
     }
