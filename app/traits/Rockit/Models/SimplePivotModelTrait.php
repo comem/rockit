@@ -2,6 +2,11 @@
 
 namespace Rockit\Models;
 
+/**
+ * A trait for simple pivot Models that use the generic <b>existByIds</b> method. It also uses the generic <b>validate</b> and <b>exist</b> methods in the base trait, as well as the <b>createOne</b> trait and <b>deleteOne</b> trait.
+ *
+ * @author Mathias Oberson <mathias.oberson@heig-vd.ch>
+ */
 trait SimplePivotModelTrait {
 
     use Functions\BaseModelTrait,
@@ -9,11 +14,10 @@ trait SimplePivotModelTrait {
         Functions\DeleteOneTrait;
 
     /**
-     * Check that there is an existing relatioship between the models referenced by their ids.
-     * Each item in the ids array must have its key matching an attribute name, like "model_id", and an integer value.
+     * Check that there is an existing relationship between the Models corresponding to the provided model names and model ids.
      * 
-     * @param array $ids
-     * @return null (doesn't exist) or object (exists)
+     * @param array $ids A list of model ids to use in order to check for an existing relationship  
+     * @return Null or the Model that links the model ids together
      */
     public static function existByIds(array $ids) {
         $query = self::select();
