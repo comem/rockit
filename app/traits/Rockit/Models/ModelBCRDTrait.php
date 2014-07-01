@@ -3,12 +3,9 @@
 namespace Rockit\Models;
 
 /**
- * This trait is used by models who needs to implements the following methods :
- * - exist()
- * - validate()
- * - createOne()
- * - restoreOne()
- * - deleteOne()
+ * A trait for Models that use the generic <b>validate</b> and <b>exist</b> methods in the base trait, as well as the <b>createOne</b> trait, <b>restoreOne</b> trait and <b>deleteOne</b> trait.
+ *
+ * @author Mathias Oberson <mathias.oberson@heig-vd.ch>
  */
 trait ModelBCRDTrait {
 

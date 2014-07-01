@@ -3,22 +3,26 @@
 namespace Rockit;
 
 use \Validator,
-    \DB;
+    \DB,
+    \Request,
+    \Route;
 
 class Event extends \Eloquent {
 
     use Models\ModelBCUDTrait;
 
     protected $table = 'events';
+    public $append = ['event_type'];
+    public $hidden = ['event_type_id'];
     public static $response_field = 'start_date_hour';
     public $timestamps = true;
     public static $create_rules = array(
-        'start_date_hour' => 'required',
-        'ending_date_hour' => 'required',
-        'opening_doors' => '',
+        'start_date_hour' => 'date|required',
+        'ending_date_hour' => 'date|required',
+        'opening_doors' => 'date',
         'title_de' => 'required|min:2',
-        'nb_meal' => 'integer|required',
-        'nb_vegans_meal' => 'integer|required',
+        'nb_meal' => 'integer|required|min:0',
+        'nb_vegans_meal' => 'integer|required|min:0',
         'meal_notes_de' => '',
         'nb_places' => 'integer|min:0',
         'followed_by_private' => 'boolean',
@@ -36,17 +40,27 @@ class Event extends \Eloquent {
         'staffs' => 'array',
     );
     public static $update_rules = array(
-        'start_date_hour' => 'date',
         'ending_date_hour' => 'date',
         'opening_doors' => 'date',
         'title_de' => 'min:2',
-        'nb_meal' => 'integer',
-        'nb_vegans_meal' => 'integer',
+        'nb_meal' => 'integer|min:0',
+        'nb_vegans_meal' => 'integer|min:0',
         'meal_notes_de' => '',
         'nb_places' => 'integer|min:0',
         'followed_by_private' => 'boolean',
         'notes_de' => '',
+        'event_type_id' => 'exists:event_types,id',
+        'representer_id' => 'exists:representers,id',
+        'image_id' => 'exists:images,id',
     );
+    
+    public function getEventTypeAttribute() {
+        return $this->genres()->getResults();
+    }
+
+    public function genres() {
+        return $this->belongsToMany('Rockit\Genre', 'event_genre');
+    }
 
     public function gifts() {
         return $this->belongsToMany('Rockit\Gift', 'offers')
@@ -134,11 +148,16 @@ class Event extends \Eloquent {
         return $this->belongsTo('Rockit\Representer');
     }
 
+//    public function scopeArtistGenres($query, array $genres) {
+//        return $query->whereHas('artists', function($q) use ($genres) {
+//            $q->whereHas('genres', function($q) use ($genres) {
+//                $q->whereIn('genres.id', $genres);
+//            });
+//        });
+//    }
     public function scopeArtistGenres($query, array $genres) {
-        return $query->whereHas('artists', function($q) use ($genres) {
-            $q->whereHas('genres', function($q) use ($genres) {
-                $q->whereIn('genres.id', $genres);
-            });
+        return $query->whereHas('genres', function($q) use ($genres) {
+            $q->where('genre_id', '=', $genres);
         });
     }
 
@@ -200,9 +219,9 @@ class Event extends \Eloquent {
      * @param $start_date_hour, $opening_doors_hour
      * @return  true or fail message
      */
-    public static function checkOpeningDoorsHour($start_date_hour, $opening_doors_hour) {
+    public static function checkOpeningDoorsHour($start_date_hour, $opening_doors) {
         $v = Validator::make(
-        ['start_date_hour' => $start_date_hour], ['start_date_hour' => 'required|after:' . $opening_doors_hour]
+        ['opening_doors' => $opening_doors], ['opening_doors' => 'required|before:' . $start_date_hour]
         );
         if ($v->fails()) {
             $response['fail'] = $v->messages()->getMessages();
@@ -220,7 +239,7 @@ class Event extends \Eloquent {
      */
     public static function checkDatesChronological($start_date_hour, $ending_date_hour) {
         $v = Validator::make(
-        ['start_date_hour' => $start_date_hour], ['start_date_hour' => 'required|before:' . $ending_date_hour]
+        ['ending_date_hour' => $ending_date_hour], ['ending_date_hour' => 'required|after:' . $start_date_hour]
         );
         if ($v->fails()) {
             $response['fail'] = $v->messages()->getMessages();
@@ -319,6 +338,44 @@ class Event extends \Eloquent {
         } else {
             $response['error'] = trans('error.event.created', array('name' => $data[$field]));
             DB::rollback();
+        }
+        return $response;
+    }
+
+    public static function deleteOne( $event ){
+        $field = self::$response_field;
+        try {
+            DB::beginTransaction();
+            $event->attributions()->delete();
+            $event->offers()->delete();
+            $event->needs()->delete();
+            $event->staffs()->delete();
+            $event->tickets()->delete();
+            $event->performers()->delete();
+            foreach( $event->sharings as $sharing ){
+                Sharing::deleteOne( $sharing );
+            }
+            foreach( $event->printings as $printing ){
+                Printing::deleteOne( $printing );
+            }
+            if( $event->delete() ){
+                if( isset($event->contract_src) && $event->contract_src != NULL ){
+                    $url = 'v1/files/'.$event->contract_src;
+                    $route = Request::create($url, 'DELETE');
+                    Route::dispatch($route);
+                }
+                $response['success'] = [
+                    'response' => [
+                    'title' =>  trans('success.event.deleted', array('name' => $event->$field)),
+                ]]; 
+                DB::commit();
+            } else {
+                DB::rollback();
+                $response['error'] = trans('error.event.deleted', array('name' => $event->$field));
+            }
+        } catch (\Laravel\Database\Exception $e) {
+            DB::rollback();
+            $response['error'] = trans('error.event.deleted', array('name' => $event->$field));
         }
         return $response;
     }

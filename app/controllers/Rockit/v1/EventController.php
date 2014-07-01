@@ -21,7 +21,7 @@ class EventController extends \BaseController {
      * @return Response
      */
     public function index() {
-        $events = Event::with('representer', 'eventType', 'image', 'tickets.ticketCategory', 'sharings.platform', 'printings.printingType', 'performers.artist', 'staffs.member', 'staffs.skill', 'needs.skill', 'offers.gift', 'attributions.equipment');
+        $events = Event::with('genres', 'representer', 'eventType', 'image', 'tickets.ticketCategory', 'sharings.platform', 'printings.printingType', 'performers.artist.genres', 'staffs.member', 'staffs.skill', 'needs.skill', 'offers.gift', 'attributions.equipment');
         $nb_item = Input::has('nb_item') && Input::get('nb_item') > 0 ? Input::get('nb_item') : 10;
         if (Input::has('genres')) {
             $events = $events->artistGenres(Input::get('genres'));
@@ -193,7 +193,17 @@ class EventController extends \BaseController {
      * @return Response
      */
     public function update($id) {
-        //
+        $new_data = Input::only(
+            'ending_date_hour', 'title_de', 'nb_meal', 'nb_vegans_meal', 'opening_doors', 'meal_notes_de', 
+            'nb_places', 'followed_by_private', 'contract_src', 'notes_de', 'event_type_id', 
+            'representer_id');
+        $validate = Event::validate($new_data, Event::$update_rules);
+        if ($validate === true) {
+            $response = self::modify($id, $new_data);
+        } else {
+            $response = $validate;
+        }
+        return Jsend::compile($response);
     }
 
     /**
@@ -203,7 +213,7 @@ class EventController extends \BaseController {
      * @return Response
      */
     public function destroy($id) {
-        //
+        return Jsend::compile(self::delete('Event', $id));
     }
 
     /**
@@ -416,6 +426,28 @@ class EventController extends \BaseController {
         }
         if ( !isset( $response['fail'] ) ) {
             $response = Event::createOne($inputs);
+        }
+        return $response;
+    }
+
+    public static function modify( $id, $new_data ) {
+        $event = Event::exist($id);
+        if( is_object( $event ) ){
+            if(isset($new_data['opening_doors']) && $new_data['opening_doors'] != NULL ){
+                $response = Event::checkOpeningDoorsHour( $event->start_date_hour, $new_data['opening_doors'] );
+            }
+            if( (!isset( $response ) || $response === true) && (isset($new_data['ending_date_hour']) && $new_data['ending_date_hour'] != NULL) ){
+                $response = Event::checkDatesChronological( $event->start_date_hour, $new_data['ending_date_hour'] );
+            }
+        } else {
+            $response['fail'] = [
+                'fail' => [
+                    'title' => trans('fail.event.inexistant'),
+                ],
+            ];
+        }
+        if ( !isset( $response['fail'] ) ) {
+            $response = Event::updateOne($new_data, $event);
         }
         return $response;
     }

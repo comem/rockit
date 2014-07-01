@@ -38,9 +38,12 @@ class OfferController extends \BaseController {
     }
 
     /**
-     * TO DO
+     * Update the association between an Event and an offered Gift that corresponds to the provided offer id, with the provided inputs.
      *
-     * @param  int  ?$id?
+     * Get the adequate inputs from the client request and test that each of them pass the update validation rules.<br>
+     * Modifies the Offer that matches the provided id by passing this id to the <b>modify()</b> method, who sends back a response.<br>
+     * 
+     * @param int $id The id of the requested Offer
      * @return Jsend
      */
     public function update($id) {
@@ -53,12 +56,11 @@ class OfferController extends \BaseController {
     }
 
     /**
-     * Destroy the association between a Gift and an Event that it is offered in.
+     * Destroy the association between a Gift and an Event that offers that Gift, corresponding to the provided offer id.
      *
-     * TO DO
+     * Destroys the Offer that matches the provided id by passing this id to the <b>delete()</b> method, who sends back a response.<br>
      * 
-     * 
-     * @param int $id ?what id?
+     * @param int $id The id of the requested Offer
      * @return Jsend
      */
     public function destroy($id) {

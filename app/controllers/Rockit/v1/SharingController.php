@@ -24,6 +24,7 @@ class SharingController extends \BaseController {
      * can have an additional_text.
      * @return Response a fail if given data is not valid or redirect on facebook login if platform_id
      * describes facebook. No other platformes implemented yet.
+     * @author Christian Heimann <christian.heimann@heig-vd.ch>
      */
     public function store() {
         $inputs = Input::only('platform_id', 'event_id', 'additional_text');

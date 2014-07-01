@@ -2,15 +2,28 @@
 
 namespace Rockit\Controllers\Functions;
 
+/**
+ * A trait that contains a generic <b>renew</b> method to be used by a Controller Trait.
+ *
+ * @author Mathias Oberson <mathias.oberson@heig-vd.ch>
+ */
 trait RenewTrait {
 
     /**
      * Reactive a previsouly soft deleted model whose column matches the provided value.
      * 
-     * @param string $model 
-     * @param array $data
-     * @param string $column
      * @return mixed
+     */
+    /**
+     * Reactivate a previously soft-deleted Model, by providing the class name and the column-value of the Model to reactivate, with the name of that column.
+     * 
+     * If the id provided does not point to a currently soft-deleted model of the class provided, a boolean <b>false</b> is returned.<br>
+     * Or else, the Model's column name and value is passed to the <b>restoreOne</b> method, which will return a response.<br>
+     *
+     * @param string $model The class name of the desired Model (without its namespace)
+     * @param array $data An array that contains the value desired, which will designate a Model to be renewed
+     * @param string $column The name of the column to use when designating a Model to renew.
+     * @return ?mixed, boolean 'false' or Jsend message?
      */
     public static function renew($model, $data, $column = 'name_de') {
         $call = self::$namespace . $model;

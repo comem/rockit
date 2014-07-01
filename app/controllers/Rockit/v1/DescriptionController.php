@@ -38,12 +38,11 @@ class DescriptionController extends \BaseController {
     }
 
     /**
-     * Destroy the association between an Artist and a Genre, from the provided ?description id?
+     * Destroy the association between an Artist and a Genre that describes that Artist, corresponding to the provided description id.
      *
      * Destroys the Description that matches the provided id by passing this id to the <b>delete()</b> method, who sends back a response.<br>
-     * A <b>Jsend::fail</b> is returned if the id does not point to an existing Description.
      * 
-     * @param int $id ?The id of the Description to destroy?
+     * @param int $id The id of the requested Description
      * @return Jsend
      */
     public function destroy($id) {

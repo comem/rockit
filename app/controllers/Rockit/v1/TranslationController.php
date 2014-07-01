@@ -39,7 +39,6 @@ class TranslationController extends \BaseController {
         if ($locale != NULL) {
             App::setLocale($locale);
         }
-        //return Jsend::success(trans('hci'));
         return Jsend::success(['response' => trans('hci')]);
     }
 
@@ -69,7 +68,7 @@ class TranslationController extends \BaseController {
      * If the locale provided is valid, the current User's information is updated and the application's language is set.<br>
      *
      * @param $locale
-     * @return ??
+     * @return Jsend
      */
     public static function setLocale($locale) {
         $lang = Language::exist($locale, 'locale');
