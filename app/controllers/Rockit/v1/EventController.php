@@ -608,16 +608,13 @@ class EventController extends \BaseController {
     }
 
     /**
-     * Save a new association between a specified class and an Event, from the provided class name, event id and data to save.
+     * Save a new association between a specified class and an Event, from the provided class name, event id and the data to save.
      * 
-     * If the provided staff id does not point to an existing Staff, a <b>Jsend::fail</b> is returned.<br>
-     * The member id, skill id and event id provided will be used to verify the validity of the update <b>before</b> modifying the Staff.<br> 
-     * If the Member provided cannot fulfill the provided Skill, a <b>Jsend::fail</b> is returned.<br> 
-     * If the provided Skill is not needed in the provided Event, a <b>Jsend::fail</b> is returned.<br>
-     * Or else, the Staff to modify and the data to update to is passed to the <b>updateOne</b> method.<br>
+     * TO DO
      * 
-     * @param id $id The id of the Staff to modify
-     * @param array $new_data The data to update in the specified Staff 
+     * @param string $class The name of the class to associate to
+     * @param integer $event_id The id of the Event to associate to 
+     * @param array $data The data to save in the association between the class and the Event
      * @return Jsend
      */
     public static function saveAssociations( $class, $event_id, array $data ){
