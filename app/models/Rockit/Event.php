@@ -24,9 +24,11 @@ class Event extends \Eloquent {
         'followed_by_private' => 'boolean',
         'notes_de' => '',
         'event_type_id' => 'required|exists:event_types,id',
+        'tickets' => 'required|array|min:1',
+    );
+    public static $create_associations_rules = array(
         'image_id' => 'integer|exists:images,id',
         'representer_id' => 'integer|exists:images,id',
-        'tickets' => 'required|array|min:1',
         'needs' => 'array',
         'offers' => 'array',
         'performers' => 'array',

@@ -9,7 +9,7 @@ use \Rockit\Controllers\ControllerBSUDTrait,
     \WordExport,
     \XMLExport,
     \Validator;
-use \Rockit\Ticket, \Rockit\Event;
+use \Rockit\Ticket, \Rockit\Event, \Rockit\Performer;
 
 class EventController extends \BaseController {
 
@@ -101,32 +101,41 @@ class EventController extends \BaseController {
      * @return Response
      */
     public function store() {
-        $inputs = Input::only('start_date_hour', 'ending_date_hour', 'title_de', 
+        $inputs_for_event = Input::only(
+            'start_date_hour', 'ending_date_hour', 'title_de', 
             'nb_meal', 'nb_vegans_meal', 'opening_doors', 'meal_notes_de', 
             'nb_places', 'followed_by_private', 'contract_src', 'notes_de', 
             // simple association
-            'event_type_id', 'image_id', 'representer_id', 
+            'event_type_id',
             // * * association
-            'tickets', 'needs', 'offers', 'performers', 'attributions', 'staffs');
-
-        $validate = Event::validate($inputs, Event::$create_rules);
-        if ($validate === true) {
+            'tickets');
+        $inputs_associations = Input::only(
+            'image_id', 'representer_id', 
+            // * * association
+            'needs', 'offers', 'performers', 'attributions', 'staffs');
+        $validate_event = Event::validate($inputs_for_event, Event::$create_rules);
+        $validate_associations = Event::validate($inputs_associations, Event::$create_associations_rules);
+        if ($validate_event === true && $validate_associations === true) {
             DB::beginTransaction();
-            $response = self::save($inputs);
+            $response = self::save($inputs_for_event);
             if(isset($response['success'])){
-                /*
-                if(isset($inputs['performers'])){
-                    foreach($inputs['performers'] as $key => $performer){
+                
+                if(isset($inputs_associations['performers'])){
+                    foreach($inputs_associations['performers'] as $key => $performer){
                         $performer['event_id'] = $response['success']['id'];
-                        dd($performer);
                         $v = Performer::validate($performer, Performer::$create_event_rules);
                         if( $v !== true ){
                             $response['fail']['performers'][$key] = $v['fail'];
+                        } else {
+                            Performer::createOne($performer);
                         }
                     }
                 }
+                
+
+
                 dd($response);
-*/
+
                 DB::commit();
             } else {
                 DB::rollback();
