@@ -118,8 +118,8 @@ class EventController extends \BaseController {
         if ($validate_event === true && $validate_associations === true) {
             DB::beginTransaction();
             $response = self::save($inputs_for_event);
-            $event_id = $response['success']['response']['id'];
             if(isset($response['success'])){
+                $event_id = $response['success']['response']['id'];
 
                 if(isset($inputs_associations['performers'])){
                     $response_save = self::saveAssociations('Performer', $event_id, $inputs_associations['performers']);
@@ -137,7 +137,32 @@ class EventController extends \BaseController {
                         $response['error']['needs'] = $response_save['error'];
                     }
                 }
+                if(isset($inputs_associations['offers'])){
+                    $response_save = self::saveAssociations('Offer', $event_id, $inputs_associations['offers']);
+                    if(isset($response_save['fail'])){
+                        $response['fail']['offers'] = $response_save['fail'];
+                    } elseif(isset($response_save['error'])) {
+                        $response['error']['offers'] = $response_save['error'];
+                    }
+                }
+                if(isset($inputs_associations['attributions'])){
+                    $response_save = self::saveAssociations('Attribution', $event_id, $inputs_associations['attributions']);
+                    if(isset($response_save['fail'])){
+                        $response['fail']['attributions'] = $response_save['fail'];
+                    } elseif(isset($response_save['error'])) {
+                        $response['error']['attributions'] = $response_save['error'];
+                    }
+                }
+                if(isset($inputs_associations['staffs'])){
+                    $response_save = self::saveAssociations('Staff', $event_id, $inputs_associations['staffs']);
+                    if(isset($response_save['fail'])){
+                        $response['fail']['staffs'] = $response_save['fail'];
+                    } elseif(isset($response_save['error'])) {
+                        $response['error']['staffs'] = $response_save['error'];
+                    }
+                }
                   
+                //dd($response);
                 /*
                 if(isset($inputs_associations['needs'])){
                     $response = self::saveAssociations('Need', $event_id, $inputs_associations['needs']);
@@ -197,16 +222,30 @@ class EventController extends \BaseController {
                     }
                 }
 */
-                dd($response);
-
-                DB::commit();
+                //dd($response);
+                if(isset($response['fail'])){
+                    DB::rollback();
+                    unset($response['success']);
+                    unset($response['error']);
+                } elseif(isset($response['error'])) {
+                    DB::rollback();
+                    unset($response['success']);
+                    unset($response['fail']);
+                } else {
+                    DB::commit();
+                }
             } else {
                 DB::rollback();
             }
         } else {
-            dd('renvoi erreur');//$response = $validate_associations;
+            if( $validate_event === true && $validate_associations !== true ){
+                $response = $validate_associations;
+            } elseif($validate_associations === true && $validate_event !== true ){
+                $response = $validate_event;
+            } else{
+                $response = array_merge( $validate_event, $validate_associations );
+            }
         }
-        dd($response);
         return Jsend::compile($response);
     }
 
