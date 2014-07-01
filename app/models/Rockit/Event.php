@@ -325,4 +325,33 @@ class Event extends \Eloquent {
         return $response;
     }
 
+    public static function deleteOne( $event ){
+        $field = self::$response_field;
+        try {
+            DB::beginTransaction();
+            $event->attributions()->delete();
+            $event->offers()->delete();
+            $event->needs()->delete();
+            $event->staffs()->delete();
+            $event->tickets()->delete();
+            $event->performers()->delete();
+            foreach( $event->sharings as $sharing ){
+                Sharing::deleteOne( $sharing );
+            }
+            foreach( $event->printings as $printing ){
+                Printing::deleteOne( $printing );
+            }
+            $event->delete();
+            $response['success'] = [
+                'response' => [
+                'title' =>  trans('success.event.deleted', array('name' => $event->$field)),
+            ]];
+            DB::commit();
+        } catch (\Laravel\Database\Exception $e) {
+            DB::rollback();
+            $response['error'] = trans('error.event.deleted', array('name' => $event->$field));
+        }
+        return $response;
+    }
+
 }
