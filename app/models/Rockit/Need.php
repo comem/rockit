@@ -36,4 +36,14 @@ class Need extends \Eloquent {
 		return $this->belongsTo('Rockit\Event');
 	}
 
+    public static function isUnique( array $array ){
+        $newTab = [];
+        foreach( $array as $object ){
+            if( !in_array($object['need_id'], $newTab) ){
+                $newTab[] = $object['need_id'];
+            }
+        }
+        return count( $array ) === count( $newTab );
+    }
+
 }
