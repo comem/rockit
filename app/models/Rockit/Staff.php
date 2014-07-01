@@ -65,4 +65,14 @@ class Staff extends \Eloquent {
         return self::where('member_id', '=', $data['member_id'])->where('event_id', '=', $data['event_id'])->first();
     }
 
+    public static function isUnique( array $array ){
+        $newTab = [];
+        foreach( $array as $object ){
+            if( !in_array($object['member_id'], $newTab) ){
+                $newTab[] = $object['member_id'];
+            }
+        }
+        return count( $array ) === count( $newTab );
+    }
+
 }
