@@ -2,15 +2,26 @@
 
 namespace Rockit\Models\Functions;
 
+/**
+ * A trait that contains a generic <b>updateOne</b> method to be used by a Model Trait.
+ *
+ * @author Mathias Oberson <mathias.oberson@heig-vd.ch>
+ */
 trait UpdateOneTrait {
 
     /**
-     * Update a persistant Model, based on the difference between new values
-     * and existing values.
+     * Update a persistant Model in the database, using the differences between a set of new values provided and the old, existing values of the provided Model.
      *
-     * @param array $new_values
-     * @param Object $object
-     * @return true or error message
+     * The class of model to update corresponds to the class of model that calls this function.<br>
+     * The response field defined in that same model will be included in any return messages.<br>
+     * The values are compared and the differences are passed to the <b>save</b> method of the class model to update, which will return a response.<br>
+     * If that response was empty or there were no new values to update to, a <b>Jsend::fail</b> is returned.<br>
+     * If the update was not executed correctly, a <b>Jsend::error</b> is returned.<br>
+     * Or else, a <b>Jsend::success</b> is returned. 
+     *
+     * @param array $new_values The values to update to
+     * @param Object $object The Model to update
+     * @return array An array containing a 'success' or 'error' key with its message.
      */
     public static function updateOne(array $new_values, $object) {
         $class_name = class_basename(get_called_class());

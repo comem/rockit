@@ -3,7 +3,7 @@
 namespace Rockit\Controllers\Functions;
 
 /**
- * A trait that contains a generic renew method to be used by a Controller Trait.
+ * A trait that contains a generic <b>renew</b> method to be used by a Controller Trait.
  *
  * @author Mathias Oberson <mathias.oberson@heig-vd.ch>
  */

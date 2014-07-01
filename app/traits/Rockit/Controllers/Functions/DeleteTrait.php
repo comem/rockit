@@ -3,7 +3,7 @@
 namespace Rockit\Controllers\Functions;
 
 /**
- * A trait that contains a generic delete method to be used by a Controller Trait.
+ * A trait that contains a generic <b>delete</b> method to be used by a Controller Trait.
  *
  * @author Mathias Oberson <mathias.oberson@heig-vd.ch>
  */
