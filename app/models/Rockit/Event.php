@@ -202,9 +202,9 @@ class Event extends \Eloquent {
      * @param $start_date_hour, $opening_doors_hour
      * @return  true or fail message
      */
-    public static function checkOpeningDoorsHour($start_date_hour, $opening_doors_hour) {
+    public static function checkOpeningDoorsHour($start_date_hour, $opening_doors) {
         $v = Validator::make(
-        ['opening_doors_hour' => $opening_doors_hour], ['opening_doors_hour' => 'required|before:' . $start_date_hour]
+        ['opening_doors' => $opening_doors], ['opening_doors' => 'required|before:' . $start_date_hour]
         );
         if ($v->fails()) {
             $response['fail'] = $v->messages()->getMessages();
@@ -222,7 +222,7 @@ class Event extends \Eloquent {
      */
     public static function checkDatesChronological($start_date_hour, $ending_date_hour) {
         $v = Validator::make(
-        ['ending_date_hour' => $ending_date_hour], ['ending_date_hour' => 'required|after:' . $opening_doors_hour]
+        ['ending_date_hour' => $ending_date_hour], ['ending_date_hour' => 'required|after:' . $start_date_hour]
         );
         if ($v->fails()) {
             $response['fail'] = $v->messages()->getMessages();

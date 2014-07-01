@@ -436,7 +436,7 @@ class EventController extends \BaseController {
             if(isset($new_data['opening_doors']) && $new_data['opening_doors'] != NULL ){
                 $response = Event::checkOpeningDoorsHour( $event->start_date_hour, $new_data['opening_doors'] );
             }
-            if( !isset( $response ) || $response === true ){
+            if( (!isset( $response ) || $response === true) && (isset($new_data['ending_date_hour']) && $new_data['ending_date_hour'] != NULL) ){
                 $response = Event::checkDatesChronological( $event->start_date_hour, $new_data['ending_date_hour'] );
                 if($response === true){
                     $response = Event::checkDatesDontOverlap( $event->start_date_hour, $new_data['ending_date_hour'] );
