@@ -13,9 +13,9 @@ class Event extends \Eloquent {
     public static $response_field = 'start_date_hour';
     public $timestamps = true;
     public static $create_rules = array(
-        'start_date_hour' => 'required',
-        'ending_date_hour' => 'required',
-        'opening_doors' => '',
+        'start_date_hour' => 'date|required',
+        'ending_date_hour' => 'date|required',
+        'opening_doors' => 'date',
         'title_de' => 'required|min:2',
         'nb_meal' => 'integer|required',
         'nb_vegans_meal' => 'integer|required',
@@ -46,6 +46,9 @@ class Event extends \Eloquent {
         'nb_places' => 'integer|min:0',
         'followed_by_private' => 'boolean',
         'notes_de' => '',
+        'event_type_id' => 'exists:event_types,id',
+        'representer_id' => 'exists:representers,id',
+        'image_id' => 'integer|exists:images,id',
     );
 
     public function gifts() {
