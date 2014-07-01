@@ -87,4 +87,7 @@ return [
     'PlaceholderNone' => "none",
     'PlaceholderSearch' => "Search",
     'LabelSortBy' => "Sort by",
+    'DropdownEvent' => "Event",
+    'DropdownArtist' => "Artist",
+    'DropdownRepresenter' => "Representer",
 ];
