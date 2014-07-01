@@ -213,7 +213,7 @@ class EventController extends \BaseController {
      * @return Response
      */
     public function destroy($id) {
-        //
+        return Jsend::compile(self::delete('Event', $id));
     }
 
     /**
