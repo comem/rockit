@@ -120,7 +120,6 @@ class EventController extends \BaseController {
             $response = self::save($inputs_for_event);
             if(isset($response['success'])){
                 $event_id = $response['success']['response']['id'];
-
                 if(isset($inputs_associations['performers'])){
                     $response_save = self::saveAssociations('Performer', $event_id, $inputs_associations['performers']);
                     if(isset($response_save['fail'])){
@@ -161,68 +160,6 @@ class EventController extends \BaseController {
                         $response['error']['staffs'] = $response_save['error'];
                     }
                 }
-                  
-                //dd($response);
-                /*
-                if(isset($inputs_associations['needs'])){
-                    $response = self::saveAssociations('Need', $event_id, $inputs_associations['needs']);
-                }*/
-
-                    /*
-                    if( Performer::isUnique( $inputs_associations['performers'] ) ){
-                        foreach($inputs_associations['performers'] as $key => $performer){
-                            
-
-                            $performer['event_id'] = $event_id;
-                            $v = Performer::validate($performer, Performer::$create_event_rules);
-                            if( $v !== true ){
-                                $response['fail']['performers'][$key] = $v['fail'];
-                            } else {
-                                $response_perf = PerformerController::save($performer);
-                                if(isset($response_perf['fail'])){
-                                    $response['fail']['performers'] = $response_perf['fail']['response'];
-                                } elseif(isset($response_perf['error'])) {
-                                    $response['error']['performers'] = $response_perf['error']['response'];
-                                }
-                            }
-
-
-                        }
-                    } else {
-                        $response['fail']['performers'] = trans('fail.performer.not_unique');
-                    }
-                    */
-                /*
-                if(isset($inputs_associations['needs'])){
-                    foreach($inputs_associations['needs'] as $key => $need){
-                        $need['event_id'] = $event_id;
-                        $v = Need::validate($need, Need::$create_event_rules);
-                        if( $v !== true ){
-                            $response['fail']['needs'][$key] = $v['fail'];
-                        } else {
-                            $response_need = NeedController::save('Need', $need);
-                            if(isset($response_need['fail'])){
-                                $response['fail']['needs'] = $response_need['fail']['response'];
-                            } elseif(isset($response_need['error'])) {
-                                $response['error']['needs'] = $response_need['error']['response'];
-                            }
-                        }
-                    }
-                }
-                               
-                if(isset($inputs_associations['offers'])){
-                    foreach($inputs_associations['offers'] as $key => $offer){
-                        $offer['event_id'] = $response['success']['id'];
-                        $v = Offer::validate($offer, Offer::$create_event_rules);
-                        if( $v !== true ){
-                            $response['fail']['offers'][$key] = $v['fail'];
-                        } else {
-                            Offer::createOne($offer);
-                        }
-                    }
-                }
-*/
-                //dd($response);
                 if(isset($response['fail'])){
                     DB::rollback();
                     unset($response['success']);

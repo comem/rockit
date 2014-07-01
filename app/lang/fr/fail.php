@@ -139,7 +139,7 @@ return [
     'staff' => [
         'existing' => "Ce membre effectue déjà un autre rôle pour cet événement.",
         'inexistant' => "Il n'existe aucun staff correspondant.",
-        'not_unique' => "doublons !",
+        'not_unique' => "Un membre ne peut pas remplire plusieurs fonctions dans la meme soirée !",
     ],
     'symbolization' => [
         'existing' => "Cet événement à déjà une image de couverture.",
