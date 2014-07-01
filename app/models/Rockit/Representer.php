@@ -76,7 +76,8 @@ class Representer extends \Eloquent {
      * @return ?\Illuminate\Database\Eloquent\Collection?
      */
     public function scopeName($query, $name) {
-        return $query->where('first_name', 'LIKE', '%' . $name . '%')->orWhere('last_name', 'LIKE', '%' . $name . '%');
+        return $query->where('first_name', 'LIKE', '%' . $name . '%')
+                ->orWhere('last_name', 'LIKE', '%' . $name . '%');
     }
 
 }
