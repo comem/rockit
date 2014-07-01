@@ -60,7 +60,7 @@ class Artist extends \Eloquent {
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function genres() {
-        return $this->belongsToMany('Rockit\Genre', 'descriptions')->withPivot('id');
+        return $this->belongsToMany('Rockit\Genre', 'descriptions')->withTrashed()->withPivot('id');
     }
 
     /**
@@ -94,25 +94,25 @@ class Artist extends \Eloquent {
 
     public function scopeGenres($query, array $genres) {
         return $query->whereHas('genres', function($q) use ($genres) {
-            $q->whereIn('genres.id', $genres);
+            $q->withTrashed()->whereIn('genres.id', $genres);
         });
     }
 
     public function scopeMusicianStagename($query, $string) {
         return $query->whereHas('musicians', function($q) use ($string) {
-            $q->where('stagename', 'LIKE', '%' . $string . '%');
+            $q->withTrashed()->where('stagename', 'LIKE', '%' . $string . '%');
         });
     }
 
     public function scopeMusicianFirstname($query, $string) {
         return $query->whereHas('musicians', function($q) use ($string) {
-            $q->where('stagename', 'LIKE', '%' . $string . '%');
+            $q->withTrashed()->where('stagename', 'LIKE', '%' . $string . '%');
         });
     }
 
     public function scopeMusicianLastname($query, $string) {
         return $query->whereHas('musicians', function($q) use ($string) {
-            $q->where('stagename', 'LIKE', '%' . $string . '%');
+            $q->withTrashed()->where('stagename', 'LIKE', '%' . $string . '%');
         });
     }
 
