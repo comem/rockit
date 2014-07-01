@@ -11,14 +11,46 @@ use \Rockit\Controllers\ControllerBSUDTrait,
     \Validator;
 use \Rockit\Ticket, \Rockit\Event, \Rockit\Performer, \Rockit\Need, \Rockit\Offer;
 
+/**
+ * Contains interaction methods to the Event model in the database.<br>
+ * Based on the Laravel's BaseController.<br>
+ * Can : <b>index</b> all the Events, <b>show</b>, <b>store</b>, <b>update</b> and <b>destroy</b> an Event.<br>
+ * Can also : <b>publish</b> and <b>unPublish</b> an Event, as well as export an Event to a Word document or an XML file with the <b>exportWord</b> and <b>exportXML</b> methods.<br> 
+ * An Image can be set and unset to symbolize an Event with the <b>symbolize</b> and <b>unsymbolize</b> methods.<br>
+ * A Representer can be set and unset to guarantee an Event with the <b>setRepresenter</b> and <b>unsetRepresenter</b> methods.<br>
+ * 
+ * @author Joël Gugger <joel.gugger@heig-vd.ch>
+ */
 class EventController extends \BaseController {
 
     use ControllerBSUDTrait;
 
     /**
      * Display a listing of the resource.
-     *
-     * @return Response
+     * 
+     * It is possible to give extra parameters in order to filter the results.<br>
+     * These parameters are :<br>
+     * <ul>
+     * <li><b>title</b>: an event's title</li>
+     * <li><b>from</b>: the beginning of a date interval. No events before this date will be displayed</li>
+     * <li><b>to</b>: the end of a date interval. No events after this date will be displayed</li>
+     * <li><b>artist_name</b>: an artist's name</li>
+     * <li><b>genres</b>: an artist's genre</li>
+     * <li><b>event_types</b>: an event's type</li>
+     * <li><b>is_published</b>: an indicator if an event is published or not</li>
+     * <li><b>platforms</b>: The platform an event was published on</li>
+     * <li><b>is_followed_by_private</b>: an indicator if an event is published or not</li>
+     * <li><b>has_representer</b>: an indicator if an event is published or not</li>
+     * </ul>
+     * Each provided attribute reduces the scope of the results.<br>
+     * If the Collection posesses more than <b>10</b> items, it will be divided into pages of <b>10</b> items.<br>
+     * This number of returned items can be changed by providing a value to the <b>nb_item</b> attribute.<br>
+     * The page number requested can be specified by passing an <b>integer</b> value via the <b>page</b> attribute.<br>
+     * If the <b>page</b>'s value is not an integer or point to an inexistant page, the first page will be returned.<br>
+     * This value can not be lower than <b>0</b>.<br>
+     * Each Event is returned with its relative information. 
+     * 
+     * @return Jsend
      */
     public function index() {
         $events = Event::with('genres', 'representer', 'eventType', 'image', 'tickets.ticketCategory', 'sharings.platform', 'printings.printingType', 'performers.artist.genres', 'staffs.member', 'staffs.skill', 'needs.skill', 'offers.gift', 'attributions.equipment');
@@ -81,9 +113,12 @@ class EventController extends \BaseController {
 
     /**
      * Display the specified resource.
+     * 
+     * Return an Event with all of its relationships.<br>
+     * If the provided id does not point to an existing Event, a <b>Jsend::fail</b> is returned.<br>
      *
-     * @param  int  $id
-     * @return Response
+     * @param int $id The id of the requested Event
+     * @return Jsend
      */
     public function show($id) {
         $event = Event::with('representer', 'eventType', 'image', 'tickets.ticketCategory', 'sharings.platform', 'printings.printingType', 'performers.artist', 'staffs.member', 'staffs.skill', 'needs.skill', 'offers.gift', 'attributions.equipment')->find($id);
@@ -97,8 +132,25 @@ class EventController extends \BaseController {
 
     /**
      * Store a newly created resource in storage.
+     * 
+     * Get the adequate inputs from the client request and test that each of them pass its specific validation rules.<br>
+     * If any of these inputs fail, a <b>Jsend::fail</b> is returned.<br>
+     * If all the inputs are valid, a <b>database transaction is started</b> and the data is passed to the <b>save()</b> method.<br>
+     * If the save() method returns anything other than a Jsend::success, the <b>transaction is cancelled</b>.<br>
+     * If the save() method returns a <b>Jsend::success</b>, then the <b>transaction continues</b> : <br>
+     * In this case, the data is passed to the <b>saveAssociations</b> method for the following tables <b>if</b> values were provided and validated for each table : <br>
+     * <ul>
+     * <li><b>Performer</b>: a performer for an event, and its relative information</li>
+     * <li><b>Needs</b>: a skill needed for an event, and its relative information</li>
+     * <li><b>Offers</b>: a gift offered at an event, and its relative information</li>
+     * <li><b>Attributions</b>: an equipment attributed to this event, and its relative information</li>
+     * <li><b>Staffs</b>: a staff employed for an event, and its relative information</li>
+     * </ul> 
+     * The saveAssociations method return a response.<br>
+     * If a response returned a message with a <b>Jsend::error</b> or a <b>Jsend::fail</b>, the <b>transaction is cancelled</b>.<br>
+     * Or else the <b>transaction will be committed</b> and the Event with its associations are saved in the database.<br>
      *
-     * @return Response
+     * @return Jsend
      */
     public function store() {
         $inputs_for_event = Input::only(
@@ -188,9 +240,13 @@ class EventController extends \BaseController {
 
     /**
      * Update the specified resource in storage.
+     * 
+     * Get the adequate inputs from the client request and test that each of them pass the validation rules.<br>
+     * If any of these inputs fail, a <b>Jsend::fail</b> is returned.<br>
+     * If all the inputs are valid, the data is then passed to the <b>modify()</b> method.<br>
      *
-     * @param  int  $id
-     * @return Response
+     * @param int $id The id of the requested Event
+     * @return Jsend
      */
     public function update($id) {
         $new_data = Input::only(
@@ -209,8 +265,12 @@ class EventController extends \BaseController {
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return Response
+     *
+     * Th provided id is passed to the <b>delete()</b> method that deletes the corresponding model.<br>
+     * If the provided id does not point to an existing Event, a <b>Jsend::fail</b> is returned.<br>
+     * 
+     * @param int $id The id of the requested Event
+     * @return Jsend
      */
     public function destroy($id) {
         return Jsend::compile(self::delete('Event', $id));
@@ -219,8 +279,13 @@ class EventController extends \BaseController {
     /**
      * Publish the specified ressource.
      *
-     * @param  int  $id
-     * @return Response
+     * If the provided id does not point to an existing Event, a <b>Jsend::fail</b> is returned.<br>
+     * If the Event does not exist, a <b>Jsend::fail</b> is returned.<br>
+     * Or else, the Event is passed to the <b>sfPublish</b> method, which returns a response.<br> 
+     * 
+     *
+     * @param  int  $id The id of the Event to publish
+     * @return Jsend
      */
     public function publish($id) {
         $response = Event::exist($id);
@@ -233,10 +298,14 @@ class EventController extends \BaseController {
     }
 
     /**
-     * Unpublish the specified ressource.
+     * Publish the specified ressource.
      *
-     * @param  int  $id
-     * @return Response
+     * If the provided id does not point to an existing Event, a <b>Jsend::fail</b> is returned.<br>
+     * If the Event does not exist, a <b>Jsend::fail</b> is returned.<br>
+     * Or else, the Event is passed to the <b>sfUnpublish</b> method, which returns a response.<br> 
+     * 
+     * @param  int  $id The id of the Event to unpublish
+     * @return Jsend
      */
     public function unpublish($id) {
         $response = Event::exist($id);
@@ -249,9 +318,14 @@ class EventController extends \BaseController {
     }
 
     /**
-     * Export events between the two dates (including them) to a well formatted
-     * word document with Mahogany Hall headers and footers.
-     * @return Response a Word.docx or a fail.
+     * Export the information related to Events that take place between the two dates provided to a well formatted word document.
+     *
+     * 
+     * Get the adequate inputs from the client request and test that each of them pass the validation rules.<br>
+     * If any of these inputs fail, a <b>Jsend::fail</b> is returned.<br>
+     * If all the inputs are valid, the data is then passed to the <b>modify()</b> method.<br>
+     *
+     * @return Jsend 'fail' or a Word.docx
      */
     public function exportWord() {
         $from = Input::get('from');

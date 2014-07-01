@@ -37,7 +37,7 @@ class ArtistController extends \BaseController {
      * </ul>
      * Each provided attribute reduces the scope of the results.<br>
      * If the Collection posesses more than <b>10</b> items, it will be divided into pages of <b>10</b> items.<br>
-     * This number of returned item can be changed by providing a value to the <b>nb_item</b> attribute.<br>
+     * This number of returned items can be changed by providing a value to the <b>nb_item</b> attribute.<br>
      * The page number requested can be specified by passing an <b>integer</b> value via the <b>page</b> attribute.<br>
      * If the <b>page</b>'s value is not an integer or point to an inexistant page, the first page will be returned.<br>
      * This value can not be lower than <b>0</b>.<br>
@@ -112,7 +112,7 @@ class ArtistController extends \BaseController {
      * Store a newly created resource in storage.
      * 
      * Get the adequate inputs from the client request and test that each of them pass the validation rules.<br>
-     * If any a these inputs fails, a <b>Jsend::fail</b> is returned.<br>
+     * If any of these inputs fail, a <b>Jsend::fail</b> is returned.<br>
      * If all the inputs are valid, the data is then passed to the <b>save()</b> method.<br>
      *
      * @return Jsend
@@ -133,7 +133,7 @@ class ArtistController extends \BaseController {
      * 
      * If the provided id does not point to an existing Artist, a <b>Jsend::fail</b> is returned.<br>
      * Get the adequate inputs from the client request and test that each of them pass the validation rules.<br>
-     * If any a these inputs fail, a <b>Jsend::fail</b> is returned.<br>
+     * If any of these inputs fail, a <b>Jsend::fail</b> is returned.<br>
      * If all the inputs are valid, the data is then passed to the <b>modify()</b> method.<br>
      *
      * @param int $id The id of the requested Artist
@@ -153,8 +153,8 @@ class ArtistController extends \BaseController {
     /**
      * Remove the specified resource from storage.
      *
+     * The provided id is passed to the <b>delete()</b> method that deletes the corresponding model.<br>
      * If the provided id does not point to an existing Artist, a <b>Jsend::fail</b> is returned.<br>
-     * Or else this id is then passed to the <b>delete()</b> method that deletes the corresponding model.
      * 
      * @param int $id The id of the requested Artist
      * @return Jsend
