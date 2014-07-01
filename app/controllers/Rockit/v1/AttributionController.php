@@ -66,4 +66,8 @@ class AttributionController extends \BaseController {
         return Jsend::compile(self::delete('Attribution', $id));
     }
 
+    public static function saveAsAssociation( array $data ){
+        return self::save( 'Attribution', $data );
+    }
+
 }

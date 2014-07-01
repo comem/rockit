@@ -34,9 +34,9 @@ return [
         'created' => "L'équipement \":name\" a bien été sauvegardé.",
     ],
     'event' => [
-        'updated' => "L'événement a bien été mis à jour.",
-        'created' => "Le nouvel événement a bien été sauvegardé.",
-        'deleted' => "L'événement a bien été supprimé.",
+        'updated' => "L'événement \":name\" a bien été mis à jour.",
+        'created' => "Le nouvel événement \":name\" a bien été sauvegardé.",
+        'deleted' => "L'événement \":name\" a bien été supprimé.",
         'published' => "L'événement est maintenant publié.",
         'unpublished' => "L'événement n'est maintenant plus publié.",
     ],

@@ -10,12 +10,12 @@ class Event extends \Eloquent {
     use Models\ModelBCUDTrait;
 
     protected $table = 'events';
-    public static $response_field = 'title';
+    public static $response_field = 'start_date_hour';
     public $timestamps = true;
     public static $create_rules = array(
-        'start_date_hour' => 'date|required',
-        'ending_date_hour' => 'date|required',
-        'opening_doors' => 'date',
+        'start_date_hour' => 'required',
+        'ending_date_hour' => 'required',
+        'opening_doors' => '',
         'title_de' => 'required|min:2',
         'nb_meal' => 'integer|required',
         'nb_vegans_meal' => 'integer|required',
@@ -23,6 +23,17 @@ class Event extends \Eloquent {
         'nb_places' => 'integer|min:0',
         'followed_by_private' => 'boolean',
         'notes_de' => '',
+        'event_type_id' => 'required|exists:event_types,id',
+        'tickets' => 'required|array|min:1',
+    );
+    public static $create_associations_rules = array(
+        'image_id' => 'integer|exists:images,id',
+        'representer_id' => 'integer|exists:images,id',
+        'needs' => 'array',
+        'offers' => 'array',
+        'performers' => 'array',
+        'attributions' => 'array',
+        'staffs' => 'array',
     );
     public static $update_rules = array(
         'start_date_hour' => 'date',
@@ -276,6 +287,38 @@ class Event extends \Eloquent {
             ];
         } else {
             $response = true;
+        }
+        return $response;
+    }
+
+    public static function createOne( $data ){
+        $field = self::$response_field;
+        $tickets = $data['tickets'];
+        unset($data['tickets']);
+        DB::beginTransaction();
+        self::unguard();
+        $object = self::create($data);
+        if ($object != null) {
+            foreach($tickets as  $ticket){
+                $inputs = $ticket;
+                $inputs['event_id'] = $object->id;
+                $objcetTicket = Ticket::create($inputs);
+                if(!is_object($objcetTicket)){
+                    $response['error'] = trans('error.ticket.created');
+                    DB::rollback();
+                    return $response;
+                }
+            }
+            $response['success'] = [
+                'response' => [
+                    'title' => trans('success.event.created', array('name' => $object->$field)),
+                    'id' => $object->id,
+                ]
+            ];
+            DB::commit();
+        } else {
+            $response['error'] = trans('error.event.created', array('name' => $data[$field]));
+            DB::rollback();
         }
         return $response;
     }

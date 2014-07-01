@@ -18,6 +18,12 @@ class Performer extends \Eloquent {
         'event_id' => 'integer|required|min:1|exists:events,id',
         'artist_id' => 'integer|required|min:1|exists:artists,id',
     ];
+    public static $create_event_rules = [
+        'order' => 'integer|required|min:0',
+        'is_support' => 'boolean',
+        'artist_hour_of_arival' => 'date',
+        'artist_id' => 'integer|required|min:1|exists:artists,id',
+    ];
     public static $update_rules = [
         'order' => 'integer|min:0',
         'is_support' => 'boolean',
@@ -60,7 +66,7 @@ class Performer extends \Eloquent {
         return empty($exist);
     }
 
-    public static function getOrderAvailable(array &$data, Performer $performer = null) {
+    public static function getOrderAvailable(array $data, Performer $performer = null) {
         if (isset($data['order'])) {
             if (!empty($performer)) {
                 $orders = array_flatten(Performer::select('order')->where('event_id', '=', $performer->event_id)->get()->toArray());
@@ -74,6 +80,16 @@ class Performer extends \Eloquent {
                 }
             }
         }
+    }
+
+    public static function isUnique( array $array ){
+        $newTab = [];
+        foreach( $array as $object ){
+            if( !in_array($object['artist_id'], $newTab) ){
+                $newTab[] = $object['artist_id'];
+            }
+        }
+        return count( $array ) === count( $newTab );
     }
 
 }
