@@ -14,9 +14,8 @@ class AuthController extends \BaseController {
      *
      * Get the adequate inputs from the client request and attempt a login.<br>
      * If an email and password were not provided, a <b>Jsend::error</b> is returned.<br>
-     * If the email and/or password aren't in the valid forms, the same <b>Jsend::error</b> is returned.<br>
-     * If the email and/or password provided were not valid credentials, the same <b>Jsend::error</b> is returned.<br>
-     * TO REVIEW
+     * If the email and/or password aren't in the valid forms, a <b>Jsend::error</b> is returned.<br>
+     * If the email and/or password provided were not valid credentials, a <b>Jsend::error</b> is returned.<br>
      *
      * @return Jsend success or Jsend fail
      */
@@ -48,7 +47,7 @@ class AuthController extends \BaseController {
      * If the email and/or password aren't in the valid forms, the same <b>Jsend::error</b> is returned.<br>
      * If the email and/or password provided were not valid credentials, the same <b>Jsend::error</b> is returned.<br>
      * TO REVIEW
-     * @return array Contains an array with either a <b>fail</b>, <b>error</b> or <b>success</b> key and its corresponding message
+     * @return array Contains an array with either a <b>error</b> or a <b>success</b> key and its corresponding message
      */
     public function logout() {
         try {

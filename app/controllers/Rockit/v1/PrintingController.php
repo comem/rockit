@@ -40,9 +40,12 @@ class PrintingController extends \BaseController {
     }
 
     /**
-     * TO DO
+     * Update the association between an Event and a PrintingType that corresponds to the provided printing id, with the provided inputs.
      *
-     * @param  int  ?$id?
+     * Get the adequate inputs from the client request and test that each of them pass the update validation rules.<br>
+     * Modifies the Printing that matches the provided id by passing this id to the <b>modify()</b> method, who sends back a response.<br>
+     * 
+     * @param int $id The id of the requested Printing
      * @return Jsend
      */
     public function update($id) {
@@ -55,12 +58,11 @@ class PrintingController extends \BaseController {
     }
 
     /**
-     * Destroy the association between a PrintingType and an Event that it is printed for.
+     * Destroy the association between a PrintingType and an Event that it is printed for, corresponding to the provided printing id.
      *
-     * TO DO
+     * Destroys the Printing that matches the provided id by passing this id to the <b>delete()</b> method, who sends back a response.<br>
      * 
-     * 
-     * @param int $id ?what id?
+     * @param int $id The id of the requested Printing
      * @return Jsend
      */
     public function destroy($id) {
@@ -68,16 +70,16 @@ class PrintingController extends \BaseController {
     }
 
     /**
-     * Modify the Printing's informations on the database.
-     * TO DO
-     * blablabla...
-     * If the Printing's source is successfully modified, the file referenced by the old source value is deleted.
-     * blablabla...
-     * remember to add to ControllerComments at the top.
+     * Modify an existing association between a PrintingType and an Event that it is printed for, from the provided printing id and the data to update to.
      * 
-     * @param type $id
-     * @param type $new_data
-     * @return type
+     * This method renames the source file.<br>
+     * If the provided printing id does not point to an existing Printing, a <b>Jsend::fail</b> is returned.<br>
+     * Or else, the Printing to modify and the data to update to is passed to the <b>updateOne</b> method.<br>
+     * If the Printing's source file name is successfully modified, a <b>Jsend::success</b> is returned, and the file referenced by the old source value is deleted.<br>
+     * 
+     * @param id $id The id of the Printing to modify
+     * @param array $new_data The data to update in the specified Printing 
+     * @return Jsend
      */
     public function modify($id, $new_data) {
         $object = Printing::exist($id);

@@ -38,11 +38,12 @@ class AttributionController extends \BaseController {
     }
 
     /**
-     * Update the specified resource in storage.
-     * 
-     * TO DO
+     * Update the association between an Event and an Equipment that corresponds to the provided attribution id, with the provided inputs.
      *
-     * @param int $id ?What id?
+     * Get the adequate inputs from the client request and test that each of them pass the update validation rules.<br>
+     * Modifies the Attribution that matches the provided id by passing this id to the <b>modify()</b> method, who sends back a response.<br>
+     * 
+     * @param int $id The id of the requested Attribution
      * @return Jsend
      */
     public function update($id) {
@@ -55,15 +56,19 @@ class AttributionController extends \BaseController {
     }
 
     /**
-     * Destroys the association between an Event and an Equipment, from the provided .
+     * Destroys the association between an Event and an Equipment that is attributed to that Event, corresponding to the provided attribution id.
      *
-     * TO DO
+     * Destroys the Attribution that matches the provided id by passing this id to the <b>delete()</b> method, who sends back a response.<br>
      * 
-     * @param int $id ?what id?
+     * @param int $id The id of the requested Attribution
      * @return Jsend
      */
     public function destroy($id) {
         return Jsend::compile(self::delete('Attribution', $id));
+    }
+
+    public static function saveAsAssociation( array $data ){
+        return self::save( 'Attribution', $data );
     }
 
 }
