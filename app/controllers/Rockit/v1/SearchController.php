@@ -30,8 +30,20 @@ class SearchController extends \BaseController {
             $res_events = $events->title($query)->get();
             $res_artists = $events->name($query)->get();
             $res_representers = $events->name($query)->get();
-
-            $response['success'] = ['response' => []];
+            $res = [];
+            foreach($res_events as $event){
+                $event['type'] = trans('hci.DropdownEvent');
+                $res[] = $event;
+            }
+            foreach($res_artists as $artist){
+                $artist['type'] = trans('hci.DropdownArtist');
+                $res[] = $artist;
+            }
+            foreach($res_representers as $representer){
+                $representer['type'] = trans('hci.DropdownRepresenter');
+                $res[] = $representer;
+            }
+            $response['success'] = ['response' => $res];
         } else {
             $response['success'] = ['response' => []];
         }
