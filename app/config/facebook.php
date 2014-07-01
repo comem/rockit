@@ -10,6 +10,7 @@ return array(
     'secretkey' => 'd381b2204500c4c6c1e8510c303c599d',
     'clientid' => '92fdbe1c9900d98d1279e02fe55c5001',
     'scope' => array('create_event', 'publish_actions'),
-    'username' => 'Chris Sharkman'
-    
+    'username' => 'Chris Sharkman',
+    'placeid' => '193405720709427'
+     
 );

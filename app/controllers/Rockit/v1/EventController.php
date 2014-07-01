@@ -270,7 +270,7 @@ class EventController extends \BaseController {
                 return Jsend::compile($response);
             }    
         } else {
-            $response['fail'] = ['word' => [trans('fail.wordexport.noinput')]];
+            $response['fail'] = ['word' => [trans('fail.export.no_input')]];
             return Jsend::compile($response);
         }
     }
@@ -298,7 +298,7 @@ class EventController extends \BaseController {
                 return Jsend::compile($response);
             }    
         } else {
-            $response['fail'] = ['xml' => [trans('fail.xmlexport.noinput')]];
+            $response['fail'] = ['xml' => [trans('fail.export.noinput')]];
             return Jsend::compile($response);
         }
     }
