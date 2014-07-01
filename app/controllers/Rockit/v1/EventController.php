@@ -277,14 +277,14 @@ class EventController extends \BaseController {
     }
 
     /**
-     * Publish the specified ressource.
+     * Publish the specified resource.
      *
      * If the provided id does not point to an existing Event, a <b>Jsend::fail</b> is returned.<br>
      * If the Event does not exist, a <b>Jsend::fail</b> is returned.<br>
      * Or else, the Event is passed to the <b>sfPublish</b> method, which returns a response.<br> 
      * 
      *
-     * @param  int  $id The id of the Event to publish
+     * @param  int $id The id of the Event to publish
      * @return Jsend
      */
     public function publish($id) {
@@ -298,12 +298,12 @@ class EventController extends \BaseController {
     }
 
     /**
-     * Publish the specified ressource.
+     * Unpublish the specified resource.
      *
      * If the provided id does not point to an existing Event, a <b>Jsend::fail</b> is returned.<br>
      * Or else, the Event is passed to the <b>sfUnpublish</b> method, which returns a response.<br> 
      * 
-     * @param  int  $id The id of the Event to unpublish
+     * @param  int $id The id of the Event to unpublish
      * @return Jsend
      */
     public function unpublish($id) {
@@ -481,26 +481,18 @@ class EventController extends \BaseController {
     }
 
     /**
+     * Publish the provided Event.
+     *
+     * If the provided Event does not have atleast one main Performer, a <b>Jsend::fail</b> is returned.<br>
+     * If the Event is not symbolized by an Image, a <b>Jsend::fail</b> is returned.<br>
+     * Then the Event is passed to the <b>updateOne</b> method of the Event model, which returns a response.<br>
+     * If this response is not a Jsend success message, a <b>Jsend::error</b> is returned.<br>
+     * Or else, the Event's 'published_at' attribute is set the current to the current time and passed to the <b>updateOne</b> method of the Event model, which returns a response.<br> 
      * 
-     * @param type $event
-     * @return type
+     *
+     * @param  event $event The id of the Event to publish
+     * @return Jsend
      */
-    public static function sfUnpublish($event) {
-        $event->published_at = null;
-        if ($event->save()) {
-        $response = ['success' => ['title' => trans('success.event.unpublished')]];
-        } else {
-        $response = ['error' => trans('error.event.unpublished')];
-        }
-        return $response;
-    }
-
-    /**
-     * 
-     * @param type $event
-     * @return type
-     */
-
    public static function sfPublish($event) {
         $response = Event::atLeastOneMainPerformer($event);
         if ($response === true) {
@@ -513,6 +505,25 @@ class EventController extends \BaseController {
                     $response = ['error' => trans('error.event.published')];
                 }
             }
+        }
+        return $response;
+    }
+
+    /**
+     * Unpublish the provided Event.
+     *
+     * Set the Event's 'published_at' attribute to 'null' and pass to the <b>save</b> method of the corresponding model.<br>
+     * If the 'published_at' attribute could not be set to 'null', a <b>Jsend::error</b> is returned.<br>
+     *
+     * @param  event $event The id of the Event to unpublish
+     * @return Jsend
+     */
+    public static function sfUnpublish($event) {
+        $event->published_at = null;
+        if ($event->save()) {
+        $response = ['success' => ['title' => trans('success.event.unpublished')]];
+        } else {
+        $response = ['error' => trans('error.event.unpublished')];
         }
         return $response;
     }
