@@ -120,13 +120,28 @@ class EventController extends \BaseController {
             $response = self::save($inputs_for_event);
             $event_id = $response['success']['response']['id'];
             if(isset($response['success'])){
-                
+
                 if(isset($inputs_associations['performers'])){
-                    $response = self::saveAssociations('Performer', $event_id, $inputs_associations['performers']);
+                    $response_save = self::saveAssociations('Performer', $event_id, $inputs_associations['performers']);
+                    if(isset($response_save['fail'])){
+                        $response['fail']['performers'] = $response_save['fail'];
+                    } elseif(isset($response_save['error'])) {
+                        $response['error']['performers'] = $response_save['error'];
+                    }
                 }
                 if(isset($inputs_associations['needs'])){
-                    $response = self::saveAssociations('Need', $event_id, $inputs_associations['needs']);
+                    $response_save = self::saveAssociations('Need', $event_id, $inputs_associations['needs']);
+                    if(isset($response_save['fail'])){
+                        $response['fail']['needs'] = $response_save['fail'];
+                    } elseif(isset($response_save['error'])) {
+                        $response['error']['needs'] = $response_save['error'];
+                    }
                 }
+                  
+                /*
+                if(isset($inputs_associations['needs'])){
+                    $response = self::saveAssociations('Need', $event_id, $inputs_associations['needs']);
+                }*/
 
                     /*
                     if( Performer::isUnique( $inputs_associations['performers'] ) ){
@@ -431,25 +446,20 @@ class EventController extends \BaseController {
 
     public static function saveAssociations( $class, $event_id, array $data ){
         $classNamespaced = 'Rockit\\'.$class;
-        $controller = $class.'Controller';
+        $controller = 'Rockit\\v1\\'.$class.'Controller';
         $plural = snake_case( str_plural( $class ) );
         if( $classNamespaced::isUnique( $data ) ){
             foreach($data as $key => $performer){
                 $performer['event_id'] = $event_id;
                 $v = $classNamespaced::validate($performer, $classNamespaced::$create_event_rules);
                 if( $v !== true ){
-                    $response['fail'][$plural][$key] = $v['fail'];
+                    $response['fail'][$key] = $v['fail'];
                 } else {
-                    $resp_save = $controller::save($performer);
-                    if(isset($resp_save['fail'])){
-                        $response['fail'][$plural] = $resp_save['fail']['response'];
-                    } elseif(isset($resp_save['error'])) {
-                        $response['error'][$plural] = $resp_save['error']['response'];
-                    }
+                    $response = $controller::saveAsAssociation($performer);
                 }
             }
         } else {
-            $response['fail'][$plural] = trans('fail.'.strtolower($class).'.not_unique');
+            $response['fail'][] = trans('fail.'.strtolower($class).'.not_unique');
         }
         return $response;
     }

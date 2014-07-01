@@ -103,6 +103,7 @@ return [
         'existing' => "Il y a déjà un besoin de même type enregistré.",
         'inexistant' => "Il n'existe aucun besoin correspondant.",
         'non_needed' => "Cette compétence n'est pas demandée lors de cet événement.",
+        'not_unique' => "Les besoins ont des doublons !",
     ],
     'offer' => [
         'existing' => "Il y a déjà une offre de même type enregistrée.",

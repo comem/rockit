@@ -70,4 +70,8 @@ class NeedController extends \BaseController {
         return Jsend::compile(self::delete('Need', $id));
     }
 
+    public static function saveAsAssociation( array $data ){
+        return self::save( 'Need', $data );
+    }
+
 }

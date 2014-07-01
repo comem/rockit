@@ -39,8 +39,8 @@ class Need extends \Eloquent {
     public static function isUnique( array $array ){
         $newTab = [];
         foreach( $array as $object ){
-            if( !in_array($object['need_id'], $newTab) ){
-                $newTab[] = $object['need_id'];
+            if( !in_array($object['skill_id'], $newTab) ){
+                $newTab[] = $object['skill_id'];
             }
         }
         return count( $array ) === count( $newTab );

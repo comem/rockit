@@ -65,4 +65,8 @@ class OfferController extends \BaseController {
         return Jsend::compile(self::delete('Offer', $id));
     }
 
+    public static function saveAsAssociation( array $data ){
+        return self::save( 'Offer', $data );
+    }
+
 }

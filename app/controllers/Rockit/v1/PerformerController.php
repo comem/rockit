@@ -95,4 +95,8 @@ class PerformerController extends \BaseController {
         return $response;
     }
 
+    public static function saveAsAssociation( array $data ){
+        return self::save( $data );
+    }
+
 }
