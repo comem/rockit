@@ -10,6 +10,8 @@ class Event extends \Eloquent {
     use Models\ModelBCUDTrait;
 
     protected $table = 'events';
+    public $append = ['event_type'];
+    public $hidden = ['event_type_id'];
     public $timestamps = true;
     public static $response_field = 'title';
     public static $create_rules = array(
@@ -36,6 +38,14 @@ class Event extends \Eloquent {
         'followed_by_private' => 'boolean',
         'notes_de' => '',
     );
+    
+    public function getEventTypeAttribute() {
+        return $this->genres()->getResults();
+    }
+
+    public function genres() {
+        return $this->belongsToMany('Rockit\Genre', 'event_genre');
+    }
 
     public function gifts() {
         return $this->belongsToMany('Rockit\Gift', 'offers')
@@ -123,11 +133,16 @@ class Event extends \Eloquent {
         return $this->belongsTo('Rockit\Representer');
     }
 
+//    public function scopeArtistGenres($query, array $genres) {
+//        return $query->whereHas('artists', function($q) use ($genres) {
+//            $q->whereHas('genres', function($q) use ($genres) {
+//                $q->whereIn('genres.id', $genres);
+//            });
+//        });
+//    }
     public function scopeArtistGenres($query, array $genres) {
-        return $query->whereHas('artists', function($q) use ($genres) {
-            $q->whereHas('genres', function($q) use ($genres) {
-                $q->whereIn('genres.id', $genres);
-            });
+        return $query->whereHas('genres', function($q) use ($genres) {
+            $q->where('genre_id', '=', $genres);
         });
     }
 
@@ -181,10 +196,6 @@ class Event extends \Eloquent {
         } else {
             return $query->has('representer', '<', 1);
         }
-    }
-    
-    public function genres() {
-        return $this->belongsToMany('Rockit\Genre', 'event_genre');
     }
 
     /**
