@@ -132,6 +132,18 @@ class EventController extends \BaseController {
                     }
                 }
                 
+                if(isset($inputs_associations['needs'])){
+                    foreach($inputs_associations['needs'] as $key => $need){
+                        $need['event_id'] = $response['success']['id'];
+                        $v = Need::validate($need, Need::$create_event_rules);
+                        if( $v !== true ){
+                            $response['fail']['needs'][$key] = $v['fail'];
+                        } else {
+                            Need::createOne($need);
+                        }
+                    }
+                }
+                
 
 
                 dd($response);
