@@ -9,7 +9,7 @@ use \Rockit\Controllers\ControllerBSUDTrait,
     \WordExport,
     \XMLExport,
     \Validator;
-use \Rockit\Ticket, \Rockit\Event, \Rockit\Performer;
+use \Rockit\Ticket, \Rockit\Event, \Rockit\Performer, \Rockit\Need, \Rockit\Offer;
 
 class EventController extends \BaseController {
 
@@ -112,40 +112,61 @@ class EventController extends \BaseController {
         $inputs_associations = Input::only(
             'image_id', 'representer_id', 
             // * * association
-            'needs', 'offers', 'performers', 'attributions', 'staffs');
+            'performers', 'needs', 'offers', 'attributions', 'staffs');
         $validate_event = Event::validate($inputs_for_event, Event::$create_rules);
         $validate_associations = Event::validate($inputs_associations, Event::$create_associations_rules);
         if ($validate_event === true && $validate_associations === true) {
             DB::beginTransaction();
             $response = self::save($inputs_for_event);
+            $event_id = $response['success']['response']['id'];
             if(isset($response['success'])){
                 
                 if(isset($inputs_associations['performers'])){
                     foreach($inputs_associations['performers'] as $key => $performer){
-                        $performer['event_id'] = $response['success']['id'];
+                        $performer['event_id'] = $event_id;
                         $v = Performer::validate($performer, Performer::$create_event_rules);
                         if( $v !== true ){
                             $response['fail']['performers'][$key] = $v['fail'];
                         } else {
-                            Performer::createOne($performer);
+                            $response_perf = PerformerController::save($performer);
+                            if(isset($response_perf['fail'])){
+                                $response['fail']['performers'] = $response_perf['fail']['response'];
+                            } elseif(isset($response_perf['error'])) {
+                                $response['error']['performers'] = $response_perf['error']['response'];
+                            }
                         }
                     }
                 }
                 
                 if(isset($inputs_associations['needs'])){
                     foreach($inputs_associations['needs'] as $key => $need){
-                        $need['event_id'] = $response['success']['id'];
+                        $need['event_id'] = $event_id;
                         $v = Need::validate($need, Need::$create_event_rules);
                         if( $v !== true ){
                             $response['fail']['needs'][$key] = $v['fail'];
                         } else {
-                            Need::createOne($need);
+                            $response_perf = NeedController::save($need);
+                            if(isset($response_perf['fail'])){
+                                $response['fail']['needs'] = $response_perf['fail']['response'];
+                            } elseif(isset($response_perf['error'])) {
+                                $response['error']['needs'] = $response_perf['error']['response'];
+                            }
                         }
                     }
                 }
-                
-
-
+                /*                
+                if(isset($inputs_associations['offers'])){
+                    foreach($inputs_associations['offers'] as $key => $offer){
+                        $offer['event_id'] = $response['success']['id'];
+                        $v = Offer::validate($offer, Offer::$create_event_rules);
+                        if( $v !== true ){
+                            $response['fail']['offers'][$key] = $v['fail'];
+                        } else {
+                            Offer::createOne($offer);
+                        }
+                    }
+                }
+*/
                 dd($response);
 
                 DB::commit();
@@ -153,7 +174,7 @@ class EventController extends \BaseController {
                 DB::rollback();
             }
         } else {
-            $response = $validate;
+            dd('renvoi erreur');//$response = $validate_associations;
         }
         return Jsend::compile($response);
     }

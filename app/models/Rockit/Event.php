@@ -309,10 +309,12 @@ class Event extends \Eloquent {
                     return $response;
                 }
             }
-            $response['success'] = array(
-                'title' => trans('success.event.created', array('name' => $object->$field)),
-                'id' => $object->id,
-            );
+            $response['success'] = [
+                'response' => [
+                    'title' => trans('success.event.created', array('name' => $object->$field)),
+                    'id' => $object->id,
+                ]
+            ];
             DB::commit();
         } else {
             $response['error'] = trans('error.event.created', array('name' => $data[$field]));
