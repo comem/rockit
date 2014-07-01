@@ -1,6 +1,6 @@
 <?php
 
-use Rockit\Group;
+use Rockit\Models\Group;
 
 class GroupResourceTableSeeder extends Seeder {
 

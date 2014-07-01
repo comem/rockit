@@ -1,6 +1,6 @@
 <?php
 
-use Rockit\Language;
+use Rockit\Models\Language;
 
 class LanguageTableSeeder extends Seeder {
     

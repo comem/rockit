@@ -2,7 +2,7 @@
 
 namespace ResourceSeeders;
 
-use Rockit\Resource;
+use Rockit\Models\Resource;
 
 class UpdateMethodSeeder {
 

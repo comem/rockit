@@ -1,6 +1,6 @@
 <?php
 
-use Rockit\Resource;
+use Rockit\Models\Resource;
 
 /*
   |--------------------------------------------------------------------------
@@ -92,8 +92,11 @@ Route::filter('csrf', function() {
 
 Route::filter('acl', function() {
     $routeInfo = Str::parseCallback(Route::currentRouteAction(), null);
+    //dd($routeInfo);
     $controller = class_basename($routeInfo[0]);
+    //dd($controller);
     $method = $routeInfo[1];
+    //dd($method);
     $resource = Resource::where('controller', '=', $controller)
     ->where('method', '=', $method)
     ->first();

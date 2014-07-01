@@ -1,6 +1,6 @@
 <?php
 
-use Rockit\Platform;
+use Rockit\Models\Platform;
 
 //Platforms		
 class PlatformsTableSeeder extends Seeder {

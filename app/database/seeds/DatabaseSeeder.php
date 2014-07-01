@@ -1,7 +1,5 @@
 <?php
 
-use rockit\Event;
-
 class DatabaseSeeder extends Seeder {
 
     /**

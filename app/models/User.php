@@ -1,7 +1,7 @@
 <?php
 
-use Rockit\Resource,
-    Rockit\Models\Functions\UpdateOneTrait,
+use Rockit\Models\Resource,
+    Rockit\Traits\Models\Functions\UpdateOneTrait,
     Illuminate\Auth\UserTrait,
     Illuminate\Auth\UserInterface,
     Illuminate\Auth\Reminders\RemindableTrait,
@@ -71,7 +71,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function group() {
-        return $this->belongsTo('Rockit\Group');
+        return $this->belongsTo('Rockit\Models\Group');
     }
 
     /**
@@ -79,7 +79,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
      * @return \Illuminate\Database\Eloquent\Collection
      */
     protected function language() {
-        return $this->belongsTo('Rockit\Language');
+        return $this->belongsTo('Rockit\Models\Language');
     }
 
     /**

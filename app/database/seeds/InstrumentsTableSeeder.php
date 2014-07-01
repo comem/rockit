@@ -1,6 +1,6 @@
 <?php
 
-use Rockit\Instrument;
+use Rockit\Models\Instrument;
 
 //instruments
 class InstrumentsTableSeeder extends Seeder {

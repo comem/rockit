@@ -1,9 +1,9 @@
 <?php
 
-use Rockit\Staff;
-use Rockit\Event;
-use Rockit\Member;
-use Rockit\Skill;
+use Rockit\Models\Staff;
+use Rockit\Models\Event;
+use Rockit\Models\Member;
+use Rockit\Models\Skill;
 
 //staffs
 class StaffsTableSeeder extends Seeder {

@@ -1,6 +1,6 @@
 <?php
 
-use Rockit\Equipment;
+use Rockit\Models\Equipment;
 
 //Equipments	
 class EquipmentsTableSeeder extends Seeder {
