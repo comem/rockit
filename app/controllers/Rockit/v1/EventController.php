@@ -528,6 +528,20 @@ class EventController extends \BaseController {
         return $response;
     }
 
+    /**
+     * Save a new Event in the database with the given inputs.
+     * 
+     * If there are identical TicketCategories in the set of provided TicketCategories, a <b>Jsend::fail</b> is returned.<br>
+     * If any of these ticket categories are not valid to be used for a newly created Event, a <b>Jsend::fail</b> is returned.<br>
+     * If an 'opening_doors' attribute is provided, then check that this takes place before the event starts.<br>
+     * If the Event's 'start_date_hour' is before the 'opening_doors' attribute, a <b>Jsend::fail</b> is returned.<br>
+     * If the Event's 'start_date_hour' and 'ending_date_hour' are not in chronological order, a <b>Jsend::fail</b> is returned.<br>
+     * If the Event's 'start_date_hour' and 'ending_date_hour' overlap the starting and ending hours of another Event, a <b>Jsend::fail</b> is returned.<br>
+     * Or else the provided inputs are passed to the <b>createOne</b> method of the Event model, which returns a response.<br>
+     *
+     * @param array $inputs
+     * @return Jsend
+     */
     public static function save($inputs) {
         if( Ticket::isTicketCategoryUnicity( $inputs['tickets'] ) ) {
             foreach ( $inputs['tickets'] as $key => $ticket) {
