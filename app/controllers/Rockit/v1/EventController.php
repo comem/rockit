@@ -193,7 +193,16 @@ class EventController extends \BaseController {
      * @return Response
      */
     public function update($id) {
-        //
+        $new_data = Input::only(
+            'ending_date_hour', 'title_de', 'nb_meal', 'nb_vegans_meal', 'opening_doors', 'meal_notes_de', 
+            'nb_places', 'followed_by_private', 'contract_src', 'notes_de', 'event_type_id', 'representer_id');
+        $validate = Event::validate($new_data, Event::$update_rules);
+        if ($validate === true) {
+            $response = self::modify('Event', $id, $new_data);
+        } else {
+            $response = $validate;
+        }
+        return Jsend::compile($response);
     }
 
     /**
