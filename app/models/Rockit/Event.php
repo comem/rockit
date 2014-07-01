@@ -48,7 +48,7 @@ class Event extends \Eloquent {
         'notes_de' => '',
         'event_type_id' => 'exists:event_types,id',
         'representer_id' => 'exists:representers,id',
-        'image_id' => 'integer|exists:images,id',
+        'image_id' => 'exists:images,id',
     );
 
     public function gifts() {
