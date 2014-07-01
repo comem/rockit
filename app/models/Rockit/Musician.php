@@ -21,7 +21,7 @@ class Musician extends \Eloquent {
 
     protected $table = 'musicians';
     protected $dates = ['deleted_at'];
-    protected $hidden = ['deleted_at'];
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
 
     /**
      * Indicates whether this model uses laravel's timestamps.

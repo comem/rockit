@@ -22,7 +22,7 @@ class Sharing extends \Eloquent {
     use Models\ModelBCUDTrait;
 
 	protected $table = 'sharings';
-	protected $hidden = ['external_id', 'external_infos', 'platform_id', 'event_id'];
+	protected $hidden = ['external_id', 'external_infos', 'platform_id', 'event_id', 'updated_at'];
     protected static $response_field = 'id';
     
     /**
