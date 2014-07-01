@@ -3,7 +3,7 @@
 namespace Rockit\Controllers\Functions;
 
 /**
- * A trait that contains a generic save method to be used by a Controller Trait of a pivot table.
+ * A trait that contains a generic <b>save</b> method to be used by a Controller Trait of a pivot table.
  *
  * @author Mathias Oberson <mathias.oberson@heig-vd.ch>
  */
