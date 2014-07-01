@@ -25,7 +25,7 @@ class Printing extends \Eloquent {
      * @var boolean 
      */
     public $timestamps = false;
-    
+
     /**
      * Indicates which field value should be used in the return messages.
      * @var string 
@@ -59,7 +59,7 @@ class Printing extends \Eloquent {
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function printingType() {
-        return $this->belongsTo('Rockit\PrintingType');
+        return $this->belongsTo('Rockit\PrintingType')->withTrashed();
     }
 
     /**

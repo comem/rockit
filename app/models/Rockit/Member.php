@@ -71,7 +71,7 @@ class Member extends \Eloquent {
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function skills() {
-        return $this->belongsToMany('Rockit\Skill', 'fulfillments');
+        return $this->belongsToMany('Rockit\Skill', 'fulfillments')->withTrashed();
     }
 
     /**

@@ -3,7 +3,7 @@
 namespace Rockit;
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait,
-    \DB,    
+    \DB,
     Rockit\Lineup;
 
 /**
@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletingTrait,
  * @author Christian Heimann <christian.heimann@heig-vd.ch>
  */
 class Musician extends \Eloquent {
-    
+
     use Models\ModelBCUDTrait,
         SoftDeletingTrait;
 
@@ -63,21 +63,21 @@ class Musician extends \Eloquent {
     public function lineups() {
         return $this->hasMany('Rockit\Lineup');
     }
-    
+
     /**
      * Get the Instruments that a Musician plays for a specific Artist, corresponding to the provided artist id.
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function instrumentsFor($artist_id) {
-        return $this->belongsToMany('Rockit\Instrument', 'lineups')->where('artist_id', '=', $artist_id);
+        return $this->belongsToMany('Rockit\Instrument', 'lineups')->withTrashed()->where('artist_id', '=', $artist_id);
     }
-    
+
     /**
      * Get the Instruments to which a Musician is related.
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function instruments() {
-        return $this->belongsToMany('Rockit\Instrument', 'lineups');
+        return $this->belongsToMany('Rockit\Instrument', 'lineups')->withTrashed();
     }
 
     /**
@@ -85,7 +85,7 @@ class Musician extends \Eloquent {
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function artists() {
-        return $this->belongsToMany('Rockit\Artist', 'lineups')->groupBy('id');
+        return $this->belongsToMany('Rockit\Artist', 'lineups')->groupBy('id')->withTrashed();
     }
 
     /**
@@ -104,14 +104,14 @@ class Musician extends \Eloquent {
         unset($data['lineups']); // to put data into create() function for musician
         $object = self::create($data);
         if ($object != null) {
-            foreach($lineups as $lineup) {
+            foreach ($lineups as $lineup) {
                 $lineup['musician_id'] = $object->id;
                 $objectLineup = Lineup::create($lineup);
                 // if a lineup object is not created correctly, return response error message
-                if($objectLineup == null) {
+                if ($objectLineup == null) {
                     $response['error'] = trans('error.lineup.created');
                     DB::rollback();
-                    return $response; 
+                    return $response;
                 }
             }
             $response['success'] = array(
@@ -125,5 +125,5 @@ class Musician extends \Eloquent {
         }
         return $response;
     }
-    
+
 }

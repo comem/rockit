@@ -137,7 +137,7 @@ class Staff extends \Eloquent {
     }
 
     /**
-     * Check <b>member_id</b> unicity.
+     * Check <b>member_id</b>'s unicity.
      * 
      * Check that there is not two identical <b>member_id</b> in the given array.
      * 
