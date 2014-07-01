@@ -343,15 +343,21 @@ class Event extends \Eloquent {
             foreach( $event->printings as $printing ){
                 Printing::deleteOne( $printing );
             }
-            $url = 'v1/files/'.$event->contract_src;
-            $route = Request::create($url, 'DELETE');
-            Route::dispatch($route);
-            $event->delete();
-            $response['success'] = [
-                'response' => [
-                'title' =>  trans('success.event.deleted', array('name' => $event->$field)),
-            ]];
-            DB::commit();
+            if( $event->delete() ){
+                if( isset($event->contract_src) && $event->contract_src != NULL ){
+                    $url = 'v1/files/'.$event->contract_src;
+                    $route = Request::create($url, 'DELETE');
+                    Route::dispatch($route);
+                }
+                $response['success'] = [
+                    'response' => [
+                    'title' =>  trans('success.event.deleted', array('name' => $event->$field)),
+                ]]; 
+                DB::commit();
+            } else {
+                DB::rollback();
+                $response['error'] = trans('error.event.deleted', array('name' => $event->$field));
+            }
         } catch (\Laravel\Database\Exception $e) {
             DB::rollback();
             $response['error'] = trans('error.event.deleted', array('name' => $event->$field));
