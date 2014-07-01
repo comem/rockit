@@ -66,7 +66,7 @@ class Performer extends \Eloquent {
         return empty($exist);
     }
 
-    public static function getOrderAvailable(array $data, Performer $performer = null) {
+    public static function getOrderAvailable(array &$data, Performer $performer = null) {
         if (isset($data['order'])) {
             if (!empty($performer)) {
                 $orders = array_flatten(Performer::select('order')->where('event_id', '=', $performer->event_id)->get()->toArray());

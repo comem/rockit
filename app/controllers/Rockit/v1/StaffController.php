@@ -110,11 +110,11 @@ class StaffController extends \BaseController {
     public static function modify($id, $data) {
         $object = Staff::exist($id);
         if ($object == null) {
-            $response = array(
-                'fail' => array(
-                    'title' => trans('fail.staff.inexistant'),
-                ),
-            );
+            $response = [
+                'fail' => [
+                    'title' => trans('fail.event.inexistant'),
+                ],
+            ];
         } else {
             $response = Staff::checkMemberFulfillment($object->member_id, $object->skill_id);
             if ($response === true) {

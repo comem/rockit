@@ -444,7 +444,9 @@ class EventController extends \BaseController {
             }
         } else {
             $response['fail'] = [
-                
+                'fail' => [
+                    'title' => trans('fail.staff.inexistant'),
+                ],
             ];
         }
 
