@@ -39,13 +39,23 @@ class Need extends \Eloquent {
 		'event_id' 		=> 'integer|required|min:1|exists:events,id',
 		'skill_id' 		=> 'integer|required|min:1|exists:skills,id',
 	];
-
-	/**
-     * Validation rules for updating an existing Need.
+        
+        /**
+     * Validation rules for updating an existing Ticket.
      * @var array 
      */
 	public static $update_rules = [
 		'nb_people' 	=> 'integer|min:1',
+	];
+        
+        /**
+	* Validation rules for associating a new Event with a new Skill needed.
+        * @var array 
+	*
+	*/
+	public static $create_event_rules = [
+		'nb_people' 	=> 'integer|required|min:1',
+		'skill_id' 		=> 'integer|required|min:1|exists:skills,id',
 	];
 
 	/**
@@ -65,5 +75,15 @@ class Need extends \Eloquent {
 	{
 		return $this->belongsTo('Rockit\Event');
 	}
+
+    public static function isUnique( array $array ){
+        $newTab = [];
+        foreach( $array as $object ){
+            if( !in_array($object['skill_id'], $newTab) ){
+                $newTab[] = $object['skill_id'];
+            }
+        }
+        return count( $array ) === count( $newTab );
+    }
 
 }

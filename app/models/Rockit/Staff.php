@@ -50,6 +50,17 @@ class Staff extends \Eloquent {
     ];
 
     /**
+     * Validations rules for creating a new Event with a new employed Staff.
+     * @var array 
+     */
+    public static $create_event_rules = [
+        'member_id' => 'integer|required|min:1|exists:members,id',
+        'skill_id' => 'integer|required|min:1|exists:skills,id',
+    ];
+
+    
+
+    /**
      * Get the Skill to which a Staff is related.
      * @return \Illuminate\Database\Eloquent\Collection
      */
@@ -125,6 +136,16 @@ class Staff extends \Eloquent {
      */
     public static function existByIds($data) {
         return self::where('member_id', '=', $data['member_id'])->where('event_id', '=', $data['event_id'])->first();
+    }
+
+    public static function isUnique( array $array ){
+        $newTab = [];
+        foreach( $array as $object ){
+            if( !in_array($object['member_id'], $newTab) ){
+                $newTab[] = $object['member_id'];
+            }
+        }
+        return count( $array ) === count( $newTab );
     }
 
 }

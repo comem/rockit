@@ -42,6 +42,7 @@ class Ticket extends \Eloquent {
 		'ticket_category_id'	=> 'integer|required|min:1|exists:ticket_categories,id',
 	];
 
+
 	/**
      * Validation rules for updating an existing Ticket.
      * @var array 
@@ -51,6 +52,19 @@ class Ticket extends \Eloquent {
 		'quantity_sold'		=> 'integer|min:0',
 		'comment_de' 		=> 'min:1',
 	];
+
+	/**
+        * Validation rules for associating a new Event with a new Ticket.
+        * @var array 
+	*
+	*/
+	public static $create_event_rules = [
+		'amount' 				=> 'integer|required|min:0',
+		'quantity_sold'			=> 'integer|min:0',
+		'comment_de' 			=> 'min:1',
+		'ticket_category_id'	=> 'integer|required|min:1|exists:ticket_categories,id',
+	];
+
 
 	/**
      * Get the TicketCategory to which a Ticket is related.
@@ -89,6 +103,16 @@ class Ticket extends \Eloquent {
             );
 		}
 		return $response;
+	}
+
+	public static function isTicketCategoryUnicity( array $ticket_categories ){
+		$newTab = [];
+		foreach( $ticket_categories as $ticket_category ){
+			if( !in_array($ticket_category['ticket_category_id'], $newTab) ){
+				$newTab[] = $ticket_category['ticket_category_id'];
+			}
+		}
+		return count( $ticket_categories ) === count( $newTab );
 	}
 
 }

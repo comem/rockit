@@ -33,10 +33,11 @@ trait UpdateOneTrait {
         }
         $result = $object->save();
         if ($result === true) {
-            $response['success'] = array(
-                'title' => trans('success.' . snake_case($class_name) . '.updated', array('name' => $object->$field)),
-                'id' => $object->id,
-            );
+            $response['success'] = [
+                'response' => [
+                    'title' => trans('success.' . snake_case($class_name) . '.updated', array('name' => $object->$field)),
+                ]
+            ];
         } else if (empty($result) || empty($new_values)) {
             $response['fail'] = [snake_case($class_name) => [trans('fail.empty_data')]];
         } else {

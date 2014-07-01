@@ -10,31 +10,44 @@ class Event extends \Eloquent {
     use Models\ModelBCUDTrait;
 
     protected $table = 'events';
-    public static $response_field = 'title';
+    public static $response_field = 'start_date_hour';
     public $timestamps = true;
     public static $create_rules = array(
         'start_date_hour' => 'date|required',
         'ending_date_hour' => 'date|required',
         'opening_doors' => 'date',
         'title_de' => 'required|min:2',
-        'nb_meal' => 'integer|required',
-        'nb_vegans_meal' => 'integer|required',
+        'nb_meal' => 'integer|required|min:0',
+        'nb_vegans_meal' => 'integer|required|min:0',
         'meal_notes_de' => '',
         'nb_places' => 'integer|min:0',
         'followed_by_private' => 'boolean',
         'notes_de' => '',
+        'event_type_id' => 'required|exists:event_types,id',
+        'tickets' => 'required|array|min:1',
+    );
+    public static $create_associations_rules = array(
+        'image_id' => 'integer|exists:images,id',
+        'representer_id' => 'integer|exists:images,id',
+        'needs' => 'array',
+        'offers' => 'array',
+        'performers' => 'array',
+        'attributions' => 'array',
+        'staffs' => 'array',
     );
     public static $update_rules = array(
-        'start_date_hour' => 'date',
         'ending_date_hour' => 'date',
         'opening_doors' => 'date',
         'title_de' => 'min:2',
-        'nb_meal' => 'integer',
-        'nb_vegans_meal' => 'integer',
+        'nb_meal' => 'integer|min:0',
+        'nb_vegans_meal' => 'integer|min:0',
         'meal_notes_de' => '',
         'nb_places' => 'integer|min:0',
         'followed_by_private' => 'boolean',
         'notes_de' => '',
+        'event_type_id' => 'exists:event_types,id',
+        'representer_id' => 'exists:representers,id',
+        'image_id' => 'exists:images,id',
     );
 
     public function gifts() {
@@ -189,9 +202,9 @@ class Event extends \Eloquent {
      * @param $start_date_hour, $opening_doors_hour
      * @return  true or fail message
      */
-    public static function checkOpeningDoorsHour($start_date_hour, $opening_doors_hour) {
+    public static function checkOpeningDoorsHour($start_date_hour, $opening_doors) {
         $v = Validator::make(
-        ['start_date_hour' => $start_date_hour], ['start_date_hour' => 'required|after:' . $opening_doors_hour]
+        ['opening_doors' => $opening_doors], ['opening_doors' => 'required|before:' . $start_date_hour]
         );
         if ($v->fails()) {
             $response['fail'] = $v->messages()->getMessages();
@@ -209,7 +222,7 @@ class Event extends \Eloquent {
      */
     public static function checkDatesChronological($start_date_hour, $ending_date_hour) {
         $v = Validator::make(
-        ['start_date_hour' => $start_date_hour], ['start_date_hour' => 'required|before:' . $ending_date_hour]
+        ['ending_date_hour' => $ending_date_hour], ['ending_date_hour' => 'required|after:' . $start_date_hour]
         );
         if ($v->fails()) {
             $response['fail'] = $v->messages()->getMessages();
@@ -276,6 +289,38 @@ class Event extends \Eloquent {
             ];
         } else {
             $response = true;
+        }
+        return $response;
+    }
+
+    public static function createOne( $data ){
+        $field = self::$response_field;
+        $tickets = $data['tickets'];
+        unset($data['tickets']);
+        DB::beginTransaction();
+        self::unguard();
+        $object = self::create($data);
+        if ($object != null) {
+            foreach($tickets as  $ticket){
+                $inputs = $ticket;
+                $inputs['event_id'] = $object->id;
+                $objcetTicket = Ticket::create($inputs);
+                if(!is_object($objcetTicket)){
+                    $response['error'] = trans('error.ticket.created');
+                    DB::rollback();
+                    return $response;
+                }
+            }
+            $response['success'] = [
+                'response' => [
+                    'title' => trans('success.event.created', array('name' => $object->$field)),
+                    'id' => $object->id,
+                ]
+            ];
+            DB::commit();
+        } else {
+            $response['error'] = trans('error.event.created', array('name' => $data[$field]));
+            DB::rollback();
         }
         return $response;
     }

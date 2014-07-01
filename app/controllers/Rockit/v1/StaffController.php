@@ -111,11 +111,11 @@ class StaffController extends \BaseController {
     public static function modify($id, $data) {
         $object = Staff::exist($id);
         if ($object == null) {
-            $response = array(
-                'fail' => array(
+            $response = [
+                'fail' => [
                     'title' => trans('fail.staff.inexistant'),
-                ),
-            );
+                ],
+            ];
         } else {
             $response = Staff::checkMemberFulfillment($object->member_id, $object->skill_id);
             if ($response === true) {
@@ -126,6 +126,10 @@ class StaffController extends \BaseController {
             }
         }
         return $response;
+    }
+
+    public static function saveAsAssociation( array $data ){
+        return self::save( $data );
     }
 
 }

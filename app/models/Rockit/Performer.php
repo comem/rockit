@@ -52,6 +52,18 @@ class Performer extends \Eloquent {
         'is_support' => 'boolean',
         'artist_hour_of_arival' => 'date',
     ];
+        
+    /**
+     * Validations rules for creating a new Event with a new Performer.
+     * @var array 
+     */
+    public static $create_event_rules = [
+        'order' => 'integer|required|min:0',
+        'is_support' => 'boolean',
+        'artist_hour_of_arival' => 'date',
+        'artist_id' => 'integer|required|min:1|exists:artists,id',
+    ];
+
 
     /**
      * Get the Artist to which a Performer is related.
@@ -121,6 +133,16 @@ class Performer extends \Eloquent {
                 }
             }
         }
+    }
+
+    public static function isUnique( array $array ){
+        $newTab = [];
+        foreach( $array as $object ){
+            if( !in_array($object['artist_id'], $newTab) ){
+                $newTab[] = $object['artist_id'];
+            }
+        }
+        return count( $array ) === count( $newTab );
     }
 
 }

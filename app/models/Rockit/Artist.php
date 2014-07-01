@@ -210,7 +210,7 @@ class Artist extends \Eloquent {
             );
             DB::commit();
         } else {
-            $response['error'] = trans('error.artist.created', array('name' => $object->$field));
+            $response['error'] = trans('error.artist.created', array('name' => $data[$field]));
             DB::rollback();
         }
         return $response;
