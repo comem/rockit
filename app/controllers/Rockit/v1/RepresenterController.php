@@ -31,7 +31,7 @@ class RepresenterController extends \BaseController {
         if (Input::has('name')) {
             $representers = $representers->name(Input::get('name'));
         }
-        return Jsend::success(['response' => Representer::get()]);
+        return Jsend::success(['response' => $representers->get()]);
     }
 
     /**

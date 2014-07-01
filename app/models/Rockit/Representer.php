@@ -70,23 +70,13 @@ class Representer extends \Eloquent {
     }
 
     /**
-     * Reduce the scope of the provided list of results, using a 'frist name' search filter.
+     * Reduce the scope of the provided list of results, using a 'name' search filter.
      * @param \Illuminate\Database\Query\Builder $query The query on which the scope will be applied
      * @param string $name A string that must be contained in the name attribute
      * @return ?\Illuminate\Database\Eloquent\Collection?
      */
-    public function scopeFirstName($query, $name) {
-        return $query->where('first_name', 'LIKE', '%' . $name . '%');
-    }
-
-    /**
-     * Reduce the scope of the provided list of results, using a 'last name' search filter.
-     * @param \Illuminate\Database\Query\Builder $query The query on which the scope will be applied
-     * @param string $name A string that must be contained in the name attribute
-     * @return ?\Illuminate\Database\Eloquent\Collection?
-     */
-    public function scopeLastName($query, $name) {
-        return $query->where('last_name', 'LIKE', '%' . $name . '%');
+    public function scopeName($query, $name) {
+        return $query->where('first_name', 'LIKE', '%' . $name . '%')->orWhere('last_name', 'LIKE', '%' . $name . '%');
     }
 
 }
