@@ -43,7 +43,8 @@ return [
         'restored' => "La restauration du type d'événement a échoué.",
     ],
     'facebook' => [
-        'noaction' => "Aucune action a été fait.",
+        'no_action' => "Aucune action a été fait.",
+        'wrong_user' => "Vous êtes loggé avec un compte différente que le compte prévu.",
     ],
     'file' => [
         'deleted' => "La suppression du fichier \":name\" a échoué.",
@@ -144,6 +145,7 @@ return [
         'created' => "Le partage de l'événement a échoué.",
         'updated' => "La mise à jour du partage a échoué.",
         'deleted' => "La suppression du partage a échoué.",
+        'no_platform' => "Aucune plateforme a été trouvé.",
     ],
     'skill' => [
         'created' => "La création de la compétence a échoué.",

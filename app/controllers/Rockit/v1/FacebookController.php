@@ -79,7 +79,7 @@ class FacebookController extends \BaseController {
         } elseif (Session::get('fb_delete')) {
             return Jsend::compile(self::deleteEvent());
         } else {
-            return Jsend::error(trans('error.facebook.noaction'));
+            return Jsend::error(trans('error.facebook.no_action'));
         }
     }
 
@@ -103,7 +103,6 @@ class FacebookController extends \BaseController {
         }
         if (Event::exist($event_id)) {
             $message = Sharing::message($event, $additional_text);
-
             if ($session) {
                 try {
                     $user_profile = (new FacebookRequest(
@@ -140,7 +139,7 @@ class FacebookController extends \BaseController {
                     }
                 }
             } elseif (!isset($response['error'])) {
-                $response['error'] = trans('error.facebook.wronguser');
+                $response['error'] = trans('error.facebook.wrong_user');
             }
         } else {
             $response['fail'] = [
@@ -163,7 +162,7 @@ class FacebookController extends \BaseController {
                             $session, 'GET', '/me'
                             ))->execute()->getGraphObject(GraphUser::className());
                 } catch (FacebookRequestException $e) {
-                    $response['error'] = trans('error.facebook.userprofile');
+                    $response['error'] = "Exception occured, code: " . $e->getCode() . " with message: " . $e->getMessage();
                 }
             }
             if (isset($user_profile) && strcasecmp($user_profile->getName(), $api_infos->username) == 0) {

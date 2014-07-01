@@ -22,7 +22,8 @@ class SharingController extends \BaseController {
      * Store a newly created resource in storage, and creates automatically
      * the asked post/entry on the indicated platform. Needs a platform_id, an event_id and
      * can have an additional_text.
-     * @return Response a fail if given data is not valid or redirect on facebook login.
+     * @return Response a fail if given data is not valid or redirect on facebook login if platform_id
+     * describes facebook. No other platformes implemented yet.
      */
     public function store() {
         $inputs = Input::only('platform_id', 'event_id', 'additional_text');
@@ -42,7 +43,7 @@ class SharingController extends \BaseController {
                     Session::set('fb_delete', false);
                     return FacebookController::login();
                 } else {
-                    $response['fail'] = ['sharing' => [trans('fail.sharing.no_platform')]];
+                    $response['error'] = trans('error.sharing.no_platform');
                 }
             } else {
                 $response['fail'] = ['event' => [trans('fail.event.is_not_published')]];
@@ -54,8 +55,7 @@ class SharingController extends \BaseController {
     /**
      * Remove the specified resource from storage and removes also the
      * linked post if possible.
-     *
-     * @param  int  $id
+     * @param  int  $id is the id of the sharing to delete.
      * @return Response
      */
     public function destroy($id) {
@@ -69,7 +69,7 @@ class SharingController extends \BaseController {
                 Session::set('fb_delete', true);
                 return FacebookController::login();
             } else {
-                $response['fail'] = ['sharing' => [trans('fail.sharing.no_platform')]];
+                $response['error'] = trans('error.sharing.no_platform');
             }
         } else {
             $response['fail'] = ['sharing' => [trans('fail.sharing.inexistant')]];

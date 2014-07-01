@@ -39,6 +39,10 @@ return [
         'existing' => "Il y a déjà un type d'événement \":name\" enregistré.",
         'inexistant' => "Il n'existe aucun type d'événement correspondant.",
     ],
+    'export' => [
+        'no_input' => "Des dates de/à n'ont pas été trouvés.",
+        'unchronological' => "Les dates données ne sont pas chronologiquement correcte.",
+    ],
     'file' => [
         'invalid' => "Le fichier sélectionné n'est pas un fichier valide.",
         'inexistant' => "Le fichier \":file\" n'existe pas sur ce serveur.",
@@ -131,7 +135,6 @@ return [
     ],
     'sharing' => [
         'inexistant' => "Il n'existe aucun sharing correspondant.",
-        'no_platform' => "Aucune plateforme a été trouvé.",
     ],
     'skill' => [
         'existing' => "Il y a déjà une compétence \":name\" enregistrée.",
