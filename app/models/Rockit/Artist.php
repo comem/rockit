@@ -127,38 +127,16 @@ class Artist extends \Eloquent {
     }
 
     /**
-     * Reduce the scope of the provided list of results, using a 'stagename' search filter.
+     * Reduce the scope of the provided list of results, using a 'global name' search filter.
      * @param \Illuminate\Database\Query\Builder $query The query on which the scope will be applied
      * @param string $string A string that must be contained in a Musician's stagename attribute
      * @return ?Musicians?
      */
-    public function scopeMusicianStagename($query, $string) {
+    public function scopeMusicianName($query, $string) {
         return $query->whereHas('musicians', function($q) use ($string) {
-            $q->withTrashed()->where('stagename', 'LIKE', '%' . $string . '%');
-        });
-    }
-
-    /**
-     * Reduce the scope of the provided list of results, using a 'first name' search filter.
-     * @param \Illuminate\Database\Query\Builder $query The query on which the scope will be applied
-     * @param string $string A string that must be contained in a Musician's first name attribute
-     * @return ?Musicians?
-     */
-    public function scopeMusicianFirstname($query, $string) {
-        return $query->whereHas('musicians', function($q) use ($string) {
-            $q->withTrashed()->where('first_name', 'LIKE', '%' . $string . '%');
-        });
-    }
-
-    /**
-     * Reduce the scope of the provided list of results, using a 'last name' search filter.
-     * @param \Illuminate\Database\Query\Builder $query The query on which the scope will be applied
-     * @param string $string A string that must be contained in a Musician's last name attribute
-     * @return ?Musicians?
-     */
-    public function scopeMusicianLastname($query, $string) {
-        return $query->whereHas('musicians', function($q) use ($string) {
-            $q->withTrashed()->where('last_name', 'LIKE', '%' . $string . '%');
+            $q->withTrashed()->where('stagename', 'LIKE', '%' . $string . '%')
+                ->orWhere('first_name', 'LIKE', '%' . $string . '%')
+                ->orWhere('last_name', 'LIKE', '%' . $string . '%');
         });
     }
 
