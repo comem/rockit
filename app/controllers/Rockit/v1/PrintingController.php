@@ -4,8 +4,6 @@ namespace Rockit\v1;
 
 use \Input,
     \Jsend,
-    \Route,
-    \Request,
     \Rockit\Printing,
     Rockit\Controllers\CompletePivotControllerTrait;
 
@@ -65,37 +63,6 @@ class PrintingController extends \BaseController {
      */
     public function destroy($id) {
         return Jsend::compile(self::delete('Printing', $id));
-    }
-
-    /**
-     * Modify the Printing's informations on the database.
-     * TO DO
-     * blablabla...
-     * If the Printing's source is successfully modified, the file referenced by the old source value is deleted.
-     * blablabla...
-     * remember to add to ControllerComments at the top.
-     * 
-     * @param type $id
-     * @param type $new_data
-     * @return type
-     */
-    public function modify($id, $new_data) {
-        $object = Printing::exist($id);
-        if ($object == null) {
-            $response['fail'] = ['printing' => [trans('fail.printing.inexistant')]];
-        } else {
-            // Get the old source
-            $path = explode('/', $object->source);
-            // Create an url to delete the old source
-            $url = 'v1/files/' . $path[0] . '/' . $path[1];
-            $response = Printing::updateOne($new_data, $object);
-            if (isset($response['success'])) {
-                // Delete the old source if the update is a success
-                $request = Request::create($url, 'DELETE');
-                Route::dispatch($request);
-            }
-        }
-        return $response;
     }
 
 }

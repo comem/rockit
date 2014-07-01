@@ -2,7 +2,9 @@
 
 namespace Rockit;
 
-use Rockit\Models\CompletePivotModelTrait;
+use \Route,
+    \Request,
+    Rockit\Models\CompletePivotModelTrait;
 
 class Printing extends \Eloquent {
 
@@ -31,6 +33,65 @@ class Printing extends \Eloquent {
 
     public function event() {
         return $this->belongsTo('Rockit\Event');
+    }
+
+    /**
+     * Update a persistant Model, based on the difference between new values
+     * and existing values.
+     * 
+     * If the source attribute is modified, the file referenced by the old value is deleted.
+     *
+     * @param array $new_values
+     * @param Printing $printing
+     * @return true or error message
+     */
+    public static function updateOne(array $new_values, Printing $printing) {
+        $field = self::$response_field;
+        if (array_key_exists('source', $new_values)) {
+            // Create an url to delete the old source
+            $url = 'v1/files/' . $printing->source;
+        }
+        foreach ($new_values as $key => $value) {
+            if ($value != null) {
+                $printing->$key = $value;
+            }
+        }
+        $result = $printing->save();
+        if ($result === true) {
+            if (isset($url)) {
+                Route::dispatch(Request::create($url, 'DELETE'));
+            }
+            $response['success'] = ['response' => [
+                    'title' => trans('success.printing.updated', array('name' => $printing->$field)),
+            ]];
+        } else if (empty($result) || empty($new_values)) {
+            $response['fail'] = ['printing' => [trans('fail.empty_data')]];
+        } else {
+            $response['error'] = trans('error.printing.updated', array('name' => $printing->$field));
+        }
+        return $response;
+    }
+
+    /**
+     * Delete a persistant Model
+     *
+     * @param Object $object The Model to delete
+     * @return true or error message
+     */
+    public static function deleteOne($object) {
+        $field = self::$response_field;
+        if ($object->delete()) {
+            if (!empty($object->source)) {
+                $url = 'v1/files/' . $object->source;
+                Route::dispatch(Request::create($url, 'DELETE'));
+            }
+            $response['success'] = ['response' => [
+                    'title' => trans('success.printing.deleted', ['name' => $object->$field]),
+            ]];
+        } else {
+            $response['error'] = trans('error.printing.deleted', ['name' => $object->$field]);
+        }
+        return $response;
     }
 
 }
