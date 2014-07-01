@@ -185,7 +185,7 @@ class FacebookController extends \BaseController {
                 }
             }
         } else {
-            $response['error'] = ['sharing' => [trans('error.sharing.no_input')]];
+            $response['error'] = ['sharing' => [trans('error.app'), ['code' => "No Sharing recieved."]]];
         }
         return $response;
     }

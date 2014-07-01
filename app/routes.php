@@ -36,6 +36,9 @@ Route::group(array('namespace' => 'Rockit\Controllers\v1', 'prefix' => 'v1'), fu
 
             // before acl
 
+            Route::get('search', 'SearchController@index');
+
+
             Route::any('facebook/redirect', 'FacebookController@redirectCatch');
 
             Route::get('files/images/{source}', 'FilesManager@getImage');
