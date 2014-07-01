@@ -19,9 +19,9 @@ class Sharing extends \Eloquent {
 	protected $hidden = ['external_id', 'external_infos', 'platform_id', 'event_id'];
         protected static $response_field = 'id';
         public static $create_rules = [
-            'external_id' => 'required',
-            'platform_id' => 'required|exists:platforms',
-            'event_id' => 'required|exists:events'
+            'external_id' => '',
+            'platform_id' => 'required|exists:platforms,id',
+            'event_id' => 'required|exists:events,id'
         ];
 
         /**
@@ -53,29 +53,38 @@ class Sharing extends \Eloquent {
          */
         public static function message($event, $additionalText) {
             setlocale(LC_ALL, 'de_DE@euro', 'de_DE', 'de', 'ge'); // $locale = Config::get('app.locale');
-            $date = strftime("Am %A, %e. %B %Y um %H.%M Uhr", strtotime($event->start_date_hour));
+            $date = strftime("Am %A, %e. %B %Y um %H.%M Uhr: ", strtotime($event->start_date_hour));
             $date = RockitHelper::deleteDoubleWhitspace($date);
             if(!is_null($additionalText)) {
-                $message = $additionalText . "\r\n";
+                $message = $additionalText . "\r\n \r\n";
             } else {
                 $message = "";
             }
-            $inXDays = self::countDaysUntil(strtotime($event->start_date_hour));
+            $inXDays = RockitHelper::countDaysUntil(strtotime($event->start_date_hour));
             if($inXDays > 1) {
                 $inXDaysText = "In " . $inXDays . " Tagen ist es soweit! " . $date; 
             } elseif($inXDays == 1) {
-                $inXDaysText = "Morgen ist es soweit!";
+                $inXDaysText = "Morgen ist es soweit! ";
             } elseif($inXDays == 0) {
-                $inXDaysText = "Nicht verpassen: Heute ist es soweit!";
+                $inXDaysText = "Nicht verpassen: Heute ist es soweit! ";
             } else {
-                $inXDaysText = "Schön war's!";
+                $inXDaysText = "Schön war's! ";
             }
             $performerString = "";
             $artists = $event->artists;
+            $indexArtist = 0;
+            $nbArtists = count($artists);
             foreach($artists as $artist) {
-                $performerString = $performerString . $artist->name . "\r\n";
+                if($indexArtist > 0 && $indexArtist < $nbArtists - 1) {
+                    $performerString = $performerString . ", ";
+                } elseif ($indexArtist > 0) {
+                    $performerString = $performerString . " und ";
+                }
+                $performerString = $performerString . $artist->name;
+                $indexArtist++;
             }
-            $message = $message . "\r\n" . $inXDaysText . "\r\n". $performerString . "in der Mahogany Hall.";
+            
+            $message = $message . $inXDaysText . $performerString;
             return $message;
         }
         

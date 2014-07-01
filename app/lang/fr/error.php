@@ -42,6 +42,9 @@ return [
         'deleted' => "La suppression du type d'événement a échoué.",
         'restored' => "La restauration du type d'événement a échoué.",
     ],
+    'facebook' => [
+        'noaction' => "Aucune action a été fait.",
+    ],
     'file' => [
         'deleted' => "La suppression du fichier \":name\" a échoué.",
         'uploaded' => "La sauvegarde du fichier \":name\" a échoué.",
