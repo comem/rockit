@@ -13,25 +13,24 @@ use Illuminate\Database\Eloquent\SoftDeletingTrait;
  */
 class Platform extends \Eloquent {
 
-	use SoftDeletingTrait;
+    use SoftDeletingTrait;
 
-	protected $table = 'platforms';
-	protected $hidden = ['client_id', 'client_secret', 'api_infos', 'deleted_at'];
-	protected $dates = ['deleted_at'];
+    protected $table = 'platforms';
+    protected $hidden = ['client_id', 'client_secret', 'api_infos', 'deleted_at'];
+    protected $dates = ['deleted_at'];
 
-	/**
+    /**
      * Indicates whether this model uses laravel's timestamps.
      * @var boolean 
      */
-	public $timestamps = false;
+    public $timestamps = false;
 
-	/**
+    /**
      * Get the Events to which a Platform is related.
      * @return \Illuminate\Database\Eloquent\Collection
      */
-	public function events()
-	{
-		return $this->belongsToMany('Rockit\Event')->withPivot('url');
-	}
+    public function events() {
+        return $this->belongsToMany('Rockit\Event')->withPivot('url');
+    }
 
 }

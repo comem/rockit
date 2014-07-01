@@ -21,7 +21,7 @@ Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function() {
 
     // start
 
-    Route::get('trads/{locale?}', 'TranslationController@translate')->where('locale', '[a-z]+');
+    Route::get('trads/{locale?}', 'TranslationController@translate')->where('locale', '[a-z]{2}');
     Route::get('langs', 'TranslationController@index');
 
     Route::post('login', 'AuthController@login');
@@ -29,15 +29,15 @@ Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function() {
     Route::get('auth-check', 'AuthController@authCheck');
 
     Route::group(array('before' => 'auth'), function() {
-        
+
         // before auth
 
         Route::put('langs', 'TranslationController@changeLocale');
 
         Route::group(array('before' => 'acl'), function() {
-            
+
             // before acl
-            
+
             Route::any('facebook/redirect', 'FacebookController@redirectCatch');
 
             Route::get('files/images/{source}', 'FilesManager@getImage');
@@ -47,22 +47,22 @@ Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function() {
             Route::post('files/{type}', 'FilesManager@upload');
 
             Route::post('artists/{id}/image', 'ArtistController@illustrate')
-                    ->where('id', '[0-9]+');
+            ->where('id', '[0-9]+');
             Route::delete('artists/{artist_id}/image/{image_id}', 'ArtistController@desillustrate')
-                    ->where('artist_id', '[0-9]+')
-                    ->where('image_id', '[0-9]+');
+            ->where('artist_id', '[0-9]+')
+            ->where('image_id', '[0-9]+');
 
             Route::resource('artists', 'ArtistController', array('only' => array('index', 'show', 'store', 'update', 'destroy')));
 
             Route::post('events/{id}/image', 'EventController@symbolize')
-                    ->where('id', '[0-9]+');
+            ->where('id', '[0-9]+');
             Route::delete('events/{id}/image', 'EventController@desymbolize')
-                    ->where('id', '[0-9]+');
+            ->where('id', '[0-9]+');
 
             Route::post('events/{id}/representer', 'EventController@setRepresenter')
-                    ->where('id', '[0-9]+');
+            ->where('id', '[0-9]+');
             Route::delete('events/{id}/representer', 'EventController@unsetRepresenter')
-                    ->where('id', '[0-9]+');
+            ->where('id', '[0-9]+');
 
             Route::put('events/{id}/publish', 'EventController@publish')->where('id', '[0-9]+');
             Route::put('events/{id}/unpublish', 'EventController@unpublish')->where('id', '[0-9]+');

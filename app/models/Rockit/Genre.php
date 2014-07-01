@@ -47,7 +47,7 @@ class Genre extends \Eloquent {
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function artists() {
-        return $this->belongsToMany('Rockit\Artist', 'descriptions', 'genre_id', 'artist_id');
+        return $this->belongsToMany('Rockit\Artist', 'descriptions', 'genre_id', 'artist_id')->withTrashed();
     }
 
     public function events() {

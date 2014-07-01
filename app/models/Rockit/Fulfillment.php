@@ -44,7 +44,7 @@ class Fulfillment extends \Eloquent {
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function skill() {
-        return $this->belongsTo('Rockit\Skill');
+        return $this->belongsTo('Rockit\Skill')->withTrashed();
     }
 
 }

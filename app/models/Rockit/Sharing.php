@@ -21,8 +21,10 @@ class Sharing extends \Eloquent {
 
     use Models\ModelBCUDTrait;
 
-    protected $table = 'sharings';
-    protected $hidden = ['external_id', 'external_infos', 'platform_id', 'event_id'];
+
+	protected $table = 'sharings';
+	protected $hidden = ['external_id', 'external_infos', 'platform_id', 'event_id', 'updated_at'];
+
     protected static $response_field = 'id';
 
     /**
@@ -47,7 +49,7 @@ class Sharing extends \Eloquent {
      * @author Christian Heimann <christian.heimann@heig-vd.ch>
      */
     public function platform() {
-        return $this->belongsTo('Rockit\Platform');
+        return $this->belongsTo('Rockit\Platform')->withTrashed();
     }
 
     /**

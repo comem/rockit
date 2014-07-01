@@ -58,14 +58,12 @@ class Staff extends \Eloquent {
         'skill_id' => 'integer|required|min:1|exists:skills,id',
     ];
 
-    
-
     /**
      * Get the Skill to which a Staff is related.
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function skill() {
-        return $this->belongsTo('Rockit\Skill');
+        return $this->belongsTo('Rockit\Skill')->withTrashed();
     }
 
     /**
@@ -73,7 +71,7 @@ class Staff extends \Eloquent {
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function member() {
-        return $this->belongsTo('Rockit\Member');
+        return $this->belongsTo('Rockit\Member')->withTrashed();
     }
 
     /**
@@ -138,14 +136,22 @@ class Staff extends \Eloquent {
         return self::where('member_id', '=', $data['member_id'])->where('event_id', '=', $data['event_id'])->first();
     }
 
-    public static function isUnique( array $array ){
+    /**
+     * Check <b>member_id</b>'s unicity.
+     * 
+     * Check that there is not two identical <b>member_id</b> in the given array.
+     * 
+     * @param array $array
+     * @return boolean true|false
+     */
+    public static function isUnique(array $array) {
         $newTab = [];
-        foreach( $array as $object ){
-            if( !in_array($object['member_id'], $newTab) ){
+        foreach ($array as $object) {
+            if (!in_array($object['member_id'], $newTab)) {
                 $newTab[] = $object['member_id'];
             }
         }
-        return count( $array ) === count( $newTab );
+        return count($array) === count($newTab);
     }
 
 }

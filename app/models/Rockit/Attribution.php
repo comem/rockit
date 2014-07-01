@@ -50,10 +50,10 @@ class Attribution extends \Eloquent {
         'cost' => 'integer|min:0',
         'quantity' => 'integer|min:1',
     ];
-    
+
     /**
-	* Validation rules for associating a new Event with a new attributed Equipment.
-        * @var array 
+     * Validation rules for associating a new Event with a new attributed Equipment.
+     * @var array 
      */
     public static $create_event_rules = [
         'cost' => 'integer|min:0',
@@ -66,7 +66,7 @@ class Attribution extends \Eloquent {
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function equipment() {
-        return $this->belongsTo('Rockit\Equipment');
+        return $this->belongsTo('Rockit\Equipment')->withTrashed();
     }
 
     /**
@@ -77,14 +77,14 @@ class Attribution extends \Eloquent {
         return $this->belongsTo('Rockit\Event');
     }
 
-    public static function isUnique( array $array ){
+    public static function isUnique(array $array) {
         $newTab = [];
-        foreach( $array as $object ){
-            if( !in_array($object['equipment_id'], $newTab) ){
+        foreach ($array as $object) {
+            if (!in_array($object['equipment_id'], $newTab)) {
                 $newTab[] = $object['equipment_id'];
             }
         }
-        return count( $array ) === count( $newTab );
+        return count($array) === count($newTab);
     }
 
 }
