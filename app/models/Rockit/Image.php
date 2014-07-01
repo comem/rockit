@@ -42,7 +42,7 @@ class Image extends \Eloquent {
      * @var array 
      */
     public static $create_rules = array(
-        'source' => 'required|min:1|max:2000|path:images|unique:images',
+        'source' => 'required|min:1|max:2000|path:images',
         'alt_de' => 'max:100|min:1',
         'caption_de' => 'max:200|min:1',
     );

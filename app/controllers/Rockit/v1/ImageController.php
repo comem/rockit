@@ -4,8 +4,6 @@ namespace Rockit\v1;
 
 use \Input,
     \Jsend,
-    \Route,
-    \Request,
     \Rockit\Image,
     \Rockit\Controllers\ControllerBSUDTrait;
 
@@ -18,7 +16,7 @@ use \Input,
  * @author Mathias Oberson <mathias.oberson@heig-vd.ch>
  */
 class ImageController extends \BaseController {
- 
+
     use ControllerBSUDTrait;
 
     /**

@@ -8,8 +8,9 @@ use \Rockit\Controllers\ControllerBSUDTrait,
     \Input,
     \WordExport,
     \XMLExport,
-    \Validator;
-use \Rockit\Ticket, \Rockit\Event, \Rockit\Performer, \Rockit\Need, \Rockit\Offer;
+    \Validator,
+    \Rockit\Ticket,
+    \Rockit\Event;
 
 /**
  * Contains interaction methods to the Event model in the database.<br>
@@ -154,69 +155,67 @@ class EventController extends \BaseController {
      */
     public function store() {
         $inputs_for_event = Input::only(
-            'start_date_hour', 'ending_date_hour', 'title_de', 
-            'nb_meal', 'nb_vegans_meal', 'opening_doors', 'meal_notes_de', 
-            'nb_places', 'followed_by_private', 'contract_src', 'notes_de', 
-            // simple association
-            'event_type_id',
-            // * * association
-            'tickets');
+        'start_date_hour', 'ending_date_hour', 'title_de', 'nb_meal', 'nb_vegans_meal', 'opening_doors', 'meal_notes_de', 'nb_places', 'followed_by_private', 'contract_src', 'notes_de',
+        // simple association
+        'event_type_id',
+        // * * association
+        'tickets');
         $inputs_associations = Input::only(
-            'image_id', 'representer_id', 
-            // * * association
-            'performers', 'needs', 'offers', 'attributions', 'staffs');
+        'image_id', 'representer_id',
+        // * * association
+        'performers', 'needs', 'offers', 'attributions', 'staffs');
         $validate_event = Event::validate($inputs_for_event, Event::$create_rules);
         $validate_associations = Event::validate($inputs_associations, Event::$create_associations_rules);
         if ($validate_event === true && $validate_associations === true) {
             DB::beginTransaction();
             $response = self::save($inputs_for_event);
-            if(isset($response['success'])){
+            if (isset($response['success'])) {
                 $event_id = $response['success']['response']['id'];
-                if(isset($inputs_associations['performers'])){
+                if (isset($inputs_associations['performers'])) {
                     $response_save = self::saveAssociations('Performer', $event_id, $inputs_associations['performers']);
-                    if(isset($response_save['fail'])){
+                    if (isset($response_save['fail'])) {
                         $response['fail']['performers'] = $response_save['fail'];
-                    } elseif(isset($response_save['error'])) {
+                    } elseif (isset($response_save['error'])) {
                         $response['error']['performers'] = $response_save['error'];
                     }
                 }
-                if(isset($inputs_associations['needs'])){
+                if (isset($inputs_associations['needs'])) {
                     $response_save = self::saveAssociations('Need', $event_id, $inputs_associations['needs']);
-                    if(isset($response_save['fail'])){
+                    if (isset($response_save['fail'])) {
                         $response['fail']['needs'] = $response_save['fail'];
-                    } elseif(isset($response_save['error'])) {
+                    } elseif (isset($response_save['error'])) {
                         $response['error']['needs'] = $response_save['error'];
                     }
                 }
-                if(isset($inputs_associations['offers'])){
+                if (isset($inputs_associations['offers'])) {
                     $response_save = self::saveAssociations('Offer', $event_id, $inputs_associations['offers']);
-                    if(isset($response_save['fail'])){
+                    if (isset($response_save['fail'])) {
                         $response['fail']['offers'] = $response_save['fail'];
-                    } elseif(isset($response_save['error'])) {
+                    } elseif (isset($response_save['error'])) {
                         $response['error']['offers'] = $response_save['error'];
                     }
                 }
-                if(isset($inputs_associations['attributions'])){
+                if (isset($inputs_associations['attributions'])) {
                     $response_save = self::saveAssociations('Attribution', $event_id, $inputs_associations['attributions']);
-                    if(isset($response_save['fail'])){
+                    if (isset($response_save['fail'])) {
                         $response['fail']['attributions'] = $response_save['fail'];
-                    } elseif(isset($response_save['error'])) {
+                    } elseif (isset($response_save['error'])) {
                         $response['error']['attributions'] = $response_save['error'];
                     }
                 }
-                if(isset($inputs_associations['staffs'])){
+                if (isset($inputs_associations['staffs'])) {
                     $response_save = self::saveAssociations('Staff', $event_id, $inputs_associations['staffs']);
-                    if(isset($response_save['fail'])){
+                    if (isset($response_save['fail'])) {
                         $response['fail']['staffs'] = $response_save['fail'];
-                    } elseif(isset($response_save['error'])) {
+                    } elseif (isset($response_save['error'])) {
                         $response['error']['staffs'] = $response_save['error'];
                     }
                 }
-                if(isset($response['fail'])){
+                if (isset($response['fail'])) {
                     DB::rollback();
                     unset($response['success']);
                     unset($response['error']);
-                } elseif(isset($response['error'])) {
+                } elseif (isset($response['error'])) {
                     DB::rollback();
                     unset($response['success']);
                     unset($response['fail']);
@@ -227,12 +226,12 @@ class EventController extends \BaseController {
                 DB::rollback();
             }
         } else {
-            if( $validate_event === true && $validate_associations !== true ){
+            if ($validate_event === true && $validate_associations !== true) {
                 $response = $validate_associations;
-            } elseif($validate_associations === true && $validate_event !== true ){
+            } elseif ($validate_associations === true && $validate_event !== true) {
                 $response = $validate_event;
-            } else{
-                $response = array_merge( $validate_event, $validate_associations );
+            } else {
+                $response = array_merge($validate_event, $validate_associations);
             }
         }
         return Jsend::compile($response);
@@ -250,9 +249,7 @@ class EventController extends \BaseController {
      */
     public function update($id) {
         $new_data = Input::only(
-            'ending_date_hour', 'title_de', 'nb_meal', 'nb_vegans_meal', 'opening_doors', 'meal_notes_de', 
-            'nb_places', 'followed_by_private', 'contract_src', 'notes_de', 'event_type_id', 
-            'representer_id');
+        'ending_date_hour', 'title_de', 'nb_meal', 'nb_vegans_meal', 'opening_doors', 'meal_notes_de', 'nb_places', 'followed_by_private', 'contract_src', 'notes_de', 'event_type_id', 'representer_id');
         $validate = Event::validate($new_data, Event::$update_rules);
         if ($validate === true) {
             $response = self::modify($id, $new_data);
@@ -342,7 +339,7 @@ class EventController extends \BaseController {
             } else {
                 $response['fail'] = ['title' => trans('fail.export.unchronological')];
                 return Jsend::compile($response);
-            }    
+            }
         } else {
             $response['fail'] = ['word' => [trans('fail.export.no_input')]];
             return Jsend::compile($response);
@@ -375,7 +372,7 @@ class EventController extends \BaseController {
             } else {
                 $response['fail'] = ['title' => trans('fail.export.unchronological')];
                 return Jsend::compile($response);
-            }    
+            }
         } else {
             $response['fail'] = ['xml' => [trans('fail.export.noinput')]];
             return Jsend::compile($response);
@@ -392,7 +389,7 @@ class EventController extends \BaseController {
      * @param  int  $id The id of the Event to associate to an Image
      * @return Jsend
      */
-    public function symbolize($id){
+    public function symbolize($id) {
         $inputs = [
             'event_id' => $id,
             'image_id' => Input::get('image_id'),
@@ -419,7 +416,7 @@ class EventController extends \BaseController {
      * @param  int  $id The id of the Event to no longer be associated to an Image
      * @return Jsend
      */
-    public function desymbolize($id){
+    public function desymbolize($id) {
         $event = Event::exist($id);
         if (is_object($event)) {
             $response = SymbolizationController::delete($event);
@@ -441,7 +438,7 @@ class EventController extends \BaseController {
      * @param  int  $id The id of the Event to associate to a Representer
      * @return Jsend
      */
-    public function setRepresenter($id){
+    public function setRepresenter($id) {
         $inputs = [
             'event_id' => $id,
             'representer_id' => Input::get('representer_id'),
@@ -468,7 +465,7 @@ class EventController extends \BaseController {
      * @param  int  $id The id of the Event to no longer be associated to a Representer
      * @return Jsend
      */
-    public function unsetRepresenter($id){
+    public function unsetRepresenter($id) {
         $event = Event::exist($id);
         if (is_object($event)) {
             $response = GuaranteeController::delete($event);
@@ -493,7 +490,7 @@ class EventController extends \BaseController {
      * @param  event $event The id of the Event to publish
      * @return Jsend
      */
-   public static function sfPublish($event) {
+    public static function sfPublish($event) {
         $response = Event::atLeastOneMainPerformer($event);
         if ($response === true) {
             $response = Event::isSymbolized($event);
@@ -521,9 +518,9 @@ class EventController extends \BaseController {
     public static function sfUnpublish($event) {
         $event->published_at = null;
         if ($event->save()) {
-        $response = ['success' => ['title' => trans('success.event.unpublished')]];
+            $response = ['success' => ['title' => trans('success.event.unpublished')]];
         } else {
-        $response = ['error' => trans('error.event.unpublished')];
+            $response = ['error' => trans('error.event.unpublished')];
         }
         return $response;
     }
@@ -543,21 +540,21 @@ class EventController extends \BaseController {
      * @return Jsend
      */
     public static function save($inputs) {
-        if( Ticket::isTicketCategoryUnicity( $inputs['tickets'] ) ) {
-            foreach ( $inputs['tickets'] as $key => $ticket) {
+        if (Ticket::isTicketCategoryUnicity($inputs['tickets'])) {
+            foreach ($inputs['tickets'] as $key => $ticket) {
                 $v = Ticket::validate($ticket, Ticket::$create_event_rules);
-                if( $v !== true ){
+                if ($v !== true) {
                     $response['fail']['tickets'][$key] = $v['fail'];
                 }
             }
-            if( !isset( $response['fail'] ) ){
-                if( isset($inputs['opening_doors']) && $inputs['opening_doors'] != NULL ){
-                    $response = Event::checkOpeningDoorsHour( $inputs['start_date_hour'], $inputs['opening_doors'] );
+            if (!isset($response['fail'])) {
+                if (isset($inputs['opening_doors']) && $inputs['opening_doors'] != NULL) {
+                    $response = Event::checkOpeningDoorsHour($inputs['start_date_hour'], $inputs['opening_doors']);
                 }
-                if( !isset( $response ) || $response === true ){
-                    $response = Event::checkDatesChronological( $inputs['start_date_hour'], $inputs['ending_date_hour'] );
-                    if($response === true){
-                        $response = Event::checkDatesDontOverlap( $inputs['start_date_hour'], $inputs['ending_date_hour'] );
+                if (!isset($response) || $response === true) {
+                    $response = Event::checkDatesChronological($inputs['start_date_hour'], $inputs['ending_date_hour']);
+                    if ($response === true) {
+                        $response = Event::checkDatesDontOverlap($inputs['start_date_hour'], $inputs['ending_date_hour']);
                     }
                 }
             }
@@ -566,7 +563,7 @@ class EventController extends \BaseController {
                 'tickets' => [trans('fail.ticket_category.not_unique')]
             ];
         }
-        if ( !isset( $response['fail'] ) ) {
+        if (!isset($response['fail'])) {
             $response = Event::createOne($inputs);
         }
         return $response;
@@ -585,14 +582,14 @@ class EventController extends \BaseController {
      * @param array $new_data The data to update to for the specified Event
      * @return Jsend
      */
-    public static function modify( $id, $new_data ) {
+    public static function modify($id, $new_data) {
         $event = Event::exist($id);
-        if( is_object( $event ) ){
-            if(isset($new_data['opening_doors']) && $new_data['opening_doors'] != NULL ){
-                $response = Event::checkOpeningDoorsHour( $event->start_date_hour, $new_data['opening_doors'] );
+        if (is_object($event)) {
+            if (isset($new_data['opening_doors']) && $new_data['opening_doors'] != NULL) {
+                $response = Event::checkOpeningDoorsHour($event->start_date_hour, $new_data['opening_doors']);
             }
-            if( (!isset( $response ) || $response === true) && (isset($new_data['ending_date_hour']) && $new_data['ending_date_hour'] != NULL) ){
-                $response = Event::checkDatesChronological( $event->start_date_hour, $new_data['ending_date_hour'] );
+            if ((!isset($response) || $response === true) && (isset($new_data['ending_date_hour']) && $new_data['ending_date_hour'] != NULL)) {
+                $response = Event::checkDatesChronological($event->start_date_hour, $new_data['ending_date_hour']);
             }
         } else {
             $response['fail'] = [
@@ -601,7 +598,7 @@ class EventController extends \BaseController {
                 ],
             ];
         }
-        if ( !isset( $response['fail'] ) ) {
+        if (!isset($response['fail'])) {
             $response = Event::updateOne($new_data, $event);
         }
         return $response;
@@ -617,21 +614,21 @@ class EventController extends \BaseController {
      * @param array $data The data to save in the association between the class and the Event
      * @return Jsend
      */
-    public static function saveAssociations( $class, $event_id, array $data ){
-        $classNamespaced = 'Rockit\\'.$class;
-        $controller = 'Rockit\\v1\\'.$class.'Controller';
-        $plural = snake_case( str_plural( $class ) );
-        if( $classNamespaced::isUnique( $data ) ){
-            foreach($data as $key => $array){
+    public static function saveAssociations($class, $event_id, array $data) {
+        $classNamespaced = 'Rockit\\' . $class;
+        $controller = 'Rockit\\v1\\' . $class . 'Controller';
+        $plural = snake_case(str_plural($class));
+        if ($classNamespaced::isUnique($data)) {
+            foreach ($data as $key => $array) {
                 $array['event_id'] = $event_id;
                 $v = $classNamespaced::validate($array, $classNamespaced::$create_event_rules);
-                if( $v !== true ){
+                if ($v !== true) {
                     $response['fail'][$key] = $v['fail'];
                 } else {
                     $rep = $controller::saveAsAssociation($array);
-                    if(isset($rep['fail'])){
+                    if (isset($rep['fail'])) {
                         $response['fail'][$key] = $rep['fail'];
-                    } elseif(isset($rep['error'])) {
+                    } elseif (isset($rep['error'])) {
                         $response['error'][$key] = $rep['error'];
                     } else {
                         $response['success'] = [];
@@ -639,7 +636,7 @@ class EventController extends \BaseController {
                 }
             }
         } else {
-            $response['fail'][] = trans('fail.'.strtolower($class).'.not_unique');
+            $response['fail'][] = trans('fail.' . strtolower($class) . '.not_unique');
         }
         return $response;
     }
