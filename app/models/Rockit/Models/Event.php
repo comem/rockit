@@ -149,18 +149,18 @@ class Event extends \Eloquent {
         return $this->belongsTo('Rockit\Models\Representer');
     }
 
-//    public function scopeArtistGenres($query, array $genres) {
-//        return $query->whereHas('artists', function($q) use ($genres) {
-//            $q->whereHas('genres', function($q) use ($genres) {
-//                $q->whereIn('genres.id', $genres);
-//            });
-//        });
-//    }
     public function scopeArtistGenres($query, array $genres) {
+       return $query->whereHas('artists', function($q) use ($genres) {
+            $q->whereHas('genres', function($q) use ($genres) {
+                $q->whereIn('genres.id', $genres);
+            });
+        });
+    }
+    /*public function scopeArtistGenres($query, array $genres) {
         return $query->whereHas('genres', function($q) use ($genres) {
             $q->where('genre_id', '=', $genres);
         });
-    }
+    }*/
 
     public function scopeEventType($query, array $event_types) {
         return $query->whereIn('events.event_type_id', $event_types);
