@@ -77,6 +77,11 @@ class IndexMethodSeeder {
             'controller' => 'TicketCategoryController',
             'method' => 'index',
         ));
+        Resource::create(array(
+            'id' => 114,
+            'controller' => 'SearchController',
+            'method' => 'index',
+        ));
     }
 
 }
