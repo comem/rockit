@@ -56,7 +56,7 @@ class SearchController extends \BaseController {
             $response['success'] = ['response' => $res];
         } else {
             $response['success'] = ['response' => []];
-        
+        }
         return Jsend::compile($response);
     }
 
