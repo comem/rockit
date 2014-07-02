@@ -6,6 +6,7 @@
 
 return [
     'acl' => "Sie sind für diese Aktion nicht authentifiziert.",
+    'login' => "Die Benutzerangaben sind falsch.",
     'artist' => [
         'inexistant' => "Keinen entsprechenden Künstler gefunden.",
         'nogenre' => "Kein gültiges Genre für Künstler gefunden.",

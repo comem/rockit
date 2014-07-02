@@ -6,7 +6,7 @@
 
 return [
     'acl' => "Vous n'avez pas le droit d'effectuer cette action",
-    'login' => "Les informations de connection ne sont pas valides.",
+    'login' => "Les informations de connexion ne sont pas valides.",
     'artist' => [
         'inexistant' => "Il n'existe aucun artiste correspondant.",
         'nogenre' => "Aucun genre valide pour cet artiste.",

@@ -6,7 +6,7 @@
 
 return [
     'acl' => "You do not have the right to execute this action",
-    'login' => "The authentication data are not valid.",
+    'login' => "The user credentials are not valid.",
     'artist' => [
         'inexistant' => "No corresponding artist is registered.",
         'nogenre' => "This artist does not have a valid genre.",
@@ -33,7 +33,7 @@ return [
         'overlap' => "This event overlaps another registered event.",
         'existing' => "An event \":name\" is already registered.",
         'inexistant' => "No corresponding event is registered.",
-        'at_least_one_main_performer' => "The event must have atleast one main performer.",
+        'at_least_one_main_performer' => "The event must have at least one main performer.",
         'is_symbolized' => "The event needs a cover image.",
         'is_not_published' => "The event's status must be 'published' in order to share the event.",
     ],

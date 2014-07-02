@@ -39,18 +39,9 @@ class AuthController extends \BaseController {
                 $response['error'] = trans('error.auth.login');
             }
         } else {
-            $response['fail'] = ['auth' => [trans('fail.auth.login')]];
+            $response['fail'] = ['auth' => [trans('fail.login')]];
         }
         return Jsend::compile($response);
-//        if (($credentials['email'] != null && $credentials['password'] != null) &&
-//        User::validate(array($credentials['email'], $credentials['password'])) &&
-//        Auth::attempt($credentials, $remember, true)) {
-//            return Jsend::success(['response' => [
-//                'title' => trans('success.auth.login'),
-//                'user' => Auth::user(),
-//            ]]);
-//        }
-//        return Jsend::error(trans('error.auth.login'));
     }
 
     /**
