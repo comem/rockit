@@ -140,7 +140,7 @@ class WordExport {
         $events = Event::whereNotNull("published_at")->where('start_date_hour', '>=', $from)->where('start_date_hour', '<=', $to)->orderBy('start_date_hour')->get();
         foreach ($events as $event) {
             $date = strftime("%A, %e. %B %Y  |  %H.%M Uhr", strtotime($event->start_date_hour));
-            $date = self::deleteDoubleWhitspace($date);
+            $date = RockitHelper::deleteDoubleWhitspace($date);
 
             if ($event->opening_doors != NULL) {
                 $opening_doors = strftime("  (Türöffnung %H.%M Uhr)", strtotime($event->opening_doors));
@@ -243,7 +243,7 @@ class WordExport {
                     }
                 }
                 $section->addText($event->description_de, $fsStandard, $psStandardSpaceAfter);
-                foreach($mainArtist as $artist) {
+                foreach($mainArtists as $artist) {
                     $section->addText($artist->short_description_de, $fsShortDesc, $psStandard);
                     $section->addText($artist->complete_description_de, $fsStandard, $psStandard);
                     if (count($artist->musicians) > 0) {
