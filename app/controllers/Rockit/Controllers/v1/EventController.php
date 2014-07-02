@@ -135,8 +135,9 @@ class EventController extends \BaseController {
      * Store a newly created resource in storage.
      * 
      * Get the adequate inputs from the client request and test that each of them pass its specific validation rules.<br>
-     * If any of these inputs fail, a <b>Jsend::fail</b> is returned.<br>
-     * If all the inputs are valid, a <b>database transaction is started</b> and the data is passed to the <b>save()</b> method.<br>
+     * If the inputs needed to validate an Event fail, a <b>Jsend::fail</b> is returned.<br>
+     * If the inputs needed to validate the associations to an Event fail, a <b>Jsend::fail</b> is returned.<br>
+     * Or else all the inputs are valid, a <b>database transaction is started</b> and the data is passed to the <b>save()</b> method.<br>
      * If the save() method returns anything other than a Jsend::success, the <b>transaction is cancelled</b>.<br>
      * If the save() method returns a <b>Jsend::success</b>, then the <b>transaction continues</b> : <br>
      * In this case, the data is passed to the <b>saveAssociations</b> method for the following tables <b>if</b> values were provided and validated for each table : <br>
@@ -147,8 +148,8 @@ class EventController extends \BaseController {
      * <li><b>Attributions</b>: an equipment attributed to this event, and its relative information</li>
      * <li><b>Staffs</b>: a staff employed for an event, and its relative information</li>
      * </ul> 
-     * The saveAssociations method return a response.<br>
-     * If a response returned a message with a <b>Jsend::error</b> or a <b>Jsend::fail</b>, the <b>transaction is cancelled</b>.<br>
+     * The saveAssociations method returns a response.<br>
+     * If this response returns a message with a <b>Jsend::error</b> or a <b>Jsend::fail</b>, the <b>transaction is cancelled</b>.<br>
      * Or else the <b>transaction will be committed</b> and the Event with its associations are saved in the database.<br>
      *
      * @return Jsend
@@ -355,7 +356,7 @@ class EventController extends \BaseController {
      * If the provided dates are not in chronological order, a <b>Jsend::fail</b> is returned.<br>
      * Or else, the data is then passed to the <b>events()</b> method of the WordExport model.<br>
      *
-     * @return Jsend 'fail' or a Word.docx
+     * @return Jsend 'fail' or a XML file
      */
     public function exportXML() {
         $from = Input::get('from');
@@ -607,7 +608,13 @@ class EventController extends \BaseController {
     /**
      * Save a new association between a specified class and an Event, from the provided class name, event id and the data to save.
      * 
-     * TO DO
+     * If the data provided contains ids that are not unique, a <b>Jsend::fail</b> is returned.<br>
+     * With the adequate inputs from the client request, test that they pass the validation rules of the specified class, before being associated to an event.<br>
+     * If any of these inputs fail, a <b>Jsend::fail</b> is returned.<br>
+     * Or else the event id and data provided will be passed to the <b>saveAsAssociation</b> method, which will return to response.<br>
+     * If the creation of the association fails, a <b>Jsend::fail</b> is returned.<br>
+     * If an error occurs during the creation of the association, a <b>Jsend::error</b> is returned.<br>
+     * Or else, a <b>Jsend::response</b> is returned.<br>
      * 
      * @param string $class The name of the class to associate to
      * @param integer $event_id The id of the Event to associate to 
