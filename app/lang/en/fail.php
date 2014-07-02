@@ -13,20 +13,20 @@ return [
         'image' => "L'image :key n'existe pas ou n'est pas disponible.",
     ],
     'attribution' => [
-        'existing' => "Il y a déjà une attribution de même type enregistrée.",
-        'inexistant' => "Il n'existe aucune attribution correspondante.",
+        'existing' => "An attribution of the same kind is already registered.",
+        'inexistant' => "No corresponding attribution is registered.",
         'not_unique' => "doublons !",
     ],
-    'auth' => "Vous devez être authentifié pour effectuer cette action",
+    'auth' => "You must be logged in to complete this action",
     'description' => [
-        'existing' => "Cet artiste est déjà lié à ce genre.",
-        'inexistant' => "Il n'existe aucune description correspondante.",
+        'existing' => "This artist is already linked to this genre.",
+        'inexistant' => "No corresponding link between the artist and the genre is registered.",
         'last_genre' => "Ce genre est le dernier pour cet artiste, vous ne pouvez pas le supprimer.",
     ],
     'empty_data' => "Il n'y a rien à mettre à jour.",
     'equipment' => [
-        'existing' => "Il y a déjà un équipement \":name\" enregistré.",
-        'inexistant' => "Il n'existe aucun équipement correspondant.",
+        'existing' => "An equipment \":name\" already exists.",
+        'inexistant' => "No corresponding equipment exists.",
     ],
     'event' => [
         'overlap' => "Cet événement chevauche un événement déjà existant.",
@@ -37,8 +37,8 @@ return [
         'is_not_published' => "L'événement doit être publié pour que un post peut être crée.",
     ],
     'event_type' => [
-        'existing' => "Il y a déjà un type d'événement \":name\" enregistré.",
-        'inexistant' => "Il n'existe aucun type d'événement correspondant.",
+        'existing' => "An event \":name\" already exists.",
+        'inexistant' => "No corresponding event exists.",
     ],
     'export' => [
         'no_input' => "Des dates de/à n'ont pas été trouvés.",
@@ -57,12 +57,12 @@ return [
         'non_assigned' => "Cette compétence ne peut pas être remplie par ce membre.",
     ],
     'genre' => [
-        'existing' => "Il y a déjà un genre \":name\" enregistré.",
-        'inexistant' => "Il n'existe aucun genre correspondant.",
+        'existing' => "A genre \":name\" already exists.",
+        'inexistant' => "No corresponding genre exists.",
     ],
     'gift' => [
-        'existing' => "Il y a déjà un lot \":name\" enregistré.",
-        'inexistant' => "Il n'existe aucun lot correspondant.",
+        'existing' => "A gift \":name\" already exists.",
+        'inexistant' => "No corresponding gift exists.",
     ],
     'guarantee' => [
         'existing' => "Les artistes de cet événement sont déjà représentés par un autre représentant.",
@@ -74,12 +74,12 @@ return [
         'inadequate' => "Cette image n'illustre pas cet artiste.",
     ],
     'image' => [
-        'inexistant' => "Il n'existe aucune image correspondants.",
-        'existing' => "Il y a déjà une image enregistrée pour \":name\".",
+        'existing' => "An image \":name\" already exists.",
+        'inexistant' => "No corresponding image exists.",
     ],
     'instrument' => [
-        'existing' => "Il y a déjà un instrument \":name\" enregistré.",
-        'inexistant' => "Il n'existe aucun instrument correspondant.",
+        'existing' => "An instrument \":name\" already exists.",
+        'inexistant' => "No corresponding instrument exists.",
     ],
     'language' => [
         'inexistant' => "Il n'existe aucune langue correspondante.",
@@ -94,26 +94,26 @@ return [
         'inexistant' => "Il n'existe aucun lien correspondant.",
     ],
     'member' => [
-        'inexistant' => "Il n'existe aucun membre correspondant.",
-        'existing' => "Il y a déjà un membre \":name\" enregistré.",
+        'existing' => "A member \":name\" already exists.",
+        'inexistant' => "No corresponding member exists.",
     ],
     'musician' => [
-        'existing' => "Il y a déjà un musician \":name\" enregistré.",
-        'inexistant' => "Il n'existe aucun musician correspondant.",
+        'existing' => "A musician \":name\" already exists.",
+        'inexistant' => "No corresponding musician exists.",
         'nolineup' => "Aucune formation valide pour ce musicien.",
         'no_instrument_artist' => "L'instrument et l'artiste n'existent pas pour la formation :key.",
         'no_instrument' => "L'instrument n'existe pas pour la formation :key.",
         'no_artist' => "L'artiste n'existe pas pour la formation :key.",
     ],
     'need' => [
-        'existing' => "Il y a déjà un besoin de même type enregistré.",
-        'inexistant' => "Il n'existe aucun besoin correspondant.",
+        'existing' => "A need of the same kind is already registered.",
+        'inexistant' => "No corresponding need is registered.",
         'non_needed' => "Cette compétence n'est pas demandée lors de cet événement.",
         'not_unique' => "Les besoins ont des doublons !",
     ],
     'offer' => [
-        'existing' => "Il y a déjà une offre de même type enregistrée.",
-        'inexistant' => "Il n'existe aucune offre correspondante.",
+        'existing' => "An offer of the same kind is already registered.",
+        'inexistant' => "No corresponding offer is registered.",
         'not_unique' => "doublons !",
     ],
     'performer' => [
@@ -131,18 +131,18 @@ return [
         'inexistant' => "Il n'existe aucun type d'imprimé correspondant.",
     ],
     'representer' => [
-        'inexistant' => "Il n'existe aucun représenant correspondant.",
-        'existing' => "Il existe déjà un représentant \":name\" enregistré.",
+        'existing' => "A representer \":name\" already exists.",
+        'inexistant' => "No corresponding representer exists.",
     ],
     'routes' => [
         'missing' => "Oups! Cette url n'existe pas",
     ],
     'sharing' => [
-        'inexistant' => "Il n'existe aucun sharing correspondant.",
+        'inexistant' => "No corresponding sharing exists.",
     ],
     'skill' => [
-        'existing' => "Il y a déjà une compétence \":name\" enregistrée.",
-        'inexistant' => "Il n'existe aucune compétence correspondante.",
+        'existing' => "A skill \":name\" is already registered.",
+        'inexistant' => "No corresponding skill is registered.",
     ],
     'staff' => [
         'existing' => "Ce membre effectue déjà un autre rôle pour cet événement.",
@@ -155,13 +155,13 @@ return [
         'attach_image_not_performer' => "Cette image n'illustre aucun artiste jouant dans cet événement, il n'est pas possible de l'utiliser comme image de couverture",
     ],
     'ticket' => [
-        'existing' => "Il y a déjà un ticket d'entrée de même type enregistré.",
-        'inexistant' => "Il n'existe aucun ticket d'entrée correspondant.",
+        'existing' => "A ticket of the same kind is already registered.",
+        'inexistant' => "No corresponding ticket is registered.",
         'last_ticket' => "Ce ticket d'entrée est le dernier pour cet événement, vous ne pouvez pas le supprimer.",
     ],
     'ticket_category' => [
-        'existing' => "Il y a déjà une catégorie de tickets \":name\" enregistrée.",
-        'inexistant' => "Il n'existe aucune catégorie de tickets correspondante.",
+        'existing' => "A ticket category \":name\" already exists.",
+        'inexistant' => "No corresponding ticket category exists.",
         'not_unique' => "...doublon...",
     ],
     'wordexport' => [
