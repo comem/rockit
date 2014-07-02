@@ -55,6 +55,9 @@ class Event extends \Eloquent {
         'image_id' => 'exists:images,id',
     );
 
+    /**
+    *
+    */
     public function getEventTypeAttribute() {
         return $this->genres()->getResults();
     }
