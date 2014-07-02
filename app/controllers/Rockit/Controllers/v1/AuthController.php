@@ -29,7 +29,10 @@ class AuthController extends \BaseController {
             'email' => Input::get('email'),
             'password' => Input::get('password')
         ];
-        if (($credentials['email'] != null && $credentials['password'] != null) && Auth::validate($credentials)) {
+        if (($credentials['email'] != null
+        && $credentials['password'] != null)
+        && User::validate([$credentials['email'], $credentials['password']])
+        && Auth::validate($credentials)) {
             if (Auth::attempt($credentials, $remember, true)) {
                 $response['success'] = ['response' => [
                         'title' => trans('success.auth.login'),
