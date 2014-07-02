@@ -74,14 +74,16 @@ class Image extends \Eloquent {
     }
 
     /**
-     * Updates a persistant image, based on the difference between new values
-     * and existing values.
-     * 
-     * If the sourcefile is changed, delete the old file and add the new one.
-     * 
-     * @param array $new_values
-     * @param \Rockit\Image $object
-     * @return type
+     * Update a persistant Image in the database, using the differences between a set of new values provided and the old, existing values of the provided Model.
+     *
+     * The values are compared and the differences are passed to the <b>save</b> method of the Image model to update, which returns a response.<br>
+     * If that response was empty or there were no new values to update to, a <b>Jsend::fail</b> is returned.<br>
+     * If the update was not executed correctly, a <b>Jsend::error</b> is returned.<br>
+     * Or else, a <b>Jsend::success</b> is returned. 
+     *
+     * @param array $new_values The values to update to
+     * @param Image $object The Image to update
+     * @return array An array containing a 'success', 'fail' or 'error' key with its message.
      */
     public static function updateOne(array $new_values, Image $object) {
         $field = self::$response_field;
@@ -111,8 +113,6 @@ class Image extends \Eloquent {
         }
         return $response;
     }
-    
-   
     
     /**
      * Check that an Image illustrates an Artist is a Performer at the specified Event, with the provided Image and Event.
