@@ -46,7 +46,7 @@ class ArtistController extends \BaseController {
      * @return Jsend
      */
     public function index() {
-        $artists = Artist::with('images', 'genres');
+        $artists = Artist::with('images');
         $nb_item = Input::has('nb_item') && Input::get('nb_item') > 0 ? Input::get('nb_item') : 10;
         if (Input::has('name')) {
             $artists = $artists->name(Input::get('name'));
@@ -76,7 +76,7 @@ class ArtistController extends \BaseController {
      * @return Jsend
      */
     public function show($id) {
-        $artist = Artist::with('links', 'images', 'genres', 'events', 'musicians')
+        $artist = Artist::with('links', 'images', 'events', 'musicians')
         ->find($id);
         if (empty($artist)) {
             $response = Jsend::fail(['artist' => [trans('fail.artist.inexistant')]]);

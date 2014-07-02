@@ -12,12 +12,14 @@ use \Route,
  * Based on the Laravel's Eloquent.<br>
  * 
  * @author generated with Laravel Schema Designer <laravelsd.com>
+ * @author Joël Gugger <joel.gugger@heig-vd.ch>
  */
 class Printing extends \Eloquent {
 
     use CompletePivotModelTrait;
 
     protected $table = 'printings';
+    protected $appends = ['printing_type'];
     protected $hidden = ['printing_type_id', 'event_id'];
 
     /**
@@ -53,6 +55,14 @@ class Printing extends \Eloquent {
         'nb_copies_surplus' => 'integer|min:0',
         'source' => 'path:printings|max:100|min:1',
     ];
+    
+    /**
+     * Indicates how the appends printing_type attribute should be set when creating a new Printing model.
+     * In this case, this attribute will contains the result of the printingType() method.
+     */
+    public function getPrintingTypeAttribute() {
+        return $this->printingType()->getResults();
+    }
 
     /**
      * Get the PrintingType to which a Printing is related.

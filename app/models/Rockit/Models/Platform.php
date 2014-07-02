@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletingTrait;
  * Based on the Laravel's Eloquent.<br>
  * 
  * @author generated with Laravel Schema Designer <laravelsd.com>
+ * @author Christian Heimann <christian.heimann@heig-vd.ch>
  */
 class Platform extends \Eloquent {
 

@@ -79,7 +79,7 @@ return [
         'restored' => "La restauration de l'image a échoué.",
     ],
     'instrument' => [
-        'created' => "La suppression de l'instrument a échoué.",
+        'created' => "La création de l'instrument a échoué.",
         'restored' => "La restauration de l'instrument a échoué.",
         'deleted' => "La suppression de l'instrument a échoué.",
     ],
