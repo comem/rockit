@@ -97,7 +97,7 @@ class Performer extends \Eloquent {
      * If the parameter "order" is provided and has a value, this order value will be checked if it is already in use by an Artist.<br>
      * In this case, the order value will be incremented to an integer value that is not in use.
      */
-    public static function getOrderAvailable(array $data, Performer $performer = null) {
+    public static function getOrderAvailable(array &$data, Performer $performer = null) {
         if (isset($data['order'])) {
             if (!empty($performer)) {
                 $orders = array_flatten(Performer::select('order')->where('event_id', '=', $performer->event_id)->get()->toArray());
