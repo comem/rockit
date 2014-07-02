@@ -1,6 +1,6 @@
 <?php
 
-use Rockit\Genre;
+use Rockit\Models\Genre;
 
 // Genres
 class GenresTableSeeder extends Seeder {

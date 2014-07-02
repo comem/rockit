@@ -1,7 +1,7 @@
 <?php
 
-use Rockit\Link;
-use Rockit\Artist;
+use Rockit\Models\Link;
+use Rockit\Models\Artist;
 
 //links
 class LinksTableSeeder extends Seeder {

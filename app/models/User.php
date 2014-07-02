@@ -1,7 +1,7 @@
 <?php
 
-use Rockit\Resource,
-    Rockit\Models\Functions\UpdateOneTrait,
+use Rockit\Models\Resource,
+    Rockit\Traits\Models\Functions\UpdateOneTrait,
     Illuminate\Auth\UserTrait,
     Illuminate\Auth\UserInterface,
     Illuminate\Auth\Reminders\RemindableTrait,
@@ -23,27 +23,26 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         SoftDeletingTrait,
         UpdateOneTrait;
 
-    protected $appends = array('language', 'group');
+    protected $appends = ['language', 'group'];
     protected $table = 'users';
-    protected $hidden = array(
+    protected $hidden = [
         'password',
         'remember_token',
         'language_id',
         'group_id',
-//        'deleted_at',
-//        'created_at',
-//        'updated_at',
-    );
+        'deleted_at',
+        'created_at',
+        'updated_at',
+    ];
 
     /**
      * The rules to validate a User.
      * @var array 
      */
-    protected static $rules = array(
+    protected static $rules = [
         'email' => 'email|max:300|unique:users',
         'password' => 'min:4|max:2000'
-    );
-
+    ];
 
     /**
      * Indicates whether this model uses laravel's timestamps.
@@ -72,7 +71,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function group() {
-        return $this->belongsTo('Rockit\Group');
+        return $this->belongsTo('Rockit\Models\Group');
     }
 
     /**
@@ -80,31 +79,31 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
      * @return \Illuminate\Database\Eloquent\Collection
      */
     protected function language() {
-        return $this->belongsTo('Rockit\Language');
+        return $this->belongsTo('Rockit\Models\Language');
     }
 
     /**
-    * Check if the current User has access to the provided Resource.
-    * returns boolean
-    */
+     * Check if the current User has access to the provided Resource.
+     * returns boolean
+     */
     public function hasAccess(Resource $resource) {
         return $this->group->hasAccess($resource);
     }
 
     /**
-    * Describes how the appended language attribute is set.
-    *
-    * @return
-    */
+     * Describes how the appended language attribute is set.
+     *
+     * @return
+     */
     protected function getLanguageAttribute() {
         return $this->language()->getResults();
     }
 
     /**
-    * Describes how the appended group attribute is set.
-    *
-    * @return
-    */
+     * Describes how the appended group attribute is set.
+     *
+     * @return
+     */
     protected function getGroupAttribute() {
         return $this->group()->getResults();
     }

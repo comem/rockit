@@ -1,8 +1,8 @@
 <?php
 
-use Rockit\Sharing;
-use Rockit\Platform;
-use Rockit\Event;
+use Rockit\Models\Sharing;
+use Rockit\Models\Platform;
+use Rockit\Models\Event;
 
 //sharings
 class SharingsTableSeeder extends Seeder {

@@ -1,6 +1,6 @@
 <?php
 
-use Rockit\Skill;
+use Rockit\Models\Skill;
 
 //skills
 class SkillsTableSeeder extends Seeder {

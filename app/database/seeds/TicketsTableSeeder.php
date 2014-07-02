@@ -1,8 +1,8 @@
 <?php
 
-use Rockit\Ticket;
-use Rockit\TicketCategory;
-use Rockit\Event;
+use Rockit\Models\Ticket;
+use Rockit\Models\TicketCategory;
+use Rockit\Models\Event;
 
 //tickets
 class TicketsTableSeeder extends Seeder {

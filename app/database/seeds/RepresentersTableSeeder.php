@@ -1,6 +1,6 @@
 <?php
 
-use Rockit\Representer;
+use Rockit\Models\Representer;
 
 class RepresentersTableSeeder extends Seeder {
 

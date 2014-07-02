@@ -1,6 +1,6 @@
 <?php
 
-use Rockit\Artist;
+use Rockit\Models\Artist;
 
 // artist
 class ArtistsTableSeeder extends Seeder {

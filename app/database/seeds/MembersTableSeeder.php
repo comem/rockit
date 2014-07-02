@@ -1,6 +1,6 @@
 <?php
 
-use Rockit\Member;
+use Rockit\Models\Member;
 
 //members
 class MembersTableSeeder extends Seeder {
