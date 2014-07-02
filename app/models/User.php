@@ -58,7 +58,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     /**
      * Validate a User from the email and password provided.
-     * @param array('email', 'password') to be validated
+     *
+     * 'email', 'password') to be validated
+     *
+     * @param array $data an array that contains the data to validate(
      * @return boolean whether User is valid or not
      */
     public static function validate($data = array()) {
@@ -93,7 +96,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     /**
      * Describes how the appended language attribute is set.
      *
-     * @return
+     * @return Language
      */
     protected function getLanguageAttribute() {
         return $this->language()->getResults();
@@ -102,7 +105,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     /**
      * Describes how the appended group attribute is set.
      *
-     * @return
+     * @return Group
      */
     protected function getGroupAttribute() {
         return $this->group()->getResults();
