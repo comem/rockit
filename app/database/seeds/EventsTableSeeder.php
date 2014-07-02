@@ -217,7 +217,7 @@ class EventsTableSeeder extends Seeder {
             'opening_doors' => '19:45:00',
             'published_at' => '2014-04-13 09:21:02',
             'image_id' => '12',
-            'event_type_id' => '13',
+            'event_type_id' => '3',
             'representer_id' => '0',
             'title_de' => '',
             'nb_meal' => '0',
