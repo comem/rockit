@@ -17,6 +17,7 @@ class Attribution extends \Eloquent {
     use CompletePivotModelTrait;
 
     protected $table = 'attributions';
+    protected $appends = ['equipment'];
     protected $hidden = ['equipment_id', 'event_id'];
 
     /**
@@ -60,6 +61,14 @@ class Attribution extends \Eloquent {
         'quantity' => 'integer|min:1',
         'equipment_id' => 'integer|required|min:1|exists:equipments,id',
     ];
+    
+    /**
+     * Indicates how the appends equipment attribute should be set when creating a new Attribution model.
+     * In this case, this attribute will contains the result of the equipment() method.
+     */
+    public function getEquipmentAttribute() {
+        return $this->equipment()->getResults();
+    }
 
     /**
      * Get the Equipment to which an Attribution is related.

@@ -20,6 +20,11 @@ class Artist extends \Eloquent {
     use SoftDeletingTrait,
         ModelBCUDTrait;
 
+    protected $table = 'artists';
+    protected $hidden = ['created_at', 'updated_at'];
+    protected $appends = ['genres'];
+    protected $dates = ['deleted_at'];
+
     /**
      * Indicates whether this model uses laravel's timestamps.
      * @var boolean 
@@ -51,9 +56,10 @@ class Artist extends \Eloquent {
         'name' => 'min:1|max:100',
         'short_description_de' => 'max:200',
     );
-    protected $table = 'artists';
-    protected $hidden = ['created_at', 'updated_at'];
-    protected $dates = ['deleted_at'];
+    
+    public function getGenresAttribute() {
+        return $this->genres()->getResults();
+    }
 
     /**
      * Get the Links to which an Artist is related.
@@ -183,8 +189,8 @@ class Artist extends \Eloquent {
                 }
             }
             $response['success'] = ['response' => [
-                'title' => trans('success.artist.created', array('name' => $object->$field)),
-                'id' => $object->id,
+                    'title' => trans('success.artist.created', array('name' => $object->$field)),
+                    'id' => $object->id,
             ]];
             DB::commit();
         } else {
