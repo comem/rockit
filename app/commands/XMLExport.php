@@ -1,6 +1,6 @@
 <?php
 
-use \Rockit\Event;
+use \Rockit\Models\Event;
 
 class XMLExport {
     
@@ -12,12 +12,14 @@ class XMLExport {
         $xEvents = new SimpleXMLElement('<events></events>');
 
         $events = Event::whereNotNull("published_at")->where('start_date_hour', '>=', $from)->where('start_date_hour', '<=', $to)->orderBy('start_date_hour')->
-                with('representer', 'eventType', 'image', 'tickets.ticketCategory', 'sharings.platform', 'printings.printingType', 'performers.artist', 'staffs.member', 'staffs.skill', 'needs.skill', 'offers.gift', 'attributions.equipment')->get();
+                with('representer', 'image', 'tickets', 'sharings', 'printings', 'performers.artist', 'staffs.member', 'staffs.skill', 'needs.skill', 'offers', 'attributions')->get();
 
         foreach ($events as $event) {
+            dd($event->toArray());
             $xEvent = $xEvents->addChild('event');
             $xEvent->addAttribute('id', $event->id);
-            $xEvent->addAttribute('event_type', $event->eventtype->name_de);
+           
+            $xEvent->addAttribute('event_type', $event->event_type->name_de);
             $xEvent->addChild('start_date_hour', $event->start_date_hour);
             $xEvent->addChild('ending_date_hour', $event->ending_date_hour);
             if ($event->opening_doors != NULL) {
@@ -28,7 +30,7 @@ class XMLExport {
                 $xEvent->title_de = $event->title_de;
             }
             if ($event->description_de != NULL) {
-                $xEvent->addChild('description_de', $event->description_de);
+                $xEvent->description_de = $event->description_de;
             }
             $xEvent->addChild('nb_meal', $event->nb_meal);
             $xEvent->addChild('nb_vegans_meal', $event->nb_vegans_meal);
@@ -38,7 +40,7 @@ class XMLExport {
             $xEvent->addChild('nb_places', $event->nb_places);
             $xEvent->addChild('followed_by_private', $event->followed_by_private);
             if ($event->notes_de != NULL) {
-                $xEvent->addChild('notes_de', $event->notes_de);
+                $xEvent->notes_de = $event->notes_de;
             }
 
             //// ARTISTS
@@ -51,26 +53,26 @@ class XMLExport {
                 $xArtist->addAttribute('id', $artist->id);
                 $xArtist->addAttribute('is_support', $artist->pivot->is_support);
                 $xArtist->addAttribute('order', $artist->pivot->order);
-                $xArtist->addChild('name', $artist->name);
+                $xArtist->name = $artist->name;
                 $xGenres = $xArtist->addChild('genres');
                 $genres = $artist->genres;
                 foreach ($genres as $genre) {
-                    $xGenres->addChild('genre', $genre->name_de);
+                    $xGenres->genre = $genre->name_de;
                 }
                 if ($artist->short_description_de != NULL) {
-                    $xArtist->addChild('short_description_de', $artist->short_description_de);
+                    $xArtist->short_description_de = $artist->short_description_de;
                 }
                 if ($artist->complete_description_de != NULL) {
-                    $xArtist->addChild('complete_description_de', $artist->complete_description_de);
+                    $xArtist->complete_description_de = $artist->complete_description_de;
                 }
                 if (count($artist->links) > 0) {
                     $xLinks = $xArtist->addChild('links');
                     foreach ($artist->links as $link) {
                         $xLink = $xLinks->addChild('link');
-                        $xLink->addChild('url', $link->url);
-                        $xLink->addChild('name_de', $link->name_de);
+                        $xLink->url = $link->url;
+                        $xLink->name_de = $link->name_de;
                         if (isset($link->title_de)) {
-                            $xLink->addChild('title_de', $link->title_de);
+                            $xLink->title_de = $link->title_de;
                         }
                     }
                 }
@@ -107,11 +109,10 @@ class XMLExport {
             $xTickets = $xEvent->addChild('tickets');
             foreach ($ticketCategories as $ticketCategory) {
                 $xTicket = $xTickets->addChild('ticket');
-//                $xTicket->addChild('ticket_category', $ticketCategory->name_de);
                 $xTicket->ticket_category = $ticketCategory->name_de;
                 $xTicket->addChild('amount', $ticketCategory->pivot->amount);
                 if ($ticketCategory->pivot->comment_de) {
-                    $xTicket->addChild('comment_de', $ticketCategory->pivot->comment_de);
+                    $xTicket->comment_de = $ticketCategory->pivot->comment_de;
                 }
             }
 
@@ -119,8 +120,8 @@ class XMLExport {
             $representer = $event->representer;
             if (isset($representer)) {
                 $xRepresenter = $xEvent->addChild('representer');
-                $xRepresenter->addChild('first_name', $representer->first_name);
-                $xRepresenter->addChild('last_name', $representer->last_name);
+                $xRepresenter->first_name = $representer->first_name;
+                $xRepresenter->last_name = $representer->last_name;
                 if (isset($representer->email)) {
                     $xRepresenter->addChild('email', $representer->email);
                 }
@@ -128,13 +129,13 @@ class XMLExport {
                     $xRepresenter->addChild('phone', $representer->phone);
                 }
                 if (isset($representer->street)) {
-                    $xRepresenter->addChild('street', $representer->street);
+                    $xRepresenter->street = $representer->street;
                 }
                 if (isset($representer->npa)) {
                     $xRepresenter->addChild('npa', $representer->npa);
                 }
                 if (isset($representer->city)) {
-                    $xRepresenter->addChild('city', $representer->city);
+                    $xRepresenter->city = $representer->city;
                 }
             }
 
@@ -142,9 +143,9 @@ class XMLExport {
             $image = $event->image;
             if (isset($image)) {
                 $xImage = $xEvent->addChild('image');
-                $xImage->addChild('source', $image->source);
+                $xImage->source = $image->source;
                 if (isset($image->alt_de)) {
-                    $xImage->addChild('alt_de', $image->alt_de);
+                    $xImage->alt_de = $image->alt_de;
                 }
                 if (isset($image->caption_de)) {
                     $xImage->addChild('caption_de', $image->caption_de);
@@ -159,7 +160,7 @@ class XMLExport {
                 $xStaff = $xStaffs->addChild('staff');
                 $xStaff->addChild('first_name', $staff->member->first_name);
                 $xStaff->addChild('last_name', $staff->member->last_name);
-                $xStaff->addChild('function', $staff->skill->name_de);
+                $xStaff->function = $staff->skill->name_de;
             }
             }
 
@@ -169,7 +170,7 @@ class XMLExport {
                 $xEquipments = $xEvent->addChild('equipments');
                 foreach ($equipments as $equipment) {
                     $xEquipment = $xEquipments->addChild('equipment');
-                    $xEquipment->addChild('name_de', $equipment->name_de);
+                    $xEquipment->name_de = $equipment->name_de;
                     if($equipment->pivot->cost) {
                         $xEquipment->addChild('cost', $equipment->pivot->cost);
                     }
@@ -191,7 +192,7 @@ class XMLExport {
                         $xGift->addChild('cost', $gift->pivot->cost);
                     }
                     if(isset($gift->pivot->comment_de)) {
-                        $xGift->addChild('comment_de', $gift->pivot->comment_de);
+                        $xGift->comment_de = $gift->pivot->comment_de;
                     }    
                 }
             }
