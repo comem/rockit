@@ -19,6 +19,7 @@ class Sharing extends \Eloquent {
     use ModelBCUDTrait;
 
     protected $table = 'sharings';
+    protected $appends = ['platform'];
     protected $hidden = ['external_id', 'external_infos', 'platform_id', 'event_id', 'updated_at'];
     protected static $response_field = 'id';
 
@@ -37,6 +38,14 @@ class Sharing extends \Eloquent {
         'platform_id' => 'required|exists:platforms',
         'event_id' => 'required|exists:events'
     ];
+
+    /**
+     * Indicates how the appends platform attribute should be set when creating a new Sharing model.
+     * In this case, this attribute will contains the result of the platform() method.
+     */
+    public function getPlatformAttribute() {
+        return $this->platform()->getResults();
+    }
 
     /**
      * Get the Platform to which the Sharing is related.

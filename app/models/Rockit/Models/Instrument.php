@@ -11,6 +11,7 @@ use \Illuminate\Database\Eloquent\SoftDeletingTrait,
  * Based on the Laravel's Eloquent.<br>
  * 
  * @author generated with Laravel Schema Designer <laravelsd.com>
+ * @author Christopher De Guzman <christopher.deguzman@heig-vd.ch>
  */
 class Instrument extends \Eloquent {
 

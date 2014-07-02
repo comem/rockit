@@ -17,6 +17,8 @@ class Ticket extends \Eloquent {
     use CompletePivotModelTrait;
 
     protected $table = 'tickets';
+    protected $hidden = ['ticket_category_id'];
+    protected $appends = ['ticket_category'];
 
     /**
      * Indicates whether this model uses laravel's timestamps.
@@ -63,6 +65,14 @@ class Ticket extends \Eloquent {
         'comment_de' => 'min:1',
         'ticket_category_id' => 'integer|required|min:1|exists:ticket_categories,id',
     ];
+
+    /**
+     * Indicates how the appends ticket_category attribute should be set when creating a new Ticket model.
+     * In this case, this attribute will contains the result of the ticketCategory() method.
+     */
+    public function getTicketCategoryAttribute() {
+        return $this->ticketCategory()->getResults();
+    }
 
     /**
      * Get the TicketCategory to which a Ticket is related.

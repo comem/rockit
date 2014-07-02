@@ -6,15 +6,15 @@ use \Validator,
     \DB,
     \Request,
     \Route,
-    Rockit\Traits\Models\ModelBCUDTrait;
+    \Rockit\Traits\Models\ModelBCUDTrait;
 
 class Event extends \Eloquent {
 
     use ModelBCUDTrait;
 
     protected $table = 'events';
-    public $append = ['event_type'];
-    public $hidden = ['event_type_id'];
+    protected $appends = ['event_type'];
+    protected $hidden = ['event_type_id', 'representer_id', 'image_id'];
     public static $response_field = 'start_date_hour';
     public $timestamps = true;
     public static $create_rules = array(
@@ -56,10 +56,11 @@ class Event extends \Eloquent {
     );
 
     /**
-    *
-    */
+     * Indicates how the appends event_type attribute should be set when creating a new Event model.
+     * In this case, this attribute will contains the result of the eventType() method.
+     */
     public function getEventTypeAttribute() {
-        return $this->genres()->getResults();
+        return $this->eventType()->getResults();
     }
 
     public function genres() {
