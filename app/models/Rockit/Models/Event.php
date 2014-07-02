@@ -21,7 +21,7 @@ class Event extends \Eloquent {
         'start_date_hour' => 'date|required',
         'ending_date_hour' => 'date|required',
         'opening_doors' => 'date',
-        'title_de' => 'required|min:2',
+        'title_de' => 'min:2',
         'nb_meal' => 'integer|required|min:0',
         'nb_vegans_meal' => 'integer|required|min:0',
         'meal_notes_de' => '',

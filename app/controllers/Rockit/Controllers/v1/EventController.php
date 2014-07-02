@@ -10,6 +10,8 @@ use \DB,
     \Rockit\Helpers\XMLExport,
     \Rockit\Models\Event,
     \Rockit\Models\Ticket,
+    \Rockit\Controllers\v1\SymbolizationController,
+    \Rockit\Controllers\v1\GuaranteeController,
     \Rockit\Traits\Controllers\ControllerBSUDTrait;
 
 /**
@@ -210,6 +212,28 @@ class EventController extends \BaseController {
                         $response['fail']['staffs'] = $response_save['fail'];
                     } elseif (isset($response_save['error'])) {
                         $response['error']['staffs'] = $response_save['error'];
+                    }
+                }
+                if (isset($inputs_associations['image_id'])) {
+                    $saved_image = SymbolizationController::save([
+                        'event_id' => $response['success']['response']['id'],
+                        'image_id' => $inputs_associations['image_id'],
+                    ]);
+                    if (isset($response_save['fail'])) {
+                        $response['fail']['image'] = $response_save['fail'];
+                    } elseif (isset($response_save['error'])) {
+                        $response['error']['image'] = $response_save['error'];
+                    }
+                }
+                if (isset($inputs_associations['representer_id'])) {
+                    $saved_image = GuaranteeController::save([
+                        'event_id' => $response['success']['response']['id'],
+                        'representer_id' => $inputs_associations['representer_id'],
+                    ]);
+                    if (isset($response_save['fail'])) {
+                        $response['fail']['representer'] = $response_save['fail'];
+                    } elseif (isset($response_save['error'])) {
+                        $response['error']['representer'] = $response_save['error'];
                     }
                 }
                 if (isset($response['fail'])) {
