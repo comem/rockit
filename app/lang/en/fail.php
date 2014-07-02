@@ -6,6 +6,7 @@
 
 return [
     'acl' => "You do not have the right to execute this action",
+    'login' => "The authentication data are not valid.",
     'artist' => [
         'inexistant' => "No corresponding artist is registered.",
         'nogenre' => "This artist does not have a valid genre.",
