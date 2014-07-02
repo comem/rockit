@@ -103,7 +103,7 @@ class Performer extends \Eloquent {
                 $orders = array_flatten(Performer::select('order')->where('event_id', '=', $performer->event_id)->get()->toArray());
                 while (in_array($data['order'], $orders)) {
                     ++$data['order'];
-                }
+                } 
             } else {
                 $orders = array_flatten(Performer::select('order')->where('event_id', '=', $data['event_id'])->get()->toArray());
                 while (in_array($data['order'], $orders)) {

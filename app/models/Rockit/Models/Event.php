@@ -160,11 +160,6 @@ class Event extends \Eloquent {
             });
         });
     }
-    /*public function scopeArtistGenres($query, array $genres) {
-        return $query->whereHas('genres', function($q) use ($genres) {
-            $q->where('genre_id', '=', $genres);
-        });
-    }*/
 
     public function scopeEventType($query, array $event_types) {
         return $query->whereIn('events.event_type_id', $event_types);
