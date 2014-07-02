@@ -13,7 +13,7 @@ use \DB,
  * Based on the Laravel's Eloquent.<br>
  * 
  * @author generated with Laravel Schema Designer <laravelsd.com>
- * @author Joël Gugger <joel.gugger@heig-vd.ch>
+ * @author Christian Heimann <christian.heimann@heig-vd.ch>
  */
 class Artist extends \Eloquent {
 

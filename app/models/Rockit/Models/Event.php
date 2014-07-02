@@ -6,7 +6,7 @@ use \Validator,
     \DB,
     \Request,
     \Route,
-    Rockit\Traits\Models\ModelBCUDTrait;
+    \Rockit\Traits\Models\ModelBCUDTrait;
 
 class Event extends \Eloquent {
 
@@ -14,7 +14,7 @@ class Event extends \Eloquent {
 
     protected $table = 'events';
     protected $appends = ['event_type'];
-    protected $hidden = ['event_type_id'];
+    protected $hidden = ['event_type_id', 'representer_id', 'image_id'];
     public static $response_field = 'start_date_hour';
     public $timestamps = true;
     public static $create_rules = array(

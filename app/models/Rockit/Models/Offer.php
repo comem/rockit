@@ -10,6 +10,7 @@ use \Rockit\Traits\Models\CompletePivotModelTrait;
  * Based on the Laravel's Eloquent.<br>
  * 
  * @author generated with Laravel Schema Designer <laravelsd.com>
+ * @author Joël Gugger <joel.gugger@heig-vd.ch>
  */
 class Offer extends \Eloquent {
 

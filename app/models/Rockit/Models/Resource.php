@@ -8,6 +8,7 @@ namespace Rockit\Models;
  * Based on the Laravel's Eloquent.<br>
  * 
  * @author generated with Laravel Schema Designer <laravelsd.com>
+ * @author Mathias Oberson <mathias.oberson@heig-vd.ch>
  */
 class Resource extends \Eloquent {
 
