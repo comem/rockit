@@ -34,7 +34,7 @@ return [
         'inexistant' => "No corresponding event is registered.",
         'at_least_one_main_performer' => "The event must have atleast one main performer.",
         'is_symbolized' => "The event needs a cover image.",
-        'is_not_published' => "The event's status must be 'published' in order to post the event.",
+        'is_not_published' => "The event's status must be 'published' in order to share the event.",
     ],
     'event_type' => [
         'existing' => "An event type \":name\" is already registered.",

@@ -3,163 +3,164 @@
 /*
  * Success messages
  * Syntax :
- * 'created' : "Le/La nouveau/nouvelle ... a bien été sauvegardé(e)."
- * 'updated' : "Le/La ... a bien été mis(e) à jour."
- * 'deleted' : "Le/La ... a bien été supprimé(e)."
- * 'restored' : Le/La ... a bien été restauré(e)."
+ * 'created' : "The new ... has been saved."
+ * 'updated' : "The ... has been updated."
+ * 'deleted' : "The ... has been deleted."
+ * 'restored' : The ... has been restored."
  */
 
 return [
     'artist' => [
-        'created' => "Le nouvel artiste \":name\" a bien été sauvegardé.",
-        'deleted' => "L'artiste \":name\" a bien été supprimé.",
-        'updated' => "L'artiste \":name\" a bien été mis à jour.",
+        'created' => "The new artist \":name\" has been saved.",
+        'deleted' => "The artist \":name\" has been deleted.",
+        'updated' => "The artist \":name\" has been updated.",
     ],
     'attribution' => [
-        'created' => "La nouvelle attribution a bien été sauvegardée.",
-        'updated' => "L'attribution a bien été modifiée",
-        'deleted' => "L'attribution a bien été supprimée.",
+        'created' => "The new attribution has been saved.",
+        'deleted' => "The attribution has been deleted.",
+        'updated' => "The attribution has been updated.",
     ],
     'auth' => [
-        'login' => "Vous êtes maintenant authentifié.",
-        'logout' => "Vous êtes maintenant déconnecté.",
+        'login' => "You are now logged in.",
+        'logout' => "You are now logged out.",
     ],
     'description' => [
-        'created' => "Le genre a bien été rajouté à l'artiste.",
-        'deleted' => "Le genre a bien été supprimé de l'artiste.",
+        'created' => "The genre has been added to the artist.",
+        'deleted' => "The genre has been removed from the artist.",
     ],
     'equipment' => [
-        'deleted' => "L'équipement \":name\" a bien été supprimé.",
-        'restored' => "L'équipement \":name\" a bien été restauré.",
-        'created' => "L'équipement \":name\" a bien été sauvegardé.",
+        'created' => "The new equipment \":name\" has been saved.",
+        'deleted' => "The equipment \":name\" has been deleted.",
+        'restored' => "The equipment \":name\" has been restored.",
     ],
     'event' => [
-        'updated' => "L'événement \":name\" a bien été mis à jour.",
-        'created' => "Le nouvel événement \":name\" a bien été sauvegardé.",
-        'deleted' => "L'événement \":name\" a bien été supprimé.",
-        'published' => "L'événement est maintenant publié.",
-        'unpublished' => "L'événement n'est maintenant plus publié.",
+        'created' => "The new event \":name\" has been saved.",
+        'deleted' => "The event \":name\" has been deleted.",
+        'updated' => "The event \":name\" has been updated.",
+
+        'published' => "The event is now published.",
+        'unpublished' => "The event is longer published.",
     ],
     'event_type' => [
-        'created' => "Le nouveau type d'événement \":name\" a bien été sauvegardé.",
-        'deleted' => "Le type d'événement \":name\" a bien été supprimé.",
-        'restored' => "Le type d'événement \":name\" a bien été restauré.",
+        'created' => "The new event type \":name\" has been saved.",
+        'deleted' => "The event type \":name\" has been deleted.",
+        'restored' => "The event type \":name\" has been restored.",
     ],
     'file' => [
-        'deleted' => "Le fichier \":file\" a bien été supprimé.",
-        'uploaded' => "Le fichier \":file\" a bien été sauvegardé.",
+        'deleted' => "The file \":file\" has been deleted.",
+        'uploaded' => "The file \":file\" has been saved.",
     ],
     'fulfillment' => [
-        'created' => "La compétence a bien été assignée.",
-        'deleted' => "L'assigniation de la compétence a bien été supprimée.",
+        'created' => "The skill has been assigned to the member.",
+        'deleted' => "The skill is no longer assigned to the member.",
     ],
     'genre' => [
-        'deleted' => "Le genre \":name\" a bien été supprimé.",
-        'created' => "Le genre \":name\" a bien été sauvegardé.",
-        'restored' => "Le genre \":name\" a bien été restauré.",
+        'created' => "The new genre \":name\" has been saved.",
+        'deleted' => "The genre \":name\" has been deleted.",
+        'restored' => "The genre \":name\" has been restored.",
     ],
     'gift' => [
-        'created' => "Le nouveau lot \":name\" a bien été sauvegardé.",
-        'deleted' => "Le lot \":name\" a bien été supprimé.",
-        'restored' => "Le lot \":name\" a bien été restauré.",
+        'created' => "The new gift \":name\" has been saved.",
+        'deleted' => "The gift \":name\" has been deleted.",
+        'restored' => "The gift \":name\" has been restored.",
     ],
     'guarantee' => [
-        'created' => "Le représentant \":name\" a bien été lié à l'événement.",
-        'deleted' => "Le représentant \":name\" a bien été retiré de l'événement.",
+        'created' => "The representer \":name\" now guarantees this event.",
+        'deleted' => "The representer \":name\" no longer guarantees this event.",
     ],
     'illustration' => [
-        'created' => "L'image a bien été ajoutée à l'artiste.",
-        'deleted' => "L'image a bien été retirée de l'artiste.",
+        'created' => "The image has been added to the artist.",
+        'deleted' => "The image has been removed from the artist.",
     ],
     'image' => [
-        'created' => "La nouvelle image a bien été sauvegardée.",
-        'deleted' => "L'image a bien été supprimée.",
-        'updated' => "L'image a bien été mise à jour.",
+        'created' => "The new image has been saved.",
+        'deleted' => "The image has been deleted.",
+        'updated' => "The image has been updated.",
     ],
     'instrument' => [
-        'created' => "Le nouvel instrument \":name\" a bien été sauvegardé.",
-        'deleted' => "L'instrument \":name\" a bien été supprimé.",
-        'restored' => "L'instrument \":name\" a bien été restauré.",
+        'created' => "The new instrument \":name\" has been saved.",
+        'deleted' => "The instrument \":name\" has been deleted.",
+        'restored' => "The instrument \":name\" has been restored.",
     ],
     'lineup' => [
-        'created' => "La formation a bien été rajoutée",
-        'deleted' => "La formation a bien été supprimée",
+        'created' => "The lineup has been added.",
+        'deleted' => "The lineup has been deleted.",
     ],
     'link' => [
-        'deleted' => "Le lien a bien été supprimé.",
-        'created' => "Le lien a bien été sauvegardé.",
-        'updated' => "Le lien a bien été mis à jour.",
+        'created' => "The new link has been saved.",
+        'deleted' => "The link has been deleted.",
+        'updated' => "The link has been updated.",
     ],
     'member' => [
-        'created' => "Le membre \":name\" a bien été sauvegardé ",
-        'updated' => "Le membre \":name\" a bien été mis à jour.",
-        'deleted' => "Le membre \":name\" a bien été supprimé.",
+        'created' => "The new member \":name\" has been saved.",
+        'deleted' => "The member \":name\" has been deleted.",
+        'updated' => "The member \":name\" has been updated.",
     ],
     'musician' => [
-        'deleted' => "Le musicien \":name\" a bien été supprimé.",
-        'created' => "Le musicien \":name\" a bien été sauvegardé.",
-        'updated' => "Le musicien \":name\" a bien été mis à jour.",
+        'created' => "The new musician \":name\" has been saved.",
+        'deleted' => "The musician \":name\" has been deleted.",
+        'updated' => "The musician \":name\" has been updated.",
     ],
     'need' => [
-        'created' => "Le nouveau besoin de cet événement a bien été sauvegardé.",
-        'updated' => "Le besoin a bien été modifié.",
-        'deleted' => "Le besoin a bien été supprimé.",
+        'created' => "The new needs for an event have been saved.",
+        'deleted' => "The event's needs have been deleted.",
+        'updated' => "The event's needs have been updated.",
     ],
     'offer' => [
-        'created' => "La nouvelle offre a bien été sauvegardée.",
-        'updated' => "L'offre a bien été modifiée",
-        'deleted' => "L'offre a bien été supprimée.",
+        'created' => "The new offer has been saved.",
+        'deleted' => "The offer has been deleted.",
+        'updated' => "The offer has been updated.",
     ],
     'performer' => [
-        'created' => "L'artiste a bien été rajouté à l'événement.",
-        'updated' => "La performance de l'artiste a bien été modifiée.",
-        'deleted' => "L'artiste a bien été supprimé de l'événement.",
+        'created' => "The artist has been added to the event.",
+        'deleted' => "The artist has been removed from the event.",
+        'updated' => "The performer has been updated.",
     ],
     'printing' => [
-        'created' => "L'imprimé a bien été rajouté à l'événement.",
-        'updated' => "L'imprimé a bien été modifié.",
-        'deleted' => "L'imprimé a bien été supprimé de l'événement.",
+        'created' => "The printing has been added to the event.",
+        'deleted' => "The printing has been removed from the event.",
+        'updated' => "The printing has been updated.",
     ],
     'printing_type' => [
-        'created' => "Le nouveau type d'imprimé \":name\" a bien été sauvegardé.",
-        'deleted' => "Le type d'imprimé \":name\" a bien été supprimé.",
-        'restored' => "Le type d'imprimé \":name\" a bien été restauré.",
+        'created' => "The new printing type \":name\" has been saved.",
+        'deleted' => "The printing type \":name\" has been deleted.",
+        'restored' => "The printing type \":name\" has been restored.",
     ],
     'representer' => [
-        'created' => "Le nouveau représentant \":name\" a bien été sauvegardé.",
-        'updated' => "Le représentant \":name\" a bien été mis à jour.",
-        'deleted' => "Le représentant \":name\" a bien été supprimé.",
-        'restored' => "Le représentant \":name\" a bien été restauré.",
+        'created' => "The new representer \":name\" has been saved.",
+        'deleted' => "The representer \":name\" has been deleted.",
+        'restored' => "The representer \":name\" has been restored.",
+        'updated' => "The representer \":name\" has been updated.",
     ],
     'sharing' => [
-       'created' => "Le post a correctement été crée.",
-       'deleted' => "Le post \":name\" a bien été supprimée.",
+        'created' => "The sharing was created correctly.",
+        'deleted' => "The sharing \":name\" has been deleted.",
     ],
     'skill' => [
-        'deleted' => "La compétence \":name\" a bien été supprimée.",
-        'restored' => "La compétence \":name\" a bien été restaurée.",
-        'created' => "La nouvelle compétence \":name\" a bien été sauvegardée.",
+        'created' => "The new skill \":name\" has been saved.",
+        'deleted' => "The skill \":name\" has been deleted.",
+        'restored' => "The skill \":name\" has been restored.",
     ],
     'staff' => [
-        'created' => "Le rôle a correctement été assigné à ce membre.",
-        'updated' => "Le rôle de ce membre a été mis à jour.",
-        'deleted' => "Le rôle de ce membre a bien été supprimé.",
+        'created' => "The member has been assigned a skill for this event with success.",
+        'deleted' => "This skill will no longer be executed by this member for this event.",
+        'updated' => "The staff has been updated.",
     ],
     'symbolization' => [
-        'created' => "L'image a bien étée ajoutée à l'événement.",
-        'deleted' => "L'image a bien été supprimée de l'événement.",
+        'created' => "The image has been added to the event.",
+        'deleted' => "The image has been removed from the event.",
     ],
     'ticket' => [
-        'created' => "Le nouveau ticket d'entrée a bien été sauvegardé.",
-        'updated' => "Le ticket d'entrée a bien été modifié.",
-        'deleted' => "Le ticket d'entrée a bien été supprimé.",
+        'created' => "The new ticket has been saved.",
+        'deleted' => "The ticket has been deleted.",
+        'updated' => "The ticket has been updated.",
     ],
     'ticket_category' => [
-        'created' => "La nouvelle catégorie de tickets \":name\" a bien été sauvegardée.",
-        'deleted' => "La catégorie de tickets \":name\" a bien été supprimée.",
-        'restored' => "La catégorie de tickets \":name\" a bien été restaurée.",
+        'created' => "The new ticket category \":name\" has been saved.",
+        'deleted' => "The ticket category \":name\" has been deleted.",
+        'restored' => "The ticket category \":name\" has been restored.",
     ],
     'user' => [
-        'updated' => "L'utilisateur a bien été mis à jour."
+        'updated' => "The user has been updated."
     ],
 ];
