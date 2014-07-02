@@ -160,6 +160,25 @@ class ArtistController extends \BaseController {
         return Jsend::compile(self::delete('Artist', $id));
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * The provided id is passed to the <b>delete()</b> method that deletes the corresponding model.<br>
+     * If the provided id does not point to an existing Artist, a <b>Jsend::fail</b> is returned.<br>
+     * 
+     * @param int $id The id of the requested Artist
+     * @return Jsend
+     */
+     /**
+     * Store a new association between an Artist and an Image that illustrates that Artist.
+     * 
+     * Get the image id from the client request and test that it points to an existing Image.<br>
+     * Check that the artist id provided points to an existing Artist.<br>
+     * If either of these two checks fail, a <b>Jsend::fail</b> is returned.<br>
+     * If all the inputs are valid, the data is then passed to the <b>save()</b> method, who sends back a response.<br>
+     *
+     * @return Jsend
+     */
     public function illustrate($id) {
         $inputs['artist_id'] = (int) $id;
         $inputs['image_id'] = Input::get('image_id');
@@ -175,6 +194,7 @@ class ArtistController extends \BaseController {
         }
         return Jsend::compile($response);
     }
+
 
     public function desillustrate($artist_id, $image_id) {
         $image = Image::exist($image_id);
