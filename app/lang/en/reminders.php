@@ -12,8 +12,8 @@ return [
       |
      */
 
-    "password" => "Les mots de passe doivent avoir au moins 6 caractères et correspondre à leur confirmation.",
-    "user" => "Cette adresse e-mail ne correspond à aucun utilisateur existant.",
-    "token" => "Ce jeton de réinitialisation n'est pas valide.",
-    "sent" => "Le pense-bête de mot de passe a été envoyé !",
+    "password" => "The password must have atleast 6 characters and it must match the password confirmation.",
+    "user" => "This e-mail address does not belong to an existing user.",
+    "token" => "This reinitialising token is not valid.",
+    "sent" => "The password reminder has been sent !",
 ];

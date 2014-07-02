@@ -3,7 +3,7 @@
  * File containing every string used in the French HCI
  */
 return [
-    'BtnLogIn' => "Authentification",
+    'BtnLogIn' => "Login",
     'PlaceholderEmail' => "E-mail",
     'PlaceholderPassword' => "Mot de passe",
     'ContentRememberMe' => "Se souvenir de moi",
