@@ -3,11 +3,11 @@
 namespace Rockit\Controllers\v1;
 
 use \DB,
-    \Jsend,
+    Rockit\Helpers\Jsend,
     \Input,
-    \WordExport,
-    \XMLExport,
     \Validator,
+    \Rockit\Helpers\WordExport,
+    \Rockit\Helpers\XMLExport,
     \Rockit\Models\Event,
     \Rockit\Models\Ticket,
     \Rockit\Traits\Controllers\ControllerBSUDTrait;
@@ -375,7 +375,7 @@ class EventController extends \BaseController {
                 return Jsend::compile($response);
             }
         } else {
-            $response['fail'] = ['xml' => [trans('fail.export.noinput')]];
+            $response['fail'] = ['xml' => [trans('fail.export.no_input')]];
             return Jsend::compile($response);
         }
     }

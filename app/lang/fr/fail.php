@@ -41,8 +41,8 @@ return [
         'inexistant' => "Il n'existe aucun type d'événement correspondant.",
     ],
     'export' => [
-        'no_input' => "Des dates de/à n'ont pas été trouvés.",
-        'unchronological' => "Les dates données ne sont pas chronologiquement correcte.",
+        'no_input' => "Les dates de début et de fin d'intervalle sont obligatoires.",
+        'unchronological' => "Les dates données ne sont pas chronologiquement correctes.",
     ],
     'file' => [
         'invalid' => "Le fichier sélectionné n'est pas un fichier valide.",

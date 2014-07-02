@@ -3,7 +3,7 @@
 namespace Rockit\Controllers\v1;
 
 use \Input,
-    \Jsend,
+    Rockit\Helpers\Jsend,
     \Rockit\Models\Attribution,
     \Rockit\Traits\Controllers\CompletePivotControllerTrait;
 

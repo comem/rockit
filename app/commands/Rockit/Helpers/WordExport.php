@@ -1,9 +1,11 @@
 <?php
 
+namespace Rockit\Helpers;
+
 use PhpOffice\PhpWord\PhpWord,
     PhpOffice\PhpWord\IOFactory,
     \Rockit\Models\Event,
-    \RockitHelper;
+    \Rockit\Helpers\Library;
     
 
 /**
@@ -131,7 +133,7 @@ class WordExport {
             $section->addTitle("Konzerte im " . strftime("%B %Y", $timeFrom), 2);
         } else {
             $dates = "Konzerte vom " . strftime("%e. %B %Y", $timeFrom) . " bis " . strftime("%e. %B %Y", $timeTo);
-            $dates = RockitHelper::deleteDoubleWhitspace($dates);
+            $dates = Library::deleteDoubleWhitspace($dates);
             $section->addTitle($dates, 2);
         }
         $section->addLine($lsColor);
@@ -140,7 +142,7 @@ class WordExport {
         $events = Event::whereNotNull("published_at")->where('start_date_hour', '>=', $from)->where('start_date_hour', '<=', $to)->orderBy('start_date_hour')->get();
         foreach ($events as $event) {
             $date = strftime("%A, %e. %B %Y  |  %H.%M Uhr", strtotime($event->start_date_hour));
-            $date = RockitHelper::deleteDoubleWhitspace($date);
+            $date = Library::deleteDoubleWhitspace($date);
 
             if ($event->opening_doors != NULL) {
                 $opening_doors = strftime("  (Türöffnung %H.%M Uhr)", strtotime($event->opening_doors));

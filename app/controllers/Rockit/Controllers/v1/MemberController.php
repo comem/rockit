@@ -2,7 +2,7 @@
 
 namespace Rockit\Controllers\v1;
 
-use \Jsend,
+use Rockit\Helpers\Jsend,
     \Input,
     \Rockit\Models\Member,
     \Rockit\Traits\Controllers\ControllerBSUDTrait;

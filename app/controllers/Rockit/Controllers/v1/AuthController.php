@@ -2,7 +2,7 @@
 
 namespace Rockit\Controllers\v1;
 
-use \Jsend,
+use Rockit\Helpers\Jsend,
     \User,
     \Auth,
     Illuminate\Support\Facades\Input;

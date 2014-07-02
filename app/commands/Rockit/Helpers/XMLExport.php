@@ -1,11 +1,10 @@
 <?php
 
+namespace Rockit\Helpers;
+
 use \Rockit\Models\Event;
 
 class XMLExport {
-
-    // http://www.sagetree.com/sage-advice/richard-yumul/phps-simplexml-escaping-ampersand
-    // Resolution du bug "unterminated entity reference"
 
     public static function events($from, $to) {
         $filename = "events.xml";
@@ -25,7 +24,6 @@ class XMLExport {
                 $xEvent->addChild('opening_doors', $event->opening_doors);
             }
             if ($event->title_de != NULL) {
-//                $xEvent->addChild('title_de', $event->title_de);
                 $xEvent->title_de = $event->title_de;
             }
             if ($event->description_de != NULL) {

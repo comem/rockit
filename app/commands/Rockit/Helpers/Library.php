@@ -1,6 +1,8 @@
 <?php
 
-class RockitHelper {
+namespace Rockit\Helpers;
+
+class Library {
 
     /**
      * Function to return the number of whole days until the value inserted.

@@ -5,7 +5,7 @@ namespace Rockit\Controllers\v1;
 use \App,
     \Input,
     \Auth,
-    \Jsend,
+    Rockit\Helpers\Jsend,
     \User,
     \Rockit\Models\Language;
 

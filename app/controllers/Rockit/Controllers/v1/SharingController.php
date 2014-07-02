@@ -4,7 +4,7 @@ namespace Rockit\Controllers\v1;
 
 use \Session,
     \Input,
-    \Jsend,
+    Rockit\Helpers\Jsend,
     \Validator,
     \Rockit\Models\Event,
     \Rockit\Models\Platform,

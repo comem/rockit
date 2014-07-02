@@ -1,5 +1,10 @@
 <?php
 
+namespace Rockit\Helpers;
+
+use \stdClass,
+    \Response;
+
 /**
  * This class allows you to return Jsend adequates responses.<br>
  * You can either return a <b>Jsend::fail</b>, <b>Jsend::error</b> or <b>Jsend::success</b>.<br>
@@ -12,26 +17,32 @@ class Jsend {
      * PHP status code for OK
      */
     const HTTP_SUCCESS = 200;
+
     /**
      * PHP status code for Created
      */
     const HTTP_SUCCESS_CREATED = 201;
+
     /**
      * PHP status code for Bad Request
      */
     const HTTP_FAIL_VALIDATION = 400;
+
     /**
      * PHP status code for Unauthorized
      */
     const HTTP_FAIL_AUTH = 401;
+
     /**
      * PHP status code for Forbidden
      */
     const HTTP_FAIL_ACL = 403;
+
     /**
      * PHP status code for Not Found
      */
     const HTTP_ERROR_NOT_FOUND = 404;
+
     /**
      * PHP status code for Internal Server Error
      */
