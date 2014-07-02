@@ -352,7 +352,7 @@ class WordExport {
                     }
                 }
                 $section->addText($event->description_de, $fsStandard, $psStandardSpaceAfter);
-                foreach($mainArtist as $artist) {
+                foreach($mainArtists as $artist) {
                     $section->addText($artist->name . ": " . $artist->short_description_de, $fsShortDesc, $psStandard);
                     $section->addText($artist->complete_description_de, $fsStandard, $psStandard);
                     if (count($artist->musicians) > 0) {
