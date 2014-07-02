@@ -147,12 +147,12 @@ return [
     'staff' => [
         'existing' => "Ce membre effectue déjà un autre rôle pour cet événement.",
         'inexistant' => "Il n'existe aucun staff correspondant.",
-        'not_unique' => "Un membre ne peut pas remplire plusieurs fonctions dans la meme soirée !",
+        'not_unique' => "Un membre ne peut pas remplir plusieurs fonctions pour le même événement.",
     ],
     'symbolization' => [
         'existing' => "Cet événement à déjà une image de couverture.",
         'inexistant' => "Cet événement n'a pas d'image de couverture.",
-        'attach_image_not_performer' => "Cette image n'illustre aucun artiste jouant dans cet événement, il n'est pas possible de l'utiliser comme image de couverture",
+        'attach_image_not_performer' => "Cette image n'illustre aucun artiste jouant dans cet événement, il n'est pas possible de l'utiliser comme image de couverture.",
     ],
     'ticket' => [
         'existing' => "Il y a déjà un ticket d'entrée de même type enregistré.",

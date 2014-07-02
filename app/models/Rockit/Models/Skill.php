@@ -12,6 +12,7 @@ use Rockit\Traits\Models\ModelBCRDTrait,
  * Based on the Laravel's Eloquent.<br>
  * 
  * @author generated with Laravel Schema Designer <laravelsd.com>
+ * @author Robert di Rosa <robert.dirosa@heig-vd.ch>
  */
 class Skill extends \Eloquent {
 

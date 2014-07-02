@@ -18,6 +18,7 @@ class Group extends \Eloquent {
 
     protected $table = 'groups';
     protected $dates = ['deleted_at'];
+    protected $hidden = ['deleted_at', 'created_at', 'updated_at', 'group_id'];
 
     /**
      * Indicates whether this model uses laravel's timestamps.
