@@ -1,8 +1,8 @@
 <?php
 
-use Rockit\Offer;
-use Rockit\Gift;
-use Rockit\Event;
+use Rockit\Models\Offer;
+use Rockit\Models\Gift;
+use Rockit\Models\Event;
 
 //offers
 class OffersTableSeeder extends Seeder {

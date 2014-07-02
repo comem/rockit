@@ -1,7 +1,5 @@
 <?php
 
-use Rockit\Group;
-
 /*
   |--------------------------------------------------------------------------
   | Application Routes
@@ -13,7 +11,7 @@ use Rockit\Group;
   |
  */
 
-Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function() {
+Route::group(array('namespace' => 'Rockit\Controllers\v1', 'prefix' => 'v1'), function() {
 
     Route::get('/', function() {
         return View::make('hello');
@@ -37,6 +35,9 @@ Route::group(array('namespace' => 'Rockit\v1', 'prefix' => 'v1'), function() {
         Route::group(array('before' => 'acl'), function() {
 
             // before acl
+
+            Route::get('search', 'SearchController@index');
+
 
             Route::any('facebook/redirect', 'FacebookController@redirectCatch');
 

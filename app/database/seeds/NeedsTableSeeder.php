@@ -1,8 +1,8 @@
 <?php
 
-use Rockit\Need;
-use Rockit\Event;
-use Rockit\Skill;
+use Rockit\Models\Need;
+use Rockit\Models\Event;
+use Rockit\Models\Skill;
 
 //events_needs
 class NeedsTableSeeder extends Seeder {

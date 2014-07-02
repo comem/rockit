@@ -1,8 +1,8 @@
 <?php
 
-use Rockit\Performer;
-use Rockit\Event;
-use Rockit\Artist;
+use Rockit\Models\Performer;
+use Rockit\Models\Event;
+use Rockit\Models\Artist;
 
 //performers
 class PerformersTableSeeder extends Seeder {

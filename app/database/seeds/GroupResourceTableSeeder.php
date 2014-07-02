@@ -1,6 +1,6 @@
 <?php
 
-use Rockit\Group;
+use Rockit\Models\Group;
 
 class GroupResourceTableSeeder extends Seeder {
 
@@ -17,7 +17,7 @@ class GroupResourceTableSeeder extends Seeder {
             // store accesses
             77,
             // other accesses
-            100, 101, 103, 104, 113,
+            100, 101, 103, 104, 113, 114,
         ));
         // Managers' specifics accesses
         Group::find(2)->resources()->sync(array(

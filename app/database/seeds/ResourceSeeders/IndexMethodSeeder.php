@@ -2,7 +2,7 @@
 
 namespace ResourceSeeders;
 
-use Rockit\Resource;
+use Rockit\Models\Resource;
 
 class IndexMethodSeeder {
 
@@ -75,6 +75,11 @@ class IndexMethodSeeder {
         Resource::create(array(
             'id' => 45,
             'controller' => 'TicketCategoryController',
+            'method' => 'index',
+        ));
+        Resource::create(array(
+            'id' => 114,
+            'controller' => 'SearchController',
             'method' => 'index',
         ));
     }
