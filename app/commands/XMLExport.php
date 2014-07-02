@@ -1,9 +1,9 @@
 <?php
 
-use \Rockit\Event;
+use \Rockit\Models\Event;
 
 class XMLExport {
-    
+
     // http://www.sagetree.com/sage-advice/richard-yumul/phps-simplexml-escaping-ampersand
     // Resolution du bug "unterminated entity reference"
 
@@ -11,13 +11,14 @@ class XMLExport {
         $filename = "events.xml";
         $xEvents = new SimpleXMLElement('<events></events>');
 
-        $events = Event::whereNotNull("published_at")->where('start_date_hour', '>=', $from)->where('start_date_hour', '<=', $to)->orderBy('start_date_hour')->
-                with('representer', 'eventType', 'image', 'tickets.ticketCategory', 'sharings.platform', 'printings.printingType', 'performers.artist', 'staffs.member', 'staffs.skill', 'needs.skill', 'offers.gift', 'attributions.equipment')->get();
-
+        $events = Event::whereNotNull("published_at")->where('start_date_hour', '>=', $from)->where('start_date_hour', '<=', $to)->orderBy('start_date_hour')
+        ->with('representer', 'image', 'tickets', 'sharings', 'printings', 'performers.artist', 'staffs.member', 'staffs.skill', 'needs.skill', 'offers', 'attributions')
+        ->get();
+        
         foreach ($events as $event) {
             $xEvent = $xEvents->addChild('event');
             $xEvent->addAttribute('id', $event->id);
-            $xEvent->addAttribute('event_type', $event->eventtype->name_de);
+            $xEvent->addAttribute('event_type', $event->event_type->name_de);
             $xEvent->addChild('start_date_hour', $event->start_date_hour);
             $xEvent->addChild('ending_date_hour', $event->ending_date_hour);
             if ($event->opening_doors != NULL) {
@@ -153,14 +154,14 @@ class XMLExport {
 
             //// STAFF
             $staffs = $event->staffs;
-            if(isset($staffs)) {
-            $xStaffs = $xEvent->addChild('staffs');
-            foreach ($staffs as $staff) {
-                $xStaff = $xStaffs->addChild('staff');
-                $xStaff->addChild('first_name', $staff->member->first_name);
-                $xStaff->addChild('last_name', $staff->member->last_name);
-                $xStaff->addChild('function', $staff->skill->name_de);
-            }
+            if (isset($staffs)) {
+                $xStaffs = $xEvent->addChild('staffs');
+                foreach ($staffs as $staff) {
+                    $xStaff = $xStaffs->addChild('staff');
+                    $xStaff->addChild('first_name', $staff->member->first_name);
+                    $xStaff->addChild('last_name', $staff->member->last_name);
+                    $xStaff->addChild('function', $staff->skill->name_de);
+                }
             }
 
             //// EQUIPMENTS
@@ -170,12 +171,12 @@ class XMLExport {
                 foreach ($equipments as $equipment) {
                     $xEquipment = $xEquipments->addChild('equipment');
                     $xEquipment->addChild('name_de', $equipment->name_de);
-                    if($equipment->pivot->cost) {
+                    if ($equipment->pivot->cost) {
                         $xEquipment->addChild('cost', $equipment->pivot->cost);
                     }
-                    if($equipment->pivot->quantity) {
+                    if ($equipment->pivot->quantity) {
                         $xEquipment->addChild('quantity', $equipment->pivot->quantity);
-                    }    
+                    }
                 }
             }
 
@@ -187,17 +188,17 @@ class XMLExport {
                     $xGift = $xGifts->addChild('gift');
                     $xGift->addChild('name_de', $gift->name_de);
                     $xGift->addChild('quantity', $gift->pivot->quantity);
-                    if(isset($gift->pivot->cost)) {
+                    if (isset($gift->pivot->cost)) {
                         $xGift->addChild('cost', $gift->pivot->cost);
                     }
-                    if(isset($gift->pivot->comment_de)) {
+                    if (isset($gift->pivot->comment_de)) {
                         $xGift->addChild('comment_de', $gift->pivot->comment_de);
-                    }    
+                    }
                 }
             }
         }
-        
-        
+
+
         //// Prepare clean document to download and download
         // Create a new DOMDocument object to save in readable format
         $doc = new DOMDocument('1.0', 'UTF-8');
@@ -221,7 +222,6 @@ class XMLExport {
         header('Content-Disposition: attachment; filename="' . $filename . '"');
 
         echo $saveXml;
-
     }
 
 }

@@ -2,7 +2,7 @@
 
 use PhpOffice\PhpWord\PhpWord,
     PhpOffice\PhpWord\IOFactory,
-    \Rockit\Event,
+    \Rockit\Models\Event,
     \RockitHelper;
     
 
