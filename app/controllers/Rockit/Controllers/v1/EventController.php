@@ -54,7 +54,7 @@ class EventController extends \BaseController {
      * @return Jsend
      */
     public function index() {
-        $events = Event::with('genres');
+        $events = Event::with('genres', 'artists');
         $nb_item = Input::has('nb_item') && Input::get('nb_item') > 0 ? Input::get('nb_item') : 10;
         if (Input::has('genres')) {
             $events = $events->artistGenres(Input::get('genres'));

@@ -3,7 +3,7 @@
 use \Rockit\Models\Event;
 
 class XMLExport {
-    
+
     // http://www.sagetree.com/sage-advice/richard-yumul/phps-simplexml-escaping-ampersand
     // Resolution du bug "unterminated entity reference"
 
@@ -11,14 +11,13 @@ class XMLExport {
         $filename = "events.xml";
         $xEvents = new SimpleXMLElement('<events></events>');
 
-        $events = Event::whereNotNull("published_at")->where('start_date_hour', '>=', $from)->where('start_date_hour', '<=', $to)->orderBy('start_date_hour')->
-                with('representer', 'image', 'tickets', 'sharings', 'printings', 'performers.artist', 'staffs.member', 'staffs.skill', 'needs.skill', 'offers', 'attributions')->get();
-
+        $events = Event::whereNotNull("published_at")->where('start_date_hour', '>=', $from)->where('start_date_hour', '<=', $to)->orderBy('start_date_hour')
+        ->with('representer', 'image', 'tickets', 'sharings', 'printings', 'performers.artist', 'staffs.member', 'staffs.skill', 'needs.skill', 'offers', 'attributions')
+        ->get();
+        
         foreach ($events as $event) {
-            dd($event->toArray());
             $xEvent = $xEvents->addChild('event');
             $xEvent->addAttribute('id', $event->id);
-           
             $xEvent->addAttribute('event_type', $event->event_type->name_de);
             $xEvent->addChild('start_date_hour', $event->start_date_hour);
             $xEvent->addChild('ending_date_hour', $event->ending_date_hour);
@@ -174,9 +173,9 @@ class XMLExport {
                     if($equipment->pivot->cost) {
                         $xEquipment->addChild('cost', $equipment->pivot->cost);
                     }
-                    if($equipment->pivot->quantity) {
+                    if ($equipment->pivot->quantity) {
                         $xEquipment->addChild('quantity', $equipment->pivot->quantity);
-                    }    
+                    }
                 }
             }
 
@@ -188,7 +187,7 @@ class XMLExport {
                     $xGift = $xGifts->addChild('gift');
                     $xGift->addChild('name_de', $gift->name_de);
                     $xGift->addChild('quantity', $gift->pivot->quantity);
-                    if(isset($gift->pivot->cost)) {
+                    if (isset($gift->pivot->cost)) {
                         $xGift->addChild('cost', $gift->pivot->cost);
                     }
                     if(isset($gift->pivot->comment_de)) {
@@ -197,8 +196,8 @@ class XMLExport {
                 }
             }
         }
-        
-        
+
+
         //// Prepare clean document to download and download
         // Create a new DOMDocument object to save in readable format
         $doc = new DOMDocument('1.0', 'UTF-8');
@@ -222,7 +221,6 @@ class XMLExport {
         header('Content-Disposition: attachment; filename="' . $filename . '"');
 
         echo $saveXml;
-
     }
 
 }
