@@ -3,7 +3,14 @@
 namespace Rockit\Traits\Models;
 
 /**
- * A trait for Models that use the generic <b>validate</b> and <b>exist</b> methods in the base trait, as well as the <b>createOne</b> trait, <b>updateOne</b> trait and <b>deleteOne</b> trait.
+ * A trait for models that used the following generic methods :<br>
+ * <ul> 
+ * <li>validate</li>
+ * <li>exist</li>
+ * <li>createOne</li>
+ * <li>updateOne</li>
+ * <li>deleteOne</li>
+ * </ul>
  *
  * @author Mathias Oberson <mathias.oberson@heig-vd.ch>
  */

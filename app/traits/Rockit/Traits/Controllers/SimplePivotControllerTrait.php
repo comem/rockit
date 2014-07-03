@@ -3,7 +3,7 @@
 namespace Rockit\Traits\Controllers;
 
 /**
- * A trait for the controllers of basic <b>pivot Models</b>.
+ * A trait for the controllers of <b>basic pivot Models</b>.
  *
  * The following generic methods will be available when using this trait :<br>
  * <ul> 
