@@ -8,6 +8,13 @@ use \Validator,
     \Route,
     \Rockit\Traits\Models\ModelBCUDTrait;
 
+/**
+ * Contains the attributes and methods of an Event model.<br>
+ * Based on the Laravel's Eloquent.<br>
+ * 
+ * @author generated with Laravel Schema Designer <laravelsd.com>
+ * @author Joël Gugger <joel.gugger@heig-vd.ch>
+ */
 class Event extends \Eloquent {
 
     use ModelBCUDTrait;
