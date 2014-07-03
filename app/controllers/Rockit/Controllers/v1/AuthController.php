@@ -7,6 +7,13 @@ use Rockit\Helpers\Jsend,
     \Auth,
     Illuminate\Support\Facades\Input;
 
+/**
+ * Contains interaction methods to the User model in the database.<br>
+ * Based on the Laravel's BaseController.<br>
+ * Can : <b>login</b> and <b>logout</b> the current User, as well as <b>authCheck</b> if the current User is authenticated or not.<br>
+ * 
+ * @author Mathias Oberson <mathias.oberson@heig-vd.ch>
+ */
 class AuthController extends \BaseController {
 
     /**

@@ -9,15 +9,15 @@ use Rockit\Helpers\Jsend,
     \Rockit\Models\Representer;
 
 /**
- * 
+ * Contains interaction methods to handle a Search in the database.<br>
+ * Based on the Laravel's BaseController.<br>
+ *
  * @author Joël Gugger <joel.gugger@heig-vd.ch>
  */
 class SearchController extends \BaseController {
 
     /**
      * Display a listing of the resource.
-     * 
-     * 
      * 
      * @return Jsend
      */
