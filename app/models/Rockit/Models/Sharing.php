@@ -35,8 +35,8 @@ class Sharing extends \Eloquent {
      */
     public static $create_rules = [
         'external_id' => 'required',
-        'platform_id' => 'required|exists:platforms',
-        'event_id' => 'required|exists:events'
+        'platform_id' => 'required|exists:platforms,id',
+        'event_id' => 'required|exists:events,id'
     ];
 
     /**
