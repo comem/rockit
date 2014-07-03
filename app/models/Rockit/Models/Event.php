@@ -462,7 +462,14 @@ class Event extends \Eloquent {
         return $response;
     }
 
-
+    /**
+     * Check that for all the Performers of the provided Event, that atleast one Performer is not a support Performer.
+     *
+     * If none of the Performers for this Event have their 'is_support' attribute set to 'false', a <b>Jsend::fail</b> is returned.
+     * 
+     * @param Event $event
+     * @return boolean 'true' or Jsend::fail
+     */
     public static function atLeastOneMainPerformer(Event $event) {
         $cpt = Performer::where('performers.event_id', '=', $event->id)
         ->where('performers.is_support', '=', FALSE)
@@ -476,7 +483,16 @@ class Event extends \Eloquent {
         }
         return $response;
     }
-
+    
+    /**
+     * Check that the provided Event is symbolized by an Image.
+     *
+     * If the Event is not associated to an Image, a <b>Jsend::fail</b> is returned.
+     * Or else a 'true' is returned.
+     *
+     * @param Event $event
+     * @return boolean 'true' or Jsend::fail
+     */
     public static function isSymbolized(Event $event) {
         if (empty($event->image_id)) {
             $response['fail'] = [
