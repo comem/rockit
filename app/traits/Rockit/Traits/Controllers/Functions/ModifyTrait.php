@@ -18,7 +18,7 @@ trait ModifyTrait {
      * @param string $model The class name of the desired Model (without its namespace)
      * @param integer $id The id of the Model to modify
      * @param array $new_data An array containing the new data
-     * @return array An array containing the results of the modifications.
+     * @return array An array containing either a 'fail' key, 'success' key or an 'error' key
      */
     public static function modify($model, $id, $new_data) {
         $call = self::$namespace . $model;

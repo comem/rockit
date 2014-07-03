@@ -59,7 +59,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     /**
      * Validate a User from the email and password provided.
      *
-     * 'email', 'password') to be validated
+     * The data array must contain a key 'email' and a key 'password' for it to be valid.<br>
      *
      * @param array $data an array that contains the data to validate(
      * @return boolean whether User is valid or not
