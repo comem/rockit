@@ -12,15 +12,15 @@ class PlatformsTableSeeder extends \Seeder {
         DB::table('platforms')->delete();
 
         Platform::create(['name' => 'facebook',
-            'client_id' => '92fdbe1c9900d98d1279e02fe55c5001',
-            'client_secret' => 'd381b2204500c4c6c1e8510c303c599d',
+            'client_id' => '47e0f75cfb5fbac37daad408acc872f9',
+            'client_secret' => '643ecaf09a71e3f9ff9cfb0062cc9079',
             'api_infos' => json_encode([
-                'appkey' => '836331943057445',
+                'appkey' => '702257233173597',
                 'link' => 'www.mahogany.ch',
                 'scope' => ['publish_actions'],
                 'place_id' => '193405720709427',
                 'redirect_url' => 'http://pingouin.heig-vd.ch/rockit/v1/facebook/redirect',
-                'username' => 'Chris Sharkman',
+                'username' => 'Joel Gugger',
             ])
         ]);
 
