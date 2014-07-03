@@ -3,7 +3,7 @@
 namespace Rockit\Controllers\v1;
 
 use \Input,
-    \Jsend,
+    Rockit\Helpers\Jsend,
     \Validator,
     \Rockit\Models\Artist,
     \Rockit\Models\Genre,

@@ -12,8 +12,8 @@ return array(
       |
      */
 
-    "password" => "Les mots de passe doivent avoir au moins 6 caractères et correspondre à leur confirmation.",
-    "user" => "Cette adresse e-mail ne correspond à aucun utilisateur existant.",
-    "token" => "Ce jeton de réinitialisation n'est pas valide.",
-    "sent" => "Le pense-bête de mot de passe a été envoyé !",
+    "password" => "Das Passowrt muss mindestens 6 Zeichen enhalten und der Wiederholung entsprechen.",
+    "user" => "Diese E-Mail-Adresse gehört keinem existierenden Benutzer.",
+    "token" => "Der Token zur Wiederaufnahme der Session ist nicht gültig.",
+    "sent" => "Die Passwort-Erinnerung wurde verschickt!",
 );

@@ -1,5 +1,7 @@
 <?php
 
+use Rockit\Helpers\Jsend;
+
 /*
   |--------------------------------------------------------------------------
   | Register The Laravel Class Loader

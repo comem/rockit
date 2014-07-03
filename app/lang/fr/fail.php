@@ -6,6 +6,7 @@
 
 return [
     'acl' => "Vous n'avez pas le droit d'effectuer cette action",
+    'login' => "Les informations de connexion ne sont pas valides.",
     'artist' => [
         'inexistant' => "Il n'existe aucun artiste correspondant.",
         'nogenre' => "Aucun genre valide pour cet artiste.",
@@ -15,7 +16,7 @@ return [
     'attribution' => [
         'existing' => "Il y a déjà une attribution de même type enregistrée.",
         'inexistant' => "Il n'existe aucune attribution correspondante.",
-        'not_unique' => "doublons !",
+        'not_unique' => "Un événement ne peut pas avoir deux attributions différentes pour le même équipement.",
     ],
     'auth' => "Vous devez être authentifié pour effectuer cette action",
     'description' => [
@@ -41,8 +42,8 @@ return [
         'inexistant' => "Il n'existe aucun type d'événement correspondant.",
     ],
     'export' => [
-        'no_input' => "Des dates de/à n'ont pas été trouvés.",
-        'unchronological' => "Les dates données ne sont pas chronologiquement correcte.",
+        'no_input' => "Les dates de début et de fin d'intervalle sont obligatoires.",
+        'unchronological' => "Les dates données ne sont pas chronologiquement correctes.",
     ],
     'file' => [
         'invalid' => "Le fichier sélectionné n'est pas un fichier valide.",
@@ -109,18 +110,18 @@ return [
         'existing' => "Il y a déjà un besoin de même type enregistré.",
         'inexistant' => "Il n'existe aucun besoin correspondant.",
         'non_needed' => "Cette compétence n'est pas demandée lors de cet événement.",
-        'not_unique' => "Les besoins ont des doublons !",
+        'not_unique' => "Un événement ne peut pas avoir deux besoins différents pour la même compétence.",
     ],
     'offer' => [
         'existing' => "Il y a déjà une offre de même type enregistrée.",
         'inexistant' => "Il n'existe aucune offre correspondante.",
-        'not_unique' => "doublons !",
+        'not_unique' => "Un événement ne peut pas avoir deux offres différentes pour le même lot.",
     ],
     'performer' => [
         'existing' => "Ce groupe joue déjà dans cet événement à cette position.",
         'inexistant' => "Il n'existe aucun performeur correspondant.",
         'order_not_available' => "Cette position de passage est déjà occupée par un autre artiste.",
-        'not_unique' => "Les performeurs ont des doublons !",
+        'not_unique' => "Un événement ne peut pas avoir deux artistes jouant à la même place.",
     ],
     'printing' => [
         'existing' => "Ce type d'imprimé est déjà lié à cet événement.",
@@ -162,12 +163,7 @@ return [
     'ticket_category' => [
         'existing' => "Il y a déjà une catégorie de tickets \":name\" enregistrée.",
         'inexistant' => "Il n'existe aucune catégorie de tickets correspondante.",
-        'not_unique' => "...doublon...",
+        'not_unique' => "Un événement ne peut pas avoir deux tickets d'entrée différents pour la même catégorie.",
     ],
-    'wordexport' => [
-        'noinput' => "Les dates de début et de fin de la période à exporter sont obligatoires.",
-    ],
-    'xmlexport' => [
-        'noinput' => "Les dates de début et de fin de la période à exporter sont obligatoires.",
-    ],
+
 ];

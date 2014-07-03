@@ -12,6 +12,6 @@ return array(
       |
      */
 
-    'previous' => '&laquo; Précédent',
-    'next' => 'Suivant &raquo;',
+    'previous' => '&laquo; vorherige',
+    'next' => 'nächste &raquo;',
 );

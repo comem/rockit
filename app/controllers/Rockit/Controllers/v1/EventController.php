@@ -3,13 +3,15 @@
 namespace Rockit\Controllers\v1;
 
 use \DB,
-    \Jsend,
+    Rockit\Helpers\Jsend,
     \Input,
-    \WordExport,
-    \XMLExport,
     \Validator,
+    \Rockit\Helpers\WordExport,
+    \Rockit\Helpers\XMLExport,
     \Rockit\Models\Event,
     \Rockit\Models\Ticket,
+    \Rockit\Controllers\v1\SymbolizationController,
+    \Rockit\Controllers\v1\GuaranteeController,
     \Rockit\Traits\Controllers\ControllerBSUDTrait;
 
 /**
@@ -54,7 +56,7 @@ class EventController extends \BaseController {
      * @return Jsend
      */
     public function index() {
-        $events = Event::with('genres');
+        $events = Event::with('genres', 'artists');
         $nb_item = Input::has('nb_item') && Input::get('nb_item') > 0 ? Input::get('nb_item') : 10;
         if (Input::has('genres')) {
             $events = $events->artistGenres(Input::get('genres'));
@@ -210,6 +212,28 @@ class EventController extends \BaseController {
                         $response['fail']['staffs'] = $response_save['fail'];
                     } elseif (isset($response_save['error'])) {
                         $response['error']['staffs'] = $response_save['error'];
+                    }
+                }
+                if (isset($inputs_associations['image_id'])) {
+                    $saved_image = SymbolizationController::save([
+                        'event_id' => $response['success']['response']['id'],
+                        'image_id' => $inputs_associations['image_id'],
+                    ]);
+                    if (isset($response_save['fail'])) {
+                        $response['fail']['image'] = $response_save['fail'];
+                    } elseif (isset($response_save['error'])) {
+                        $response['error']['image'] = $response_save['error'];
+                    }
+                }
+                if (isset($inputs_associations['representer_id'])) {
+                    $saved_image = GuaranteeController::save([
+                        'event_id' => $response['success']['response']['id'],
+                        'representer_id' => $inputs_associations['representer_id'],
+                    ]);
+                    if (isset($response_save['fail'])) {
+                        $response['fail']['representer'] = $response_save['fail'];
+                    } elseif (isset($response_save['error'])) {
+                        $response['error']['representer'] = $response_save['error'];
                     }
                 }
                 if (isset($response['fail'])) {
@@ -375,7 +399,7 @@ class EventController extends \BaseController {
                 return Jsend::compile($response);
             }
         } else {
-            $response['fail'] = ['xml' => [trans('fail.export.noinput')]];
+            $response['fail'] = ['xml' => [trans('fail.export.no_input')]];
             return Jsend::compile($response);
         }
     }

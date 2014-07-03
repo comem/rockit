@@ -2,7 +2,7 @@
 
 namespace Rockit\Models;
 
-use \RockitHelper,
+use \Rockit\Helpers\Library,
     \Rockit\Models\Event,
     \Rockit\Traits\Models\ModelBCUDTrait;
 
@@ -76,13 +76,13 @@ class Sharing extends \Eloquent {
     public static function message($event, $additionalText) {
         setlocale(LC_ALL, 'de_DE@euro', 'de_DE', 'de', 'ge'); // $locale = Config::get('app.locale');
         $date = strftime("Am %A, %e. %B %Y um %H.%M Uhr: ", strtotime($event->start_date_hour));
-        $date = RockitHelper::deleteDoubleWhitspace($date);
+        $date = Library::deleteDoubleWhitspace($date);
         if (!is_null($additionalText)) {
             $message = $additionalText . "\r\n \r\n";
         } else {
             $message = "";
         }
-        $inXDays = RockitHelper::countDaysUntil(strtotime($event->start_date_hour));
+        $inXDays = Library::countDaysUntil(strtotime($event->start_date_hour));
 
         if ($inXDays > 1) {
             $inXDaysText = "In " . $inXDays . " Tagen ist es soweit! " . $date;

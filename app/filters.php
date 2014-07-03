@@ -1,6 +1,7 @@
 <?php
 
-use Rockit\Models\Resource;
+use Rockit\Models\Resource,
+    Rockit\Helpers\Jsend;
 
 /*
   |--------------------------------------------------------------------------

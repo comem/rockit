@@ -4,7 +4,7 @@ namespace Rockit\Controllers\v1;
 
 use \Input,
     \Validator,
-    \Jsend,
+    Rockit\Helpers\Jsend,
     \Rockit\Models\Image;
 
 /**

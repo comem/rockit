@@ -2,7 +2,7 @@
 
 namespace Rockit\Controllers\v1;
 
-use \Jsend,
+use Rockit\Helpers\Jsend,
     \Input,
     \Rockit\Models\Event,
     \Rockit\Models\Artist,
@@ -22,7 +22,7 @@ class SearchController extends \BaseController {
      * @return Jsend
      */
     public function index() {
-        $events = Event::select(['id', 'title_de']);
+        $events = Event::select(['id', 'title_de'])->where('start_date_hour', '>', date('Y-m-d h:m:s'));
         $artists = Artist::select(['id', 'name']);
         $representers = Representer::select(['id', 'first_name', 'last_name']);
         if (Input::has('query')) {

@@ -2,7 +2,7 @@
 
 namespace Rockit\Controllers\v1;
 
-use \Jsend,
+use Rockit\Helpers\Jsend,
     \User,
     \Auth,
     Illuminate\Support\Facades\Input;
@@ -29,15 +29,22 @@ class AuthController extends \BaseController {
             'email' => Input::get('email'),
             'password' => Input::get('password')
         ];
-        if (($credentials['email'] != null && $credentials['password'] != null) &&
-        User::validate(array($credentials['email'], $credentials['password'])) &&
-        Auth::attempt($credentials, $remember, true)) {
-            return Jsend::success(array(
-                'title' => trans('success.auth.login'),
-                'user' => Auth::user(),
-            ));
+        if (($credentials['email'] != null
+        && $credentials['password'] != null)
+        && User::validate([$credentials['email'], $credentials['password']])
+        && Auth::validate($credentials)) {
+            if (Auth::attempt($credentials, $remember, true)) {
+                $response['success'] = ['response' => [
+                        'title' => trans('success.auth.login'),
+                        'user' => Auth::user(),
+                ]];
+            } else {
+                $response['error'] = trans('error.auth.login');
+            }
+        } else {
+            $response['fail'] = ['auth' => [trans('fail.login')]];
         }
-        return Jsend::error(trans('error.auth.login'));
+        return Jsend::compile($response);
     }
 
     /**
