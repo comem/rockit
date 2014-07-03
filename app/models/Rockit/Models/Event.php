@@ -488,6 +488,18 @@ class Event extends \Eloquent {
         return $response;
     }
 
+    /**
+     * Create and save a new Event in the database with the provided data.
+     *
+     * Using a <b>database transaction</b> the data is passed to the <b>create</b> method, which returns a response.<br>
+     * If that response is 'null', a <b>Jsend::error</b> is returned.
+     * Or else, pass each ticket data provided to the <b>create</b> method of the Ticket model, which returns a response.<br>.
+     * If any of the tickets could not be created, a <b>Jsend::error</b> is returned and the <b>transaction is cancelled</b>.
+     * Or else, the <b>transaction is commited</b> and a <b>Jsend::success</b> is returned,
+     * 
+     * @param array $data The data for the Event to create
+     * @return array An array containing a 'success' or 'error' key with its message.
+     */
     public static function createOne($data) {
         $field = self::$response_field;
         $tickets = $data['tickets'];
@@ -499,8 +511,8 @@ class Event extends \Eloquent {
             foreach ($tickets as $ticket) {
                 $inputs = $ticket;
                 $inputs['event_id'] = $object->id;
-                $objcetTicket = Ticket::create($inputs);
-                if (!is_object($objcetTicket)) {
+                $objectTicket = Ticket::create($inputs);
+                if (!is_object($objectTicket)) {
                     $response['error'] = trans('error.ticket.created');
                     DB::rollback();
                     return $response;
@@ -520,6 +532,20 @@ class Event extends \Eloquent {
         return $response;
     }
 
+    /**
+     * Delete an Event from the database that matches the provided Event.
+     *
+     * Using a <b>database transaction</b> the data is passed to the <b>delete</b> methods for each of the Event's associations, which each return a response.<br>
+     * If the Event has a contract_src attribute, this Contract is deleted.<br>
+     * After this, the data is passed to the Event's <b>delete</b> method, which returns a response.<br>
+     * If that response is 'false', the <b>transaction is cancelled</b> and a <b>Jsend::error</b> is returned.
+     * Or else, a <b>Jsend::success</b> is returned.
+     * If any of the calls to a <b>delete</b> method returns an error, the <b>transaction is cancelled</b> and a <b>Jsend::error</b> is returned.
+     *
+     *
+     * @param Event $event The Event to delete
+     * @return array An array containing a 'success' or 'error' key with its message.
+     */
     public static function deleteOne($event) {
         $field = self::$response_field;
         try {
