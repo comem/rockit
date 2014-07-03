@@ -8,6 +8,13 @@ use \Validator,
     \Route,
     \Rockit\Traits\Models\ModelBCUDTrait;
 
+/**
+ * Contains the attributes and methods of an Event model.<br>
+ * Based on the Laravel's Eloquent.<br>
+ * 
+ * @author generated with Laravel Schema Designer <laravelsd.com>
+ * @author Joël Gugger <joel.gugger@heig-vd.ch>
+ */
 class Event extends \Eloquent {
 
     use ModelBCUDTrait;
@@ -15,8 +22,23 @@ class Event extends \Eloquent {
     protected $table = 'events';
     protected $appends = ['event_type'];
     protected $hidden = ['event_type_id', 'representer_id', 'image_id'];
-    public static $response_field = 'start_date_hour';
+
+    /**
+     * Indicates whether this model uses laravel's timestamps.
+     * @var boolean 
+     */
     public $timestamps = true;
+
+    /**
+     * Indicates which field value should be used in the return messages.
+     * @var string 
+     */
+    public static $response_field = 'start_date_hour';
+
+    /**
+     * Validation rules for creating a new Event.
+     * @var array 
+     */
     public static $create_rules = array(
         'start_date_hour' => 'date|required',
         'ending_date_hour' => 'date|required',
@@ -31,15 +53,11 @@ class Event extends \Eloquent {
         'event_type_id' => 'required|exists:event_types,id',
         'tickets' => 'required|array|min:1',
     );
-    public static $create_associations_rules = array(
-        'image_id' => 'integer|exists:images,id',
-        'representer_id' => 'integer|exists:images,id',
-        'needs' => 'array',
-        'offers' => 'array',
-        'performers' => 'array',
-        'attributions' => 'array',
-        'staffs' => 'array',
-    );
+
+    /**
+     * Validation rules for updating an existing Event.
+     * @var array 
+     */
     public static $update_rules = array(
         'ending_date_hour' => 'date',
         'opening_doors' => 'date',
@@ -56,6 +74,32 @@ class Event extends \Eloquent {
     );
 
     /**
+     * Validation rules for associating a new Event with : 
+     *
+     * <ul>
+     * <li>an <b>image</b> to save : image id</li>
+     * <li>a <b>representer</b> to save : representer id</li>
+     * <li>a list of data to save as a <b>need</b> : an array</li>
+     * <li>a list of data to save as an <b>offer</b> to save : an array</li>
+     * <li>a list of data to save as a <b>performer</b> to save : an array</li>
+     * <li>a list of data to save as an <b>attribution</b> to save : an array</li>
+     * <li>a list of data to save as a <b>staffs</b> to save : an array</li>
+     * </ul>
+     *
+     * @var array 
+     *
+     */
+    public static $create_associations_rules = array(
+        'image_id' => 'integer|exists:images,id',
+        'representer_id' => 'integer|exists:images,id',
+        'needs' => 'array',
+        'offers' => 'array',
+        'performers' => 'array',
+        'attributions' => 'array',
+        'staffs' => 'array',
+    );
+
+    /**
      * Indicates how the appends event_type attribute should be set when creating a new Event model.
      * In this case, this attribute will contains the result of the eventType() method.
      */
@@ -63,96 +107,182 @@ class Event extends \Eloquent {
         return $this->eventType()->getResults();
     }
 
+    /**
+     * Get the Genres to which an Event is related.
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public function genres() {
         return $this->belongsToMany('Rockit\Models\Genre', 'event_genre')->withTrashed();
     }
 
+    /**
+     * Get the Gifts to which an Event is related.
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public function gifts() {
         return $this->belongsToMany('Rockit\Models\Gift', 'offers')->withTrashed()
         ->withPivot('quantity', 'cost', 'comment_de');
     }
 
+    /**
+     * Get the Offers to which an Event is related.
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public function offers() {
         return $this->hasMany('Rockit\Models\Offer');
     }
 
+    /**
+     * Get the TicketCategories to which an Event is related.
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public function ticketCategories() {
         return $this->belongsToMany('Rockit\Models\TicketCategory', 'tickets')->withTrashed()
         ->withPivot('amount', 'comment_de', 'quantity_sold')
         ->orderBy('amount', 'desc');
     }
 
+    /**
+     * Get the Tickets to which an Event is related.
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public function tickets() {
         return $this->hasMany('Rockit\Models\Ticket')
         ->orderBy('amount', 'desc');
     }
 
+    /**
+     * Get the Equipments to which an Event is related.
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public function equipments() {
         return $this->belongsToMany('Rockit\Models\Equipment', 'attributions')->withTrashed()
         ->withPivot('quantity', 'cost');
     }
 
+    /**
+     * Get the Attributions to which an Event is related.
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public function attributions() {
         return $this->hasMany('Rockit\Models\Attribution');
     }
 
+    /**
+     * Get the Platforms to which an Event is related.
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public function platforms() {
         return $this->belongsToMany('Rockit\Models\Platform', 'sharings')->withTrashed()
         ->withPivot('url');
     }
 
+    /**
+     * Get the Sharings to which an Event is related.
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public function sharings() {
         return $this->hasMany('Rockit\Models\Sharing');
     }
 
+    /**
+     * Get the PrintingTypes to which an Event is related.
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public function printingTypes() {
         return $this->belongsToMany('Rockit\Models\PrintingType', 'printings')->withTrashed()
         ->withPivot('source', 'nb_copies', 'nb_copies_surplus');
     }
 
+    /**
+     * Get the Printings to which an Event is related.
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public function printings() {
         return $this->hasMany('Rockit\Models\Printing');
     }
 
+    /**
+     * Get the EventType to which an Event is related.
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public function eventType() {
         return $this->belongsTo('Rockit\Models\EventType')->withTrashed();
     }
 
+    /**
+     * Get the Image to which an Event is related.
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public function image() {
         return $this->belongsTo('Rockit\Models\Image')->withTrashed();
     }
 
+    /**
+     * Get the Artists to which an Event is related.
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public function artists() {
         return $this->belongsToMany('Rockit\Models\Artist', 'performers')->withTrashed()
         ->withPivot('order', 'is_support', 'artist_hour_of_arrival');
     }
 
+    /**
+     * Get the Performers to which an Event is related.
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public function performers() {
         return $this->hasMany('Rockit\Models\Performer')
         ->orderBy('order');
     }
 
+    /**
+     * Get the Members to which an Event is related.
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public function members() {
         return $this->belongsToMany('Rockit\Models\Member', 'staffs');
     }
 
+    /**
+     * Get the Staffs to which an Event is related.
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public function staffs() {
         return $this->hasMany('Rockit\Models\Staff');
     }
 
+    /**
+     * Get the Skills to which an Event is related.
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public function skills() {
         return $this->belongsToMany('Rockit\Models\Skill', 'needs')
         ->withPivot('nb_people');
     }
 
+    /**
+     * Get the Needs to which an Event is related.
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public function needs() {
         return $this->hasMany('Rockit\Models\Need');
     }
 
+    /**
+     * Get the Representers to which an Event is related.
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public function representer() {
         return $this->belongsTo('Rockit\Models\Representer');
     }
 
+    /**
+     * Reduce the scope of the provided query, using a list of genres as a 'genre' search filter.
+     * @param \Illuminate\Database\Query\Builder $query The query on which the scope will be applied
+     * @param array $genres A list of Genres that must be contained in the genre id attribute of an Artist performing in an Event
+     * @return \Illuminate\Database\Query\Builder
+     */
     public function scopeArtistGenres($query, array $genres) {
        return $query->whereHas('artists', function($q) use ($genres) {
             $q->whereHas('genres', function($q) use ($genres) {
@@ -160,58 +290,107 @@ class Event extends \Eloquent {
             });
         });
     }
-    /*public function scopeArtistGenres($query, array $genres) {
-        return $query->whereHas('genres', function($q) use ($genres) {
-            $q->where('genre_id', '=', $genres);
-        });
-    }*/
 
+    /**
+     * Reduce the scope of the provided query, using a list of event types as an 'event type' search filter.
+     * @param \Illuminate\Database\Query\Builder $query The query on which the scope will be applied
+     * @param array $event_types A list of EventTypes that must be contained in the event type id attribute of an Event
+     * @return \Illuminate\Database\Query\Builder
+     */
     public function scopeEventType($query, array $event_types) {
         return $query->whereIn('events.event_type_id', $event_types);
     }
 
-    public function scopeIsPublished($query, $boolean) {
-        if ($boolean) {
+    /**
+     * Reduce the scope of the provided query, using a boolean 'is published' as an 'is published' search filter.
+     * @param \Illuminate\Database\Query\Builder $query The query on which the scope will be applied
+     * @param boolean $is_published An indicator if the Event is published or not
+     * @return \Illuminate\Database\Query\Builder
+     */
+    public function scopeIsPublished($query, $is_published) {
+        if ($is_published) {
             return $query->where('events.published_at', '<>', 'NULL');
         } else {
             return $query->where('events.published_at', '=', NULL);
         }
     }
 
+    /**
+     * Reduce the scope of the provided query, using a string 'title' search filter.
+     * @param \Illuminate\Database\Query\Builder $query The query on which the scope will be applied
+     * @param string $name A string that must be contained in the title attribute
+     * @return \Illuminate\Database\Query\Builder
+     */
     public function scopeTitle($query, $title) {
         return $query->where('events.title_de', 'LIKE', '%' . $title . '%');
     }
 
+    /**
+     * Reduce the scope of the provided query, using a datetime 'from' search filter.
+     * @param \Illuminate\Database\Query\Builder $query The query on which the scope will be applied
+     * @param datetime $from A date that is before an Event's start_date_hour
+     * @return \Illuminate\Database\Query\Builder
+     */
     public function scopeFrom($query, $from) {
         return $query->where('events.start_date_hour', '>=', $from);
     }
 
+    /**
+     * Reduce the scope of the provided query, using a datetime 'to' search filter.
+     * @param \Illuminate\Database\Query\Builder $query The query on which the scope will be applied
+     * @param datetime $to A date that is before an Event's ending_date_hour
+     * @return \Illuminate\Database\Query\Builder
+     */
     public function scopeTo($query, $to) {
         return $query->where('events.start_date_hour', '<=', $to);
     }
 
+    /**
+     * Reduce the scope of the provided query, using a string 'artist's name' search filter.
+     * @param \Illuminate\Database\Query\Builder $query The query on which the scope will be applied
+     * @param string $artist_name A string that must be contained in the Artist's name attribute
+     * @return \Illuminate\Database\Query\Builder
+     */
     public function scopeArtistName($query, $artist_name) {
         return $query->whereHas('artists', function($q) use ($artist_name) {
             $q->where('artists.name', 'LIKE', '%' . $artist_name . '%');
         });
     }
 
+    /**
+     * Reduce the scope of the provided query, using a list of platforms as an 'platform' search filter.
+     * @param \Illuminate\Database\Query\Builder $query The query on which the scope will be applied
+     * @param array $platforms A list of Platforms that must be contained in the platform id attribute of an Event
+     * @return \Illuminate\Database\Query\Builder
+     */
     public function scopePlatforms($query, array $platforms) {
         return $query->whereHas('platforms', function($q) use ($platforms) {
             $q->whereIn('platforms.id', $platforms);
         });
     }
 
-    public function scopeIsFollowedByPrivate($query, $boolean) {
-        if ($boolean) {
+    /**
+     * Reduce the scope of the provided query, using a boolean 'is followed by private' as an 'is followed by private' search filter.
+     * @param \Illuminate\Database\Query\Builder $query The query on which the scope will be applied
+     * @param boolean $is_followed_by_private An indicator if the Event is followed by a private event or not
+     * @return \Illuminate\Database\Query\Builder
+     */
+    public function scopeIsFollowedByPrivate($query, $is_followed_by_private) {
+        if ($is_followed_by_private) {
             return $query->where('events.followed_by_private', '=', TRUE);
         } else {
             return $query->where('events.followed_by_private', '=', FALSE);
         }
     }
 
-    public function scopeHasRepresenter($query, $boolean) {
-        if ($boolean) {
+    /**
+     * Reduce the scope of the provided query, using a boolean 'has representer' as a 'has representer' search filter.
+     * @param \Illuminate\Database\Query\Builder $query The query on which the scope will be applied
+     * @param boolean $has_representer An indicator if the Event is guaranteed by a Representer or not
+     * @return \Illuminate\Database\Query\Builder
+     */
+    public function scopeHasRepresenter($query, $has_representer) {
+        if ($has_representer) {
             return $query->has('representer', '>', 0);
         } else {
             return $query->has('representer', '<', 1);
@@ -290,6 +469,14 @@ class Event extends \Eloquent {
         return $response;
     }
 
+    /**
+     * Check that for all the Performers of the provided Event, that atleast one Performer is not a support Performer.
+     *
+     * If none of the Performers for this Event have their 'is_support' attribute set to 'false', a <b>Jsend::fail</b> is returned.
+     * 
+     * @param Event $event
+     * @return boolean 'true' or Jsend::fail
+     */
     public static function atLeastOneMainPerformer(Event $event) {
         $cpt = Performer::where('performers.event_id', '=', $event->id)
         ->where('performers.is_support', '=', FALSE)
@@ -303,7 +490,16 @@ class Event extends \Eloquent {
         }
         return $response;
     }
-
+    
+    /**
+     * Check that the provided Event is symbolized by an Image.
+     *
+     * If the Event is not associated to an Image, a <b>Jsend::fail</b> is returned.
+     * Or else a 'true' is returned.
+     *
+     * @param Event $event
+     * @return boolean 'true' or Jsend::fail
+     */
     public static function isSymbolized(Event $event) {
         if (empty($event->image_id)) {
             $response['fail'] = [
@@ -315,6 +511,18 @@ class Event extends \Eloquent {
         return $response;
     }
 
+    /**
+     * Create and save a new Event in the database with the provided data.
+     *
+     * Using a <b>database transaction</b> the data is passed to the <b>create</b> method, which returns a response.<br>
+     * If that response is 'null', a <b>Jsend::error</b> is returned.
+     * Or else, pass each ticket data provided to the <b>create</b> method of the Ticket model, which returns a response.<br>.
+     * If any of the tickets could not be created, a <b>Jsend::error</b> is returned and the <b>transaction is cancelled</b>.
+     * Or else, the <b>transaction is commited</b> and a <b>Jsend::success</b> is returned,
+     * 
+     * @param array $data The data for the Event to create
+     * @return array An array containing a 'success' or 'error' key with its message.
+     */
     public static function createOne($data) {
         $field = self::$response_field;
         $tickets = $data['tickets'];
@@ -326,8 +534,8 @@ class Event extends \Eloquent {
             foreach ($tickets as $ticket) {
                 $inputs = $ticket;
                 $inputs['event_id'] = $object->id;
-                $objcetTicket = Ticket::create($inputs);
-                if (!is_object($objcetTicket)) {
+                $objectTicket = Ticket::create($inputs);
+                if (!is_object($objectTicket)) {
                     $response['error'] = trans('error.ticket.created');
                     DB::rollback();
                     return $response;
@@ -347,6 +555,20 @@ class Event extends \Eloquent {
         return $response;
     }
 
+    /**
+     * Delete an Event from the database that matches the provided Event.
+     *
+     * Using a <b>database transaction</b> the data is passed to the <b>delete</b> methods for each of the Event's associations, which each return a response.<br>
+     * If the Event has a contract_src attribute, this Contract is deleted.<br>
+     * After this, the data is passed to the Event's <b>delete</b> method, which returns a response.<br>
+     * If that response is 'false', the <b>transaction is cancelled</b> and a <b>Jsend::error</b> is returned.
+     * Or else, a <b>Jsend::success</b> is returned.
+     * If any of the calls to a <b>delete</b> method returns an error, the <b>transaction is cancelled</b> and a <b>Jsend::error</b> is returned.
+     *
+     *
+     * @param Event $event The Event to delete
+     * @return array An array containing a 'success' or 'error' key with its message.
+     */
     public static function deleteOne($event) {
         $field = self::$response_field;
         try {

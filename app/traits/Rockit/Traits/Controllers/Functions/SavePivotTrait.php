@@ -12,12 +12,8 @@ trait SavePivotTrait {
     /**
      * Save a new pivot Model in the database between the Models corresponding to the provided model ids.
      * 
-     * ?It's possible to check the existence before saving the model by setting the check_existEnce parameter to "true".?
-     * ?If you make it so you have to provide the name of the column upon which the check will be done.?
-     * ?The value that this column needs to match will be extract from the data parameter, assuming that its key is the same as the checked column.?
-     * 
      * If the pivot Model already exists, a <b>Jsend::fail</> is returned.<br>
-     * Or else the pivot Model's data and the model ids of the Models to associate will be passed to the <b>createOne</b> method, which will return a response.<br>
+     * Or else the provided data array will be passed to the <b>createOne</b> method, which will return a response.<br>
      *
      * @param string $pivot_model The class name of the pivot Model you want to save
      * @param array $data An array containing the data for the pivot, which includes the model ids of the Models that the pivot Model will associate. 

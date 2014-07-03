@@ -39,10 +39,10 @@ class LinkController extends \BaseController {
     /**
      * Update the specified resource in storage.
      * 
-     * ?If the provided id does not point to an existing Link, a <b>Jsend::fail</b> is returned.<br>?
      * Get the adequate inputs from the client request and test that each of them pass the validation rules.<br>
-     * ?If any a these inputs fail, a <b>Jsend::fail</b> is returned.<br>?
+     * If any a these inputs fail, a <b>Jsend::fail</b> is returned.<br>
      * If all the inputs are valid, the data is then passed to the <b>modify()</b> method, which returns a response.<br>
+     * In this case, if the provided id does not point to an existing Link, a <b>Jsend::fail</b> is returned.<br>
      *
      * @param int $id The id of the requested Link
      * @return Jsend

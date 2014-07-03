@@ -17,7 +17,7 @@ trait UpdateOneTrait {
      * The values are compared and the differences are passed to the <b>save</b> method of the class model to update, which returns a response.<br>
      * If that response was empty or there were no new values to update to, a <b>Jsend::fail</b> is returned.<br>
      * If the update was not executed correctly, a <b>Jsend::error</b> is returned.<br>
-     * Or else, a <b>Jsend::success</b> is returned. 
+     * Or else, a <b>Jsend::success</b> is returned.<br>
      *
      * @param array $new_values The values to update to
      * @param Object $object The Model to update

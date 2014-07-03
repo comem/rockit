@@ -23,7 +23,7 @@ trait RenewTrait {
      * @param string $model The class name of the desired Model (without its namespace)
      * @param array $data An array that contains the value desired, which will designate a Model to be renewed
      * @param string $column The name of the column to use when designating a Model to renew.
-     * @return ?mixed, boolean 'false' or Jsend message?
+     * @return mixed Boolean 'false' or an array containing either a 'success' or 'error' key
      */
     public static function renew($model, $data, $column = 'name_de') {
         $call = self::$namespace . $model;

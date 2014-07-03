@@ -38,9 +38,10 @@ class StaffController extends \BaseController {
     }
 
     /**
-     * Update the association between an Event, a Member and a Skill that corresponds to the provided staff id, with the provided inputs.
+     * Update the association between an Event and a Member that corresponds to the provided staff id.
      *
      * Get the adequate inputs from the client request and test that each of them pass the update validation rules.<br>
+     * Change the Skill that the Member will execute for this Event to the Skill referenced by the skill id in the provided inputs.<br> 
      * Modifies the Staff that matches the provided id by passing this id to the <b>modify()</b> method, who sends back a response.<br>
      * 
      * @param int $id The id of the requested Staff

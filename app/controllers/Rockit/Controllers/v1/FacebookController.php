@@ -14,11 +14,18 @@ use Rockit\Helpers\Jsend,
     Facebook\FacebookSession,
     Facebook\FacebookRedirectLoginHelper;
 
+/**
+ * Contains interaction methods with the Facebook platform.<br>
+ * Based on the Laravel's BaseController.<br>
+ * Can : <b>login</b> to Facebook, <b>shareEvent</b> and <b>deleteEvent</b> on the Facebook platform.<br>
+ * 
+ * @author Christian Heimann <christian.heimann@heig-vd.ch>
+ */
 class FacebookController extends \BaseController {
 
     /**
-     * This function handles the Facebook login: it directs on fb login mask. 
-     * After a successful login of facebook, it redirects on the given url (taken from database).
+     * This function handles the Facebook login: it directs on to the fb login mask. 
+     * After a successful login of facebook, it redirects to the given url (taken from database).
      * @return Redirection to redirect_url
      */
     public static function login() {
@@ -40,9 +47,8 @@ class FacebookController extends \BaseController {
     }
 
     /**
-     * This function catches the facebook session which is returned from
-     * a facebook login call.
-     * @author Christian Heimann <christian.heimann@heig-vd.ch>
+     * Catch the facebook session which is returned from a facebook login call.
+     * @return Jsend
      */
     public function redirectCatch() {
         session_start();
@@ -80,9 +86,8 @@ class FacebookController extends \BaseController {
     }
 
     /**
-     * Function to create a Facebook Post to share the data of a given event with an automatically
-     * created message. If the creation of a post succeeds, the Sharing entry is made
-     * into database.
+     * Create a Facebook Post to share the data of a given event with an automatically created message.<br>
+     * If the creation of a post succeeds, the Sharing entry is registered into database.
      * @return $response with success or error
      * @author Christian Heimann <christian.heimann@heig-vd.ch>
      */
@@ -146,11 +151,10 @@ class FacebookController extends \BaseController {
     }
 
     /**
-     * Function to delete a post of an event. Facebook session and the sharing object
-     * must already be set as Session variable. If a post cannot be found on facebook,
-     * the database entry is deleted anyway.
-     * @return Response
-     * @author Christian Heimann <christian.heimann@heig-vd.ch>
+     * Delete a post of an event. 
+     * The Facebook session and the sharing object must be already set as a Session variable.<br>
+     * If a Post cannot be found on facebook, the database entry is deleted anyway.
+     * @return mixed Jsend
      */
     private static function deleteEvent() {
         $session = Session::get('facebookSession');

@@ -3,7 +3,12 @@
 namespace Rockit\Traits\Controllers;
 
 /**
- * A trait that uses a generic <b>save</b> trait and a <b>delete</b> trait. It also declares in which namespace all the called Models are.
+ * A trait for controllers that used the following generic methods :<br>
+ * <ul> 
+ * <li>save</li>
+ * <li>delete</li>
+ * </ul>
+ * This trait also declares in which <b>namespace</b> all the called Models are.<br>
  *
  * @author Mathias Oberson <mathias.oberson@heig-vd.ch>
  */

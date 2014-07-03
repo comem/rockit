@@ -3,7 +3,16 @@
 namespace Rockit\Traits\Models;
 
 /**
- * A trait for simple pivot Models that use the generic <b>existByIds</b> method. It also uses the generic <b>validate</b> and <b>exist</b> methods in the base trait, as well as the <b>createOne</b> trait and <b>deleteOne</b> trait.
+ * A trait for the basic <b>pivot Models</b>.
+ *
+ * The following generic methods will be available when using this trait :<br>
+ * <ul> 
+ * <li>existByIds</li>
+ * <li>validate</li>
+ * <li>exist</li>
+ * <li>createOne</li>
+ * <li>deleteOne</li>
+ * </ul>
  *
  * @author Mathias Oberson <mathias.oberson@heig-vd.ch>
  */

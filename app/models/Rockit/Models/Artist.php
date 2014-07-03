@@ -111,20 +111,20 @@ class Artist extends \Eloquent {
     }
 
     /**
-     * Reduce the scope of the provided list of results, using a 'name' search filter.
+     * Reduce the scope of the provided query, using a 'name' search filter.
      * @param \Illuminate\Database\Query\Builder $query The query on which the scope will be applied
      * @param string $name A string that must be contained in the name attribute
-     * @return ?\Illuminate\Database\Eloquent\Collection?
+     * @return \Illuminate\Database\Query\Builder
      */
     public function scopeName($query, $name) {
         return $query->where('name', 'LIKE', '%' . $name . '%');
     }
 
     /**
-     * Reduce the scope of the provided list of results, using a list of genres as a 'genre' search filter.
+     * Reduce the scope of the provided query, using a list of genres as a 'genre' search filter.
      * @param \Illuminate\Database\Query\Builder $query The query on which the scope will be applied
      * @param array $genres A list of Genres that must be contained in the genre id attribute of an Artist
-     * @return ?Artists?
+     * @return \Illuminate\Database\Query\Builder
      */
     public function scopeGenres($query, array $genres) {
         return $query->whereHas('genres', function($q) use ($genres) {
@@ -133,10 +133,10 @@ class Artist extends \Eloquent {
     }
 
     /**
-     * Reduce the scope of the provided list of results, using a 'global name' search filter.
+     * Reduce the scope of the provided query, using a string that will do a search on the 'stagename', 'first name' and 'last name'.
      * @param \Illuminate\Database\Query\Builder $query The query on which the scope will be applied
      * @param string $string A string that must be contained in a Musician's stagename attribute
-     * @return ?Musicians?
+     * @return \Illuminate\Database\Query\Builder
      */
     public function scopeMusicianName($query, $string) {
         return $query->whereHas('musicians', function($q) use ($string) {

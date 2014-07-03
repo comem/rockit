@@ -76,12 +76,12 @@ class Need extends \Eloquent {
     }
 
     /**
-     * Check <b>skill_id</b>'s unicity.
+     * Check that a list of skill id's are unique.
      * 
-     * Check that there is not two identical <b>skill_id</b> in the given array.
+     * Check that there are not two identical <b>skill_id</b> in the provided array.
      * 
      * @param array $array
-     * @return boolean true|false
+     * @return boolean
      */
     public static function isUnique(array $array) {
         $newTab = [];

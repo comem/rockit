@@ -21,7 +21,7 @@ trait BaseModelTrait {
      * @param array $rules The rules to apply in order to validate the data
      * @return boolean 'true' or a Jsend fail message 
      */
-    public static function validate(array &$data, array $rules) {
+    public static function validate(array $data, array $rules) {
         $data = array_filter($data, function($item) {
             return $item !== null;
         });

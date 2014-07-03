@@ -81,14 +81,26 @@ class Printing extends \Eloquent {
     }
 
     /**
-     * Update a persistant Model, based on the difference between new values
-     * and existing values.
+     * Update a persistant Model, based on the difference between new values and existing values.
      * 
      * If the source attribute is modified, the file referenced by the old value is deleted.
      *
      * @param array $new_values
      * @param Printing $printing
      * @return true or error message
+     */
+    /**
+     * Update a persistant Printing, using the differences between a set of new values provided and the old, existing values of the provided Printing.
+     *
+     * If a new and different 'source' file path is provided, then the new file path will be used as the Printing's 'source' attribute.<br>
+     * The values are compared and the differences are passed to the <b>save</b> method of the Printing model, which returns a response.<br>
+     * If that response was empty or there were no new values to update to, a <b>Jsend::fail</b> is returned.<br>
+     * If the update was not executed correctly, a <b>Jsend::error</b> is returned.<br>
+     * If a <b>Jsend::success</b> is returned and if a new and different 'source' file path is provided, the file path to the old printing file will be deleted.<br>
+     *
+     * @param array $new_values The values to update to
+     * @param Object $object The Model to update
+     * @return array An array containing a 'success' or 'error' key with its message.
      */
     public static function updateOne(array $new_values, Printing $printing) {
         $field = self::$response_field;

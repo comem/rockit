@@ -13,7 +13,6 @@ trait SaveTrait {
      * Save a new Model in the database with the provided validated data.
      *
      * If the 'check_existance' parameter is set to 'true', the existance will be checked before saving the Model.<br>
-     * ?If you make it so you have to provide the name of the column upon which the check will be done.?
      * In this case, a column name must be provided in order to perform the existance check.<br>
      * The value that this column needs to match will be extracted from the data provided, and will assume that its key is the same as the column to check.<br>
      * If, during an existance check, a Model corresponding to the provided column name and column value exists, a <b>Jsend::fail</b> is returned.<br>  
