@@ -12,10 +12,10 @@ class PlatformsTableSeeder extends \Seeder {
         DB::table('platforms')->delete();
 
         Platform::create(['name' => 'facebook',
-            'client_id' => '47e0f75cfb5fbac37daad408acc872f9',
-            'client_secret' => '643ecaf09a71e3f9ff9cfb0062cc9079',
+            'client_id' => 'b57cef5c98b4a660df50716523f2e88f',
+            'client_secret' => '586b37a33c0961629a8cd70f679093bc',
             'api_infos' => json_encode([
-                'appkey' => '702257233173597',
+                'appkey' => '702199776512676',
                 'link' => 'www.mahogany.ch',
                 'scope' => ['publish_actions'],
                 'place_id' => '193405720709427',
