@@ -19,7 +19,7 @@ class PlatformsTableSeeder extends \Seeder {
                 'link' => 'www.mahogany.ch',
                 'scope' => ['publish_actions'],
                 'place_id' => '193405720709427',
-                'redirect_url' => 'http://localhost:8000/v1/facebook/redirect',
+                'redirect_url' => 'http://pingouin.heig-vd.ch/rockit/v1/facebook/redirect',
                 'username' => 'Chris Sharkman',
             ])
         ]);
