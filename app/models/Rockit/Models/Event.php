@@ -130,7 +130,7 @@ class Event extends \Eloquent {
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function ticketCategories() {
-        return $this->belongsToMany('Rockit\Models\TicketCategory', 'Tickets')->withTrashed()
+        return $this->belongsToMany('Rockit\Models\TicketCategory', 'tickets')->withTrashed()
         ->withPivot('amount', 'comment_de', 'quantity_sold')
         ->orderBy('amount', 'desc');
     }

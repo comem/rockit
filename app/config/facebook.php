@@ -6,11 +6,11 @@
 
 return array(
     'redirecturl' => 'http://pingouin.heig-vd.ch/rockit/v1/facebook/redirect',
-    'appkey' => '836331943057445',
-    'secretkey' => 'd381b2204500c4c6c1e8510c303c599d',
-    'clientid' => '92fdbe1c9900d98d1279e02fe55c5001',
+    'appkey' => '702257233173597',
+    'secretkey' => '643ecaf09a71e3f9ff9cfb0062cc9079',
+    'clientid' => '47e0f75cfb5fbac37daad408acc872f9',
     'scope' => array('create_event', 'publish_actions'),
-    'username' => 'Chris Sharkman',
+    'username' => 'Joel Gugger',
     'placeid' => '193405720709427'
      
 );

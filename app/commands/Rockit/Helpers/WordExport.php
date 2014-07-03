@@ -99,7 +99,7 @@ class WordExport {
 
         // add header with logo
         $header = $section->createHeader();
-        $header->addImage('public/images/mahogany-pos.jpg', array('width' => 90, 'height' => 104, 'align' => 'right'));
+        $header->addImage('images/mahogany-pos.jpg', array('width' => 90, 'height' => 104, 'align' => 'right'));
 
         //// add static content to section
         $section->addText("Organisation und Lokalität:", $fsShortDesc);
