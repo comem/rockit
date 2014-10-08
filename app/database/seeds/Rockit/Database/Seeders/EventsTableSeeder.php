@@ -20,10 +20,10 @@ class EventsTableSeeder extends \Seeder {
         $representer = Representer::all();
 
         Event::create(array('id' => '4',
-            'start_date_hour' => '2014-08-24 17:30:00',
-            'ending_date_hour' => '2014-08-24 22:00:00',
+            'start_date_hour' => '2015-08-24 17:30:00',
+            'ending_date_hour' => '2015-08-24 22:00:00',
             'opening_doors' => '17:00:00',
-            'published_at' => '2014-06-02 14:16:23',
+            'published_at' => '2015-06-02 14:16:23',
             'image_id' => $image[0]->id,
             'event_type_id' => '1',
             'representer_id' => $representer[0]->id,
@@ -39,9 +39,9 @@ class EventsTableSeeder extends \Seeder {
 
         Event::create(array(
             'id' => '3',
-            'start_date_hour' => '2014-07-07 18:00:00',
-            'ending_date_hour' => '2014-07-08 01:30:00',
-            'published_at' => '2014-06-02 14:17:56',
+            'start_date_hour' => '2015-07-07 18:00:00',
+            'ending_date_hour' => '2015-07-08 01:30:00',
+            'published_at' => '2015-06-02 14:17:56',
             'image_id' => $image[1]->id,
             'event_type_id' => $eventtype[0]->id,
             'representer_id' => $representer[1]->id,
@@ -55,9 +55,9 @@ class EventsTableSeeder extends \Seeder {
 
         Event::create(array(
             'id' => '2',
-            'start_date_hour' => '2014-07-14 18:00:00',
-            'ending_date_hour' => '2014-07-14 21:30:00',
-            'published_at' => '2014-05-15 18:54:23',
+            'start_date_hour' => '2015-07-14 18:00:00',
+            'ending_date_hour' => '2015-07-14 21:30:00',
+            'published_at' => '2015-05-15 18:54:23',
             'image_id' => $image[3]->id,
             'event_type_id' => $eventtype[2]->id,
             'representer_id' => $representer[1]->id,
@@ -70,8 +70,8 @@ class EventsTableSeeder extends \Seeder {
         ));
 
         Event::create(array('id' => '5',
-            'start_date_hour' => '2014-08-29 17:30:00',
-            'ending_date_hour' => '2014-08-29 22:00:00',
+            'start_date_hour' => '2015-08-29 17:30:00',
+            'ending_date_hour' => '2015-08-29 22:00:00',
             'opening_doors' => '17:00:00',
             'image_id' => $image[0]->id,
             'event_type_id' => '3',
@@ -85,8 +85,8 @@ class EventsTableSeeder extends \Seeder {
         ));
 
         Event::create(array('id' => '6',
-            'start_date_hour' => '2014-09-05 20:30:00',
-            'ending_date_hour' => '2014-09-05 01:30:00',
+            'start_date_hour' => '2015-09-05 20:30:00',
+            'ending_date_hour' => '2015-09-05 01:30:00',
             'opening_doors' => '19:45:00',
             'image_id' => '5',
             'event_type_id' => '3',
@@ -101,8 +101,8 @@ class EventsTableSeeder extends \Seeder {
         ));
 
         Event::create(array('id' => '7',
-            'start_date_hour' => '2014-09-11 20:30:00',
-            'ending_date_hour' => '2014-09-12 01:30:00',
+            'start_date_hour' => '2015-09-11 20:30:00',
+            'ending_date_hour' => '2015-09-12 01:30:00',
             'opening_doors' => '19:45:00',
             'image_id' => '6',
             'event_type_id' => '3',
@@ -116,8 +116,8 @@ class EventsTableSeeder extends \Seeder {
         ));
 
         Event::create(array('id' => '8',
-            'start_date_hour' => '2014-09-13 21:00:00',
-            'ending_date_hour' => '2014-09-14 01:30:00',
+            'start_date_hour' => '2015-09-13 21:00:00',
+            'ending_date_hour' => '2015-09-14 01:30:00',
             'opening_doors' => '20:15:00',
             'image_id' => '6',
             'event_type_id' => '1',
@@ -132,8 +132,8 @@ class EventsTableSeeder extends \Seeder {
         ));
 
         Event::create(array('id' => '9',
-            'start_date_hour' => '2014-09-14 11:00:00',
-            'ending_date_hour' => '2014-09-14 14:30:00',
+            'start_date_hour' => '2015-09-14 11:00:00',
+            'ending_date_hour' => '2015-09-14 14:30:00',
             'opening_doors' => '10:15:00',
             'image_id' => '7',
             'event_type_id' => '1',
@@ -147,8 +147,8 @@ class EventsTableSeeder extends \Seeder {
             'notes_de' => 'Brauchen 7 mikrofone',
         ));
         Event::create(array('id' => '10',
-            'start_date_hour' => '2014-09-18 20:30:00',
-            'ending_date_hour' => '2014-09-19 01:30:00',
+            'start_date_hour' => '2015-09-18 20:30:00',
+            'ending_date_hour' => '2015-09-19 01:30:00',
             'opening_doors' => '19:45:00',
             'image_id' => '8',
             'event_type_id' => '1',
@@ -164,8 +164,8 @@ class EventsTableSeeder extends \Seeder {
         ));
 
         Event::create(array('id' => '11',
-            'start_date_hour' => '2014-09-20 21:00:00',
-            'ending_date_hour' => '2014-09-21 01:30:00',
+            'start_date_hour' => '2015-09-20 21:00:00',
+            'ending_date_hour' => '2015-09-21 01:30:00',
             'opening_doors' => '20:15:00',
             'image_id' => '9',
             'event_type_id' => '1',
@@ -180,10 +180,10 @@ class EventsTableSeeder extends \Seeder {
         ));
 
         Event::create(array('id' => '12',
-            'start_date_hour' => '2014-06-26 21:00:00',
-            'ending_date_hour' => '2014-06-27 01:30:00',
+            'start_date_hour' => '2015-06-26 21:00:00',
+            'ending_date_hour' => '2015-06-27 01:30:00',
             'opening_doors' => '20:15:00',
-            'published_at' => '2014-04-13 09:31:42',
+            'published_at' => '2015-04-13 09:31:42',
             'image_id' => '10',
             'event_type_id' => '1',
             'representer_id' => '5',
@@ -197,8 +197,8 @@ class EventsTableSeeder extends \Seeder {
         ));
 
         Event::create(array('id' => '13',
-            'start_date_hour' => '2014-09-28 18:30:00',
-            'ending_date_hour' => '2014-09-29 22:00:00',
+            'start_date_hour' => '2015-09-28 18:30:00',
+            'ending_date_hour' => '2015-09-29 22:00:00',
             'opening_doors' => '17:00:00',
             'image_id' => '11',
             'event_type_id' => '1',
@@ -215,10 +215,10 @@ class EventsTableSeeder extends \Seeder {
         ));
 
         Event::create(array('id' => '14',
-            'start_date_hour' => '2014-06-05 20:30:00',
-            'ending_date_hour' => '2014-06-05 23:45:00',
+            'start_date_hour' => '2015-06-05 20:30:00',
+            'ending_date_hour' => '2015-06-05 23:45:00',
             'opening_doors' => '19:45:00',
-            'published_at' => '2014-04-13 09:21:02',
+            'published_at' => '2015-04-13 09:21:02',
             'image_id' => '12',
             'event_type_id' => '3',
             'representer_id' => '0',
