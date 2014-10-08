@@ -13,6 +13,10 @@ use Rockit\Helpers\Jsend;
   |
  */
 
+Route::get('/', function() {
+    return Redirect::to('/v1/');
+});
+
 Route::group(array('namespace' => 'Rockit\Controllers\v1', 'prefix' => 'v1'), function() {
 
     Route::get('/', function() {
